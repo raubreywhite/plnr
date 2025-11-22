@@ -14,7 +14,7 @@ A list of lists, where each inner list contains one combination of values
 from the input arguments
 }
 \description{
-This function creates a cross product of multiple lists, similar to \code{purrr::cross()}
+This function creates a cross product of multiple lists, similar to \code{tidyr::expand_grid()}
 but with a more convenient interface that doesn't require wrapping arguments in an
 extra \code{list()}. It's useful for generating combinations of parameters for analysis.
 }
@@ -28,8 +28,8 @@ combinations <- plnr::expand_list(
 # View the combinations
 str(combinations)
 
-# Compare with purrr::cross
-purrr::cross(list(
+# Compare with tidyr::expand_grid
+tidyr::expand_grid(list(
   a = 1:2,
   b = c("a", "b")
 ))

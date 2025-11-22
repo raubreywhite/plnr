@@ -137,7 +137,7 @@ Data changes are tracked via `digest::digest()` hashes. This enables:
 - `R6` - Object-oriented programming (Plan class)
 - `foreach` - Parallel execution framework
 - `digest` - Hash functions for data tracking
-- `fs`, `glue`, `pbmcapply`, `purrr`, `uuid`, `stats`, `utils`, `usethis`
+- `fs`, `glue`, `pbmcapply`, `tidyr`, `uuid`, `stats`, `utils`, `usethis`
 
 **Suggests (optional):**
 - `testthat` - Unit testing framework

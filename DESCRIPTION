@@ -27,9 +27,9 @@ Imports:
     foreach,
     glue,
     pbmcapply,
-    purrr,
     R6,
     stats,
+    tidyr,
     usethis,
     utils,
     uuid

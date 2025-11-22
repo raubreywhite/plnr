@@ -1,3 +1,7 @@
+# Version 2025.11.22
+
+- Replacing `purrr::cross` with `tidyr::expand_grid()`
+
 # Version 2025.3.19
 
 - Comprehensive improvements to roxygen2 documentation across all R files:

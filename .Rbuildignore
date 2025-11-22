@@ -22,4 +22,4 @@ man/@eaDir
 .DS_Store
 .github
 CLAUDE.md
-
+.claude/
