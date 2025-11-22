@@ -5,5 +5,5 @@ bibentry(
    address = "Oslo, Norway",
    year = 2025,
    url = "https://www.rwhite.no/plnr/",
-   doi = "10.32614/CRAN.package.org"
+   doi = "10.32614/CRAN.package.plnr"
    )
