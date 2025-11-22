@@ -1,0 +1,9 @@
+bibentry(
+   bibtype = "Manual",
+   title = "plnr: A System for Planing Analyses",
+   author = person("Richard Aubrey White"),
+   address = "Oslo, Norway",
+   year = 2020,
+   url = "https://www.rwhite.no/plnr/",
+   doi = "10.32614/CRAN.package.org"
+   )
