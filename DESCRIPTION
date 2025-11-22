@@ -1,9 +1,8 @@
 Package: plnr
 Title: A Framework for Planning and Executing Analyses
-Version: 2025.3.19
+Version: 2025.11.22
 Authors@R: c(
-  person(c("Richard","Aubrey"), "White", email = "hello@rwhite.no", role = c("aut", "cre"),comment = c(ORCID = "0000-0002-6747-1726")),
-  person("CSIDS", email = "hello@csids.no", role = c("cph"))
+  person(c("Richard","Aubrey"), "White", email = "hello@rwhite.no", role = c("aut", "cre"),comment = c(ORCID = "0000-0002-6747-1726"))
   )
 Description: A comprehensive framework for planning and executing analyses in R. 
     It provides a structured approach to running the same function multiple times 

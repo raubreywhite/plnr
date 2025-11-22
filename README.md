@@ -27,36 +27,7 @@
 - Generating multiple tables or graphs for reports
 - Creating systematic surveillance analyses
 
-## Installation
-
-### From CRAN
-
-```r
-install.packages("plnr")
-```
-
-### Development Version
-
-To install the development version or access packages that haven't been released on CRAN:
-
-1. Edit your `.Rprofile`:
-
-```r
-usethis::edit_r_profile()
-```
-
-2. Add the following configuration:
-
-```r
-options(
-  repos = structure(c(
-    CSVERSE = "https://www.csids.no/drat/",
-    CRAN    = "https://cran.rstudio.com"
-  ))
-)
-```
-
-3. Restart R and install:
+## Installation from CRAN
 
 ```r
 install.packages("plnr")

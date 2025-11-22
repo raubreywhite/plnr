@@ -1,7 +1,7 @@
-url: https://www.csids.no/plnr/
+url: https://www.rwhite.no/plnr/
 
-template:
-  package: csidstemplatepkgdown
+# template:
+#   package: csidstemplatepkgdown
 
 reference:
 - title: "Plan Management"
@@ -30,3 +30,21 @@ reference:
     - example_data_fn_nor_covid19_cases_by_time_location
     - nor_covid19_cases_by_time_location
     - test_action_fn
+
+footer:
+  structure:
+    #left: csids
+    right: developed_by
+  components:
+    #csids: <a href='https://www.csids.no'><img src='https://www.csids.no/resources/logo/logo_full_blue.svg' width=200></a>
+
+authors:
+  footer:
+    roles: [cre, aut]
+    text: "Crafted by"
+  sidebar:
+    roles: [cre, aut, cph]
+  before: "This package is proudly brought to you by:"
+  after: "See the [changelog](news/index.html) for other contributors. :pray:"
+  Richard Aubrey White:
+    href: "https://www.rwhite.no"
