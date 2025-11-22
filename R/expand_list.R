@@ -25,5 +25,5 @@
 #' @export
 expand_list <- function(...) {
   dots <- list(...)
-  tidyr::expand_grid(dots)
+  tidyr::expand_grid(!!!dots)
 }
