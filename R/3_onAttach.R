@@ -10,6 +10,6 @@
     "plnr ",
     version,
     "\n",
-    "https://www.csids.no/plnr/"
+    "https://www.rwhite.no/plnr/"
   ))
 }

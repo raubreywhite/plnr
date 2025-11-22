@@ -15,8 +15,8 @@ Description: A comprehensive framework for planning and executing analyses in R.
     Key features include efficient data management, structured analysis planning, 
     flexible execution options, built-in debugging tools, and hash-based caching.
 License: MIT + file LICENSE
-URL: https://www.csids.no/plnr/, https://github.com/csids/plnr
-BugReports: https://github.com/csids/plnr/issues
+URL: https://www.rwhite.no/plnr/, https://github.com/raubreywhite/plnr
+BugReports: https://github.com/raubreywhite/plnr/issues
 Encoding: UTF-8
 LazyData: true
 Depends: R (>= 3.3.0)

@@ -197,6 +197,6 @@ p1$get_data()$hash$current_elements
 
 ## Next Steps
 
-1.  Read the [Adding Analyses](https://www.csids.no/plnr/articles/adding_analyses.html) vignette for more detailed examples
-2.  Check out the [package website](https://www.csids.no/plnr/) for additional resources
+1.  Read the [Adding Analyses](https://www.rwhite.no/plnr/articles/adding_analyses.html) vignette for more detailed examples
+2.  Check out the [package website](https://www.rwhite.no/plnr/) for additional resources
 3.  Explore the function documentation with `help(package="plnr")`

@@ -1,11 +1,11 @@
-# plnr <a href="https://www.csids.no/plnr/"><img src="man/figures/logo.png" align="right" width="120" /></a>
+# plnr <a href="https://www.rwhite.no/plnr/"><img src="man/figures/logo.png" align="right" width="120" /></a>
 
 [![CRAN status](https://www.r-pkg.org/badges/version/plnr)](https://cran.r-project.org/package=plnr)
 [![CRAN downloads](https://cranlogs.r-pkg.org/badges/plnr)](https://cran.r-project.org/package=plnr)
 
 ## Overview 
 
-[plnr](https://www.csids.no/plnr/) is a powerful framework for planning and executing analyses in R. It's designed for scenarios where you need to:
+[plnr](https://www.rwhite.no/plnr/) is a powerful framework for planning and executing analyses in R. It's designed for scenarios where you need to:
 
 - Run the same function multiple times with different arguments
 - Execute multiple different functions on the same datasets
@@ -35,8 +35,8 @@ install.packages("plnr")
 
 ## Getting Started
 
-1. Read the [introduction vignette](https://www.csids.no/plnr/articles/plnr.html)
-2. Check out the [adding analyses guide](https://www.csids.no/plnr/articles/adding_analyses.html)
+1. Read the [introduction vignette](https://www.rwhite.no/plnr/articles/plnr.html)
+2. Check out the [adding analyses guide](https://www.rwhite.no/plnr/articles/adding_analyses.html)
 3. Run `help(package="plnr")` for detailed function documentation
 
 ## Quick Example
@@ -77,7 +77,7 @@ p$run_one("fig_1_2002")
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a [Pull Request](https://github.com/csids/plnr/pulls).
+Contributions are welcome! Please feel free to submit a [Pull Request](https://github.com/raubreywhite/plnr/pulls).
 
 ## License
 
