@@ -4,103 +4,88 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Adding analyses to a plan • plnr</title>
-<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
-<link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
-<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
-<link rel="icon" sizes="any" href="../favicon.ico">
-<link rel="manifest" href="../site.webmanifest">
-<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_Pro-0.4.10/font.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Adding analyses to a plan">
-<script data-goatcounter="https://csidsno.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Adding analyses to a plan">
+<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
 </head>
-<body>
-    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
+<body data-spy="scroll" data-target="#toc">
 
 
-    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
-    <a href="https://www.csids.no" class="external-link"><img src="https://www.csids.no/resources/logo/logo_full_white.svg" id="csidslogo"></a>
-    <a class="navbar-brand me-2" href="../index.html">plnr</a>
+    <div class="container template-article">
+      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">plnr</a>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2025.11.22</span>
+      </span>
+    </div>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2025.8.20</small>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+<li>
+  <a href="../articles/plnr.html">Get started</a>
+</li>
+<li>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Articles
 
-
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto">
-<li class="nav-item"><a class="nav-link" href="../articles/plnr.html">Get started</a></li>
-<li class="active nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/adding_analyses.html">Adding analyses to a plan</a></li>
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="../articles/adding_analyses.html">Adding analyses to a plan</a>
+    </li>
   </ul>
 </li>
-<li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
-<li class="nav-item"><a class="nav-link" href="../news/index.html">News</a></li>
-<li class="nav-item"><form class="form-inline" role="search">
- <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
-</form></li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
-<ul class="navbar-nav">
-<li class="nav-item"><a class="external-link nav-link" href="https://www.csids.no/">Home</a></li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-packages" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Packages</button>
-  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-packages">
-<li><a class="external-link dropdown-item" href="https://www.csids.no/packages.html">Introduction</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Analysis planning</h6></li>
-    <li><a class="external-link dropdown-item" href="https://www.csids.no/org/">org</a></li>
-    <li><a class="dropdown-item" href="https://www.csids.no/plnr/">plnr</a></li>
-    <li><a class="external-link dropdown-item" href="https://www.csids.no/cs9/">cs9</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Helper functions</h6></li>
-    <li><a class="external-link dropdown-item" href="https://www.csids.no/csdb/">csdb</a></li>
-    <li><a class="external-link dropdown-item" href="https://www.csids.no/csstyle/">csstyle</a></li>
-    <li><a class="external-link dropdown-item" href="https://www.csids.no/cstidy/">cstidy</a></li>
-    <li><a class="external-link dropdown-item" href="https://www.csids.no/cstime/">cstime</a></li>
-    <li><a class="external-link dropdown-item" href="https://www.csids.no/csutil/">csutil</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Surveillance</h6></li>
-    <li><a class="external-link dropdown-item" href="https://www.csids.no/attrib/">attrib</a></li>
-    <li><a class="external-link dropdown-item" href="https://www.csids.no/csalert/">csalert</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Structural data</h6></li>
-    <li><a class="external-link dropdown-item" href="https://www.csids.no/csdata/">csdata</a></li>
-    <li><a class="external-link dropdown-item" href="https://www.csids.no/csmaps/">csmaps</a></li>
-  </ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://github.com/csids/plnr/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
+
+  </a>
 </li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-about" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">About</button>
-  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-about">
-<li><a class="external-link dropdown-item" href="https://www.csids.no/about.html">About CSIDS</a></li>
-    <li><a class="external-link dropdown-item" href="https://www.csids.no/get_involved.html">Get involved</a></li>
-  </ul>
-</li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/csids/plnr/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
-
-
+<!--/.nav-collapse -->
   </div>
-</nav><div class="container template-article">
+<!--/.container -->
+</div>
+<!--/.navbar -->
 
 
 
-<script src="adding_analyses_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
-  <main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1>Adding analyses to a plan</h1>
+      </header><div class="row">
+  <div class="col-md-9 contents">
+    <div class="page-header toc-ignore">
+      <h1 data-toc-skip>Adding analyses to a plan</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/csids/plnr/blob/HEAD/vignettes/adding_analyses.Rmd" class="external-link"><code>vignettes/adding_analyses.Rmd</code></a></small>
-      <div class="d-none name"><code>adding_analyses.Rmd</code></div>
+      <small class="dont-index">Source: <a href="https://github.com/csids/plnr/blob/main/vignettes/adding_analyses.Rmd" class="external-link"><code>vignettes/adding_analyses.Rmd</code></a></small>
+      <div class="hidden name"><code>adding_analyses.Rmd</code></div>
+
     </div>
 
     
@@ -128,7 +113,8 @@
 <tr class="odd">
 <td>analysis</td>
 <td>
-<p>These are the fundamental units that are scheduled in <code>plnr</code>:</p>
+<p>These are the fundamental units that are scheduled in
+<code>plnr</code>:</p>
 <ul>
 <li>1 argset</li>
 <li>1 (action) function that takes two arguments
@@ -168,7 +154,8 @@
 </tr>
 <tr class="even">
 <td>Single-function plan</td>
-<td>Same action function applied multiple times with different argsets applied to the same datasets.</td>
+<td>Same action function applied multiple times with different argsets
+applied to the same datasets.</td>
 </tr>
 <tr class="odd">
 <td>Multi-function plan</td>
@@ -192,15 +179,20 @@
 </tr>
 <tr class="even">
 <td>Single-function plan</td>
-<td>Multiple strata (e.g. locations, age groups) that you need to apply the same function to to (e.g. outbreak detection, trend detection, graphing).</td>
+<td>Multiple strata (e.g. locations, age groups) that you need to apply
+the same function to to (e.g. outbreak detection, trend detection,
+graphing).</td>
 </tr>
 <tr class="odd">
 <td>Single-function plan</td>
-<td>Multiple variables (e.g. multiple outcomes, multiple exposures) that you need to apply the same statistical methods to (e.g. regression models, correlation plots).</td>
+<td>Multiple variables (e.g. multiple outcomes, multiple exposures) that
+you need to apply the same statistical methods to (e.g. regression
+models, correlation plots).</td>
 </tr>
 <tr class="even">
 <td>Multi-function plan</td>
-<td>Creating the output for a report (e.g. multiple different tables and graphs).</td>
+<td>Creating the output for a report (e.g. multiple different tables and
+graphs).</td>
 </tr>
 </tbody>
 </table>
@@ -211,14 +203,20 @@
 </h2>
 <p>This approach is generally used when you:</p>
 <ul>
-<li>Have multiple strata (e.g. locations, age groups) that you need to apply the same statistical methods to.</li>
-<li>Have multiple variables (e.g. multiple exposures, multiple outcomes) that you want to apply the same statistical methods to.</li>
+<li>Have multiple strata (e.g. locations, age groups) that you need to
+apply the same statistical methods to.</li>
+<li>Have multiple variables (e.g. multiple exposures, multiple outcomes)
+that you want to apply the same statistical methods to.</li>
 </ul>
-<p>When we apply the same function multiple times, it is preferable to add the argsets first, and then apply the analysis function just before running the analyses.</p>
+<p>When we apply the same function multiple times, it is preferable to
+add the argsets first, and then apply the analysis function just before
+running the analyses.</p>
 <div class="section level3">
 <h3 id="multiple-strata">Multiple strata<a class="anchor" aria-label="anchor" href="#multiple-strata"></a>
 </h3>
-<p>In this example, we loop through multiple geographical locations and apply a graphing function to the data from each of these geographical locations.</p>
+<p>In this example, we loop through multiple geographical locations and
+apply a graphing function to the data from each of these geographical
+locations.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span></span>
@@ -314,23 +312,32 @@
 <span>    location_code <span class="op">=</span> <span class="va">location_codes</span>,</span>
 <span>    granularity_time <span class="op">=</span> <span class="st">"isoweek"</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co"># Examine the argsets that are available</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning: `cross()` was deprecated in purrr 1.0.0.</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">ℹ</span> Please use `tidyr::expand_grid()` instead.</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">ℹ</span> See &lt;https://github.com/tidyverse/purrr/issues/768&gt;.</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">ℹ</span> The deprecated feature was likely used in the <span style="color: #0000BB;">plnr</span> package.</span></span>
+<span><span class="co">##   Please report the issue at <span style="color: #0000BB; font-style: italic;">&lt;https://github.com/csids/plnr/issues&gt;</span>.</span></span>
+<span><span class="co">## <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
+<span><span class="co">## <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
+<span><span class="co">## <span style="color: #555555;">generated.</span></span></span></code></pre>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Examine the argsets that are available</span></span>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">get_argsets_as_dt</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##                            name_analysis index_analysis location_code</span></span>
 <span><span class="co">##                                   &lt;char&gt;          &lt;int&gt;        &lt;list&gt;</span></span>
-<span><span class="co">##  1: 04654b47-709f-4fba-8143-fe9d131419b2              1  county_nor03</span></span>
-<span><span class="co">##  2: 9f681962-87c9-4b86-ab67-48f56701e394              2  county_nor11</span></span>
-<span><span class="co">##  3: 67dec0eb-039e-451f-8892-3e47e4facc4e              3  county_nor15</span></span>
-<span><span class="co">##  4: 8d2ff44c-6343-423d-ba59-ae5d248c05c8              4  county_nor18</span></span>
-<span><span class="co">##  5: 0ae7fd4f-9ef7-48c7-b76e-681e90790510              5  county_nor30</span></span>
-<span><span class="co">##  6: aa5b4dd4-2162-4d7a-a095-12fb468f62cd              6  county_nor34</span></span>
-<span><span class="co">##  7: 2ad46afd-2c2c-444d-83ae-81213810f864              7  county_nor38</span></span>
-<span><span class="co">##  8: 081dea25-e445-4c18-b55d-d754e4064871              8  county_nor42</span></span>
-<span><span class="co">##  9: c9123395-3b8f-47c4-958c-9c5e6ea5f84e              9  county_nor46</span></span>
-<span><span class="co">## 10: 3a972655-0598-4896-81ff-0507be251e63             10  county_nor50</span></span>
-<span><span class="co">## 11: 3a86bd52-9c62-4904-bf02-3e9027d128d3             11  county_nor54</span></span>
-<span><span class="co">## 12: 85432c94-04e1-4c8a-b8de-6e38698501c5             12    nation_nor</span></span>
+<span><span class="co">##  1: c539b050-6f92-4254-863b-00d5e690af66              1  county_nor03</span></span>
+<span><span class="co">##  2: 803f2c5f-5e3a-4903-9a26-deaacdb7c29d              2  county_nor11</span></span>
+<span><span class="co">##  3: eff9de49-ec76-43de-bc77-756fdb91563f              3  county_nor15</span></span>
+<span><span class="co">##  4: 98939246-0279-45a1-83ed-3d6ebd48474c              4  county_nor18</span></span>
+<span><span class="co">##  5: 1046ccb3-a2aa-4b13-8978-700758a3e537              5  county_nor30</span></span>
+<span><span class="co">##  6: fdf647af-a641-4a60-ac27-bdf522d22b2e              6  county_nor34</span></span>
+<span><span class="co">##  7: 94f7019e-fc66-464b-b610-9b6b751a467e              7  county_nor38</span></span>
+<span><span class="co">##  8: 55b84955-4e54-4e47-9b5f-6703e91bcfd6              8  county_nor42</span></span>
+<span><span class="co">##  9: 2bbba46b-7801-4f13-812f-dff7cd374e36              9  county_nor46</span></span>
+<span><span class="co">## 10: 24de5be9-5ff3-411e-b06e-e65b4f013589             10  county_nor50</span></span>
+<span><span class="co">## 11: 060a9d31-118f-4097-ac63-1c0528b7db34             11  county_nor54</span></span>
+<span><span class="co">## 12: f247b6c5-7036-4538-9cee-fb5164793fd5             12    nation_nor</span></span>
 <span><span class="co">##     granularity_time</span></span>
 <span><span class="co">##               &lt;list&gt;</span></span>
 <span><span class="co">##  1:          isoweek</span></span>
@@ -345,7 +352,7 @@
 <span><span class="co">## 10:          isoweek</span></span>
 <span><span class="co">## 11:          isoweek</span></span>
 <span><span class="co">## 12:          isoweek</span></span></code></pre>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># We can then add a simple analysis that returns a figure:</span></span>
 <span></span>
 <span><span class="co"># To do this, we first need to create an action function</span></span>
@@ -369,20 +376,23 @@
 <span><span class="va">p</span><span class="op">$</span><span class="fu">apply_action_fn_to_all_argsets</span><span class="op">(</span>fn_name <span class="op">=</span> <span class="st">"action_fn"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">run_one</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="adding_analyses_files/figure-html/unnamed-chunk-1-1.png" width="700"></p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<p><img src="adding_analyses_files/figure-html/unnamed-chunk-1-1.png" class="r-plt" width="700"></p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">q</span> <span class="op">&lt;-</span> <span class="va">p</span><span class="op">$</span><span class="fu">run_all</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">q</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
-<p><img src="adding_analyses_files/figure-html/unnamed-chunk-1-2.png" width="700"></p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<p><img src="adding_analyses_files/figure-html/unnamed-chunk-1-2.png" class="r-plt" width="700"></p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">q</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
-<p><img src="adding_analyses_files/figure-html/unnamed-chunk-1-3.png" width="700"></p>
+<p><img src="adding_analyses_files/figure-html/unnamed-chunk-1-3.png" class="r-plt" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="multiple-variables">Multiple variables<a class="anchor" aria-label="anchor" href="#multiple-variables"></a>
 </h3>
-<p>In this example, we loop through multiple variable combinations (1. raw numbers of Covid-19 cases vs Covid-19 cases per 100 000 population, and 2. aggregating over isoweek vs day) and apply a graphing function to the data according to each of these variable combinations.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<p>In this example, we loop through multiple variable combinations (1.
+raw numbers of Covid-19 cases vs Covid-19 cases per 100 000 population,
+and 2. aggregating over isoweek vs day) and apply a graphing function to
+the data according to each of these variable combinations.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org" class="external-link">magrittr</a></span><span class="op">)</span></span>
@@ -464,7 +474,7 @@
 <span><span class="co">## $hash$current_elements</span></span>
 <span><span class="co">## $hash$current_elements$covid19_cases</span></span>
 <span><span class="co">## [1] "07cc51795bccaf2afebe48619ce87227"</span></span></code></pre>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span><span class="op">$</span><span class="fu">add_argset_from_list</span><span class="op">(</span></span>
 <span>  <span class="fu">plnr</span><span class="fu">::</span><span class="fu"><a href="../reference/expand_list.html">expand_list</a></span><span class="op">(</span></span>
 <span>    variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"covid19_cases_testdate_n"</span>, <span class="st">"covid19_cases_testdate_pr100000"</span><span class="op">)</span>,</span>
@@ -475,17 +485,17 @@
 <span><span class="va">p</span><span class="op">$</span><span class="fu">get_argsets_as_dt</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##                           name_analysis index_analysis</span></span>
 <span><span class="co">##                                  &lt;char&gt;          &lt;int&gt;</span></span>
-<span><span class="co">## 1: 02526e10-24d3-487d-bfe1-e44728733be9              1</span></span>
-<span><span class="co">## 2: 654c41b2-746c-43f7-9837-f94cc44fad14              2</span></span>
-<span><span class="co">## 3: 731ce97d-9b12-4d41-a622-5c4ec37893fe              3</span></span>
-<span><span class="co">## 4: fb9c96b9-e7d7-479b-b89c-2071f4d18509              4</span></span>
+<span><span class="co">## 1: e4d39eee-45d1-48e8-992b-2114b67c1801              1</span></span>
+<span><span class="co">## 2: bd35af31-f8fa-4154-aa50-2a91e29f6b4e              2</span></span>
+<span><span class="co">## 3: 36477179-59ff-4120-9166-a4304d57677b              3</span></span>
+<span><span class="co">## 4: 1a5fff75-1dfb-432e-8aad-cd2022cb096a              4</span></span>
 <span><span class="co">##                           variable granularity_time</span></span>
 <span><span class="co">##                             &lt;list&gt;           &lt;list&gt;</span></span>
 <span><span class="co">## 1:        covid19_cases_testdate_n          isoweek</span></span>
 <span><span class="co">## 2: covid19_cases_testdate_pr100000          isoweek</span></span>
 <span><span class="co">## 3:        covid19_cases_testdate_n              day</span></span>
 <span><span class="co">## 4: covid19_cases_testdate_pr100000              day</span></span></code></pre>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># We can then add a simple analysis that returns a figure:</span></span>
 <span></span>
 <span><span class="co"># To do this, we first need to create an action function</span></span>
@@ -514,23 +524,24 @@
 <span><span class="co">## <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
 <span><span class="co">## <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
 <span><span class="co">## <span style="color: #555555;">generated.</span></span></span></code></pre>
-<p><img src="adding_analyses_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">p</span><span class="op">$</span><span class="fu">run_one</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="adding_analyses_files/figure-html/unnamed-chunk-2-2.png" width="700"></p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">p</span><span class="op">$</span><span class="fu">run_one</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
-<p><img src="adding_analyses_files/figure-html/unnamed-chunk-2-3.png" width="700"></p>
+<p><img src="adding_analyses_files/figure-html/unnamed-chunk-2-1.png" class="r-plt" width="700"></p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">p</span><span class="op">$</span><span class="fu">run_one</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<p><img src="adding_analyses_files/figure-html/unnamed-chunk-2-2.png" class="r-plt" width="700"></p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">p</span><span class="op">$</span><span class="fu">run_one</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
+<p><img src="adding_analyses_files/figure-html/unnamed-chunk-2-3.png" class="r-plt" width="700"></p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span><span class="op">$</span><span class="fu">run_one</span><span class="op">(</span><span class="fl">4</span><span class="op">)</span></span></code></pre></div>
-<p><img src="adding_analyses_files/figure-html/unnamed-chunk-2-4.png" width="700"></p>
+<p><img src="adding_analyses_files/figure-html/unnamed-chunk-2-4.png" class="r-plt" width="700"></p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="multi-function-plan">Multi-function plan<a class="anchor" aria-label="anchor" href="#multi-function-plan"></a>
 </h2>
-<p>This approach is generally used when you are creating the output for a report, and you need multiple different tables and graphs.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<p>This approach is generally used when you are creating the output for
+a report, and you need multiple different tables and graphs.</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org" class="external-link">magrittr</a></span><span class="op">)</span></span>
@@ -613,7 +624,7 @@
 <span><span class="co">## $hash$current_elements</span></span>
 <span><span class="co">## $hash$current_elements$covid19_cases</span></span>
 <span><span class="co">## [1] "bad75e8e213b3de3eee2b4ecbf157f46"</span></span></code></pre>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Completely unique function for figure 1</span></span>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">add_analysis</span><span class="op">(</span></span>
 <span>  name <span class="op">=</span> <span class="st">"figure_1"</span>,</span>
@@ -668,30 +679,37 @@
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">run_one</span><span class="op">(</span><span class="st">"figure_1"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="adding_analyses_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<p><img src="adding_analyses_files/figure-html/unnamed-chunk-3-1.png" class="r-plt" width="700"></p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span><span class="op">$</span><span class="fu">run_one</span><span class="op">(</span><span class="st">"figure_2"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="adding_analyses_files/figure-html/unnamed-chunk-3-2.png" width="700"></p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<p><img src="adding_analyses_files/figure-html/unnamed-chunk-3-2.png" class="r-plt" width="700"></p>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span><span class="op">$</span><span class="fu">run_one</span><span class="op">(</span><span class="st">"figure_3"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="adding_analyses_files/figure-html/unnamed-chunk-3-3.png" width="700"></p>
+<p><img src="adding_analyses_files/figure-html/unnamed-chunk-3-3.png" class="r-plt" width="700"></p>
 </div>
-  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
-    </nav></aside>
-</div>
+  </div>
 
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
+      </div>
 
-    <footer><div class="pkgdown-footer-left">
-  <p><a href="https://www.csids.no" class="external-link"><img src="https://www.csids.no/resources/logo/logo_full_blue.svg" width="200"></a></p>
 </div>
 
-<div class="pkgdown-footer-right">
-  <p>Crafted by <a href="https://www.rwhite.no" class="external-link">Richard Aubrey White</a>.</p>
+
+
+      <footer><div class="copyright">
+  <p></p>
+<p>Crafted by <a href="https://www.rwhite.no" class="external-link">Richard Aubrey White</a>.</p>
 </div>
 
-    </footer>
+<div class="pkgdown">
+  <p></p>
+<p>Crafted by <a href="https://www.rwhite.no" class="external-link">Richard Aubrey White</a>.</p>
 </div>
+
+      </footer>
+</div>
+
 
 
 
