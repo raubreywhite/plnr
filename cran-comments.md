@@ -1,10 +1,10 @@
 # Submission
 
-Updating vignettes.
+Updating documentation.
 
 ## Test environments
 
-* local Ubuntu 20.04 install, R 4.1.3
+* local Ubuntu 20.04 install, R 4.5.1
 * win-builder
 * rhub
 

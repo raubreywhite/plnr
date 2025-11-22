@@ -34,7 +34,7 @@ reference:
 footer:
   structure:
     #left: csids
-    right: developed_by
+    left: developed_by
   components:
     #csids: <a href='https://www.csids.no'><img src='https://www.csids.no/resources/logo/logo_full_blue.svg' width=200></a>
 
