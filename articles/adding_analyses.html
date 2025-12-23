@@ -317,18 +317,18 @@ locations.</p>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">get_argsets_as_dt</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##                            name_analysis index_analysis location_code</span></span>
 <span><span class="co">##                                   &lt;char&gt;          &lt;int&gt;        &lt;list&gt;</span></span>
-<span><span class="co">##  1: 46a01ba1-e48b-4733-a80c-b56d6ba72f50              1  county_nor03</span></span>
-<span><span class="co">##  2: 9d7079b0-57ef-47aa-9d55-056cd752caa7              2  county_nor11</span></span>
-<span><span class="co">##  3: 8667aaa1-2797-436c-9dec-a0558f3e9961              3  county_nor15</span></span>
-<span><span class="co">##  4: 23064801-07e1-482a-a835-8335cbf09282              4  county_nor18</span></span>
-<span><span class="co">##  5: d9680072-44a8-41ed-be39-2d5c1a6dad20              5  county_nor30</span></span>
-<span><span class="co">##  6: 622511b8-14a9-4978-b554-e9a78082ebe8              6  county_nor34</span></span>
-<span><span class="co">##  7: b8e90dad-071a-4293-a076-30bcec35d4b6              7  county_nor38</span></span>
-<span><span class="co">##  8: 696d4c8e-6254-4cbf-a650-a208e9553a26              8  county_nor42</span></span>
-<span><span class="co">##  9: 1e02dd8e-4c78-4dc4-90e5-bb6928f5b87d              9  county_nor46</span></span>
-<span><span class="co">## 10: fe5fd8eb-3926-4590-b6fa-c520db32e53c             10  county_nor50</span></span>
-<span><span class="co">## 11: 06258907-5c3e-48ec-b19e-4a9edb9dfcd6             11  county_nor54</span></span>
-<span><span class="co">## 12: 97c28c8d-4d64-472f-9e6a-088637fc0cf0             12    nation_nor</span></span>
+<span><span class="co">##  1: 9dbd3b05-c411-44ca-a2e0-ea5efcc8deb5              1  county_nor03</span></span>
+<span><span class="co">##  2: eb963338-eeb3-4bcb-8dd4-28c7fb4e5ffe              2  county_nor11</span></span>
+<span><span class="co">##  3: 38e68386-f9f1-48a4-aee9-798616468be8              3  county_nor15</span></span>
+<span><span class="co">##  4: a8ca3bef-7e84-4e9f-a899-2842273c4e31              4  county_nor18</span></span>
+<span><span class="co">##  5: 8124803b-6f31-4e5e-8d9c-cd168fac6910              5  county_nor30</span></span>
+<span><span class="co">##  6: 75f27587-9d11-436c-876a-6f6b692fb4be              6  county_nor34</span></span>
+<span><span class="co">##  7: e909eb65-333c-40fe-9f9a-b74adb790d26              7  county_nor38</span></span>
+<span><span class="co">##  8: b44420de-7e50-4882-abf0-583341e560b5              8  county_nor42</span></span>
+<span><span class="co">##  9: fc3dab34-0c91-4d77-a2bb-a45546c76b2a              9  county_nor46</span></span>
+<span><span class="co">## 10: f23303a2-8b40-4aeb-bde0-4c4f1f95c3df             10  county_nor50</span></span>
+<span><span class="co">## 11: 7673e1ce-71c1-4141-b9ef-f550c90ef7ee             11  county_nor54</span></span>
+<span><span class="co">## 12: bae9937c-a017-4a3b-9800-c14a08387f3a             12    nation_nor</span></span>
 <span><span class="co">##     granularity_time</span></span>
 <span><span class="co">##               &lt;list&gt;</span></span>
 <span><span class="co">##  1:          isoweek</span></span>
@@ -367,14 +367,14 @@ locations.</p>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">apply_action_fn_to_all_argsets</span><span class="op">(</span>fn_name <span class="op">=</span> <span class="st">"action_fn"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">run_one</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="adding_analyses_files/figure-html/unnamed-chunk-1-1.png" class="r-plt" width="700"></p>
+<p><img src="adding_analyses_files/figure-html/unnamed-chunk-1-1.png" class="r-plt" alt="" width="700"></p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">q</span> <span class="op">&lt;-</span> <span class="va">p</span><span class="op">$</span><span class="fu">run_all</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">q</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
-<p><img src="adding_analyses_files/figure-html/unnamed-chunk-1-2.png" class="r-plt" width="700"></p>
+<p><img src="adding_analyses_files/figure-html/unnamed-chunk-1-2.png" class="r-plt" alt="" width="700"></p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">q</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
-<p><img src="adding_analyses_files/figure-html/unnamed-chunk-1-3.png" class="r-plt" width="700"></p>
+<p><img src="adding_analyses_files/figure-html/unnamed-chunk-1-3.png" class="r-plt" alt="" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="multiple-variables">Multiple variables<a class="anchor" aria-label="anchor" href="#multiple-variables"></a>
@@ -476,10 +476,10 @@ the data according to each of these variable combinations.</p>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">get_argsets_as_dt</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##                           name_analysis index_analysis</span></span>
 <span><span class="co">##                                  &lt;char&gt;          &lt;int&gt;</span></span>
-<span><span class="co">## 1: 8af8510f-5769-4982-b328-f0da120c9495              1</span></span>
-<span><span class="co">## 2: 3f7bc5a1-a33a-4e8c-8229-c95204ef5f7f              2</span></span>
-<span><span class="co">## 3: 5ec23fb6-e35e-442a-bdb1-495e70c23cb5              3</span></span>
-<span><span class="co">## 4: 6536e707-6d12-427f-ac33-2dd159277802              4</span></span>
+<span><span class="co">## 1: 3f7e0870-5e74-43d5-8277-e704ebe2d2d5              1</span></span>
+<span><span class="co">## 2: 950f9fab-19e2-4d1f-9c03-a934f3edb8ce              2</span></span>
+<span><span class="co">## 3: 2ccd72fd-cd5a-4a67-8ae2-5d28e1566ef8              3</span></span>
+<span><span class="co">## 4: 178e677a-d951-41e9-b694-3455b825b368              4</span></span>
 <span><span class="co">##                           variable granularity_time</span></span>
 <span><span class="co">##                             &lt;list&gt;           &lt;list&gt;</span></span>
 <span><span class="co">## 1:        covid19_cases_testdate_n          isoweek</span></span>
@@ -515,16 +515,16 @@ the data according to each of these variable combinations.</p>
 <span><span class="co">## <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
 <span><span class="co">## <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
 <span><span class="co">## <span style="color: #555555;">generated.</span></span></span></code></pre>
-<p><img src="adding_analyses_files/figure-html/unnamed-chunk-2-1.png" class="r-plt" width="700"></p>
+<p><img src="adding_analyses_files/figure-html/unnamed-chunk-2-1.png" class="r-plt" alt="" width="700"></p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span><span class="op">$</span><span class="fu">run_one</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="adding_analyses_files/figure-html/unnamed-chunk-2-2.png" class="r-plt" width="700"></p>
+<p><img src="adding_analyses_files/figure-html/unnamed-chunk-2-2.png" class="r-plt" alt="" width="700"></p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span><span class="op">$</span><span class="fu">run_one</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
-<p><img src="adding_analyses_files/figure-html/unnamed-chunk-2-3.png" class="r-plt" width="700"></p>
+<p><img src="adding_analyses_files/figure-html/unnamed-chunk-2-3.png" class="r-plt" alt="" width="700"></p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span><span class="op">$</span><span class="fu">run_one</span><span class="op">(</span><span class="fl">4</span><span class="op">)</span></span></code></pre></div>
-<p><img src="adding_analyses_files/figure-html/unnamed-chunk-2-4.png" class="r-plt" width="700"></p>
+<p><img src="adding_analyses_files/figure-html/unnamed-chunk-2-4.png" class="r-plt" alt="" width="700"></p>
 </div>
 </div>
 <div class="section level2">
@@ -670,13 +670,13 @@ a report, and you need multiple different tables and graphs.</p>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">run_one</span><span class="op">(</span><span class="st">"figure_1"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="adding_analyses_files/figure-html/unnamed-chunk-3-1.png" class="r-plt" width="700"></p>
+<p><img src="adding_analyses_files/figure-html/unnamed-chunk-3-1.png" class="r-plt" alt="" width="700"></p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span><span class="op">$</span><span class="fu">run_one</span><span class="op">(</span><span class="st">"figure_2"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="adding_analyses_files/figure-html/unnamed-chunk-3-2.png" class="r-plt" width="700"></p>
+<p><img src="adding_analyses_files/figure-html/unnamed-chunk-3-2.png" class="r-plt" alt="" width="700"></p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span><span class="op">$</span><span class="fu">run_one</span><span class="op">(</span><span class="st">"figure_3"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="adding_analyses_files/figure-html/unnamed-chunk-3-3.png" class="r-plt" width="700"></p>
+<p><img src="adding_analyses_files/figure-html/unnamed-chunk-3-3.png" class="r-plt" alt="" width="700"></p>
 </div>
   </div>
 
