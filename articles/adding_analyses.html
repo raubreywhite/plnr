@@ -219,8 +219,14 @@ apply a graphing function to the data from each of these geographical
 locations.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org" class="external-link">magrittr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## Attaching package: 'data.table'</span></span></code></pre>
+<pre><code><span><span class="co">## The following object is masked from 'package:base':</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##     %notin%</span></span></code></pre>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org" class="external-link">magrittr</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># We begin by defining a new plan</span></span>
 <span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">plnr</span><span class="fu">::</span><span class="va"><a href="../reference/Plan.html">Plan</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
@@ -299,14 +305,14 @@ locations.</p>
 <span><span class="co">## $hash$current_elements</span></span>
 <span><span class="co">## $hash$current_elements$covid19_cases</span></span>
 <span><span class="co">## [1] "7f1b0a581386e75e907bffd94938a3a7"</span></span></code></pre>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">location_codes</span> <span class="op">&lt;-</span> <span class="va">p</span><span class="op">$</span><span class="fu">get_data</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">covid19_cases</span><span class="op">$</span><span class="va">location_code</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##  [1] "county_nor03" "county_nor11" "county_nor15" "county_nor18" "county_nor30"</span></span>
 <span><span class="co">##  [6] "county_nor34" "county_nor38" "county_nor42" "county_nor46" "county_nor50"</span></span>
 <span><span class="co">## [11] "county_nor54" "nation_nor"</span></span></code></pre>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span><span class="op">$</span><span class="fu">add_argset_from_list</span><span class="op">(</span></span>
 <span>  <span class="fu">plnr</span><span class="fu">::</span><span class="fu"><a href="../reference/expand_list.html">expand_list</a></span><span class="op">(</span></span>
 <span>    location_code <span class="op">=</span> <span class="va">location_codes</span>,</span>
@@ -317,18 +323,18 @@ locations.</p>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">get_argsets_as_dt</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##                            name_analysis index_analysis location_code</span></span>
 <span><span class="co">##                                   &lt;char&gt;          &lt;int&gt;        &lt;list&gt;</span></span>
-<span><span class="co">##  1: 9dbd3b05-c411-44ca-a2e0-ea5efcc8deb5              1  county_nor03</span></span>
-<span><span class="co">##  2: eb963338-eeb3-4bcb-8dd4-28c7fb4e5ffe              2  county_nor11</span></span>
-<span><span class="co">##  3: 38e68386-f9f1-48a4-aee9-798616468be8              3  county_nor15</span></span>
-<span><span class="co">##  4: a8ca3bef-7e84-4e9f-a899-2842273c4e31              4  county_nor18</span></span>
-<span><span class="co">##  5: 8124803b-6f31-4e5e-8d9c-cd168fac6910              5  county_nor30</span></span>
-<span><span class="co">##  6: 75f27587-9d11-436c-876a-6f6b692fb4be              6  county_nor34</span></span>
-<span><span class="co">##  7: e909eb65-333c-40fe-9f9a-b74adb790d26              7  county_nor38</span></span>
-<span><span class="co">##  8: b44420de-7e50-4882-abf0-583341e560b5              8  county_nor42</span></span>
-<span><span class="co">##  9: fc3dab34-0c91-4d77-a2bb-a45546c76b2a              9  county_nor46</span></span>
-<span><span class="co">## 10: f23303a2-8b40-4aeb-bde0-4c4f1f95c3df             10  county_nor50</span></span>
-<span><span class="co">## 11: 7673e1ce-71c1-4141-b9ef-f550c90ef7ee             11  county_nor54</span></span>
-<span><span class="co">## 12: bae9937c-a017-4a3b-9800-c14a08387f3a             12    nation_nor</span></span>
+<span><span class="co">##  1: fa95ed21-814d-40cf-a622-877b4cb83720              1  county_nor03</span></span>
+<span><span class="co">##  2: 4128df18-7425-4d11-b752-30583ddcaa64              2  county_nor11</span></span>
+<span><span class="co">##  3: b8ae947f-45a5-4a3b-a934-8d2876652821              3  county_nor15</span></span>
+<span><span class="co">##  4: 473d3644-4f78-47f4-bf05-ee6b25091513              4  county_nor18</span></span>
+<span><span class="co">##  5: 24eb1c79-8e7c-4769-9b14-281763088c64              5  county_nor30</span></span>
+<span><span class="co">##  6: fa390414-8664-4040-9d82-f7367346b109              6  county_nor34</span></span>
+<span><span class="co">##  7: 054bba48-c88c-4f94-b908-85f1aca98b48              7  county_nor38</span></span>
+<span><span class="co">##  8: 9ab3c314-6ef6-41cb-9a12-5e4b91e42627              8  county_nor42</span></span>
+<span><span class="co">##  9: b5be848c-c3c1-4904-bcda-19a15d650159              9  county_nor46</span></span>
+<span><span class="co">## 10: acce40f9-781e-4eef-90b4-4dde348fce62             10  county_nor50</span></span>
+<span><span class="co">## 11: 72d5572a-740b-4178-a7f0-b71c8f66442f             11  county_nor54</span></span>
+<span><span class="co">## 12: 306236de-ad7d-46de-aef5-56b3bb13986c             12    nation_nor</span></span>
 <span><span class="co">##     granularity_time</span></span>
 <span><span class="co">##               &lt;list&gt;</span></span>
 <span><span class="co">##  1:          isoweek</span></span>
@@ -343,7 +349,7 @@ locations.</p>
 <span><span class="co">## 10:          isoweek</span></span>
 <span><span class="co">## 11:          isoweek</span></span>
 <span><span class="co">## 12:          isoweek</span></span></code></pre>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># We can then add a simple analysis that returns a figure:</span></span>
 <span></span>
 <span><span class="co"># To do this, we first need to create an action function</span></span>
@@ -368,11 +374,11 @@ locations.</p>
 <span></span>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">run_one</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <p><img src="adding_analyses_files/figure-html/unnamed-chunk-1-1.png" class="r-plt" alt="" width="700"></p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">q</span> <span class="op">&lt;-</span> <span class="va">p</span><span class="op">$</span><span class="fu">run_all</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">q</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
 <p><img src="adding_analyses_files/figure-html/unnamed-chunk-1-2.png" class="r-plt" alt="" width="700"></p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">q</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
 <p><img src="adding_analyses_files/figure-html/unnamed-chunk-1-3.png" class="r-plt" alt="" width="700"></p>
 </div>
@@ -383,7 +389,7 @@ locations.</p>
 raw numbers of Covid-19 cases vs Covid-19 cases per 100 000 population,
 and 2. aggregating over isoweek vs day) and apply a graphing function to
 the data according to each of these variable combinations.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org" class="external-link">magrittr</a></span><span class="op">)</span></span>
@@ -465,7 +471,7 @@ the data according to each of these variable combinations.</p>
 <span><span class="co">## $hash$current_elements</span></span>
 <span><span class="co">## $hash$current_elements$covid19_cases</span></span>
 <span><span class="co">## [1] "07cc51795bccaf2afebe48619ce87227"</span></span></code></pre>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span><span class="op">$</span><span class="fu">add_argset_from_list</span><span class="op">(</span></span>
 <span>  <span class="fu">plnr</span><span class="fu">::</span><span class="fu"><a href="../reference/expand_list.html">expand_list</a></span><span class="op">(</span></span>
 <span>    variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"covid19_cases_testdate_n"</span>, <span class="st">"covid19_cases_testdate_pr100000"</span><span class="op">)</span>,</span>
@@ -476,17 +482,17 @@ the data according to each of these variable combinations.</p>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">get_argsets_as_dt</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##                           name_analysis index_analysis</span></span>
 <span><span class="co">##                                  &lt;char&gt;          &lt;int&gt;</span></span>
-<span><span class="co">## 1: 3f7e0870-5e74-43d5-8277-e704ebe2d2d5              1</span></span>
-<span><span class="co">## 2: 950f9fab-19e2-4d1f-9c03-a934f3edb8ce              2</span></span>
-<span><span class="co">## 3: 2ccd72fd-cd5a-4a67-8ae2-5d28e1566ef8              3</span></span>
-<span><span class="co">## 4: 178e677a-d951-41e9-b694-3455b825b368              4</span></span>
+<span><span class="co">## 1: a43520e7-4079-4559-8a13-f369867257e6              1</span></span>
+<span><span class="co">## 2: daad3db2-8b17-48b2-b76d-d9a4e237d32b              2</span></span>
+<span><span class="co">## 3: b60fe663-922d-4e0c-9339-ab8d7149d7d5              3</span></span>
+<span><span class="co">## 4: 836cc41a-eeec-4fdd-9482-6ef1699c9424              4</span></span>
 <span><span class="co">##                           variable granularity_time</span></span>
 <span><span class="co">##                             &lt;list&gt;           &lt;list&gt;</span></span>
 <span><span class="co">## 1:        covid19_cases_testdate_n          isoweek</span></span>
 <span><span class="co">## 2:        covid19_cases_testdate_n              day</span></span>
 <span><span class="co">## 3: covid19_cases_testdate_pr100000          isoweek</span></span>
 <span><span class="co">## 4: covid19_cases_testdate_pr100000              day</span></span></code></pre>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># We can then add a simple analysis that returns a figure:</span></span>
 <span></span>
 <span><span class="co"># To do this, we first need to create an action function</span></span>
@@ -512,17 +518,17 @@ the data according to each of these variable combinations.</p>
 <pre><code><span><span class="co">## Warning: `aes_string()` was deprecated in ggplot2 3.0.0.</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">ℹ</span> Please use tidy evaluation idioms with `aes()`.</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">ℹ</span> See also `vignette("ggplot2-in-packages")` for more information.</span></span>
-<span><span class="co">## <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
+<span><span class="co">## <span style="color: #555555;">This warning is displayed once per session.</span></span></span>
 <span><span class="co">## <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
 <span><span class="co">## <span style="color: #555555;">generated.</span></span></span></code></pre>
 <p><img src="adding_analyses_files/figure-html/unnamed-chunk-2-1.png" class="r-plt" alt="" width="700"></p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span><span class="op">$</span><span class="fu">run_one</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="adding_analyses_files/figure-html/unnamed-chunk-2-2.png" class="r-plt" alt="" width="700"></p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span><span class="op">$</span><span class="fu">run_one</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <p><img src="adding_analyses_files/figure-html/unnamed-chunk-2-3.png" class="r-plt" alt="" width="700"></p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span><span class="op">$</span><span class="fu">run_one</span><span class="op">(</span><span class="fl">4</span><span class="op">)</span></span></code></pre></div>
 <p><img src="adding_analyses_files/figure-html/unnamed-chunk-2-4.png" class="r-plt" alt="" width="700"></p>
 </div>
@@ -532,7 +538,7 @@ the data according to each of these variable combinations.</p>
 </h2>
 <p>This approach is generally used when you are creating the output for
 a report, and you need multiple different tables and graphs.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org" class="external-link">magrittr</a></span><span class="op">)</span></span>
@@ -615,7 +621,7 @@ a report, and you need multiple different tables and graphs.</p>
 <span><span class="co">## $hash$current_elements</span></span>
 <span><span class="co">## $hash$current_elements$covid19_cases</span></span>
 <span><span class="co">## [1] "bad75e8e213b3de3eee2b4ecbf157f46"</span></span></code></pre>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Completely unique function for figure 1</span></span>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">add_analysis</span><span class="op">(</span></span>
 <span>  name <span class="op">=</span> <span class="st">"figure_1"</span>,</span>
@@ -671,10 +677,10 @@ a report, and you need multiple different tables and graphs.</p>
 <span></span>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">run_one</span><span class="op">(</span><span class="st">"figure_1"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="adding_analyses_files/figure-html/unnamed-chunk-3-1.png" class="r-plt" alt="" width="700"></p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span><span class="op">$</span><span class="fu">run_one</span><span class="op">(</span><span class="st">"figure_2"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="adding_analyses_files/figure-html/unnamed-chunk-3-2.png" class="r-plt" alt="" width="700"></p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span><span class="op">$</span><span class="fu">run_one</span><span class="op">(</span><span class="st">"figure_3"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="adding_analyses_files/figure-html/unnamed-chunk-3-3.png" class="r-plt" alt="" width="700"></p>
 </div>
