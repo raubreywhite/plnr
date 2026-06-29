@@ -1,0 +1,32 @@
+/* pkgdown/extra.scss  —  light brand alignment for rwhite.no R packages.
+   Touches the chrome (navbar, headings, links) only; leaves the reference
+   docs, code blocks and tables on a clean, legible near-white surface. */
+
+/*-- scss:defaults --*/
+$navbar-bg: #231c16;
+$navbar-dark-color: rgba(245,240,231,.78);
+$navbar-dark-hover-color: #ffffff;
+
+/*-- scss:rules --*/
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+/* brand mark + nav items in mono, like the site */
+.navbar-brand,
+.navbar .nav-link {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  font-size: .8rem;
+}
+.navbar .nav-link.active { color: #ff6a5e !important; }
+
+/* serif page headings, brand-red links in content */
+.template-home h1, .template-reference h1, h1.title,
+main h1, main h2, main h3 { font-family: 'Newsreader', Georgia, serif; }
+main a { color: #8a1c1c; }
+main a:hover { color: #6f1414; }
+
+/* a faint warm tint on the page frame so it reads as "rwhite.no family"
+   without tinting the content/code areas */
+body { background: #faf8f3; }
+main .contents, .ref-index { background: #ffffff; }

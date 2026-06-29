@@ -1,7 +1,25 @@
 url: https://www.rwhite.no/plnr/
 
-# template:
-#   package: csidstemplatepkgdown
+template:
+  bootstrap: 5
+  bslib:
+    heading_font: { google: "Newsreader" }
+    code_font:    { google: "IBM Plex Mono" }
+    primary: "#8a1c1c"
+    bg: "#ffffff"
+    fg: "#231c16"
+    link-color: "#8a1c1c"
+    border-radius: "0.15rem"
+  includes:
+    in_header: >
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+navbar:
+  bg: dark
+  type: dark
+  structure:
+    left:  [reference, articles]
+    right: [search, github]
 
 reference:
 - title: "Plan Management"
