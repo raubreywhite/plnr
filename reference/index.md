@@ -1,0 +1,43 @@
+# Package index
+
+## Plan Management
+
+Classes and functions related to defining and managing an analysis plan.
+
+- [`Plan`](https://www.rwhite.no/plnr/reference/Plan.md) : R6 Class for
+  Planning and Executing Analyses
+
+## Utility Functions
+
+General-purpose utility functions for various tasks.
+
+- [`expand_list()`](https://www.rwhite.no/plnr/reference/expand_list.md)
+  : Create a cross product of lists
+- [`get_anything()`](https://www.rwhite.no/plnr/reference/get_anything.md)
+  : Get objects with package namespace support
+- [`is_run_directly()`](https://www.rwhite.no/plnr/reference/is_run_directly.md)
+  : Check if code is being run directly or from within a function
+- [`set_opts()`](https://www.rwhite.no/plnr/reference/set_opts.md) : Set
+  package configuration options
+- [`try_again()`](https://www.rwhite.no/plnr/reference/try_again.md) :
+  Retry code execution with exponential backoff
+
+## Project Creation
+
+Functions for setting up and managing example RMarkdown projects.
+
+- [`create_rmarkdown()`](https://www.rwhite.no/plnr/reference/create_rmarkdown.md)
+  : Create an example R Markdown project structure
+
+## Testing Functions
+
+Functions designed for testing analysis workflows.
+
+- [`example_action_fn()`](https://www.rwhite.no/plnr/reference/example_action_fn.md)
+  : Example action function for demonstrating analysis structure
+- [`example_data_fn_nor_covid19_cases_by_time_location()`](https://www.rwhite.no/plnr/reference/example_data_fn_nor_covid19_cases_by_time_location.md)
+  : An example data_fn that returns a data set
+- [`nor_covid19_cases_by_time_location`](https://www.rwhite.no/plnr/reference/nor_covid19_cases_by_time_location.md)
+  : Covid-19 data for PCR-confirmed cases in Norway (nation and county)
+- [`test_action_fn()`](https://www.rwhite.no/plnr/reference/test_action_fn.md)
+  : Test action function that returns a constant value
