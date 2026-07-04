@@ -8,18 +8,18 @@
 <title>Adding analyses to a plan • plnr</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/IBM_Plex_Mono-0.4.10/font.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_3-0.4.10/font.css" rel="stylesheet">
+<link href="../deps/IBM_Plex_Mono-0.4.10/font.css" rel="stylesheet">
 <link href="../deps/Newsreader-0.4.10/font.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Adding analyses to a plan">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
-    <nav class="navbar navbar-expand-lg fixed-top bg-dark" data-bs-theme="dark" aria-label="Site navigation"><div class="container">
+    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
 
     <a class="navbar-brand me-2" href="../index.html">plnr</a>
 
@@ -32,6 +32,7 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item"><a class="nav-link" href="../articles/plnr.html">Get started</a></li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
@@ -39,8 +40,19 @@
 <li><a class="dropdown-item" href="../articles/adding_analyses.html">Adding analyses to a plan</a></li>
   </ul>
 </li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-packages" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">packages</button>
+  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-packages">
+<li><a class="external-link dropdown-item" href="https://www.rwhite.no/cohort/">cohort — cohort construction with provenance</a></li>
+    <li><a class="dropdown-item" href="https://www.rwhite.no/plnr/">plnr — plan &amp; fan out analyses</a></li>
+    <li><a class="external-link dropdown-item" href="https://www.rwhite.no/org/">org — project paths &amp; structure</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="external-link dropdown-item" href="https://www.rwhite.no/">rwhite.no</a></li>
+  </ul>
+</li>
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
 </form></li>
@@ -299,18 +311,18 @@ locations.</p>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">get_argsets_as_dt</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##                            name_analysis index_analysis location_code</span></span>
 <span><span class="co">##                                   &lt;char&gt;          &lt;int&gt;        &lt;list&gt;</span></span>
-<span><span class="co">##  1: 633d1eb6-5bd5-4230-bffb-aeb2f3148626              1  county_nor03</span></span>
-<span><span class="co">##  2: c2345809-7cfa-481d-901e-d446a5ed33be              2  county_nor11</span></span>
-<span><span class="co">##  3: 087d3859-f91b-4de0-a4c9-5fe763a7e862              3  county_nor15</span></span>
-<span><span class="co">##  4: c4e81fcc-4e5e-4dad-beed-4dee8423e0a4              4  county_nor18</span></span>
-<span><span class="co">##  5: adcfe76f-105f-4f2c-9498-b63da804ea81              5  county_nor30</span></span>
-<span><span class="co">##  6: 191800f4-6226-4bc3-8b16-5b9d8c9ec738              6  county_nor34</span></span>
-<span><span class="co">##  7: ebff675c-cfd1-499f-b408-f7f39dd5e88c              7  county_nor38</span></span>
-<span><span class="co">##  8: 2307d119-a7d8-4838-8ebd-1368807f8892              8  county_nor42</span></span>
-<span><span class="co">##  9: 060e7830-139f-4ca4-a16e-6f20d78f1e20              9  county_nor46</span></span>
-<span><span class="co">## 10: 7baaa2a1-783b-43b5-a28d-c449bbee1c6a             10  county_nor50</span></span>
-<span><span class="co">## 11: e214f92b-fa4a-4182-a770-db93fdfe8f9d             11  county_nor54</span></span>
-<span><span class="co">## 12: 5405bdfe-6cd7-488b-8688-682df6455ab2             12    nation_nor</span></span>
+<span><span class="co">##  1: b65b99c5-1e3b-4a8e-9963-421ffb2ca53e              1  county_nor03</span></span>
+<span><span class="co">##  2: 2a16a614-de1e-4473-aa8a-53fc62c95472              2  county_nor11</span></span>
+<span><span class="co">##  3: 37dcdeee-7266-4858-95ed-9103dc3d7eae              3  county_nor15</span></span>
+<span><span class="co">##  4: 6a27ed3d-8d1e-4f70-a9b8-fa3a2ad4e436              4  county_nor18</span></span>
+<span><span class="co">##  5: 15cd3a73-ee8c-49d9-abf1-a3dffbfdb1d7              5  county_nor30</span></span>
+<span><span class="co">##  6: 642f7f72-c6c5-4899-a048-9f4f04efcc0e              6  county_nor34</span></span>
+<span><span class="co">##  7: 3dcbc7f0-96d4-4df8-b9a6-77cd1c8e5423              7  county_nor38</span></span>
+<span><span class="co">##  8: 3b1d11ca-1c5a-413d-a59f-a02e2d645f6b              8  county_nor42</span></span>
+<span><span class="co">##  9: 9b9bed90-a7d6-42af-918e-f3624700e399              9  county_nor46</span></span>
+<span><span class="co">## 10: ed57b9fc-5947-47e6-b787-2dc94aea94fa             10  county_nor50</span></span>
+<span><span class="co">## 11: 9d42c294-e85f-4d41-bc9a-6545fa0ad95f             11  county_nor54</span></span>
+<span><span class="co">## 12: b4febe4c-8cc6-49f9-b52b-3310c09276ac             12    nation_nor</span></span>
 <span><span class="co">##     granularity_time</span></span>
 <span><span class="co">##               &lt;list&gt;</span></span>
 <span><span class="co">##  1:          isoweek</span></span>
@@ -458,10 +470,10 @@ the data according to each of these variable combinations.</p>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">get_argsets_as_dt</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##                           name_analysis index_analysis</span></span>
 <span><span class="co">##                                  &lt;char&gt;          &lt;int&gt;</span></span>
-<span><span class="co">## 1: 0aa541ef-79ae-487f-bdca-e0963f1b5ff5              1</span></span>
-<span><span class="co">## 2: 4fa7ae43-e5f3-4763-a5f8-346d946b4c0e              2</span></span>
-<span><span class="co">## 3: fead1072-de9d-4f5f-b07b-c7a6fdb1fdf4              3</span></span>
-<span><span class="co">## 4: 178a488c-2c81-4f91-b15d-1d88d90a21c6              4</span></span>
+<span><span class="co">## 1: 6771be93-f3b4-456e-9d70-e0074aa7c054              1</span></span>
+<span><span class="co">## 2: 0c717533-4092-49c7-907c-4bfa1a5f2282              2</span></span>
+<span><span class="co">## 3: a0203a8f-0b11-4794-be61-a64b0d03bfcb              3</span></span>
+<span><span class="co">## 4: 9f724dbf-48a9-4760-8a4c-e63196c46b81              4</span></span>
 <span><span class="co">##                           variable granularity_time</span></span>
 <span><span class="co">##                             &lt;list&gt;           &lt;list&gt;</span></span>
 <span><span class="co">## 1:        covid19_cases_testdate_n          isoweek</span></span>
@@ -667,7 +679,9 @@ a report, and you need multiple different tables and graphs.</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Crafted by <a href="https://www.rwhite.no" class="external-link">Richard Aubrey White</a>.</p>
+  <p>Crafted by <a href="https://www.rwhite.no" class="external-link">Richard Aubrey White</a>.
+<nav class="rw-family" aria-label="rwhite.no packages"><a class="external-link rw-family-label" href="https://www.rwhite.no/">rwhite.no ↗</a> <a href="https://www.rwhite.no/cohort/" class="external-link">cohort</a> <a href="https://www.rwhite.no/plnr/">plnr</a> <a href="https://www.rwhite.no/org/" class="external-link">org</a>
+</nav></p>
 </div>
 
 <div class="pkgdown-footer-right">
