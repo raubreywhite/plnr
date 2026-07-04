@@ -18,6 +18,7 @@ License: MIT + file LICENSE
 URL: https://www.rwhite.no/plnr/, https://github.com/raubreywhite/plnr
 BugReports: https://github.com/raubreywhite/plnr/issues
 Encoding: UTF-8
+Config/Needs/website: raubreywhite/pkgdowntemplate
 LazyData: true
 Depends: R (>= 3.3.0)
 Imports: 

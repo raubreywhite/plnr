@@ -1,25 +1,22 @@
 url: https://www.rwhite.no/plnr/
 
 template:
-  bootstrap: 5
-  bslib:
-    heading_font: { google: "Newsreader" }
-    code_font:    { google: "IBM Plex Mono" }
-    primary: "#8a1c1c"
-    bg: "#ffffff"
-    fg: "#231c16"
-    link-color: "#8a1c1c"
-    border-radius: "0.15rem"
-  includes:
-    in_header: >
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-navbar:
-  bg: dark
-  type: dark
-  structure:
-    left:  [reference, articles]
-    right: [search, github]
+  package: pkgdowntemplate
+  params:
+    hero:
+      overline: "R package · Analysis planning"
+      title: "Plan and fan out analyses."
+      lede: >
+        Load data once, then run one function across a cross-product of
+        argsets — strata, exposures, outcomes — with hash-based caching and
+        optional <em>parallel</em> execution.
+      cta:
+        primary:
+          text: "Get started"
+          href: "articles/plnr.html"
+        secondary:
+          text: "Browse the reference →"
+          href: "reference/index.html"
 
 reference:
 - title: "Plan Management"
@@ -48,13 +45,6 @@ reference:
     - example_data_fn_nor_covid19_cases_by_time_location
     - nor_covid19_cases_by_time_location
     - test_action_fn
-
-footer:
-  structure:
-    #left: csids
-    left: developed_by
-  components:
-    #csids: <a href='https://www.csids.no'><img src='https://www.csids.no/resources/logo/logo_full_blue.svg' width=200></a>
 
 authors:
   footer:
