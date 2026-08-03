@@ -27,12 +27,18 @@ The created project includes:
 }
 }
 \examples{
-\dontrun{
+\donttest{
 # Create a temporary directory for the example
 temp_dir <- tempfile("plnr_example_")
 create_rmarkdown(temp_dir)
 
 # View the created structure
 list.files(temp_dir, recursive = TRUE)
+
+unlink(temp_dir, recursive = TRUE)
 }
+}
+\seealso{
+\code{vignette("plnr")} for the framework the generated \code{run.R} uses:
+one \link{Plan}, one \code{add_data()} call, and one \code{add_analysis()} call per output.
 }

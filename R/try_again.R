@@ -17,49 +17,73 @@
 #' @return `TRUE` invisibly if successful, otherwise throws an error with the last
 #' error message
 #' @examples
-#' \dontrun{
-#' # Try a simple operation
-#' try_again({
-#'   # Your code here
-#'   stop("Simulated error")
-#' }, times = 3, verbose = TRUE)
+#' # A call that succeeds on the first attempt returns immediately
+#' print(try_again(1 + 1))
 #'
-#' # Try with custom delays
-#' try_again({
-#'   # Your code here
-#'   stop("Simulated error")
-#' }, delay_seconds_min = 1, delay_seconds_max = 3)
-#' }
+#' # A call that fails once and then succeeds on the second attempt. The delays
+#' # are set to zero so the example runs instantly; they default to 5-10 seconds.
+#' attempt_n <- 0
+#' try_again(
+#'   {
+#'     attempt_n <- attempt_n + 1
+#'     if (attempt_n < 2) stop("not ready yet")
+#'     "succeeded"
+#'   },
+#'   times = 3,
+#'   delay_seconds_min = 0,
+#'   delay_seconds_max = 0
+#' )
+#'
+#' # The expression really was evaluated twice
+#' attempt_n
+#' @seealso `vignette("plnr")` for an introduction to the framework. This is a
+#' general-purpose retry helper and is not part of the [Plan] workflow.
 #' @export
-try_again <- function(x, times = 2, delay_seconds_min = 5, delay_seconds_max = 10, verbose = FALSE) {
+try_again <- function(
+  x,
+  times = 2,
+  delay_seconds_min = 5,
+  delay_seconds_max = 10,
+  verbose = FALSE
+) {
   i <- 1
   while (i <= times) {
-    err <- tryCatch(withCallingHandlers({
-      x
-      NULL
-    }, warning = function(err) {
-      if (identical(err$message, "restarting interrupted promise evaluation")) {
-        if(!is.null(findRestart("muffleWarning"))){
-          invokeRestart("muffleWarning")
+    err <- tryCatch(
+      withCallingHandlers(
+        {
+          x
+          NULL
+        },
+        warning = function(err) {
+          if (
+            identical(err$message, "restarting interrupted promise evaluation")
+          ) {
+            if (!is.null(findRestart("muffleWarning"))) {
+              invokeRestart("muffleWarning")
+            }
+          }
         }
+      ),
+      expectation_failure = function(err) {
+        err
+      },
+      error = function(err) {
+        err
       }
-    }), expectation_failure = function(err) {
-      err
-    }, error = function(err) {
-      err
-    })
+    )
 
-    if(is.null(err)) {
-      if(i>1 & verbose){
-        message(i,"/",times,": Succeeded.")
+    if (is.null(err)) {
+      if (i > 1 & verbose) {
+        message(i, "/", times, ": Succeeded.")
       }
       return(invisible(TRUE))
     }
 
-    if(verbose) warning(i,"/",times,": Failed", call. = FALSE, immediate. = TRUE)
+    if (verbose) {
+      warning(i, "/", times, ": Failed", call. = FALSE, immediate. = TRUE)
+    }
     Sys.sleep(stats::runif(1, delay_seconds_min, delay_seconds_max))
     i <- i + 1L
   }
   stop(err)
 }
-

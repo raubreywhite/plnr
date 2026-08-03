@@ -39,17 +39,27 @@ The function is adapted from the \code{try_again} function in the testthat packa
 but with additional features for controlling retry behavior and verbosity.
 }
 \examples{
-\dontrun{
-# Try a simple operation
-try_again({
-  # Your code here
-  stop("Simulated error")
-}, times = 3, verbose = TRUE)
+# A call that succeeds on the first attempt returns immediately
+print(try_again(1 + 1))
 
-# Try with custom delays
-try_again({
-  # Your code here
-  stop("Simulated error")
-}, delay_seconds_min = 1, delay_seconds_max = 3)
+# A call that fails once and then succeeds on the second attempt. The delays
+# are set to zero so the example runs instantly; they default to 5-10 seconds.
+attempt_n <- 0
+try_again(
+  {
+    attempt_n <- attempt_n + 1
+    if (attempt_n < 2) stop("not ready yet")
+    "succeeded"
+  },
+  times = 3,
+  delay_seconds_min = 0,
+  delay_seconds_max = 0
+)
+
+# The expression really was evaluated twice
+attempt_n
 }
+\seealso{
+\code{vignette("plnr")} for an introduction to the framework. This is a
+general-purpose retry helper and is not part of the \link{Plan} workflow.
 }

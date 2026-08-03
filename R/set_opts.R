@@ -12,6 +12,9 @@
 #'
 #' # Disable verbose output
 #' set_opts(force_verbose = FALSE)
+#' @seealso [Plan], whose `verbose` argument is on by default when either the
+#' session is interactive or `force_verbose` is `TRUE`, and `vignette("plnr")`
+#' for an introduction to the framework.
 #' @export
 set_opts <- function(force_verbose = FALSE) {
   config$force_verbose <- force_verbose

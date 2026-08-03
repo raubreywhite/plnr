@@ -25,3 +25,7 @@ plnr::get_anything("plnr::nor_covid19_cases_by_time_location")
 x <- 1
 get_anything("x")
 }
+\seealso{
+\code{vignette("plnr")}, whose "Function Naming" section covers the
+\code{fn_name} strings that a \link{Plan} resolves with this function.
+}

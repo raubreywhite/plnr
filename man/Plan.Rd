@@ -324,6 +324,11 @@ p$add_analysis_from_list(
 )
 p$run_all_progress()
 }
+\seealso{
+\code{vignette("plnr")} for an introduction to argsets, analyses and
+plans, and \code{vignette("adding_analyses")} for worked single-function and
+multi-function plans.
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{

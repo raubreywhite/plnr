@@ -23,3 +23,5 @@ man/@eaDir
 .github
 CLAUDE.md
 .claude/
+^index\.md$
+^Rplots\.pdf$

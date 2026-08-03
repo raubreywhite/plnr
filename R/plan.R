@@ -30,6 +30,9 @@
 #' # View argsets and run example
 #' p$get_argsets_as_dt()
 #' p$run_one("analysis_1")
+#' @family example and test functions
+#' @seealso `vignette("adding_analyses")` for worked single-function and
+#' multi-function plans that attach an action function to a plan by `fn_name`.
 #' @export
 example_action_fn <- function(data, argset) {
   print("Data given:")
@@ -46,6 +49,23 @@ example_action_fn <- function(data, argset) {
 #' @param data A named list containing the datasets (unused in this example)
 #' @param argset A named list containing the arguments (unused in this example)
 #' @return The integer 1
+#' @examples
+#' # Called directly, it ignores both arguments and returns 1
+#' test_action_fn(data = list(), argset = list())
+#'
+#' # Its intended use is as a placeholder action function inside a plan
+#' p <- plnr::Plan$new()
+#' p$add_data(
+#'   name = "deaths",
+#'   direct = data.table::data.table(deaths = 1:4, year = 2001:2004)
+#' )
+#' p$add_analysis(name = "analysis_1", fn_name = "plnr::test_action_fn")
+#' p$run_one("analysis_1")
+#' @family example and test functions
+#' @seealso `vignette("plnr")` for the `data`/`argset` contract. An action
+#' function must accept at least the supplied data and argset values; it may
+#' take further arguments, and a directly supplied `fn` receives the argset
+#' positionally, so its second formal need not be named `argset`.
 #' @export
 test_action_fn <- function(data, argset) {
   return(1)
@@ -100,6 +120,10 @@ hash_it <- function(x) {
 #' - **Analysis**: A combination of one argset and one action function
 #' - **Plan**: A container that holds one data pull and a list of analyses
 #'
+#' @seealso `vignette("plnr")` for an introduction to argsets, analyses and
+#' plans, and `vignette("adding_analyses")` for worked single-function and
+#' multi-function plans.
+#'
 #' @import data.table
 #' @import R6
 #' @import foreach
@@ -118,7 +142,10 @@ Plan <- R6::R6Class(
     #' @param use_foreach Logical, whether to use foreach for parallel processing.
     #' NULL = program decides, FALSE = use loop, TRUE = use foreach
     #' @return A new Plan instance
-    initialize = function(verbose = interactive() | config$force_verbose, use_foreach = FALSE) {
+    initialize = function(
+      verbose = interactive() | config$force_verbose,
+      use_foreach = FALSE
+    ) {
       private$verbose <- verbose
       private$use_foreach <- use_foreach
     },
@@ -170,7 +197,9 @@ Plan <- R6::R6Class(
     #' # View added argsets
     #' p$get_argsets_as_dt()
     add_argset = function(name = uuid::UUIDgenerate(), ...) {
-      if (is.null(analyses[[name]])) analyses[[name]] <- list()
+      if (is.null(analyses[[name]])) {
+        analyses[[name]] <- list()
+      }
 
       dots <- list(...)
       analyses[[name]][["argset"]] <<- dots
@@ -248,11 +277,18 @@ Plan <- R6::R6Class(
     #' # View argsets and run analysis
     #' p$get_argsets_as_dt()
     #' p$run_one("analysis_1")
-    add_analysis = function(name = uuid::UUIDgenerate(), fn = NULL, fn_name = NULL, ...) {
+    add_analysis = function(
+      name = uuid::UUIDgenerate(),
+      fn = NULL,
+      fn_name = NULL,
+      ...
+    ) {
       stopifnot(is.null(fn) | is.function(fn))
       stopifnot(is.null(fn_name) | is.character(fn_name))
 
-      if (is.null(analyses[[name]])) analyses[[name]] <- list()
+      if (is.null(analyses[[name]])) {
+        analyses[[name]] <- list()
+      }
 
       dots <- list(...)
       analyses[[name]] <<- list(fn = fn, fn_name = fn_name)
@@ -294,7 +330,9 @@ Plan <- R6::R6Class(
       for (i in 1:nrow(df)) {
         argset <- df[i, ]
         argset$fn <- fn
-        if (!"fn_name" %in% names(df)) argset$fn_name <- fn_name
+        if (!"fn_name" %in% names(df)) {
+          argset$fn_name <- fn_name
+        }
         do.call(add_analysis, argset)
       }
     },
@@ -333,7 +371,9 @@ Plan <- R6::R6Class(
       for (i in seq_along(l)) {
         argset <- l[[i]]
         argset$fn <- fn
-        if (!"fn_name" %in% names(df)) argset$fn_name <- fn_name
+        if (!"fn_name" %in% names(df)) {
+          argset$fn_name <- fn_name
+        }
         do.call(add_analysis, argset)
       }
     },
@@ -443,24 +483,34 @@ Plan <- R6::R6Class(
       if (length(retval) == 1) {
         if ("data__________go_up_one_level" %in% names(retval)) {
           # make sure it's a list
-          if(inherits(retval$data__________go_up_one_level, "list")){
+          if (inherits(retval$data__________go_up_one_level, "list")) {
             # check that if it has content, it is named
-            if(!is.null(names(retval$data__________go_up_one_level)) | length(retval$data__________go_up_one_level)==0){
+            if (
+              !is.null(names(retval$data__________go_up_one_level)) |
+                length(retval$data__________go_up_one_level) == 0
+            ) {
               # this is what happens in sc/sykdomspulsen core
               retval <- retval$data__________go_up_one_level
             } else {
-              stop("you are not passing a named list as the return from the data function")
+              stop(
+                "you are not passing a named list as the return from the data function"
+              )
             }
           } else {
-            stop("you are not passing a named list as the return from the data function")
+            stop(
+              "you are not passing a named list as the return from the data function"
+            )
           }
         }
       }
       hash <- list()
       hash$current <- digest::digest(retval, algo = "spookyhash")
       hash$current_elements <- list()
-      for(i in names(retval)){
-        hash$current_elements[[i]] <- digest::digest(retval[[i]], algo = "spookyhash")
+      for (i in names(retval)) {
+        hash$current_elements[[i]] <- digest::digest(
+          retval[[i]],
+          algo = "spookyhash"
+        )
       }
       retval$hash <- hash
       return(retval)
@@ -530,16 +580,16 @@ Plan <- R6::R6Class(
     #'   l = batch_argset_list
     #' )
     #' p$get_argsets_as_dt()
-    get_argsets_as_dt = function(){
+    get_argsets_as_dt = function() {
       retval <- lapply(analyses, function(x) {
-        if(identical(x$argset,list())){
-          return(data.frame(index_analysis=1))
+        if (identical(x$argset, list())) {
+          return(data.frame(index_analysis = 1))
         } else {
           return(data.frame(t(x$argset)))
         }
       })
       names(retval) <- NULL
-      retval <- rbindlist(retval, use.names = T, fill=TRUE)
+      retval <- rbindlist(retval, use.names = T, fill = TRUE)
       retval[, name_analysis := names(analyses)]
       retval[, index_analysis := 1:.N]
 
@@ -573,7 +623,7 @@ Plan <- R6::R6Class(
     run_one_with_data = function(index_analysis, data, ...) {
       p <- get_analysis(index_analysis)
 
-      if(is.null(p[["fn"]]) & is.null(p[["fn_name"]])){
+      if (is.null(p[["fn"]]) & is.null(p[["fn_name"]])) {
         stop("Both fn and fn_name are NULL")
       } else if (!is.null(p[["fn"]]) & is.null(p[["fn_name"]])) {
         # use fn
@@ -674,9 +724,16 @@ Plan <- R6::R6Class(
       retval <- vector("list", length = self$x_length())
       if (!private$use_foreach_decision()) {
         # running not in parallel
-        if (private$verbose & is.null(private$pb_progress) & is.null(private$pb_progressor)) {
+        if (
+          private$verbose &
+            is.null(private$pb_progress) &
+            is.null(private$pb_progressor)
+        ) {
           private$pb_progress <- progress::progress_bar$new(
-            format = paste0("[:bar] :current/:total (:percent) in :elapsedfull, eta: :eta", ifelse(interactive(), "", "\n")),
+            format = paste0(
+              "[:bar] :current/:total (:percent) in :elapsedfull, eta: :eta",
+              ifelse(interactive(), "", "\n")
+            ),
             clear = FALSE,
             total = self$x_length()
           )
@@ -685,7 +742,9 @@ Plan <- R6::R6Class(
         }
 
         for (i in self$x_seq_along()) {
-          if (private$verbose & !is.null(private$pb_progress)) private$pb_progress$tick()
+          if (private$verbose & !is.null(private$pb_progress)) {
+            private$pb_progress$tick()
+          }
           if (private$verbose & !is.null(private$pb_progressor)) {
             if (interactive()) {
               private$pb_progressor()
@@ -698,27 +757,39 @@ Plan <- R6::R6Class(
         }
       } else {
         # running in parallel
-        if (private$verbose & is.null(private$pb_progress) & is.null(private$pb_progressor)) {
+        if (
+          private$verbose &
+            is.null(private$pb_progress) &
+            is.null(private$pb_progressor)
+        ) {
           progressr::handlers(progressr::handler_progress(
             format = "[:bar] :current/:total (:percent) in :elapsedfull, eta: :eta\n",
             clear = FALSE
           ))
-          private$pb_progressor <- progressr::progressor(steps = self$x_length())
+          private$pb_progressor <- progressr::progressor(
+            steps = self$x_length()
+          )
           on.exit(private$pb_progressor <- NULL)
         }
 
-        retval <- foreach(i = self$x_seq_along(), .options.future = list(chunk.size = chunk_size)) %dopar% {
-          if (private$verbose & !is.null(private$pb_progress)) private$pb_progress$tick()
-          if (private$verbose & !is.null(private$pb_progressor)) {
-            if (interactive()) {
-              private$pb_progressor()
-            } else {
-              private$pb_progressor()
+        retval <- foreach(
+          i = self$x_seq_along(),
+          .options.future = list(chunk.size = chunk_size)
+        ) %dopar%
+          {
+            if (private$verbose & !is.null(private$pb_progress)) {
+              private$pb_progress$tick()
             }
+            if (private$verbose & !is.null(private$pb_progressor)) {
+              if (interactive()) {
+                private$pb_progressor()
+              } else {
+                private$pb_progressor()
+              }
+            }
+            run_one_with_data(index_analysis = i, data = data, ...)
+            gc(FALSE)
           }
-          run_one_with_data(index_analysis = i, data = data, ...)
-          gc(FALSE)
-        }
       }
 
       invisible(retval)
@@ -783,18 +854,32 @@ Plan <- R6::R6Class(
     #' @return
     #' List where each element contains the returned value from the action function.
     #' @importFrom pbmcapply pbmclapply
-    run_all_parallel = function(mc.cores = getOption("mc.cores", 2L), ...){
+    run_all_parallel = function(mc.cores = getOption("mc.cores", 2L), ...) {
       data <- self$get_data()
       raw <- pbmcapply::pbmclapply(
         self$x_seq_along(),
-        function(x){
+        function(x) {
           options(mc.cores = 1)
           catch_result <- tryCatch(
             {
-              return(self$run_one_with_data(index_analysis = x, data = data, ...))
+              return(self$run_one_with_data(
+                index_analysis = x,
+                data = data,
+                ...
+              ))
             },
             error = function(e) {
-              system(sprintf('echo "\n%s\n"', paste0("Error in index ", x, ":\n\u2193\u2193\u2193\u2193\u2193\u2193\u2193\u2193\n", e$message, "\n********", collapse="")))
+              system(sprintf(
+                'echo "\n%s\n"',
+                paste0(
+                  "Error in index ",
+                  x,
+                  ":\n\u2193\u2193\u2193\u2193\u2193\u2193\u2193\u2193\n",
+                  e$message,
+                  "\n********",
+                  collapse = ""
+                )
+              ))
               stop()
             }
           )
@@ -818,7 +903,10 @@ Plan <- R6::R6Class(
       if (!is.null(private$use_foreach)) {
         return(private$use_foreach)
       } else {
-        if (foreach::getDoParWorkers() == 1 | !requireNamespace("progressr", quietly = TRUE)) {
+        if (
+          foreach::getDoParWorkers() == 1 |
+            !requireNamespace("progressr", quietly = TRUE)
+        ) {
           return(FALSE)
         } else {
           return(TRUE)
@@ -827,5 +915,3 @@ Plan <- R6::R6Class(
     }
   )
 )
-
-

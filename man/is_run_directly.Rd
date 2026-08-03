@@ -26,3 +26,7 @@ test_fn <- function() {
 }
 test_fn()
 }
+\seealso{
+\code{vignette("plnr")}, whose "Debugging Tools" section shows this used
+inside an action function to load \code{data} and \code{argset} while developing it.
+}

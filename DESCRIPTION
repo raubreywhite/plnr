@@ -1,6 +1,6 @@
 Package: plnr
 Title: A Framework for Planning and Executing Analyses
-Version: 2025.11.22
+Version: 2026.8.3
 Authors@R: c(
   person(c("Richard","Aubrey"), "White", email = "hello@rwhite.no", role = c("aut", "cre"),comment = c(ORCID = "0000-0002-6747-1726"))
   )

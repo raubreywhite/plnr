@@ -34,3 +34,8 @@ tidyr::expand_grid(list(
   b = c("a", "b")
 ))
 }
+\seealso{
+\link{Plan}, whose \code{add_argset_from_list()} method consumes this list,
+and \code{vignette("adding_analyses")}, which builds argsets with
+\code{plnr::expand_list()} before applying an action function to all of them.
+}

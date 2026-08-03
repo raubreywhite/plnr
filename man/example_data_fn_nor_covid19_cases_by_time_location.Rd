@@ -9,3 +9,25 @@ example_data_fn_nor_covid19_cases_by_time_location()
 \description{
 An example data_fn that returns a data set
 }
+\examples{
+# A data function takes no arguments and returns one data set
+d <- example_data_fn_nor_covid19_cases_by_time_location()
+dim(d)
+
+# Its intended use is as an `fn_name` passed to Plan$add_data()
+p <- plnr::Plan$new()
+p$add_data(
+  name = "covid19_cases",
+  fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_location"
+)
+names(p$get_data())
+}
+\seealso{
+\code{vignette("adding_analyses")}, which defines the same kind of
+zero-argument \code{data_fn} and attaches it to a plan with \code{fn_name}.
+
+Other example and test functions: 
+\code{\link{example_action_fn}()},
+\code{\link{test_action_fn}()}
+}
+\concept{example and test functions}

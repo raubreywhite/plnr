@@ -13,14 +13,18 @@
 #' @param home Character string, the path where the project should be created
 #' @return NULL, creates files and directories in the specified location
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # Create a temporary directory for the example
 #' temp_dir <- tempfile("plnr_example_")
 #' create_rmarkdown(temp_dir)
 #'
 #' # View the created structure
 #' list.files(temp_dir, recursive = TRUE)
+#'
+#' unlink(temp_dir, recursive = TRUE)
 #' }
+#' @seealso `vignette("plnr")` for the framework the generated `run.R` uses:
+#' one [Plan], one `add_data()` call, and one `add_analysis()` call per output.
 #' @export
 create_rmarkdown <- function(home) {
   fs::dir_create(fs::path(home))
@@ -35,7 +39,8 @@ create_rmarkdown <- function(home) {
   ############
   # run.R
 
-  txt <- glue::glue('
+  txt <- glue::glue(
+    '
 # Initialize the project
 org::initialize_project(
   home = "{home}",
@@ -95,7 +100,8 @@ rmarkdown::render(
   ############
   # R/table_death.R
 
-  txt <- glue::glue('
+  txt <- glue::glue(
+    '
 table_death <- function(data, argset){{
   # data <- p$get_data()
   # argset <- p$get_argset("tab_1")
@@ -104,14 +110,16 @@ table_death <- function(data, argset){{
   ht <- huxtable::theme_article(ht)
   ht
 }}
-')
+'
+  )
 
   cat(txt, file = fs::path(home, "R", "figure_death.R"))
 
   ############
   # R/figure_death.R
 
-  txt <- glue::glue('
+  txt <- glue::glue(
+    '
 figure_death <- function(data, argset){{
   # data <- p$get_data()
   # argset <- p$get_argset("fig_1")
@@ -124,14 +132,16 @@ figure_death <- function(data, argset){{
   q <- q + labs(title = glue::glue("Deaths from 2001 until {{argset$year_max}}"))
   q
 }}
-')
+'
+  )
 
   cat(txt, file = fs::path(home, "R", "figure_death.R"))
 
   ############
   # paper/paper.Rmd
 
-  txt <- glue::glue('
+  txt <- glue::glue(
+    '
 ---
 title: "Untitled"
 output: html_document
@@ -159,7 +169,8 @@ Here is a plot:
 p$run_one("fig_1")
 ```
 
-  ')
+  '
+  )
 
   cat(txt, file = fs::path(home, "paper", "paper.Rmd"))
 

@@ -24,3 +24,8 @@ set_opts(force_verbose = TRUE)
 # Disable verbose output
 set_opts(force_verbose = FALSE)
 }
+\seealso{
+\link{Plan}, whose \code{verbose} argument is on by default when either the
+session is interactive or \code{force_verbose} is \code{TRUE}, and \code{vignette("plnr")}
+for an introduction to the framework.
+}

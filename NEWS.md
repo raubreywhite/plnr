@@ -1,3 +1,16 @@
+# Version 2026.8.3
+
+- Documentation and roxygen comments only. No exported function changed
+  behaviour; the R sources are semantically identical to the previous release.
+- `@seealso` added to all ten exported functions. Eight point at the vignette
+  that covers them; `set_opts()` and `try_again()` are not covered by either
+  vignette, and their text says so rather than implying coverage.
+- `@family example and test functions` added to `example_action_fn()`, `test_action_fn()` and `example_data_fn_nor_covid19_cases_by_time_location()`.
+- Runnable examples added to `example_data_fn_nor_covid19_cases_by_time_location()` and `test_action_fn()`, which previously had none.
+- `try_again()` examples taken out of `\dontrun{}`. They now run, and show a retry that fails once and succeeds on the second attempt.
+- `create_rmarkdown()` examples moved from `\dontrun{}` to `\donttest{}`, so `R CMD check` runs them.
+- `index.md` and `Rplots.pdf` added to `.Rbuildignore`, so the pkgdown home page source is no longer shipped in the tarball.
+
 # Version 2025.11.22
 
 - Replacing `purrr::cross` with `tidyr::expand_grid()`

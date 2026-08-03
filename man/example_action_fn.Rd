@@ -43,3 +43,12 @@ p$add_analysis_from_list(
 p$get_argsets_as_dt()
 p$run_one("analysis_1")
 }
+\seealso{
+\code{vignette("adding_analyses")} for worked single-function and
+multi-function plans that attach an action function to a plan by \code{fn_name}.
+
+Other example and test functions: 
+\code{\link{example_data_fn_nor_covid19_cases_by_time_location}()},
+\code{\link{test_action_fn}()}
+}
+\concept{example and test functions}

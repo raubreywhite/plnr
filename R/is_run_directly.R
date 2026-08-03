@@ -16,6 +16,8 @@
 #'   is_run_directly()  # FALSE
 #' }
 #' test_fn()
+#' @seealso `vignette("plnr")`, whose "Debugging Tools" section shows this used
+#' inside an action function to load `data` and `argset` while developing it.
 #' @export
 is_run_directly <- function() {
   sys.nframe() == 1

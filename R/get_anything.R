@@ -13,6 +13,8 @@
 #' # Get a simple object (same as base::get)
 #' x <- 1
 #' get_anything("x")
+#' @seealso `vignette("plnr")`, whose "Function Naming" section covers the
+#' `fn_name` strings that a [Plan] resolves with this function.
 #' @export
 get_anything <- function(x) {
   if (length(grep("::", x)) > 0) {

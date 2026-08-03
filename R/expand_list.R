@@ -22,6 +22,9 @@
 #'   a = 1:2,
 #'   b = c("a", "b")
 #' ))
+#' @seealso [Plan], whose `add_argset_from_list()` method consumes this list,
+#' and `vignette("adding_analyses")`, which builds argsets with
+#' `plnr::expand_list()` before applying an action function to all of them.
 #' @export
 expand_list <- function(...) {
   dots <- list(...)
