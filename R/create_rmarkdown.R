@@ -55,7 +55,7 @@ library(data.table)
 
 # info.txt
 txt <- glue::glue("
-{lubridate::today()}:
+{{lubridate::today()}}:
   Project initialized.
 ", .trim=FALSE)
 

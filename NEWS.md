@@ -9,6 +9,12 @@
 - Runnable examples added to `example_data_fn_nor_covid19_cases_by_time_location()` and `test_action_fn()`, which previously had none.
 - `try_again()` examples taken out of `\dontrun{}`. They now run, and show a retry that fails once and succeeds on the second attempt.
 - `create_rmarkdown()` examples moved from `\dontrun{}` to `\donttest{}`, so `R CMD check` runs them.
+- Fixed `create_rmarkdown()`, which evaluated `{lubridate::today()}` while
+  generating `run.R` instead of writing it out literally. The brace was not
+  escaped, so glue resolved it at generation time. Two consequences: every
+  generated project had a frozen date baked in rather than one that evaluates
+  when the user runs it, and `create_rmarkdown()` silently required lubridate,
+  which plnr does not depend on. Both are gone.
 - `index.md` and `Rplots.pdf` added to `.Rbuildignore`, so the pkgdown home page source is no longer shipped in the tarball.
 
 # Version 2025.11.22
