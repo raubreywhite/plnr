@@ -18,6 +18,12 @@ A logical value: `TRUE` if the code is being run directly (i.e., from
 the global environment), `FALSE` if it's being run from within a
 function call
 
+## See also
+
+[`vignette("plnr")`](https://www.rwhite.no/plnr/articles/plnr.md), whose
+"Debugging Tools" section shows this used inside an action function to
+load `data` and `argset` while developing it.
+
 ## Examples
 
 ``` r

@@ -23,6 +23,14 @@ expand_list(...)
 A list of lists, where each inner list contains one combination of
 values from the input arguments
 
+## See also
+
+[Plan](https://www.rwhite.no/plnr/reference/Plan.md), whose
+`add_argset_from_list()` method consumes this list, and
+[`vignette("adding_analyses")`](https://www.rwhite.no/plnr/articles/adding_analyses.md),
+which builds argsets with `plnr::expand_list()` before applying an
+action function to all of them.
+
 ## Examples
 
 ``` r

@@ -21,6 +21,14 @@ set_opts(force_verbose = FALSE)
 
 NULL, modifies the package's internal configuration
 
+## See also
+
+[Plan](https://www.rwhite.no/plnr/reference/Plan.md), whose `verbose`
+argument is on by default when either the session is interactive or
+`force_verbose` is `TRUE`, and
+[`vignette("plnr")`](https://www.rwhite.no/plnr/articles/plnr.md) for an
+introduction to the framework.
+
 ## Examples
 
 ``` r

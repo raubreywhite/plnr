@@ -39,6 +39,13 @@ The framework uses three main concepts:
 
 - **Plan**: A container that holds one data pull and a list of analyses
 
+## See also
+
+[`vignette("plnr")`](https://www.rwhite.no/plnr/articles/plnr.md) for an
+introduction to argsets, analyses and plans, and
+[`vignette("adding_analyses")`](https://www.rwhite.no/plnr/articles/adding_analyses.md)
+for worked single-function and multi-function plans.
+
 ## Public fields
 
 - `analyses`:

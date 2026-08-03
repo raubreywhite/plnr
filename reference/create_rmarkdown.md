@@ -34,15 +34,30 @@ The created project includes:
 
 - Standard project directories (results, paper, raw)
 
+## See also
+
+[`vignette("plnr")`](https://www.rwhite.no/plnr/articles/plnr.md) for
+the framework the generated `run.R` uses: one
+[Plan](https://www.rwhite.no/plnr/reference/Plan.md), one `add_data()`
+call, and one `add_analysis()` call per output.
+
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+# \donttest{
 # Create a temporary directory for the example
 temp_dir <- tempfile("plnr_example_")
 create_rmarkdown(temp_dir)
+#> ✔ Setting active project to "/tmp/RtmpsPPYU9/plnr_example_1cfe556e5ecb".
+#> ✔ Writing a sentinel file .here.
+#> ☐ Build robust paths within your project via `here::here()`.
+#> ℹ Learn more at <https://here.r-lib.org>.
+#> ✔ Setting active project to "<no active project>".
 
 # View the created structure
 list.files(temp_dir, recursive = TRUE)
-} # }
+#> [1] "R/figure_death.R" "paper/paper.Rmd"  "run.R"           
+
+unlink(temp_dir, recursive = TRUE)
+# }
 ```

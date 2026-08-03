@@ -1,5 +1,45 @@
 # Changelog
 
+## Version 2026.8.3
+
+- Documentation and roxygen comments only. No exported function changed
+  behaviour; the R sources are semantically identical to the previous
+  release.
+- `@seealso` added to all ten exported functions. Eight point at the
+  vignette that covers them;
+  [`set_opts()`](https://www.rwhite.no/plnr/reference/set_opts.md) and
+  [`try_again()`](https://www.rwhite.no/plnr/reference/try_again.md) are
+  not covered by either vignette, and their text says so rather than
+  implying coverage.
+- `@family example and test functions` added to
+  [`example_action_fn()`](https://www.rwhite.no/plnr/reference/example_action_fn.md),
+  [`test_action_fn()`](https://www.rwhite.no/plnr/reference/test_action_fn.md)
+  and
+  [`example_data_fn_nor_covid19_cases_by_time_location()`](https://www.rwhite.no/plnr/reference/example_data_fn_nor_covid19_cases_by_time_location.md).
+- Runnable examples added to
+  [`example_data_fn_nor_covid19_cases_by_time_location()`](https://www.rwhite.no/plnr/reference/example_data_fn_nor_covid19_cases_by_time_location.md)
+  and
+  [`test_action_fn()`](https://www.rwhite.no/plnr/reference/test_action_fn.md),
+  which previously had none.
+- [`try_again()`](https://www.rwhite.no/plnr/reference/try_again.md)
+  examples taken out of `\dontrun{}`. They now run, and show a retry
+  that fails once and succeeds on the second attempt.
+- [`create_rmarkdown()`](https://www.rwhite.no/plnr/reference/create_rmarkdown.md)
+  examples moved from `\dontrun{}` to `\donttest{}`, so `R CMD check`
+  runs them.
+- Fixed
+  [`create_rmarkdown()`](https://www.rwhite.no/plnr/reference/create_rmarkdown.md),
+  which evaluated `{lubridate::today()}` while generating `run.R`
+  instead of writing it out literally. The brace was not escaped, so
+  glue resolved it at generation time. Two consequences: every generated
+  project had a frozen date baked in rather than one that evaluates when
+  the user runs it, and
+  [`create_rmarkdown()`](https://www.rwhite.no/plnr/reference/create_rmarkdown.md)
+  silently required lubridate, which plnr does not depend on. Both are
+  gone.
+- `index.md` and `Rplots.pdf` added to `.Rbuildignore`, so the pkgdown
+  home page source is no longer shipped in the tarball.
+
 ## Version 2025.11.22
 
 CRAN release: 2025-11-22

@@ -6,6 +6,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Adding analyses to a plan • plnr</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="icon" sizes="any" href="../favicon.ico">
+<link rel="manifest" href="../site.webmanifest">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_3-0.4.10/font.css" rel="stylesheet">
@@ -23,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">plnr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2025.11.22</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.8.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -311,18 +316,18 @@ locations.</p>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">get_argsets_as_dt</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##                            name_analysis index_analysis location_code</span></span>
 <span><span class="co">##                                   &lt;char&gt;          &lt;int&gt;        &lt;list&gt;</span></span>
-<span><span class="co">##  1: b65b99c5-1e3b-4a8e-9963-421ffb2ca53e              1  county_nor03</span></span>
-<span><span class="co">##  2: 2a16a614-de1e-4473-aa8a-53fc62c95472              2  county_nor11</span></span>
-<span><span class="co">##  3: 37dcdeee-7266-4858-95ed-9103dc3d7eae              3  county_nor15</span></span>
-<span><span class="co">##  4: 6a27ed3d-8d1e-4f70-a9b8-fa3a2ad4e436              4  county_nor18</span></span>
-<span><span class="co">##  5: 15cd3a73-ee8c-49d9-abf1-a3dffbfdb1d7              5  county_nor30</span></span>
-<span><span class="co">##  6: 642f7f72-c6c5-4899-a048-9f4f04efcc0e              6  county_nor34</span></span>
-<span><span class="co">##  7: 3dcbc7f0-96d4-4df8-b9a6-77cd1c8e5423              7  county_nor38</span></span>
-<span><span class="co">##  8: 3b1d11ca-1c5a-413d-a59f-a02e2d645f6b              8  county_nor42</span></span>
-<span><span class="co">##  9: 9b9bed90-a7d6-42af-918e-f3624700e399              9  county_nor46</span></span>
-<span><span class="co">## 10: ed57b9fc-5947-47e6-b787-2dc94aea94fa             10  county_nor50</span></span>
-<span><span class="co">## 11: 9d42c294-e85f-4d41-bc9a-6545fa0ad95f             11  county_nor54</span></span>
-<span><span class="co">## 12: b4febe4c-8cc6-49f9-b52b-3310c09276ac             12    nation_nor</span></span>
+<span><span class="co">##  1: 8a5b2144-287b-4ad4-89cd-05345c3c3096              1  county_nor03</span></span>
+<span><span class="co">##  2: 76eb5f3d-3a79-4dee-bb9f-c356a86c6ac4              2  county_nor11</span></span>
+<span><span class="co">##  3: adf1d840-b979-4f2d-9a21-ee291681145a              3  county_nor15</span></span>
+<span><span class="co">##  4: c0f567aa-919b-481c-846e-6cff9f323778              4  county_nor18</span></span>
+<span><span class="co">##  5: 0e9e022b-7407-4dec-a056-ca525cccbb15              5  county_nor30</span></span>
+<span><span class="co">##  6: 9f6093ce-89ef-45e7-98b7-36c10550cc09              6  county_nor34</span></span>
+<span><span class="co">##  7: 22b0e4ad-cdf5-4674-8974-73ecc9a159e1              7  county_nor38</span></span>
+<span><span class="co">##  8: 6ebaa773-c032-4324-b73f-a3dc8746d1bb              8  county_nor42</span></span>
+<span><span class="co">##  9: cace15e4-c9b5-48cb-ab93-378b3243ab94              9  county_nor46</span></span>
+<span><span class="co">## 10: d986009c-e5a1-4614-823c-ba74dc8d947a             10  county_nor50</span></span>
+<span><span class="co">## 11: cc9fce01-ab56-4299-acf4-4eb57deb4933             11  county_nor54</span></span>
+<span><span class="co">## 12: efd8a5f3-27dd-4782-a1da-a2074c8925d1             12    nation_nor</span></span>
 <span><span class="co">##     granularity_time</span></span>
 <span><span class="co">##               &lt;list&gt;</span></span>
 <span><span class="co">##  1:          isoweek</span></span>
@@ -470,10 +475,10 @@ the data according to each of these variable combinations.</p>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">get_argsets_as_dt</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##                           name_analysis index_analysis</span></span>
 <span><span class="co">##                                  &lt;char&gt;          &lt;int&gt;</span></span>
-<span><span class="co">## 1: 6771be93-f3b4-456e-9d70-e0074aa7c054              1</span></span>
-<span><span class="co">## 2: 0c717533-4092-49c7-907c-4bfa1a5f2282              2</span></span>
-<span><span class="co">## 3: a0203a8f-0b11-4794-be61-a64b0d03bfcb              3</span></span>
-<span><span class="co">## 4: 9f724dbf-48a9-4760-8a4c-e63196c46b81              4</span></span>
+<span><span class="co">## 1: a54f01ad-2c59-4125-8b30-758b0accaf0a              1</span></span>
+<span><span class="co">## 2: eb09ab56-c12d-40bf-a8fa-2078eef1dd34              2</span></span>
+<span><span class="co">## 3: 765c0cea-56a0-4bd6-9786-9844f8495e80              3</span></span>
+<span><span class="co">## 4: 2326942c-0acc-434c-93ef-fb9ac950779b              4</span></span>
 <span><span class="co">##                           variable granularity_time</span></span>
 <span><span class="co">##                             &lt;list&gt;           &lt;list&gt;</span></span>
 <span><span class="co">## 1:        covid19_cases_testdate_n          isoweek</span></span>
@@ -685,7 +690,7 @@ a report, and you need multiple different tables and graphs.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>

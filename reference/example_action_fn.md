@@ -24,6 +24,16 @@ example_action_fn(data, argset)
 
 NULL, prints information about the input data and argset
 
+## See also
+
+[`vignette("adding_analyses")`](https://www.rwhite.no/plnr/articles/adding_analyses.md)
+for worked single-function and multi-function plans that attach an
+action function to a plan by `fn_name`.
+
+Other example and test functions:
+[`example_data_fn_nor_covid19_cases_by_time_location()`](https://www.rwhite.no/plnr/reference/example_data_fn_nor_covid19_cases_by_time_location.md),
+[`test_action_fn()`](https://www.rwhite.no/plnr/reference/test_action_fn.md)
+
 ## Examples
 
 ``` r

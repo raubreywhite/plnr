@@ -22,6 +22,13 @@ get_anything(x)
 
 The requested object
 
+## See also
+
+[`vignette("plnr")`](https://www.rwhite.no/plnr/articles/plnr.md), whose
+"Function Naming" section covers the `fn_name` strings that a
+[Plan](https://www.rwhite.no/plnr/reference/Plan.md) resolves with this
+function.
+
 ## Examples
 
 ``` r
