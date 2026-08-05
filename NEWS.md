@@ -16,6 +16,18 @@
   when the user runs it, and `create_rmarkdown()` silently required lubridate,
   which plnr does not depend on. Both are gone.
 - `index.md` and `Rplots.pdf` added to `.Rbuildignore`, so the pkgdown home page source is no longer shipped in the tarball.
+- Fixed `Plan$add_analysis_from_list()`, which decided whether to apply the
+  method-level `fn_name` by reading `names(df)`. `df` is not a parameter of that
+  method and is not defined in it, so the lookup escaped to whatever `df` the
+  search path happened to offer: normally `stats::df`, the F-distribution
+  density. `names(stats::df)` is `NULL`, so the guard always passed and the
+  mistake stayed invisible. It now reads `names(argset)`, which is what the line
+  above it builds and what the sibling `add_analysis_from_df()` guards on. Two
+  consequences: an argset that carries its own `fn_name` keeps it instead of
+  being silently overwritten, matching `add_analysis_from_df()`; and the method
+  no longer fails when `stats` is not attached, which is how `R CMD check` loads
+  a package in its minimal-namespace tests. Covered by
+  `tests/testthat/test-add-analysis-from-list.R`.
 
 # Version 2025.11.22
 

@@ -371,7 +371,7 @@ Plan <- R6::R6Class(
       for (i in seq_along(l)) {
         argset <- l[[i]]
         argset$fn <- fn
-        if (!"fn_name" %in% names(df)) {
+        if (!"fn_name" %in% names(argset)) {
           argset$fn_name <- fn_name
         }
         do.call(add_analysis, argset)
