@@ -2,9 +2,12 @@
 
 ## Version 2026.8.3
 
-- Documentation and roxygen comments only. No exported function changed
-  behaviour; the R sources are semantically identical to the previous
-  release.
+- Mostly documentation and roxygen comments, plus two bug fixes that do
+  change behaviour:
+  [`create_rmarkdown()`](https://www.rwhite.no/plnr/reference/create_rmarkdown.md)
+  and `Plan$add_analysis_from_list()`. Both are described below. Apart
+  from those two, the R sources are semantically identical to the
+  previous release.
 - `@seealso` added to all ten exported functions. Eight point at the
   vignette that covers them;
   [`set_opts()`](https://www.rwhite.no/plnr/reference/set_opts.md) and
