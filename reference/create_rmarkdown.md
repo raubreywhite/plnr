@@ -48,7 +48,7 @@ call, and one `add_analysis()` call per output.
 # Create a temporary directory for the example
 temp_dir <- tempfile("plnr_example_")
 create_rmarkdown(temp_dir)
-#> ✔ Setting active project to "/tmp/RtmpsPPYU9/plnr_example_1cfe556e5ecb".
+#> ✔ Setting active project to "/tmp/RtmpImeeD8/plnr_example_1bf216168112".
 #> ✔ Writing a sentinel file .here.
 #> ☐ Build robust paths within your project via `here::here()`.
 #> ℹ Learn more at <https://here.r-lib.org>.
