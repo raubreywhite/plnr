@@ -43,7 +43,7 @@ General-purpose utility functions for various tasks.
 - [`set_opts()`](https://www.rwhite.no/plnr/reference/set_opts.md) : Set
   package configuration options
 - [`try_again()`](https://www.rwhite.no/plnr/reference/try_again.md) :
-  Retry code execution with exponential backoff
+  Retry code execution with a random delay between attempts
 
 ## Project Creation
 

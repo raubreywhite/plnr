@@ -46,10 +46,14 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2026.8.6" id="version-202686">Version 2026.8.6<a class="anchor" aria-label="anchor" href="#version-202686"></a></h2>
-<ul><li>Prose only. This release rewrites the roxygen documentation, both vignettes, <code>README.md</code>, <code>index.md</code> and <code>NEWS.md</code> to ASD-STE100 (Simplified Technical English). The R sources are semantically identical to the previous release.</li>
-<li>No claim changed. The sweep found documented claims that the code does not support. It left every one of those claims in place, and reported it.</li>
-<li>The rewrite splits long sentences, prefers the active voice, and uses one term for each concept. It also uses the RFC-2119 keywords MUST and MAY in the <code><a href="../reference/test_action_fn.html">test_action_fn()</a></code> <code>@seealso</code>, which states the action-function contract.</li>
+<div class="section level3">
+<h3 id="corrections-2026-8-6">Corrections<a class="anchor" aria-label="anchor" href="#corrections-2026-8-6"></a></h3>
+<ul><li><p><code><a href="../reference/try_again.html">try_again()</a></code> was titled “Retry code execution with exponential backoff”. It does not implement exponential backoff. The delay is <code>stats::runif(1, delay_seconds_min, delay_seconds_max)</code>, drawn afresh before every retry from fixed bounds that the loop never reassigns, so it does not grow with the attempt number. The title now names the real behaviour, and the description says what the delay is and what it is not. No code changed, and the arguments and their defaults are untouched.</p></li>
+<li><p>Prose only. This release rewrites the roxygen documentation, both vignettes, <code>README.md</code>, <code>index.md</code> and <code>NEWS.md</code> to ASD-STE100 (Simplified Technical English). The R sources are semantically identical to the previous release.</p></li>
+<li><p>No claim changed. The sweep found documented claims that the code does not support. It left every one of those claims in place, and reported it.</p></li>
+<li><p>The rewrite splits long sentences, prefers the active voice, and uses one term for each concept. It also uses the RFC-2119 keywords MUST and MAY in the <code><a href="../reference/test_action_fn.html">test_action_fn()</a></code> <code>@seealso</code>, which states the action-function contract.</p></li>
 </ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2026.8.3" id="version-202683">Version 2026.8.3<a class="anchor" aria-label="anchor" href="#version-202683"></a></h2>
 <ul><li>This release is mostly documentation and roxygen comments. It also carries two bug fixes that do change behavior: <code><a href="../reference/create_rmarkdown.html">create_rmarkdown()</a></code> and <code>Plan$add_analysis_from_list()</code>. The entries below describe both. Apart from those two fixes, the R sources are semantically identical to the previous release.</li>

@@ -118,7 +118,7 @@
 <li>
 <strong>R/is_run_directly.R</strong> - Debug utility to detect direct vs. function execution</li>
 <li>
-<strong>R/try_again.R</strong> - Retry logic with exponential backoff</li>
+<strong>R/try_again.R</strong> - Retry logic with a random delay between attempts, drawn from a uniform distribution. The delay does not grow with the attempt number, so it is not exponential backoff.</li>
 <li>
 <strong>R/set_opts.R</strong> - Global configuration options</li>
 <li>
