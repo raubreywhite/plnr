@@ -320,6 +320,21 @@
 <li>CRAN: <a href="https://cran.r-project.org/package=plnr" class="external-link uri">https://cran.r-project.org/package=plnr</a>
 </li>
 </ul></div>
+<div class="section level2">
+<h2 id="licensing">Licensing<a class="anchor" aria-label="anchor" href="#licensing"></a></h2>
+<p>This package is <code>MIT + file LICENSE</code>. Two files carry the licence and they MUST agree with each other:</p>
+<ul><li>
+<code>LICENSE</code> holds exactly two lines, <code>YEAR:</code> and <code>COPYRIGHT HOLDER:</code>. CRAN requires that shape for <code>MIT + file LICENSE</code>. Do not put the licence text there.</li>
+<li>
+<code>DESCRIPTION</code> <code>Authors@R</code> MUST name the same holder, with <code>role = "cph"</code>.</li>
+</ul><p>The copyright holder for this package is <strong>Richard Aubrey White</strong>.</p>
+<p><strong>Check the year at the start of each calendar year, and whenever you edit <code>DESCRIPTION</code>.</strong> Nothing in <code>R CMD check</code> tests the copyright year, so a stale one goes unnoticed indefinitely. A fleet sweep on 2026-08-06 found years of 2021, 2023 and 2025 still in place across 15 packages, and not one package declared a <code>cph</code> role at all.</p>
+<p>Check both in one step:</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="st">"LICENSE"</span><span class="op">)</span></span>
+<span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">unclass</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/eval.html" class="external-link">eval</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/parse.html" class="external-link">parse</a></span><span class="op">(</span>text <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/dcf.html" class="external-link">read.dcf</a></span><span class="op">(</span><span class="st">"DESCRIPTION"</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span>, <span class="st">"Authors@R"</span><span class="op">]</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/funprog.html" class="external-link">Filter</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">p</span><span class="op">)</span> <span class="st">"cph"</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">p</span><span class="op">$</span><span class="va">role</span>, <span class="va">a</span><span class="op">)</span></span></code></pre></div>
+</div>
 </div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

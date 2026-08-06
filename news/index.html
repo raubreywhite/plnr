@@ -47,6 +47,14 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2026.8.6" id="version-202686">Version 2026.8.6<a class="anchor" aria-label="anchor" href="#version-202686"></a></h2>
 <div class="section level3">
+<h3 id="licensing-2026-8-6">Licensing<a class="anchor" aria-label="anchor" href="#licensing-2026-8-6"></a></h3>
+<ul><li>
+<code>DESCRIPTION</code> <code>Authors@R</code> now declares <strong>Richard Aubrey White</strong> as the copyright holder, with <code>role = "cph"</code>. It declared none at all, and neither did any other package in the fleet. Nothing in <code>R CMD check</code> reports that.</li>
+<li>The copyright year is now 2026. It read 2025.</li>
+<li>
+<code>CLAUDE.md</code> now carries a Licensing section, so the year gets checked rather than silently ageing.</li>
+</ul></div>
+<div class="section level3">
 <h3 id="corrections-2026-8-6">Corrections<a class="anchor" aria-label="anchor" href="#corrections-2026-8-6"></a></h3>
 <ul><li><p><code><a href="../reference/try_again.html">try_again()</a></code> was titled “Retry code execution with exponential backoff”. It does not implement exponential backoff. The delay is <code>stats::runif(1, delay_seconds_min, delay_seconds_max)</code>, drawn afresh before every retry from fixed bounds that the loop never reassigns, so it does not grow with the attempt number. The title now names the real behaviour, and the description says what the delay is and what it is not. No code changed, and the arguments and their defaults are untouched.</p></li>
 <li><p>Prose only. This release rewrites the roxygen documentation, both vignettes, <code>README.md</code>, <code>index.md</code> and <code>NEWS.md</code> to ASD-STE100 (Simplified Technical English). The R sources are semantically identical to the previous release.</p></li>
