@@ -182,8 +182,10 @@ Before committing changes:
    - `.DS_Store` files should be in .gitignore
 
 5. **Check version format** in DESCRIPTION:
-   - Use YY.M.D format (e.g., 25.3.19 for March 19, 2025)
-   - Remove leading zeroes from month/day
+   - Use YYYY.M.D format (e.g., 2026.8.6 for 6 August 2026). Remove leading
+     zeroes from month and day. Do NOT write YY.M.D:
+     `package_version("26.8.6") > package_version("2026.8.3")` is FALSE, so a
+     two-digit year is a version DECREASE and R refuses the upgrade.
 
 6. **Update NEWS.md** with version changes when updating DESCRIPTION version
 
@@ -260,10 +262,15 @@ See `README.md` for the quick example, or check vignettes:
 
 ## Version Management
 
-**Version Format:** YY.M.D (e.g., 25.3.19 for March 19, 2025)
+**Version Format:** YYYY.M.D (e.g., 2026.8.6 for 6 August 2026)
+
+Do NOT write YY.M.D. `package_version("26.8.6") > package_version("2026.8.3")`
+is FALSE, so a two-digit year is a version DECREASE and R refuses the upgrade.
+A same-day re-release keeps the current version and appends to that NEWS
+section, rather than bumping to a date that has not arrived.
 
 When updating version in DESCRIPTION:
-1. Update `Version:` field with YY.M.D format
+1. Update `Version:` field with YYYY.M.D format
 2. Add entry to NEWS.md with:
    - Version number
    - Bug fixes (if any)
@@ -272,7 +279,7 @@ When updating version in DESCRIPTION:
 
 Example NEWS.md entry:
 ```markdown
-# Version 25.3.19
+# Version 2026.8.6
 
 ## New Features
 * Added support for custom analysis naming conventions

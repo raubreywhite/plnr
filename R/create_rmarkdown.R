@@ -117,7 +117,7 @@ table_death <- function(data, argset){{
 '
   )
 
-  cat(txt, file = fs::path(home, "R", "figure_death.R"))
+  cat(txt, file = fs::path(home, "R", "table_death.R"))
 
   ############
   # R/figure_death.R
