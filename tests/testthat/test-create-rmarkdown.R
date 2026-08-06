@@ -24,7 +24,10 @@ test_that("create_rmarkdown() writes every R file that run.R calls", {
     fs::dir_ls(fs::path(home, "R"), glob = "*.R"),
     function(f) {
       x <- paste(readLines(f), collapse = "\n")
-      regmatches(x, gregexpr("[a-zA-Z0-9_.]+(?= <- function)", x, perl = TRUE))[[1]]
+      regmatches(
+        x,
+        gregexpr("[a-zA-Z0-9_.]+(?= <- function)", x, perl = TRUE)
+      )[[1]]
     }
   ))
   called <- regmatches(

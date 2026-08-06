@@ -1,6 +1,9 @@
-#' Retry code execution with exponential backoff
+#' Retry code execution with a random delay between attempts
 #'
 #' `try_again()` runs code multiple times, with a random delay between attempts.
+#' The delay is drawn from a uniform distribution on
+#' `[delay_seconds_min, delay_seconds_max]` before every retry. It does not
+#' grow with the attempt number, so this is not exponential backoff.
 #' Use it for transient failures in operations that a later attempt can succeed
 #' at, such as network requests or file operations.
 #'

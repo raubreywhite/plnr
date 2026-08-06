@@ -1,5 +1,15 @@
 # Version 2026.8.6
 
+## Corrections
+
+- `try_again()` was titled "Retry code execution with exponential backoff". It
+  does not implement exponential backoff. The delay is
+  `stats::runif(1, delay_seconds_min, delay_seconds_max)`, drawn afresh before
+  every retry from fixed bounds that the loop never reassigns, so it does not
+  grow with the attempt number. The title now names the real behaviour, and the
+  description says what the delay is and what it is not. No code changed, and
+  the arguments and their defaults are untouched.
+
 - Prose only. This release rewrites the roxygen documentation, both vignettes,
   `README.md`, `index.md` and `NEWS.md` to ASD-STE100 (Simplified Technical
   English). The R sources are semantically identical to the previous release.

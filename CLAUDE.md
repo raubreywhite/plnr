@@ -96,7 +96,9 @@ The `Plan` R6 class (`~790 lines`) is the centerpiece of the framework. Key meth
 - **R/expand_list.R** - List expansion helpers
 - **R/get_anything.R** - Generic getter utility
 - **R/is_run_directly.R** - Debug utility to detect direct vs. function execution
-- **R/try_again.R** - Retry logic with exponential backoff
+- **R/try_again.R** - Retry logic with a random delay between attempts, drawn
+  from a uniform distribution. The delay does not grow with the attempt number,
+  so it is not exponential backoff.
 - **R/set_opts.R** - Global configuration options
 - **R/0_env.R, R/1_config.R, R/2_onLoad.R, R/3_onAttach.R** - Package initialization
 

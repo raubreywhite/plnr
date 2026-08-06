@@ -2,7 +2,7 @@
 % Please edit documentation in R/try_again.R
 \name{try_again}
 \alias{try_again}
-\title{Retry code execution with exponential backoff}
+\title{Retry code execution with a random delay between attempts}
 \usage{
 try_again(
   x,
@@ -33,6 +33,9 @@ error with the last error message when every attempt fails.
 }
 \description{
 \code{try_again()} runs code multiple times, with a random delay between attempts.
+The delay is drawn from a uniform distribution on
+\verb{[delay_seconds_min, delay_seconds_max]} before every retry. It does not
+grow with the attempt number, so this is not exponential backoff.
 Use it for transient failures in operations that a later attempt can succeed
 at, such as network requests or file operations.
 }
