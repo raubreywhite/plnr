@@ -1,5 +1,15 @@
 # Version 2026.8.6
 
+## Licensing
+
+- `DESCRIPTION` `Authors@R` now declares **Richard Aubrey White** as the
+  copyright holder, with `role = "cph"`. It declared none at all, and
+  neither did any other package in the fleet. Nothing in `R CMD check`
+  reports that.
+- The copyright year is now 2026. It read 2025.
+- `CLAUDE.md` now carries a Licensing section, so the year gets checked
+  rather than silently ageing.
+
 ## Corrections
 
 - `try_again()` was titled "Retry code execution with exponential backoff". It
