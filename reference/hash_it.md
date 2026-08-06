@@ -1,7 +1,7 @@
 # Generate a hash of an object
 
-Internal function to create a hash of an object using the digest
-package.
+`hash_it()` is an internal function. It creates a hash of an object with
+the digest package.
 
 ## Usage
 
@@ -13,8 +13,8 @@ hash_it(x)
 
 - x:
 
-  The object to hash
+  The object to hash.
 
 ## Value
 
-A character string containing the hash
+A character string that holds the hash.

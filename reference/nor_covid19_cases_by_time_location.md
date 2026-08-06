@@ -1,7 +1,7 @@
 # Covid-19 data for PCR-confirmed cases in Norway (nation and county)
 
-This data comes from the Norwegian Surveillance System for Communicable
-Diseases (MSIS). The date corresponds to when the PCR-test was taken.
+The Norwegian Surveillance System for Communicable Diseases (MSIS)
+supplies this data. The date corresponds to when the PCR-test was taken.
 
 ## Usage
 
@@ -87,6 +87,7 @@ A csfmt_rts_data_v1 with 11028 rows and 18 variables:
 
 ## Details
 
-The raw number of cases and cases per 100.000 population are recorded.
+The data records the raw number of cases, and the number of cases per
+100.000 population.
 
-This data was extracted on 2022-05-04.
+The extraction date of this data is 2022-05-04.

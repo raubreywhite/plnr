@@ -1,10 +1,10 @@
 # Create a cross product of lists
 
-This function creates a cross product of multiple lists, similar to
-[`tidyr::expand_grid()`](https://tidyr.tidyverse.org/reference/expand_grid.html)
-but with a more convenient interface that doesn't require wrapping
-arguments in an extra [`list()`](https://rdrr.io/r/base/list.html). It's
-useful for generating combinations of parameters for analysis.
+`expand_list()` creates a cross product of multiple lists. It works like
+[`tidyr::expand_grid()`](https://tidyr.tidyverse.org/reference/expand_grid.html),
+but you do not need to wrap the arguments in an extra
+[`list()`](https://rdrr.io/r/base/list.html). Use it to build
+combinations of analysis parameters.
 
 ## Usage
 
@@ -16,20 +16,21 @@ expand_list(...)
 
 - ...:
 
-  Named arguments, each containing a vector or list of values to combine
+  Named arguments. Each one holds a vector or a list of values to
+  combine.
 
 ## Value
 
-A list of lists, where each inner list contains one combination of
-values from the input arguments
+A list of lists. Each inner list holds one combination of values from
+the input arguments.
 
 ## See also
 
-[Plan](https://www.rwhite.no/plnr/reference/Plan.md), whose
-`add_argset_from_list()` method consumes this list, and
+[Plan](https://www.rwhite.no/plnr/reference/Plan.md). Its
+`add_argset_from_list()` method takes this list. See
 [`vignette("adding_analyses")`](https://www.rwhite.no/plnr/articles/adding_analyses.md),
-which builds argsets with `plnr::expand_list()` before applying an
-action function to all of them.
+which builds argsets with `plnr::expand_list()`, then applies one action
+function to all of them.
 
 ## Examples
 

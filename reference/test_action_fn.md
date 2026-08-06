@@ -1,7 +1,7 @@
 # Test action function that returns a constant value
 
-A simple test function that always returns 1, useful for testing the
-Plan framework's functionality.
+`test_action_fn()` always returns 1. Use it to test the `Plan`
+framework.
 
 ## Usage
 
@@ -13,11 +13,11 @@ test_action_fn(data, argset)
 
 - data:
 
-  A named list containing the datasets (unused in this example)
+  A named list that holds the datasets. This example does not use it.
 
 - argset:
 
-  A named list containing the arguments (unused in this example)
+  A named list that holds the arguments. This example does not use it.
 
 ## Value
 
@@ -26,9 +26,9 @@ The integer 1
 ## See also
 
 [`vignette("plnr")`](https://www.rwhite.no/plnr/articles/plnr.md) for
-the `data`/`argset` contract. An action function must accept at least
-the supplied data and argset values; it may take further arguments, and
-a directly supplied `fn` receives the argset positionally, so its second
+the `data`/`argset` contract. An action function MUST accept at least
+the supplied data and argset values. It MAY take further arguments. A
+directly supplied `fn` receives the argset positionally, so its second
 formal need not be named `argset`.
 
 Other example and test functions:

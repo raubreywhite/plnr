@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">plnr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.8.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.8.6</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -87,9 +87,9 @@
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
 <p><code>plnr</code> is a framework for planning and executing analyses
-in R. It’s designed to help you organize and run multiple analyses
-efficiently, whether you’re applying the same function with different
-arguments or running multiple different functions on your data.</p>
+in R. Use it to organize and run multiple analyses. It covers two cases:
+the same function applied with different arguments, and multiple
+different functions applied to your data.</p>
 <div class="section level3">
 <h3 id="core-concepts">Core Concepts<a class="anchor" aria-label="anchor" href="#core-concepts"></a>
 </h3>
@@ -201,11 +201,10 @@ graphs).</td>
 <div class="section level3">
 <h3 id="basic-usage">Basic Usage<a class="anchor" aria-label="anchor" href="#basic-usage"></a>
 </h3>
-<p>Let’s start with a simple example that demonstrates the core
-concepts:</p>
+<p>This simple example shows the core concepts:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://www.rwhite.no/plnr/">plnr</a></span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## plnr 2026.8.3</span></span>
+<pre><code><span><span class="co">## plnr 2026.8.6</span></span>
 <span><span class="co">## https://www.rwhite.no/plnr/</span></span></code></pre>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
@@ -259,14 +258,17 @@ concepts:</p>
 <div class="section level4">
 <h4 id="data-management">Data Management<a class="anchor" aria-label="anchor" href="#data-management"></a>
 </h4>
-<p>The framework ensures efficient data management by: - Loading data
-once and reusing across analyses - Separating data cleaning from
-analysis - Providing hash-based tracking of data changes</p>
+<p>The framework makes data management efficient in three ways:</p>
+<ul>
+<li>It loads data once and reuses it across analyses.</li>
+<li>It keeps data cleaning separate from analysis.</li>
+<li>It tracks data changes with a hash.</li>
+</ul>
 </div>
 <div class="section level4">
 <h4 id="debugging-tools">Debugging Tools<a class="anchor" aria-label="anchor" href="#debugging-tools"></a>
 </h4>
-<p><code>plnr</code> includes several tools to help with development and
+<p><code>plnr</code> includes several tools for development and
 debugging:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Access data directly</span></span>
@@ -318,7 +320,7 @@ debugging:</p>
 <div class="section level4">
 <h4 id="function-naming">Function Naming<a class="anchor" aria-label="anchor" href="#function-naming"></a>
 </h4>
-<p>When adding analyses, you can use either <code>fn_name</code> or
+<p>When you add an analysis, you can use either <code>fn_name</code> or
 <code>fn</code>:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Using fn_name (recommended)</span></span>
@@ -373,34 +375,34 @@ debugging:</p>
 <li>
 <strong>Data Organization</strong>
 <ul>
-<li>Keep data cleaning separate from analysis</li>
-<li>Use meaningful names for datasets</li>
-<li>Document data structure and assumptions</li>
+<li>Keep data cleaning separate from analysis.</li>
+<li>Use meaningful names for datasets.</li>
+<li>Document the data structure and the assumptions.</li>
 </ul>
 </li>
 <li>
 <strong>Analysis Functions</strong>
 <ul>
-<li>Always accept <code>data</code> and <code>argset</code>
-parameters</li>
-<li>Use <code><a href="../reference/is_run_directly.html">is_run_directly()</a></code> for development</li>
-<li>Keep functions focused and single-purpose</li>
+<li>An action function MUST accept <code>data</code> and
+<code>argset</code> parameters.</li>
+<li>Use <code><a href="../reference/is_run_directly.html">is_run_directly()</a></code> during development.</li>
+<li>Keep each function focused on one purpose.</li>
 </ul>
 </li>
 <li>
 <strong>Plan Structure</strong>
 <ul>
-<li>Use meaningful names for argsets and analyses</li>
-<li>Group related analyses together</li>
-<li>Document plan structure and dependencies</li>
+<li>Use meaningful names for argsets and analyses.</li>
+<li>Group related analyses together.</li>
+<li>Document the plan structure and its dependencies.</li>
 </ul>
 </li>
 <li>
 <strong>Development Workflow</strong>
 <ul>
-<li>Start with small examples</li>
-<li>Use debugging tools during development</li>
-<li>Test analyses individually before running full plan</li>
+<li>Start with small examples.</li>
+<li>Use the debugging tools during development.</li>
+<li>Test each analysis on its own, before you run the full plan.</li>
 </ul>
 </li>
 </ol>
@@ -410,12 +412,11 @@ parameters</li>
 </h3>
 <ol style="list-style-type: decimal">
 <li>Read the <a href="https://www.rwhite.no/plnr/articles/adding_analyses.html">Adding
-Analyses</a> vignette for more detailed examples</li>
-<li>Check out the <a href="https://www.rwhite.no/plnr/">package
-website</a> for additional resources</li>
-<li>Explore the function documentation with
-<code><a href="https://www.rwhite.no/plnr/reference">help(package="plnr")</a></code>
-</li>
+Analyses</a> vignette for more detailed examples.</li>
+<li>Visit the <a href="https://www.rwhite.no/plnr/">package website</a>
+for additional resources.</li>
+<li>Read the function documentation with
+<code><a href="https://www.rwhite.no/plnr/reference">help(package="plnr")</a></code>.</li>
 </ol>
 </div>
 </div>

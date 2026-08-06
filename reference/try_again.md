@@ -1,9 +1,8 @@
 # Retry code execution with exponential backoff
 
-This function attempts to execute code multiple times with random delays
-between attempts. It's particularly useful for handling transient
-failures in operations that may succeed on subsequent attempts, such as
-network requests or file operations.
+`try_again()` runs code multiple times, with a random delay between
+attempts. Use it for transient failures in operations that a later
+attempt can succeed at, such as network requests or file operations.
 
 ## Usage
 
@@ -21,40 +20,42 @@ try_again(
 
 - x:
 
-  The code to execute (as an expression)
+  The code to run, as an expression.
 
 - times:
 
-  Integer, the maximum number of attempts to make. Defaults to 2
+  Integer. The maximum number of attempts to make. The default is 2.
 
 - delay_seconds_min:
 
-  Numeric, the minimum delay in seconds between attempts. Defaults to 5
+  Numeric. The minimum delay in seconds between attempts. The default is
+  5.
 
 - delay_seconds_max:
 
-  Numeric, the maximum delay in seconds between attempts. Defaults to 10
+  Numeric. The maximum delay in seconds between attempts. The default is
+  10.
 
 - verbose:
 
-  Logical, whether to show progress information. Defaults to `FALSE`
+  Logical. Whether to show progress information. The default is `FALSE`.
 
 ## Value
 
-`TRUE` invisibly if successful, otherwise throws an error with the last
-error message
+`TRUE`, invisibly, after an attempt succeeds. `try_again()` throws an
+error with the last error message when every attempt fails.
 
 ## Details
 
-The function is adapted from the `try_again` function in the testthat
-package, but with additional features for controlling retry behavior and
+`try_again()` is adapted from the `try_again` function in the testthat
+package. It adds features that control the retry behavior and the
 verbosity.
 
 ## See also
 
 [`vignette("plnr")`](https://www.rwhite.no/plnr/articles/plnr.md) for an
-introduction to the framework. This is a general-purpose retry helper
-and is not part of the
+introduction to the framework. `try_again()` is a general-purpose retry
+helper. It is not part of the
 [Plan](https://www.rwhite.no/plnr/reference/Plan.md) workflow.
 
 ## Examples

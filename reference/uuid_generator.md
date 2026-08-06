@@ -1,7 +1,7 @@
 # Generate a UUID
 
-Internal function to generate a unique identifier using the uuid
-package.
+`uuid_generator()` is an internal function. It generates a unique
+identifier with the uuid package.
 
 ## Usage
 
@@ -11,4 +11,4 @@ uuid_generator()
 
 ## Value
 
-A character string containing a UUID
+A character string that holds a UUID.

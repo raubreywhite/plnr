@@ -4,19 +4,19 @@ What’s inside
 
 ### Load once, reuse
 
-Register datasets on the plan and share them across every analysis,
-instead of re-reading the same data for each run.
+Add datasets to the plan and share them across every analysis, instead
+of re-reading the same data for each run.
 
 02
 
 ### Argset cross-products
 
-Fan a single action function over many argsets to sweep strata,
-variables, or scenarios systematically from one definition.
+Apply one action function to many argsets. One definition then covers
+every stratum, variable or scenario.
 
 03
 
-### Cache & parallelise
+### Cache and parallelize
 
-Hash-based caching tracks data changes; run all argsets in parallel when
+Hash-based caching tracks data changes. Run all argsets in parallel when
 you need the throughput.

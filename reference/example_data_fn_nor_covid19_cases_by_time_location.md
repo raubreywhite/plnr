@@ -10,9 +10,9 @@ example_data_fn_nor_covid19_cases_by_time_location()
 
 ## See also
 
-[`vignette("adding_analyses")`](https://www.rwhite.no/plnr/articles/adding_analyses.md),
-which defines the same kind of zero-argument `data_fn` and attaches it
-to a plan with `fn_name`.
+[`vignette("adding_analyses")`](https://www.rwhite.no/plnr/articles/adding_analyses.md).
+It defines the same kind of zero-argument `data_fn`. It then attaches
+that `data_fn` to a plan with `fn_name`.
 
 Other example and test functions:
 [`example_action_fn()`](https://www.rwhite.no/plnr/reference/example_action_fn.md),

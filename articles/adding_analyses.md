@@ -25,22 +25,20 @@
 
 ## Single-function plan
 
-This approach is generally used when you:
+Use this approach in one of these two cases:
 
-- Have multiple strata (e.g. locations, age groups) that you need to
+- You have multiple strata (e.g. locations, age groups) that you need to
   apply the same statistical methods to.
-- Have multiple variables (e.g. multiple exposures, multiple outcomes)
-  that you want to apply the same statistical methods to.
+- You have multiple variables (e.g. multiple exposures, multiple
+  outcomes) that you want to apply the same statistical methods to.
 
-When we apply the same function multiple times, it is preferable to add
-the argsets first, and then apply the analysis function just before
-running the analyses.
+When you apply the same function multiple times, add the argsets first.
+Then apply the analysis function, just before you run the analyses.
 
 ### Multiple strata
 
-In this example, we loop through multiple geographical locations and
-apply a graphing function to the data from each of these geographical
-locations.
+This example loops through multiple geographical locations. It applies a
+graphing function to the data from each of those locations.
 
 ``` r
 library(ggplot2)
@@ -160,18 +158,18 @@ p$get_argsets_as_dt()
 
     ##                            name_analysis index_analysis location_code
     ##                                   <char>          <int>        <list>
-    ##  1: 0ac41b05-c1b0-42d1-b480-87e0088ee444              1  county_nor03
-    ##  2: 7c050f99-2ac6-49a7-962b-79b6c7050d1c              2  county_nor11
-    ##  3: 0ad9867e-cfac-46f2-8be8-b26f21c1c128              3  county_nor15
-    ##  4: a723c213-5c7d-40d8-b795-285f7cd47035              4  county_nor18
-    ##  5: bf4c0da7-634a-4792-b68b-6f0e74972626              5  county_nor30
-    ##  6: 02949aac-5c0c-4234-a0e4-537ec2806bbc              6  county_nor34
-    ##  7: c9de9ecc-3cd6-4e95-a051-b91063886a18              7  county_nor38
-    ##  8: b760e4a2-7801-44bc-94f2-a15ce977384d              8  county_nor42
-    ##  9: e5537167-5d50-42eb-9aae-02b67c847cca              9  county_nor46
-    ## 10: 2c0ce60b-6f90-4100-88d2-4d60956f6fd7             10  county_nor50
-    ## 11: c982d751-b3c3-4e9f-9f0f-c245f2ed9591             11  county_nor54
-    ## 12: 5eb3ea4a-4c1e-4cfc-93eb-d2a97f921ac5             12    nation_nor
+    ##  1: 9bf73a87-45a7-4ff8-9f62-e4ca54d9afc5              1  county_nor03
+    ##  2: 56b1c729-e6bd-43d3-8d47-d5f6aed8a114              2  county_nor11
+    ##  3: ab5dfdfd-48cc-4ae3-ad23-cd9aea498fc6              3  county_nor15
+    ##  4: 4cd2c65f-c227-4654-b39a-50ed612606d8              4  county_nor18
+    ##  5: b3640d78-92bd-47d7-85e0-19319af0a9a4              5  county_nor30
+    ##  6: a7147c7d-f20c-4bec-8e7e-8e6a40589590              6  county_nor34
+    ##  7: 73e5ea2c-66cf-4228-bc40-f631d322d29d              7  county_nor38
+    ##  8: 27d0dc35-6aa5-42d4-b101-c69e3dcb6a81              8  county_nor42
+    ##  9: 74aaf619-0333-4f7b-bcf0-08925d464741              9  county_nor46
+    ## 10: 1e5b2e93-cec8-45a9-be3d-b2349f449082             10  county_nor50
+    ## 11: d044aefd-6ded-4fea-850e-ae85f1a409bf             11  county_nor54
+    ## 12: 5777896f-6ee5-49ac-8508-3e39e7b1b822             12    nation_nor
     ##     granularity_time
     ##               <list>
     ##  1:          isoweek
@@ -230,10 +228,15 @@ q[[2]]
 
 ### Multiple variables
 
-In this example, we loop through multiple variable combinations (1. raw
-numbers of Covid-19 cases vs Covid-19 cases per 100 000 population, and
-2. aggregating over isoweek vs day) and apply a graphing function to the
-data according to each of these variable combinations.
+This example loops through multiple variable combinations. The
+combinations cross two choices:
+
+1.  raw numbers of Covid-19 cases, against Covid-19 cases per 100 000
+    population;
+2.  aggregation over isoweek, against aggregation over day.
+
+The example then applies a graphing function to the data for each
+combination.
 
 ``` r
 library(ggplot2)
@@ -333,10 +336,10 @@ p$get_argsets_as_dt()
 
     ##                           name_analysis index_analysis
     ##                                  <char>          <int>
-    ## 1: 1917f5f7-098d-4054-b797-278afddd8430              1
-    ## 2: 565c3e5c-8ae0-40e1-b7e8-f55838d6706f              2
-    ## 3: 5c4ba411-bc75-4171-8b29-10d29c9ff2fe              3
-    ## 4: 1d7ea9fd-283a-4978-89f0-23ed91ca3923              4
+    ## 1: 2b97fbf8-0394-47e1-96de-f306210eeb9f              1
+    ## 2: 7a520f0d-77b2-4e46-997a-d18db29ba710              2
+    ## 3: 696a0ccf-4850-44d1-8c32-d02540c7d052              3
+    ## 4: 675c9ac0-2320-4650-8522-bff2bddcb960              4
     ##                           variable granularity_time
     ##                             <list>           <list>
     ## 1:        covid19_cases_testdate_n          isoweek
@@ -398,8 +401,8 @@ p$run_one(4)
 
 ## Multi-function plan
 
-This approach is generally used when you are creating the output for a
-report, and you need multiple different tables and graphs.
+Use this approach when you create the output for a report, and you need
+multiple different tables and graphs.
 
 ``` r
 library(ggplot2)

@@ -1,39 +1,38 @@
 # R6 Class for Planning and Executing Analyses
 
-The `Plan` class provides a framework for organizing and executing
-multiple analyses on one or more datasets. It enforces a structured
-approach to analysis by:
+The `Plan` class organizes and runs multiple analyses on one or more
+datasets. It enforces a structured approach to analysis in three ways.
 
 1.  **Data Management**:
 
-    - Loading data once and reusing across analyses
+    - Load data once and reuse it across analyses
 
-    - Separating data cleaning from analysis
+    - Keep data cleaning separate from analysis
 
-    - Providing hash-based tracking of data changes
+    - Track data changes with a hash
 
 2.  **Analysis Structure**:
 
-    - Requiring all analyses to use the same data sources
+    - Require all analyses to use the same data sources
 
-    - Standardizing analysis functions to accept only `data` and
-      `argset` parameters
+    - Standardize analysis functions to accept only `data` and `argset`
+      parameters
 
-    - Organizing analyses into clear, maintainable plans
+    - Organize analyses into clear, maintainable plans
 
 3.  **Execution Control**:
 
-    - Supporting both single-function and multi-function analysis plans
+    - Support both single-function and multi-function analysis plans
 
-    - Providing flexible execution options (sequential or parallel)
+    - Run analyses either in sequence or in parallel
 
-    - Including built-in debugging tools
+    - Supply built-in debugging tools
 
 ## Details
 
 The framework uses three main concepts:
 
-- **Argset**: A named list containing a set of arguments for an analysis
+- **Argset**: A named list that holds a set of arguments for an analysis
 
 - **Analysis**: A combination of one argset and one action function
 
@@ -42,7 +41,7 @@ The framework uses three main concepts:
 ## See also
 
 [`vignette("plnr")`](https://www.rwhite.no/plnr/articles/plnr.md) for an
-introduction to argsets, analyses and plans, and
+introduction to argsets, analyses and plans. See
 [`vignette("adding_analyses")`](https://www.rwhite.no/plnr/articles/adding_analyses.md)
 for worked single-function and multi-function plans.
 
@@ -50,7 +49,8 @@ for worked single-function and multi-function plans.
 
 - `analyses`:
 
-  List of analyses, each containing an argset and action function
+  List of analyses. Each analysis holds one argset and one action
+  function.
 
 ## Methods
 
@@ -114,7 +114,7 @@ for worked single-function and multi-function plans.
 
 ### Method `new()`
 
-Create a new Plan instance
+Create a new Plan instance.
 
 #### Usage
 
@@ -124,23 +124,23 @@ Create a new Plan instance
 
 - `verbose`:
 
-  Logical, whether to show verbose output. Defaults to TRUE in
-  interactive mode or when config\$force_verbose is TRUE
+  Logical. Whether to show verbose output. The default is `TRUE` in
+  interactive mode, or when `config$force_verbose` is `TRUE`.
 
 - `use_foreach`:
 
-  Logical, whether to use foreach for parallel processing. NULL =
-  program decides, FALSE = use loop, TRUE = use foreach
+  Logical. Whether to use foreach for parallel processing. `NULL` lets
+  the program decide. `FALSE` uses a loop. `TRUE` uses foreach.
 
 #### Returns
 
-A new Plan instance
+A new Plan instance.
 
 ------------------------------------------------------------------------
 
 ### Method `add_data()`
 
-Add a new dataset to the plan
+Add a new dataset to the plan.
 
 #### Usage
 
@@ -150,24 +150,24 @@ Add a new dataset to the plan
 
 - `name`:
 
-  Character string, name of the dataset
+  Character string. The name of the dataset.
 
 - `fn`:
 
-  Function that returns the dataset (optional)
+  Optional. A function that returns the dataset.
 
 - `fn_name`:
 
-  Character string, name of a function that returns the dataset
-  (optional)
+  Optional. A character string that names a function that returns the
+  dataset.
 
 - `direct`:
 
-  Direct dataset object (optional)
+  Optional. The dataset object itself.
 
 #### Returns
 
-NULL, modifies the plan in place
+NULL. The method changes the plan in place.
 
 #### Examples
 
@@ -190,7 +190,7 @@ NULL, modifies the plan in place
 
 ### Method `add_argset()`
 
-Add a new argset to the plan
+Add a new argset to the plan.
 
 #### Usage
 
@@ -200,15 +200,15 @@ Add a new argset to the plan
 
 - `name`:
 
-  Character string, name of the argset (defaults to a UUID)
+  Character string. The name of the argset. The default is a UUID.
 
 - `...`:
 
-  Named arguments that will comprise the argset
+  Named arguments that make up the argset.
 
 #### Returns
 
-NULL, modifies the plan in place
+NULL. The method changes the plan in place.
 
 #### Examples
 
@@ -225,7 +225,7 @@ NULL, modifies the plan in place
 
 ### Method `add_argset_from_df()`
 
-Add multiple argsets from a data frame
+Add multiple argsets from a data frame.
 
 #### Usage
 
@@ -235,11 +235,11 @@ Add multiple argsets from a data frame
 
 - `df`:
 
-  Data frame where each row represents a new argset
+  A data frame. Each row is one new argset.
 
 #### Returns
 
-NULL, modifies the plan in place
+NULL. The method changes the plan in place.
 
 #### Examples
 
@@ -262,7 +262,7 @@ NULL, modifies the plan in place
 
 ### Method `add_argset_from_list()`
 
-Add multiple argsets from a list
+Add multiple argsets from a list.
 
 #### Usage
 
@@ -272,11 +272,11 @@ Add multiple argsets from a list
 
 - `l`:
 
-  List of lists, where each inner list represents a new argset
+  A list of lists. Each inner list is one new argset.
 
 #### Returns
 
-NULL, modifies the plan in place
+NULL. The method changes the plan in place.
 
 #### Examples
 
@@ -299,7 +299,7 @@ NULL, modifies the plan in place
 
 ### Method `add_analysis()`
 
-Add a new analysis to the plan
+Add a new analysis to the plan.
 
 #### Usage
 
@@ -309,23 +309,23 @@ Add a new analysis to the plan
 
 - `name`:
 
-  Character string, name of the analysis (defaults to a UUID)
+  Character string. The name of the analysis. The default is a UUID.
 
 - `fn`:
 
-  Function to use for the analysis (optional)
+  Optional. The function to use for the analysis.
 
 - `fn_name`:
 
-  Character string, name of the function to use (optional)
+  Optional. A character string that names the function to use.
 
 - `...`:
 
-  Additional arguments to be added to the argset
+  Further arguments to add to the argset.
 
 #### Returns
 
-NULL, modifies the plan in place
+NULL. The method changes the plan in place.
 
 #### Examples
 
@@ -348,7 +348,7 @@ NULL, modifies the plan in place
 
 ### Method `add_analysis_from_df()`
 
-Add multiple analyses from a data frame
+Add multiple analyses from a data frame.
 
 #### Usage
 
@@ -358,19 +358,19 @@ Add multiple analyses from a data frame
 
 - `fn`:
 
-  Function to use for all analyses (optional)
+  Optional. The function to use for all analyses.
 
 - `fn_name`:
 
-  Character string, name of the function to use (optional)
+  Optional. A character string that names the function to use.
 
 - `df`:
 
-  Data frame where each row represents a new analysis
+  A data frame. Each row is one new analysis.
 
 #### Returns
 
-NULL, modifies the plan in place
+NULL. The method changes the plan in place.
 
 #### Examples
 
@@ -400,7 +400,7 @@ NULL, modifies the plan in place
 
 ### Method `add_analysis_from_list()`
 
-Add multiple analyses from a list
+Add multiple analyses from a list.
 
 #### Usage
 
@@ -410,19 +410,19 @@ Add multiple analyses from a list
 
 - `fn`:
 
-  Function to use for all analyses (optional)
+  Optional. The function to use for all analyses.
 
 - `fn_name`:
 
-  Character string, name of the function to use (optional)
+  Optional. A character string that names the function to use.
 
 - `l`:
 
-  List of lists, where each inner list represents a new analysis
+  A list of lists. Each inner list is one new analysis.
 
 #### Returns
 
-NULL, modifies the plan in place
+NULL. The method changes the plan in place.
 
 #### Examples
 
@@ -452,7 +452,7 @@ NULL, modifies the plan in place
 
 ### Method `apply_action_fn_to_all_argsets()`
 
-Applies an action function to all the argsets
+Apply one action function to all the argsets.
 
 #### Usage
 
@@ -480,7 +480,7 @@ Applies an action function to all the argsets
 
 ### Method `apply_analysis_fn_to_all()`
 
-Deprecated. Use apply_action_fn_to_all_argsets.
+Deprecated. Use `apply_action_fn_to_all_argsets()` instead.
 
 #### Usage
 
@@ -510,7 +510,7 @@ Number of analyses in the plan.
 
 ### Method `x_seq_along()`
 
-Generate a regular sequence from 1 to the length of the analyses in the
+Generate a regular sequence from 1 to the number of analyses in the
 plan.
 
 #### Usage
@@ -521,7 +521,7 @@ plan.
 
 ### Method `set_progress()`
 
-Set an internal progress bar
+Set an internal progress bar.
 
 #### Usage
 
@@ -537,7 +537,7 @@ Set an internal progress bar
 
 ### Method `set_progressor()`
 
-Set an internal progressor progress bar
+Set an internal progressor progress bar.
 
 #### Usage
 
@@ -553,7 +553,7 @@ Set an internal progressor progress bar
 
 ### Method `set_verbose()`
 
-Set verbose flag
+Set the `verbose` flag.
 
 #### Usage
 
@@ -569,7 +569,7 @@ Set verbose flag
 
 ### Method `set_use_foreach()`
 
-Set use_foreach flag
+Set the `use_foreach` flag.
 
 #### Usage
 
@@ -585,8 +585,7 @@ Set use_foreach flag
 
 ### Method `get_data()`
 
-Extracts the data provided via 'add_data' and returns it as a named
-list.
+Extract the data added with `add_data()` and return it as a named list.
 
 #### Usage
 
@@ -594,12 +593,14 @@ list.
 
 #### Returns
 
-Named list, where most elements have been added via `add_data`.
+A named list. Most elements come from `add_data()`.
 
-One extra named element is called 'hash'. 'hash' contains the data
-hashes of particular datasets/variables, as calculated using the
-'spookyhash' algorithm via digest::digest. 'hash' contains two named
-elements:
+One extra named element is called 'hash'. 'hash' holds the data hashes
+of particular datasets and variables.
+[`digest::digest()`](https://eddelbuettel.github.io/digest/man/digest.html)
+calculates them with the 'spookyhash' algorithm.
+
+'hash' holds two named elements:
 
 - current (the hash of the entire named list)
 
@@ -616,7 +617,7 @@ elements:
 
 ### Method `get_analysis()`
 
-Extracts an analysis from the plan.
+Extract one analysis from the plan.
 
 #### Usage
 
@@ -626,8 +627,8 @@ Extracts an analysis from the plan.
 
 - `index_analysis`:
 
-  Either an integer (1:length(analyses)) or a character string
-  representing the name of the analysis.
+  Either an integer in `1:length(analyses)`, or a character string with
+  the name of the analysis.
 
 #### Returns
 
@@ -652,7 +653,7 @@ An analysis.
 
 ### Method `get_argset()`
 
-Extracts an argset from the plan.
+Extract one argset from the plan.
 
 #### Usage
 
@@ -662,12 +663,12 @@ Extracts an argset from the plan.
 
 - `index_analysis`:
 
-  Either an integer (1:length(analyses)) or a character string
-  representing the name of the analysis.
+  Either an integer in `1:length(analyses)`, or a character string with
+  the name of the analysis.
 
 #### Returns
 
-An argset
+An argset.
 
 #### Examples
 
@@ -688,7 +689,7 @@ An argset
 
 ### Method `get_argsets_as_dt()`
 
-Gets all argsets and presents them as a data.table.
+Get all argsets and return them as a data.table.
 
 #### Usage
 
@@ -696,7 +697,7 @@ Gets all argsets and presents them as a data.table.
 
 #### Returns
 
-Data.table that contains all the argsets within a plan.
+A data.table that holds all the argsets within a plan.
 
 #### Examples
 
@@ -717,7 +718,7 @@ Data.table that contains all the argsets within a plan.
 
 ### Method `run_one_with_data()`
 
-Run one analysis (data is provided by user).
+Run one analysis. You supply the data.
 
 #### Usage
 
@@ -727,12 +728,12 @@ Run one analysis (data is provided by user).
 
 - `index_analysis`:
 
-  Either an integer (1:length(analyses)) or a character string
-  representing the name of the analysis.
+  Either an integer in `1:length(analyses)`, or a character string with
+  the name of the analysis.
 
 - `data`:
 
-  Named list (generally obtained from p\$get_data()).
+  A named list. You normally get it from `p$get_data()`.
 
 - `...`:
 
@@ -740,7 +741,7 @@ Run one analysis (data is provided by user).
 
 #### Returns
 
-Returned value from the action function.
+The value that the action function returns.
 
 #### Examples
 
@@ -762,7 +763,7 @@ Returned value from the action function.
 
 ### Method `run_one()`
 
-Run one analysis (data is obtained automatically from self\$get_data()).
+Run one analysis. The method gets the data from `self$get_data()`.
 
 #### Usage
 
@@ -772,8 +773,8 @@ Run one analysis (data is obtained automatically from self\$get_data()).
 
 - `index_analysis`:
 
-  Either an integer (1:length(analyses)) or a character string
-  representing the name of the analysis.
+  Either an integer in `1:length(analyses)`, or a character string with
+  the name of the analysis.
 
 - `...`:
 
@@ -781,7 +782,7 @@ Run one analysis (data is obtained automatically from self\$get_data()).
 
 #### Returns
 
-Returned value from the action function.
+The value that the action function returns.
 
 #### Examples
 
@@ -802,7 +803,7 @@ Returned value from the action function.
 
 ### Method `run_all_with_data()`
 
-Run all analyses (data is provided by user).
+Run all analyses. You supply the data.
 
 #### Usage
 
@@ -812,7 +813,7 @@ Run all analyses (data is provided by user).
 
 - `data`:
 
-  Named list (generally obtained from p\$get_data()).
+  A named list. You normally get it from `p$get_data()`.
 
 - `...`:
 
@@ -820,8 +821,7 @@ Run all analyses (data is provided by user).
 
 #### Returns
 
-List where each element contains the returned value from the action
-function.
+A list. Each element is the value that the action function returns.
 
 #### Examples
 
@@ -843,7 +843,7 @@ function.
 
 ### Method `run_all()`
 
-Run all analyses (data is obtained automatically from self\$get_data()).
+Run all analyses. The method gets the data from `self$get_data()`.
 
 #### Usage
 
@@ -857,8 +857,7 @@ Run all analyses (data is obtained automatically from self\$get_data()).
 
 #### Returns
 
-List where each element contains the returned value from the action
-function.
+A list. Each element is the value that the action function returns.
 
 #### Examples
 
@@ -879,8 +878,8 @@ function.
 
 ### Method `run_all_progress()`
 
-Run all analyses with a progress bar (data is obtained automatically
-from self\$get_data()).
+Run all analyses and show a progress bar. The method gets the data from
+`self$get_data()`.
 
 #### Usage
 
@@ -894,8 +893,7 @@ from self\$get_data()).
 
 #### Returns
 
-List where each element contains the returned value from the action
-function.
+A list. Each element is the value that the action function returns.
 
 #### Examples
 
@@ -916,10 +914,10 @@ function.
 
 ### Method `run_all_parallel()`
 
-Run all analyses in parallel (data is obtained automatically from
-self\$get_data()).
+Run all analyses in parallel. The method gets the data from
+`self$get_data()`.
 
-This function only works on linux computers and uses `pbmcapply` as the
+This method works only on linux computers. It uses `pbmcapply` as the
 parallel backend.
 
 #### Usage
@@ -930,7 +928,7 @@ parallel backend.
 
 - `mc.cores`:
 
-  Number of cores to be used.
+  The number of cores to use.
 
 - `...`:
 
@@ -938,8 +936,7 @@ parallel backend.
 
 #### Returns
 
-List where each element contains the returned value from the action
-function.
+A list. Each element is the value that the action function returns.
 
 ------------------------------------------------------------------------
 

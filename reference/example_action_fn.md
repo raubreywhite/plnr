@@ -1,8 +1,8 @@
-# Example action function for demonstrating analysis structure
+# Example action function that shows the analysis structure
 
-This function serves as an example of how to structure an action
-function for use with the `Plan` class. It simply prints the names of
-the data and argset components it receives.
+`example_action_fn()` shows how to structure an action function for the
+`Plan` class. It prints the names of the data and argset components it
+receives.
 
 ## Usage
 
@@ -14,21 +14,22 @@ example_action_fn(data, argset)
 
 - data:
 
-  A named list containing the datasets for the analysis
+  A named list that holds the datasets for the analysis.
 
 - argset:
 
-  A named list containing the arguments for the analysis
+  A named list that holds the arguments for the analysis.
 
 ## Value
 
-NULL, prints information about the input data and argset
+NULL. `example_action_fn()` prints information about the input data and
+argset.
 
 ## See also
 
 [`vignette("adding_analyses")`](https://www.rwhite.no/plnr/articles/adding_analyses.md)
-for worked single-function and multi-function plans that attach an
-action function to a plan by `fn_name`.
+for worked single-function and multi-function plans. Those plans attach
+an action function to a plan by `fn_name`.
 
 Other example and test functions:
 [`example_data_fn_nor_covid19_cases_by_time_location()`](https://www.rwhite.no/plnr/reference/example_data_fn_nor_covid19_cases_by_time_location.md),

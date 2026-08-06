@@ -16,7 +16,7 @@ General-purpose utility functions for various tasks.
 - [`get_anything()`](https://www.rwhite.no/plnr/reference/get_anything.md)
   : Get objects with package namespace support
 - [`is_run_directly()`](https://www.rwhite.no/plnr/reference/is_run_directly.md)
-  : Check if code is being run directly or from within a function
+  : Check whether code runs directly, or from within a function
 - [`set_opts()`](https://www.rwhite.no/plnr/reference/set_opts.md) : Set
   package configuration options
 - [`try_again()`](https://www.rwhite.no/plnr/reference/try_again.md) :
@@ -34,7 +34,7 @@ Functions for setting up and managing example RMarkdown projects.
 Functions designed for testing analysis workflows.
 
 - [`example_action_fn()`](https://www.rwhite.no/plnr/reference/example_action_fn.md)
-  : Example action function for demonstrating analysis structure
+  : Example action function that shows the analysis structure
 - [`example_data_fn_nor_covid19_cases_by_time_location()`](https://www.rwhite.no/plnr/reference/example_data_fn_nor_covid19_cases_by_time_location.md)
   : An example data_fn that returns a data set
 - [`nor_covid19_cases_by_time_location`](https://www.rwhite.no/plnr/reference/nor_covid19_cases_by_time_location.md)

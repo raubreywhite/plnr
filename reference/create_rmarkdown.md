@@ -1,9 +1,9 @@
 # Create an example R Markdown project structure
 
-This function creates a complete example project structure for an R
-Markdown analysis using the `plnr` framework. It sets up a standardized
-directory structure and creates example files demonstrating how to use
-`plnr` for data analysis and report generation.
+`create_rmarkdown()` creates a complete example project structure for an
+R Markdown analysis that uses the `plnr` framework. It creates a
+standardized directory structure. It also creates example files that
+show how to use `plnr` for data analysis and for report generation.
 
 ## Usage
 
@@ -15,11 +15,12 @@ create_rmarkdown(home)
 
 - home:
 
-  Character string, the path where the project should be created
+  Character string. The path where `create_rmarkdown()` creates the
+  project.
 
 ## Value
 
-NULL, creates files and directories in the specified location
+NULL. `create_rmarkdown()` creates files and directories under `home`.
 
 ## Details
 
@@ -37,9 +38,9 @@ The created project includes:
 ## See also
 
 [`vignette("plnr")`](https://www.rwhite.no/plnr/articles/plnr.md) for
-the framework the generated `run.R` uses: one
-[Plan](https://www.rwhite.no/plnr/reference/Plan.md), one `add_data()`
-call, and one `add_analysis()` call per output.
+the framework the generated `run.R` uses. That `run.R` builds one
+[Plan](https://www.rwhite.no/plnr/reference/Plan.md). It then makes one
+`add_data()` call, and one `add_analysis()` call per output.
 
 ## Examples
 
@@ -48,7 +49,7 @@ call, and one `add_analysis()` call per output.
 # Create a temporary directory for the example
 temp_dir <- tempfile("plnr_example_")
 create_rmarkdown(temp_dir)
-#> ✔ Setting active project to "/tmp/RtmpnVMcPb/plnr_example_1bf7513ad48c".
+#> ✔ Setting active project to "/tmp/Rtmph6BlzF/plnr_example_1c02582ade6a".
 #> ✔ Writing a sentinel file .here.
 #> ☐ Build robust paths within your project via `here::here()`.
 #> ℹ Learn more at <https://here.r-lib.org>.

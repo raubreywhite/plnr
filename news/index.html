@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">plnr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.8.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.8.6</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,10 +45,16 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2026.8.6" id="version-202686">Version 2026.8.6<a class="anchor" aria-label="anchor" href="#version-202686"></a></h2>
+<ul><li>Prose only. This release rewrites the roxygen documentation, both vignettes, <code>README.md</code>, <code>index.md</code> and <code>NEWS.md</code> to ASD-STE100 (Simplified Technical English). The R sources are semantically identical to the previous release.</li>
+<li>No claim changed. The sweep found documented claims that the code does not support. It left every one of those claims in place, and reported it.</li>
+<li>The rewrite splits long sentences, prefers the active voice, and uses one term for each concept. It also uses the RFC-2119 keywords MUST and MAY in the <code><a href="../reference/test_action_fn.html">test_action_fn()</a></code> <code>@seealso</code>, which states the action-function contract.</li>
+</ul></div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2026.8.3" id="version-202683">Version 2026.8.3<a class="anchor" aria-label="anchor" href="#version-202683"></a></h2>
-<ul><li>Mostly documentation and roxygen comments, plus two bug fixes that do change behaviour: <code><a href="../reference/create_rmarkdown.html">create_rmarkdown()</a></code> and <code>Plan$add_analysis_from_list()</code>. Both are described below. Apart from those two, the R sources are semantically identical to the previous release.</li>
+<ul><li>This release is mostly documentation and roxygen comments. It also carries two bug fixes that do change behavior: <code><a href="../reference/create_rmarkdown.html">create_rmarkdown()</a></code> and <code>Plan$add_analysis_from_list()</code>. The entries below describe both. Apart from those two fixes, the R sources are semantically identical to the previous release.</li>
 <li>
-<code>@seealso</code> added to all ten exported functions. Eight point at the vignette that covers them; <code><a href="../reference/set_opts.html">set_opts()</a></code> and <code><a href="../reference/try_again.html">try_again()</a></code> are not covered by either vignette, and their text says so rather than implying coverage.</li>
+<code>@seealso</code> added to all ten exported functions. Eight point at the vignette that covers them. No vignette covers <code><a href="../reference/set_opts.html">set_opts()</a></code> or <code><a href="../reference/try_again.html">try_again()</a></code>, and the text of those two says so.</li>
 <li>
 <code>@family example and test functions</code> added to <code><a href="../reference/example_action_fn.html">example_action_fn()</a></code>, <code><a href="../reference/test_action_fn.html">test_action_fn()</a></code> and <code><a href="../reference/example_data_fn_nor_covid19_cases_by_time_location.html">example_data_fn_nor_covid19_cases_by_time_location()</a></code>.</li>
 <li>Runnable examples added to <code><a href="../reference/example_data_fn_nor_covid19_cases_by_time_location.html">example_data_fn_nor_covid19_cases_by_time_location()</a></code> and <code><a href="../reference/test_action_fn.html">test_action_fn()</a></code>, which previously had none.</li>
@@ -56,72 +62,73 @@
 <code><a href="../reference/try_again.html">try_again()</a></code> examples taken out of <code>\dontrun{}</code>. They now run, and show a retry that fails once and succeeds on the second attempt.</li>
 <li>
 <code><a href="../reference/create_rmarkdown.html">create_rmarkdown()</a></code> examples moved from <code>\dontrun{}</code> to <code>\donttest{}</code>, so <code>R CMD check</code> runs them.</li>
-<li>Fixed <code><a href="../reference/create_rmarkdown.html">create_rmarkdown()</a></code>, which evaluated <code>{lubridate::today()}</code> while generating <code>run.R</code> instead of writing it out literally. The brace was not escaped, so glue resolved it at generation time. Two consequences: every generated project had a frozen date baked in rather than one that evaluates when the user runs it, and <code><a href="../reference/create_rmarkdown.html">create_rmarkdown()</a></code> silently required lubridate, which plnr does not depend on. Both are gone.</li>
+<li>Fixed <code><a href="../reference/create_rmarkdown.html">create_rmarkdown()</a></code>, which evaluated <code>{lubridate::today()}</code> while it generated <code>run.R</code>, instead of writing the brace out literally. The brace was not escaped, so glue resolved it at generation time. That had two consequences. Every generated project carried a frozen date, not one that evaluates when the user runs it. <code><a href="../reference/create_rmarkdown.html">create_rmarkdown()</a></code> also silently needed lubridate, which plnr does not depend on. Both consequences are gone.</li>
 <li>
-<code>index.md</code> and <code>Rplots.pdf</code> added to <code>.Rbuildignore</code>, so the pkgdown home page source is no longer shipped in the tarball.</li>
-<li>Fixed <code>Plan$add_analysis_from_list()</code>, which decided whether to apply the method-level <code>fn_name</code> by reading <code>names(df)</code>. <code>df</code> is not a parameter of that method and is not defined in it, so the lookup escaped to whatever <code>df</code> the search path happened to offer: normally <code><a href="https://rdrr.io/r/stats/Fdist.html" class="external-link">stats::df</a></code>, the F-distribution density. <code>names(stats::df)</code> is <code>NULL</code>, so the guard always passed and the mistake stayed invisible. It now reads <code>names(argset)</code>, which is what the line above it builds and what the sibling <code>add_analysis_from_df()</code> guards on. Two consequences: an argset that carries its own <code>fn_name</code> keeps it instead of being silently overwritten, matching <code>add_analysis_from_df()</code>; and the method no longer fails when <code>stats</code> is not attached, which is how <code>R CMD check</code> loads a package in its minimal-namespace tests. Covered by <code>tests/testthat/test-add-analysis-from-list.R</code>.</li>
+<code>index.md</code> and <code>Rplots.pdf</code> added to <code>.Rbuildignore</code>, so <code>R CMD build</code> no longer ships the pkgdown home page source in the tarball.</li>
+<li>Fixed <code>Plan$add_analysis_from_list()</code>. It decided whether to apply the method-level <code>fn_name</code> by reading <code>names(df)</code>. <code>df</code> is not a parameter of that method, and the method does not define it. The lookup therefore escaped to whatever <code>df</code> the search path offered, normally <code><a href="https://rdrr.io/r/stats/Fdist.html" class="external-link">stats::df</a></code>, the F-distribution density. <code>names(stats::df)</code> is <code>NULL</code>, so the guard always passed and the mistake stayed invisible. The method now reads <code>names(argset)</code>. That is what the line above it builds, and what the sibling <code>add_analysis_from_df()</code> guards on. The fix has two consequences. An argset that carries its own <code>fn_name</code> keeps it, instead of losing it to a silent overwrite, which matches <code>add_analysis_from_df()</code>. The method also no longer fails when <code>stats</code> is not attached, which is how <code>R CMD check</code> loads a package in its minimal-namespace tests. <code>tests/testthat/test-add-analysis-from-list.R</code> covers the fix.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2025.11.22" id="version-20251122">Version 2025.11.22<a class="anchor" aria-label="anchor" href="#version-20251122"></a></h2><p class="text-muted">CRAN release: 2025-11-22</p>
-<ul><li>Replacing <code><a href="https://purrr.tidyverse.org/reference/cross.html" class="external-link">purrr::cross</a></code> with <code><a href="https://tidyr.tidyverse.org/reference/expand_grid.html" class="external-link">tidyr::expand_grid()</a></code>
-</li>
+<ul><li>Replaced <code><a href="https://purrr.tidyverse.org/reference/cross.html" class="external-link">purrr::cross</a></code> with <code><a href="https://tidyr.tidyverse.org/reference/expand_grid.html" class="external-link">tidyr::expand_grid()</a></code>.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2025.3.19" id="version-2025319">Version 2025.3.19<a class="anchor" aria-label="anchor" href="#version-2025319"></a></h2>
-<ul><li>Comprehensive improvements to roxygen2 documentation across all R files:
-<ul><li>Enhanced Plan class documentation with better structure and clearer explanations</li>
-<li>Improved method documentation with detailed parameter descriptions and examples</li>
-<li>Added comprehensive documentation for internal functions</li>
-<li>Enhanced documentation for utility functions (is_run_directly, get_anything, expand_list)</li>
+<ul><li>Improvements to roxygen2 documentation across all R files:
+<ul><li>Restructured the Plan class documentation and made the explanations clearer</li>
+<li>Added detailed parameter descriptions and examples to the method documentation</li>
+<li>Added documentation for the internal functions</li>
+<li>Added documentation for the utility functions <code><a href="../reference/is_run_directly.html">is_run_directly()</a></code>, <code><a href="../reference/get_anything.html">get_anything()</a></code> and <code><a href="../reference/expand_list.html">expand_list()</a></code>
+</li>
 <li>Added detailed examples and usage patterns for all functions</li>
-<li>Improved clarity and consistency across all documentation</li>
+<li>Made all the documentation clearer and more consistent</li>
 </ul></li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2024.1.18" id="version-2024118">Version 2024.1.18<a class="anchor" aria-label="anchor" href="#version-2024118"></a></h2>
-<ul><li>plan$run_all_parallel public method created.</li>
+<ul><li>Created the <code>plan$run_all_parallel()</code> public method.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2022.6.8" id="version-202268">Version 2022.6.8<a class="anchor" aria-label="anchor" href="#version-202268"></a></h2><p class="text-muted">CRAN release: 2022-06-09</p>
-<ul><li>plan$set_use_foreach public method created</li>
+<ul><li>Created the <code>plan$set_use_foreach()</code> public method.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2022.6.7" id="version-202267">Version 2022.6.7<a class="anchor" aria-label="anchor" href="#version-202267"></a></h2>
-<ul><li>CRAN submission</li>
-<li>Additional documentation</li>
-<li>Moving some plan public fields into private</li>
+<ul><li>CRAN submission.</li>
+<li>Additional documentation.</li>
+<li>Moved some plan public fields into private.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2022.5.27" id="version-2022527">Version 2022.5.27<a class="anchor" aria-label="anchor" href="#version-2022527"></a></h2>
-<ul><li>Including new vignette explaining how to add analyses to a plan.</li>
+<ul><li>Added a new vignette that explains how to add analyses to a plan.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2022.4.6" id="version-202246">Version 2022.4.6<a class="anchor" aria-label="anchor" href="#version-202246"></a></h2>
-<ul><li>Inclusion of hash functions in get_data.</li>
+<ul><li>Added hash functions to <code>get_data()</code>.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2021.6.9" id="version-202169">Version 2021.6.9<a class="anchor" aria-label="anchor" href="#version-202169"></a></h2>
-<ul><li>Inclusion of easy_split.</li>
+<ul><li>Added <code>easy_split()</code>.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2020.5.11" id="version-2020511">Version 2020.5.11<a class="anchor" aria-label="anchor" href="#version-2020511"></a></h2>
-<ul><li>fn_name can now take package::function_name arguments.</li>
+<ul><li>
+<code>fn_name</code> can now take <code>package::function_name</code> arguments.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2020.5.4" id="version-202054">Version 2020.5.4<a class="anchor" aria-label="anchor" href="#version-202054"></a></h2>
-<ul><li>is_run_directly function created, allowing the user to see if their code is being run directly or from within a function.</li>
+<ul><li>Created the <code><a href="../reference/is_run_directly.html">is_run_directly()</a></code> function. It shows the user whether their code runs directly, or from within a function.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2020.4.3" id="version-202043">Version 2020.4.3<a class="anchor" aria-label="anchor" href="#version-202043"></a></h2>
-<ul><li>set_opts function created, allowing for force_verbose to be set package wide.</li>
+<ul><li>Created the <code><a href="../reference/set_opts.html">set_opts()</a></code> function. It sets <code>force_verbose</code> package wide.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2020.2.20" id="version-2020220">Version 2020.2.20<a class="anchor" aria-label="anchor" href="#version-2020220"></a></h2>
-<ul><li>create_rmarkdown skeleton created.</li>
+<ul><li>Created the <code><a href="../reference/create_rmarkdown.html">create_rmarkdown()</a></code> skeleton.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2020.1.28" id="version-2020128">Version 2020.1.28<a class="anchor" aria-label="anchor" href="#version-2020128"></a></h2>
-<ul><li>parallel_possible variable when initializing new Plan.</li>
+<ul><li>Added the <code>parallel_possible</code> variable for a new Plan.</li>
 </ul></div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
