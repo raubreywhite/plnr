@@ -2,22 +2,23 @@
 % Please edit documentation in R/plan.R
 \name{example_action_fn}
 \alias{example_action_fn}
-\title{Example action function for demonstrating analysis structure}
+\title{Example action function that shows the analysis structure}
 \usage{
 example_action_fn(data, argset)
 }
 \arguments{
-\item{data}{A named list containing the datasets for the analysis}
+\item{data}{A named list that holds the datasets for the analysis.}
 
-\item{argset}{A named list containing the arguments for the analysis}
+\item{argset}{A named list that holds the arguments for the analysis.}
 }
 \value{
-NULL, prints information about the input data and argset
+NULL. \code{example_action_fn()} prints information about the input data
+and argset.
 }
 \description{
-This function serves as an example of how to structure an action function
-for use with the \code{Plan} class. It simply prints the names of the data
-and argset components it receives.
+\code{example_action_fn()} shows how to structure an action function for the
+\code{Plan} class. It prints the names of the data and argset components it
+receives.
 }
 \examples{
 # Create a new plan
@@ -45,7 +46,8 @@ p$run_one("analysis_1")
 }
 \seealso{
 \code{vignette("adding_analyses")} for worked single-function and
-multi-function plans that attach an action function to a plan by \code{fn_name}.
+multi-function plans. Those plans attach an action function to a plan by
+\code{fn_name}.
 
 Other example and test functions: 
 \code{\link{example_data_fn_nor_covid19_cases_by_time_location}()},

@@ -7,12 +7,13 @@
 hash_it(x)
 }
 \arguments{
-\item{x}{The object to hash}
+\item{x}{The object to hash.}
 }
 \value{
-A character string containing the hash
+A character string that holds the hash.
 }
 \description{
-Internal function to create a hash of an object using the digest package.
+\code{hash_it()} is an internal function. It creates a hash of an object with the
+digest package.
 }
 \keyword{internal}

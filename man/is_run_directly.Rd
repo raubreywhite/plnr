@@ -2,19 +2,19 @@
 % Please edit documentation in R/is_run_directly.R
 \name{is_run_directly}
 \alias{is_run_directly}
-\title{Check if code is being run directly or from within a function}
+\title{Check whether code runs directly, or from within a function}
 \usage{
 is_run_directly()
 }
 \value{
-A logical value: \code{TRUE} if the code is being run directly (i.e., from the global
-environment), \code{FALSE} if it's being run from within a function call
+A logical value. \code{TRUE} means the code runs directly, from the global
+environment. \code{FALSE} means the code runs from within a function call.
 }
 \description{
-This function determines whether code is being executed directly in the global environment
-or from within a function call. It's particularly useful for development and debugging
-purposes, allowing functions to behave differently when run directly versus when called
-as part of a larger analysis plan.
+\code{is_run_directly()} reports whether the code runs directly in the global
+environment, or from within a function call. Use it during development and
+debugging. A function can then behave one way when you run it directly, and
+another way when a larger analysis plan calls it.
 }
 \examples{
 # When run directly
@@ -27,6 +27,7 @@ test_fn <- function() {
 test_fn()
 }
 \seealso{
-\code{vignette("plnr")}, whose "Debugging Tools" section shows this used
-inside an action function to load \code{data} and \code{argset} while developing it.
+\code{vignette("plnr")}. Its "Debugging Tools" section calls
+\code{is_run_directly()} inside an action function, to load \code{data} and \code{argset}
+while you develop that function.
 }

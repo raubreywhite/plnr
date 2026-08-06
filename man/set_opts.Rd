@@ -7,15 +7,15 @@
 set_opts(force_verbose = FALSE)
 }
 \arguments{
-\item{force_verbose}{Logical, whether to force verbose output messages regardless
-of the interactive state. Defaults to \code{FALSE}}
+\item{force_verbose}{Logical. Whether to force verbose output messages,
+whatever the interactive state is. The default is \code{FALSE}.}
 }
 \value{
-NULL, modifies the package's internal configuration
+NULL. \code{set_opts()} changes the internal configuration of the package.
 }
 \description{
-This function allows users to configure package-wide options, such as verbosity
-of output messages. It modifies the package's internal configuration state.
+\code{set_opts()} sets package-wide options, such as the verbosity of output
+messages. It changes the internal configuration state of the package.
 }
 \examples{
 # Enable verbose output
@@ -25,7 +25,7 @@ set_opts(force_verbose = TRUE)
 set_opts(force_verbose = FALSE)
 }
 \seealso{
-\link{Plan}, whose \code{verbose} argument is on by default when either the
-session is interactive or \code{force_verbose} is \code{TRUE}, and \code{vignette("plnr")}
-for an introduction to the framework.
+\link{Plan}. Its \code{verbose} argument is on by default when the session is
+interactive, or when \code{force_verbose} is \code{TRUE}. See \code{vignette("plnr")} for an
+introduction to the framework.
 }

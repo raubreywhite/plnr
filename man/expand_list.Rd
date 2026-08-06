@@ -7,16 +7,17 @@
 expand_list(...)
 }
 \arguments{
-\item{...}{Named arguments, each containing a vector or list of values to combine}
+\item{...}{Named arguments. Each one holds a vector or a list of values to
+combine.}
 }
 \value{
-A list of lists, where each inner list contains one combination of values
-from the input arguments
+A list of lists. Each inner list holds one combination of values from
+the input arguments.
 }
 \description{
-This function creates a cross product of multiple lists, similar to \code{tidyr::expand_grid()}
-but with a more convenient interface that doesn't require wrapping arguments in an
-extra \code{list()}. It's useful for generating combinations of parameters for analysis.
+\code{expand_list()} creates a cross product of multiple lists. It works like
+\code{tidyr::expand_grid()}, but you do not need to wrap the arguments in an extra
+\code{list()}. Use it to build combinations of analysis parameters.
 }
 \examples{
 # Create combinations of parameters
@@ -35,7 +36,7 @@ tidyr::expand_grid(list(
 ))
 }
 \seealso{
-\link{Plan}, whose \code{add_argset_from_list()} method consumes this list,
-and \code{vignette("adding_analyses")}, which builds argsets with
-\code{plnr::expand_list()} before applying an action function to all of them.
+\link{Plan}. Its \code{add_argset_from_list()} method takes this list. See
+\code{vignette("adding_analyses")}, which builds argsets with
+\code{plnr::expand_list()}, then applies one action function to all of them.
 }

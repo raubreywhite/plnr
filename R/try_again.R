@@ -1,21 +1,23 @@
 #' Retry code execution with exponential backoff
 #'
-#' This function attempts to execute code multiple times with random delays between
-#' attempts. It's particularly useful for handling transient failures in operations
-#' that may succeed on subsequent attempts, such as network requests or file operations.
+#' `try_again()` runs code multiple times, with a random delay between attempts.
+#' Use it for transient failures in operations that a later attempt can succeed
+#' at, such as network requests or file operations.
 #'
-#' The function is adapted from the `try_again` function in the testthat package,
-#' but with additional features for controlling retry behavior and verbosity.
+#' `try_again()` is adapted from the `try_again` function in the testthat
+#' package. It adds features that control the retry behavior and the verbosity.
 #'
-#' @param x The code to execute (as an expression)
-#' @param times Integer, the maximum number of attempts to make. Defaults to 2
-#' @param delay_seconds_min Numeric, the minimum delay in seconds between attempts.
-#' Defaults to 5
-#' @param delay_seconds_max Numeric, the maximum delay in seconds between attempts.
-#' Defaults to 10
-#' @param verbose Logical, whether to show progress information. Defaults to `FALSE`
-#' @return `TRUE` invisibly if successful, otherwise throws an error with the last
-#' error message
+#' @param x The code to run, as an expression.
+#' @param times Integer. The maximum number of attempts to make. The default
+#' is 2.
+#' @param delay_seconds_min Numeric. The minimum delay in seconds between
+#' attempts. The default is 5.
+#' @param delay_seconds_max Numeric. The maximum delay in seconds between
+#' attempts. The default is 10.
+#' @param verbose Logical. Whether to show progress information. The default is
+#' `FALSE`.
+#' @return `TRUE`, invisibly, after an attempt succeeds. `try_again()` throws an
+#' error with the last error message when every attempt fails.
 #' @examples
 #' # A call that succeeds on the first attempt returns immediately
 #' print(try_again(1 + 1))
@@ -36,8 +38,9 @@
 #'
 #' # The expression really was evaluated twice
 #' attempt_n
-#' @seealso `vignette("plnr")` for an introduction to the framework. This is a
-#' general-purpose retry helper and is not part of the [Plan] workflow.
+#' @seealso `vignette("plnr")` for an introduction to the framework.
+#' `try_again()` is a general-purpose retry helper. It is not part of the [Plan]
+#' workflow.
 #' @export
 try_again <- function(
   x,

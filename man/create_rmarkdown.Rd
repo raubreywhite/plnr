@@ -7,15 +7,18 @@
 create_rmarkdown(home)
 }
 \arguments{
-\item{home}{Character string, the path where the project should be created}
+\item{home}{Character string. The path where \code{create_rmarkdown()} creates the
+project.}
 }
 \value{
-NULL, creates files and directories in the specified location
+NULL. \code{create_rmarkdown()} creates files and directories under
+\code{home}.
 }
 \description{
-This function creates a complete example project structure for an R Markdown analysis
-using the \code{plnr} framework. It sets up a standardized directory structure and creates
-example files demonstrating how to use \code{plnr} for data analysis and report generation.
+\code{create_rmarkdown()} creates a complete example project structure for an R
+Markdown analysis that uses the \code{plnr} framework. It creates a standardized
+directory structure. It also creates example files that show how to use
+\code{plnr} for data analysis and for report generation.
 }
 \details{
 The created project includes:
@@ -39,6 +42,7 @@ unlink(temp_dir, recursive = TRUE)
 }
 }
 \seealso{
-\code{vignette("plnr")} for the framework the generated \code{run.R} uses:
-one \link{Plan}, one \code{add_data()} call, and one \code{add_analysis()} call per output.
+\code{vignette("plnr")} for the framework the generated \code{run.R} uses. That
+\code{run.R} builds one \link{Plan}. It then makes one \code{add_data()} call, and one
+\code{add_analysis()} call per output.
 }

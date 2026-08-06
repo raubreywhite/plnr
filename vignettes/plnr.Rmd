@@ -11,7 +11,7 @@ editor_options:
 
 # Introduction
 
-`plnr` is a framework for planning and executing analyses in R. It's designed to help you organize and run multiple analyses efficiently, whether you're applying the same function with different arguments or running multiple different functions on your data.
+`plnr` is a framework for planning and executing analyses in R. Use it to organize and run multiple analyses. It covers two cases: the same function applied with different arguments, and multiple different functions applied to your data.
 
 ## Core Concepts
 
@@ -59,7 +59,7 @@ editor_options:
 
 ## Basic Usage
 
-Let's start with a simple example that demonstrates the core concepts:
+This simple example shows the core concepts:
 
 ```{r, collapse=FALSE}
 library(plnr)
@@ -107,11 +107,15 @@ p$run_one("fig_1_2002")
 
 ### Data Management
 
-The framework ensures efficient data management by: - Loading data once and reusing across analyses - Separating data cleaning from analysis - Providing hash-based tracking of data changes
+The framework makes data management efficient in three ways:
+
+- It loads data once and reuses it across analyses.
+- It keeps data cleaning separate from analysis.
+- It tracks data changes with a hash.
 
 ### Debugging Tools
 
-`plnr` includes several tools to help with development and debugging:
+`plnr` includes several tools for development and debugging:
 
 ```{r, collapse=FALSE}
 # Access data directly
@@ -136,7 +140,7 @@ fn_analysis <- function(data, argset) {
 
 ### Function Naming
 
-When adding analyses, you can use either `fn_name` or `fn`:
+When you add an analysis, you can use either `fn_name` or `fn`:
 
 ```{r, collapse=FALSE}
 # Using fn_name (recommended)
@@ -179,24 +183,24 @@ p1$get_data()$hash$current_elements
 ## Best Practices
 
 1.  **Data Organization**
-    -   Keep data cleaning separate from analysis
-    -   Use meaningful names for datasets
-    -   Document data structure and assumptions
+    -   Keep data cleaning separate from analysis.
+    -   Use meaningful names for datasets.
+    -   Document the data structure and the assumptions.
 2.  **Analysis Functions**
-    -   Always accept `data` and `argset` parameters
-    -   Use `is_run_directly()` for development
-    -   Keep functions focused and single-purpose
+    -   An action function MUST accept `data` and `argset` parameters.
+    -   Use `is_run_directly()` during development.
+    -   Keep each function focused on one purpose.
 3.  **Plan Structure**
-    -   Use meaningful names for argsets and analyses
-    -   Group related analyses together
-    -   Document plan structure and dependencies
+    -   Use meaningful names for argsets and analyses.
+    -   Group related analyses together.
+    -   Document the plan structure and its dependencies.
 4.  **Development Workflow**
-    -   Start with small examples
-    -   Use debugging tools during development
-    -   Test analyses individually before running full plan
+    -   Start with small examples.
+    -   Use the debugging tools during development.
+    -   Test each analysis on its own, before you run the full plan.
 
 ## Next Steps
 
-1.  Read the [Adding Analyses](https://www.rwhite.no/plnr/articles/adding_analyses.html) vignette for more detailed examples
-2.  Check out the [package website](https://www.rwhite.no/plnr/) for additional resources
-3.  Explore the function documentation with `help(package="plnr")`
+1.  Read the [Adding Analyses](https://www.rwhite.no/plnr/articles/adding_analyses.html) vignette for more detailed examples.
+2.  Visit the [package website](https://www.rwhite.no/plnr/) for additional resources.
+3.  Read the function documentation with `help(package="plnr")`.

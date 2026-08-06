@@ -7,16 +7,17 @@
 test_action_fn(data, argset)
 }
 \arguments{
-\item{data}{A named list containing the datasets (unused in this example)}
+\item{data}{A named list that holds the datasets. This example does not use
+it.}
 
-\item{argset}{A named list containing the arguments (unused in this example)}
+\item{argset}{A named list that holds the arguments. This example does not
+use it.}
 }
 \value{
 The integer 1
 }
 \description{
-A simple test function that always returns 1, useful for testing
-the Plan framework's functionality.
+\code{test_action_fn()} always returns 1. Use it to test the \code{Plan} framework.
 }
 \examples{
 # Called directly, it ignores both arguments and returns 1
@@ -33,8 +34,8 @@ p$run_one("analysis_1")
 }
 \seealso{
 \code{vignette("plnr")} for the \code{data}/\code{argset} contract. An action
-function must accept at least the supplied data and argset values; it may
-take further arguments, and a directly supplied \code{fn} receives the argset
+function MUST accept at least the supplied data and argset values. It MAY
+take further arguments. A directly supplied \code{fn} receives the argset
 positionally, so its second formal need not be named \code{argset}.
 
 Other example and test functions: 

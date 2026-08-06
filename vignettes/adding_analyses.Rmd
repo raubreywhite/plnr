@@ -55,16 +55,16 @@ editor_options:
 
 ## Single-function plan
 
-This approach is generally used when you:
+Use this approach in one of these two cases:
 
--   Have multiple strata (e.g. locations, age groups) that you need to apply the same statistical methods to.
--   Have multiple variables (e.g. multiple exposures, multiple outcomes) that you want to apply the same statistical methods to.
+-   You have multiple strata (e.g. locations, age groups) that you need to apply the same statistical methods to.
+-   You have multiple variables (e.g. multiple exposures, multiple outcomes) that you want to apply the same statistical methods to.
 
-When we apply the same function multiple times, it is preferable to add the argsets first, and then apply the analysis function just before running the analyses.
+When you apply the same function multiple times, add the argsets first. Then apply the analysis function, just before you run the analyses.
 
 ### Multiple strata
 
-In this example, we loop through multiple geographical locations and apply a graphing function to the data from each of these geographical locations.
+This example loops through multiple geographical locations. It applies a graphing function to the data from each of those locations.
 
 ```{r, collapse=FALSE}
 library(ggplot2)
@@ -131,7 +131,12 @@ q[[2]]
 
 ### Multiple variables
 
-In this example, we loop through multiple variable combinations (1. raw numbers of Covid-19 cases vs Covid-19 cases per 100 000 population, and 2. aggregating over isoweek vs day) and apply a graphing function to the data according to each of these variable combinations.
+This example loops through multiple variable combinations. The combinations cross two choices:
+
+1.  raw numbers of Covid-19 cases, against Covid-19 cases per 100 000 population;
+2.  aggregation over isoweek, against aggregation over day.
+
+The example then applies a graphing function to the data for each combination.
 
 ```{r, collapse=FALSE}
 library(ggplot2)
@@ -193,7 +198,7 @@ p$run_one(4)
 
 ## Multi-function plan
 
-This approach is generally used when you are creating the output for a report, and you need multiple different tables and graphs.
+Use this approach when you create the output for a report, and you need multiple different tables and graphs.
 
 ```{r, collapse=FALSE}
 library(ggplot2)

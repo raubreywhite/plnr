@@ -3,29 +3,29 @@
 [![CRAN status](https://www.r-pkg.org/badges/version/plnr)](https://cran.r-project.org/package=plnr)
 [![CRAN downloads](https://cranlogs.r-pkg.org/badges/plnr)](https://cran.r-project.org/package=plnr)
 
-## Overview 
+## Overview
 
-[plnr](https://www.rwhite.no/plnr/) is a powerful framework for planning and executing analyses in R. It's designed for scenarios where you need to:
+[plnr](https://www.rwhite.no/plnr/) is a framework for planning and executing analyses in R. Use it when you need to do one of these:
 
 - Run the same function multiple times with different arguments
-- Execute multiple different functions on the same datasets
+- Run multiple different functions on the same datasets
 - Create systematic analyses across multiple strata or variables
 
 ### Key Features
 
-- **Efficient Data Management**: Load data once and reuse across multiple analyses
+- **Efficient Data Management**: Load the data once and reuse it across multiple analyses
 - **Structured Analysis Planning**: Organize analyses into clear, maintainable plans
 - **Flexible Execution**: Support for both single-function and multi-function analysis plans
-- **Built-in Debugging**: Convenient tools for development and testing
+- **Built-in Debugging**: Tools for development and testing
 - **Parallel Processing**: Optional parallel execution of analyses
 - **Hash-based Caching**: Track data changes and optimize execution
 
 ### Common Use Cases
 
-- Applying the same analysis across multiple strata (e.g., locations, age groups)
-- Running statistical methods on multiple variables (e.g., exposures, outcomes)
-- Generating multiple tables or graphs for reports
-- Creating systematic surveillance analyses
+- Apply the same analysis across multiple strata, such as locations or age groups
+- Run statistical methods on multiple variables, such as exposures or outcomes
+- Create multiple tables or graphs for reports
+- Create systematic surveillance analyses
 
 ## Installation from CRAN
 
@@ -35,9 +35,9 @@ install.packages("plnr")
 
 ## Getting Started
 
-1. Read the [introduction vignette](https://www.rwhite.no/plnr/articles/plnr.html)
-2. Check out the [adding analyses guide](https://www.rwhite.no/plnr/articles/adding_analyses.html)
-3. Run `help(package="plnr")` for detailed function documentation
+1. Read the [introduction vignette](https://www.rwhite.no/plnr/articles/plnr.html).
+2. Read the [adding analyses guide](https://www.rwhite.no/plnr/articles/adding_analyses.html).
+3. Run `help(package="plnr")` for the function documentation.
 
 ## Quick Example
 
@@ -77,8 +77,8 @@ p$run_one("fig_1_2002")
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a [Pull Request](https://github.com/raubreywhite/plnr/pulls).
+Contributions are welcome. Submit a [Pull Request](https://github.com/raubreywhite/plnr/pulls).
 
 ## License
 
-This package is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+The MIT License covers this package. Read the [LICENSE](LICENSE) file for the full text.

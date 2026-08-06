@@ -7,15 +7,16 @@
 get_anything(x)
 }
 \arguments{
-\item{x}{Character string specifying the object to retrieve. Can be either a simple
-object name or a namespace-qualified name (e.g., "pkg::var")}
+\item{x}{Character string that names the object to get. The name is either a
+simple object name, or a namespace-qualified name such as \code{"pkg::var"}.}
 }
 \value{
-The requested object
+The requested object.
 }
 \description{
-This function extends \code{base::get()} to support package namespace scoping (e.g., "pkg::var").
-It's particularly useful when working with package exports and namespace-qualified objects.
+\code{get_anything()} extends \code{base::get()} to support package namespace scoping,
+for example \code{"pkg::var"}. Use it for package exports and for
+namespace-qualified objects.
 }
 \examples{
 # Get a namespace-qualified object
@@ -26,6 +27,6 @@ x <- 1
 get_anything("x")
 }
 \seealso{
-\code{vignette("plnr")}, whose "Function Naming" section covers the
-\code{fn_name} strings that a \link{Plan} resolves with this function.
+\code{vignette("plnr")}. Its "Function Naming" section covers the
+\code{fn_name} strings that a \link{Plan} resolves with \code{get_anything()}.
 }

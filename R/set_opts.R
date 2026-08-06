@@ -1,20 +1,20 @@
 #' Set package configuration options
 #'
-#' This function allows users to configure package-wide options, such as verbosity
-#' of output messages. It modifies the package's internal configuration state.
+#' `set_opts()` sets package-wide options, such as the verbosity of output
+#' messages. It changes the internal configuration state of the package.
 #'
-#' @param force_verbose Logical, whether to force verbose output messages regardless
-#' of the interactive state. Defaults to `FALSE`
-#' @return NULL, modifies the package's internal configuration
+#' @param force_verbose Logical. Whether to force verbose output messages,
+#' whatever the interactive state is. The default is `FALSE`.
+#' @return NULL. `set_opts()` changes the internal configuration of the package.
 #' @examples
 #' # Enable verbose output
 #' set_opts(force_verbose = TRUE)
 #'
 #' # Disable verbose output
 #' set_opts(force_verbose = FALSE)
-#' @seealso [Plan], whose `verbose` argument is on by default when either the
-#' session is interactive or `force_verbose` is `TRUE`, and `vignette("plnr")`
-#' for an introduction to the framework.
+#' @seealso [Plan]. Its `verbose` argument is on by default when the session is
+#' interactive, or when `force_verbose` is `TRUE`. See `vignette("plnr")` for an
+#' introduction to the framework.
 #' @export
 set_opts <- function(force_verbose = FALSE) {
   config$force_verbose <- force_verbose

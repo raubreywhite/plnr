@@ -23,8 +23,9 @@ p$add_data(
 names(p$get_data())
 }
 \seealso{
-\code{vignette("adding_analyses")}, which defines the same kind of
-zero-argument \code{data_fn} and attaches it to a plan with \code{fn_name}.
+\code{vignette("adding_analyses")}. It defines the same kind of
+zero-argument \code{data_fn}. It then attaches that \code{data_fn} to a plan with
+\code{fn_name}.
 
 Other example and test functions: 
 \code{\link{example_action_fn}()},

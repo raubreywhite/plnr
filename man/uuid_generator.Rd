@@ -7,9 +7,10 @@
 uuid_generator()
 }
 \value{
-A character string containing a UUID
+A character string that holds a UUID.
 }
 \description{
-Internal function to generate a unique identifier using the uuid package.
+\code{uuid_generator()} is an internal function. It generates a unique identifier
+with the uuid package.
 }
 \keyword{internal}

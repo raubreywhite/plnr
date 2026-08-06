@@ -1,12 +1,13 @@
-#' Example action function for demonstrating analysis structure
+#' Example action function that shows the analysis structure
 #'
-#' This function serves as an example of how to structure an action function
-#' for use with the `Plan` class. It simply prints the names of the data
-#' and argset components it receives.
+#' `example_action_fn()` shows how to structure an action function for the
+#' `Plan` class. It prints the names of the data and argset components it
+#' receives.
 #'
-#' @param data A named list containing the datasets for the analysis
-#' @param argset A named list containing the arguments for the analysis
-#' @return NULL, prints information about the input data and argset
+#' @param data A named list that holds the datasets for the analysis.
+#' @param argset A named list that holds the arguments for the analysis.
+#' @return NULL. `example_action_fn()` prints information about the input data
+#' and argset.
 #' @examples
 #' # Create a new plan
 #' p <- plnr::Plan$new()
@@ -32,7 +33,8 @@
 #' p$run_one("analysis_1")
 #' @family example and test functions
 #' @seealso `vignette("adding_analyses")` for worked single-function and
-#' multi-function plans that attach an action function to a plan by `fn_name`.
+#' multi-function plans. Those plans attach an action function to a plan by
+#' `fn_name`.
 #' @export
 example_action_fn <- function(data, argset) {
   print("Data given:")
@@ -43,11 +45,12 @@ example_action_fn <- function(data, argset) {
 
 #' Test action function that returns a constant value
 #'
-#' A simple test function that always returns 1, useful for testing
-#' the Plan framework's functionality.
+#' `test_action_fn()` always returns 1. Use it to test the `Plan` framework.
 #'
-#' @param data A named list containing the datasets (unused in this example)
-#' @param argset A named list containing the arguments (unused in this example)
+#' @param data A named list that holds the datasets. This example does not use
+#' it.
+#' @param argset A named list that holds the arguments. This example does not
+#' use it.
 #' @return The integer 1
 #' @examples
 #' # Called directly, it ignores both arguments and returns 1
@@ -63,8 +66,8 @@ example_action_fn <- function(data, argset) {
 #' p$run_one("analysis_1")
 #' @family example and test functions
 #' @seealso `vignette("plnr")` for the `data`/`argset` contract. An action
-#' function must accept at least the supplied data and argset values; it may
-#' take further arguments, and a directly supplied `fn` receives the argset
+#' function MUST accept at least the supplied data and argset values. It MAY
+#' take further arguments. A directly supplied `fn` receives the argset
 #' positionally, so its second formal need not be named `argset`.
 #' @export
 test_action_fn <- function(data, argset) {
@@ -73,9 +76,10 @@ test_action_fn <- function(data, argset) {
 
 #' Generate a UUID
 #'
-#' Internal function to generate a unique identifier using the uuid package.
+#' `uuid_generator()` is an internal function. It generates a unique identifier
+#' with the uuid package.
 #'
-#' @return A character string containing a UUID
+#' @return A character string that holds a UUID.
 #' @keywords internal
 uuid_generator <- function() {
   uuid::UUIDgenerate()
@@ -83,10 +87,11 @@ uuid_generator <- function() {
 
 #' Generate a hash of an object
 #'
-#' Internal function to create a hash of an object using the digest package.
+#' `hash_it()` is an internal function. It creates a hash of an object with the
+#' digest package.
 #'
-#' @param x The object to hash
-#' @return A character string containing the hash
+#' @param x The object to hash.
+#' @return A character string that holds the hash.
 #' @keywords internal
 hash_it <- function(x) {
   digest::digest(x)
@@ -95,33 +100,33 @@ hash_it <- function(x) {
 #' R6 Class for Planning and Executing Analyses
 #'
 #' @description
-#' The `Plan` class provides a framework for organizing and executing multiple analyses
-#' on one or more datasets. It enforces a structured approach to analysis by:
+#' The `Plan` class organizes and runs multiple analyses on one or more datasets.
+#' It enforces a structured approach to analysis in three ways.
 #'
 #' 1. **Data Management**:
-#'    - Loading data once and reusing across analyses
-#'    - Separating data cleaning from analysis
-#'    - Providing hash-based tracking of data changes
+#'    - Load data once and reuse it across analyses
+#'    - Keep data cleaning separate from analysis
+#'    - Track data changes with a hash
 #'
 #' 2. **Analysis Structure**:
-#'    - Requiring all analyses to use the same data sources
-#'    - Standardizing analysis functions to accept only `data` and `argset` parameters
-#'    - Organizing analyses into clear, maintainable plans
+#'    - Require all analyses to use the same data sources
+#'    - Standardize analysis functions to accept only `data` and `argset` parameters
+#'    - Organize analyses into clear, maintainable plans
 #'
 #' 3. **Execution Control**:
-#'    - Supporting both single-function and multi-function analysis plans
-#'    - Providing flexible execution options (sequential or parallel)
-#'    - Including built-in debugging tools
+#'    - Support both single-function and multi-function analysis plans
+#'    - Run analyses either in sequence or in parallel
+#'    - Supply built-in debugging tools
 #'
 #' @details
 #' The framework uses three main concepts:
 #'
-#' - **Argset**: A named list containing a set of arguments for an analysis
+#' - **Argset**: A named list that holds a set of arguments for an analysis
 #' - **Analysis**: A combination of one argset and one action function
 #' - **Plan**: A container that holds one data pull and a list of analyses
 #'
 #' @seealso `vignette("plnr")` for an introduction to argsets, analyses and
-#' plans, and `vignette("adding_analyses")` for worked single-function and
+#' plans. See `vignette("adding_analyses")` for worked single-function and
 #' multi-function plans.
 #'
 #' @import data.table
@@ -133,15 +138,17 @@ Plan <- R6::R6Class(
   portable = FALSE,
   cloneable = TRUE,
   public = list(
-    #' @field analyses List of analyses, each containing an argset and action function
+    #' @field analyses List of analyses. Each analysis holds one argset and one
+    #' action function.
     analyses = list(),
 
-    #' @description Create a new Plan instance
-    #' @param verbose Logical, whether to show verbose output. Defaults to TRUE in interactive mode
-    #' or when config$force_verbose is TRUE
-    #' @param use_foreach Logical, whether to use foreach for parallel processing.
-    #' NULL = program decides, FALSE = use loop, TRUE = use foreach
-    #' @return A new Plan instance
+    #' @description Create a new Plan instance.
+    #' @param verbose Logical. Whether to show verbose output. The default is
+    #' `TRUE` in interactive mode, or when `config$force_verbose` is `TRUE`.
+    #' @param use_foreach Logical. Whether to use foreach for parallel
+    #' processing. `NULL` lets the program decide. `FALSE` uses a loop. `TRUE`
+    #' uses foreach.
+    #' @return A new Plan instance.
     initialize = function(
       verbose = interactive() | config$force_verbose,
       use_foreach = FALSE
@@ -150,12 +157,13 @@ Plan <- R6::R6Class(
       private$use_foreach <- use_foreach
     },
 
-    #' @description Add a new dataset to the plan
-    #' @param name Character string, name of the dataset
-    #' @param fn Function that returns the dataset (optional)
-    #' @param fn_name Character string, name of a function that returns the dataset (optional)
-    #' @param direct Direct dataset object (optional)
-    #' @return NULL, modifies the plan in place
+    #' @description Add a new dataset to the plan.
+    #' @param name Character string. The name of the dataset.
+    #' @param fn Optional. A function that returns the dataset.
+    #' @param fn_name Optional. A character string that names a function that
+    #' returns the dataset.
+    #' @param direct Optional. The dataset object itself.
+    #' @return NULL. The method changes the plan in place.
     #' @examples
     #' p <- plnr::Plan$new()
     #'
@@ -183,10 +191,11 @@ Plan <- R6::R6Class(
       )
     },
 
-    #' @description Add a new argset to the plan
-    #' @param name Character string, name of the argset (defaults to a UUID)
-    #' @param ... Named arguments that will comprise the argset
-    #' @return NULL, modifies the plan in place
+    #' @description Add a new argset to the plan.
+    #' @param name Character string. The name of the argset. The default is a
+    #' UUID.
+    #' @param ... Named arguments that make up the argset.
+    #' @return NULL. The method changes the plan in place.
     #' @examples
     #' p <- plnr::Plan$new()
     #'
@@ -205,9 +214,9 @@ Plan <- R6::R6Class(
       analyses[[name]][["argset"]] <<- dots
     },
 
-    #' @description Add multiple argsets from a data frame
-    #' @param df Data frame where each row represents a new argset
-    #' @return NULL, modifies the plan in place
+    #' @description Add multiple argsets from a data frame.
+    #' @param df A data frame. Each row is one new argset.
+    #' @return NULL. The method changes the plan in place.
     #' @examples
     #' p <- plnr::Plan$new()
     #'
@@ -231,9 +240,9 @@ Plan <- R6::R6Class(
       }
     },
 
-    #' @description Add multiple argsets from a list
-    #' @param l List of lists, where each inner list represents a new argset
-    #' @return NULL, modifies the plan in place
+    #' @description Add multiple argsets from a list.
+    #' @param l A list of lists. Each inner list is one new argset.
+    #' @return NULL. The method changes the plan in place.
     #' @examples
     #' p <- plnr::Plan$new()
     #'
@@ -256,12 +265,14 @@ Plan <- R6::R6Class(
       }
     },
 
-    #' @description Add a new analysis to the plan
-    #' @param name Character string, name of the analysis (defaults to a UUID)
-    #' @param fn Function to use for the analysis (optional)
-    #' @param fn_name Character string, name of the function to use (optional)
-    #' @param ... Additional arguments to be added to the argset
-    #' @return NULL, modifies the plan in place
+    #' @description Add a new analysis to the plan.
+    #' @param name Character string. The name of the analysis. The default is a
+    #' UUID.
+    #' @param fn Optional. The function to use for the analysis.
+    #' @param fn_name Optional. A character string that names the function to
+    #' use.
+    #' @param ... Further arguments to add to the argset.
+    #' @return NULL. The method changes the plan in place.
     #' @examples
     #' p <- plnr::Plan$new()
     #'
@@ -295,11 +306,12 @@ Plan <- R6::R6Class(
       analyses[[name]][["argset"]] <<- dots
     },
 
-    #' @description Add multiple analyses from a data frame
-    #' @param fn Function to use for all analyses (optional)
-    #' @param fn_name Character string, name of the function to use (optional)
-    #' @param df Data frame where each row represents a new analysis
-    #' @return NULL, modifies the plan in place
+    #' @description Add multiple analyses from a data frame.
+    #' @param fn Optional. The function to use for all analyses.
+    #' @param fn_name Optional. A character string that names the function to
+    #' use.
+    #' @param df A data frame. Each row is one new analysis.
+    #' @return NULL. The method changes the plan in place.
     #' @examples
     #' p <- plnr::Plan$new()
     #'
@@ -337,11 +349,12 @@ Plan <- R6::R6Class(
       }
     },
 
-    #' @description Add multiple analyses from a list
-    #' @param fn Function to use for all analyses (optional)
-    #' @param fn_name Character string, name of the function to use (optional)
-    #' @param l List of lists, where each inner list represents a new analysis
-    #' @return NULL, modifies the plan in place
+    #' @description Add multiple analyses from a list.
+    #' @param fn Optional. The function to use for all analyses.
+    #' @param fn_name Optional. A character string that names the function to
+    #' use.
+    #' @param l A list of lists. Each inner list is one new analysis.
+    #' @return NULL. The method changes the plan in place.
     #' @examples
     #' p <- plnr::Plan$new()
     #'
@@ -378,7 +391,7 @@ Plan <- R6::R6Class(
       }
     },
 
-    #' @description Applies an action function to all the argsets
+    #' @description Apply one action function to all the argsets.
     #' @param fn Action function.
     #' @param fn_name Action function name.
     #' p <- plnr::Plan$new()
@@ -404,7 +417,7 @@ Plan <- R6::R6Class(
         analyses[[i]]$fn_name <<- fn_name
       }
     },
-    #' @description Deprecated. Use apply_action_fn_to_all_argsets.
+    #' @description Deprecated. Use `apply_action_fn_to_all_argsets()` instead.
     #' @param fn Action function.
     #' @param fn_name Action function name.
     apply_analysis_fn_to_all = function(fn = NULL, fn_name = NULL) {
@@ -419,46 +432,49 @@ Plan <- R6::R6Class(
     },
 
     #' @description
-    #' Generate a regular sequence from 1 to the length of the analyses in the plan.
+    #' Generate a regular sequence from 1 to the number of analyses in the plan.
     x_seq_along = function() {
       base::seq_along(self$analyses)
     },
 
     #' @description
-    #' Set an internal progress bar
+    #' Set an internal progress bar.
     #' @param pb Progress bar.
     set_progress = function(pb) {
       private$pb_progress <- pb
     },
 
     #' @description
-    #' Set an internal progressor progress bar
+    #' Set an internal progressor progress bar.
     #' @param pb progressor progress bar.
     set_progressor = function(pb) {
       private$pb_progressor <- pb
     },
 
     #' @description
-    #' Set verbose flag
+    #' Set the `verbose` flag.
     #' @param x Boolean.
     set_verbose = function(x) {
       private$verbose <- x
     },
 
     #' @description
-    #' Set use_foreach flag
+    #' Set the `use_foreach` flag.
     #' @param x Boolean.
     set_use_foreach = function(x) {
       private$use_foreach <- x
     },
 
     #' @description
-    #' Extracts the data provided via 'add_data' and returns it as a named list.
+    #' Extract the data added with `add_data()` and return it as a named list.
     #' @return
-    #' Named list, where most elements have been added via `add_data`.
+    #' A named list. Most elements come from `add_data()`.
     #'
-    #' One extra named element is called 'hash'. 'hash' contains the data hashes of particular datasets/variables, as calculated using the 'spookyhash' algorithm via digest::digest.
-    #' 'hash' contains two named elements:
+    #' One extra named element is called 'hash'. 'hash' holds the data hashes of
+    #' particular datasets and variables. `digest::digest()` calculates them
+    #' with the 'spookyhash' algorithm.
+    #'
+    #' 'hash' holds two named elements:
     #' - current (the hash of the entire named list)
     #' - current_elements (the hash of the named elements within the named list)
     #' @examples
@@ -517,8 +533,9 @@ Plan <- R6::R6Class(
     },
 
     #' @description
-    #' Extracts an analysis from the plan.
-    #' @param index_analysis Either an integer (1:length(analyses)) or a character string representing the name of the analysis.
+    #' Extract one analysis from the plan.
+    #' @param index_analysis Either an integer in `1:length(analyses)`, or a
+    #' character string with the name of the analysis.
     #' @return
     #' An analysis.
     #' @examples
@@ -541,10 +558,11 @@ Plan <- R6::R6Class(
     },
 
     #' @description
-    #' Extracts an argset from the plan.
-    #' @param index_analysis Either an integer (1:length(analyses)) or a character string representing the name of the analysis.
+    #' Extract one argset from the plan.
+    #' @param index_analysis Either an integer in `1:length(analyses)`, or a
+    #' character string with the name of the analysis.
     #' @return
-    #' An argset
+    #' An argset.
     #' @examples
     #' p <- plnr::Plan$new()
     #' p$add_data("covid_data", fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_location")
@@ -564,9 +582,9 @@ Plan <- R6::R6Class(
     },
 
     #' @description
-    #' Gets all argsets and presents them as a data.table.
+    #' Get all argsets and return them as a data.table.
     #' @return
-    #' Data.table that contains all the argsets within a plan.
+    #' A data.table that holds all the argsets within a plan.
     #' @examples
     #' p <- plnr::Plan$new()
     #' p$add_data("covid_data", fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_location")
@@ -600,12 +618,13 @@ Plan <- R6::R6Class(
     },
 
     #' @description
-    #' Run one analysis (data is provided by user).
-    #' @param index_analysis Either an integer (1:length(analyses)) or a character string representing the name of the analysis.
-    #' @param data Named list (generally obtained from p$get_data()).
+    #' Run one analysis. You supply the data.
+    #' @param index_analysis Either an integer in `1:length(analyses)`, or a
+    #' character string with the name of the analysis.
+    #' @param data A named list. You normally get it from `p$get_data()`.
     #' @param ... Not used.
     #' @return
-    #' Returned value from the action function.
+    #' The value that the action function returns.
     #' @examples
     #' p <- plnr::Plan$new()
     #' p$add_data("covid_data", fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_location")
@@ -669,11 +688,12 @@ Plan <- R6::R6Class(
     },
 
     #' @description
-    #' Run one analysis (data is obtained automatically from self$get_data()).
-    #' @param index_analysis Either an integer (1:length(analyses)) or a character string representing the name of the analysis.
+    #' Run one analysis. The method gets the data from `self$get_data()`.
+    #' @param index_analysis Either an integer in `1:length(analyses)`, or a
+    #' character string with the name of the analysis.
     #' @param ... Not used.
     #' @return
-    #' Returned value from the action function.
+    #' The value that the action function returns.
     #' @examples
     #' p <- plnr::Plan$new()
     #' p$add_data("covid_data", fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_location")
@@ -693,11 +713,11 @@ Plan <- R6::R6Class(
     },
 
     #' @description
-    #' Run all analyses (data is provided by user).
-    #' @param data Named list (generally obtained from p$get_data()).
+    #' Run all analyses. You supply the data.
+    #' @param data A named list. You normally get it from `p$get_data()`.
     #' @param ... Not used.
     #' @return
-    #' List where each element contains the returned value from the action function.
+    #' A list. Each element is the value that the action function returns.
     #' @examples
     #' p <- plnr::Plan$new()
     #' p$add_data("covid_data", fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_location")
@@ -796,10 +816,10 @@ Plan <- R6::R6Class(
     },
 
     #' @description
-    #' Run all analyses (data is obtained automatically from self$get_data()).
+    #' Run all analyses. The method gets the data from `self$get_data()`.
     #' @param ... Not used.
     #' @return
-    #' List where each element contains the returned value from the action function.
+    #' A list. Each element is the value that the action function returns.
     #' @examples
     #' p <- plnr::Plan$new()
     #' p$add_data("covid_data", fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_location")
@@ -819,10 +839,11 @@ Plan <- R6::R6Class(
     },
 
     #' @description
-    #' Run all analyses with a progress bar (data is obtained automatically from self$get_data()).
+    #' Run all analyses and show a progress bar. The method gets the data from
+    #' `self$get_data()`.
     #' @param ... Not used.
     #' @return
-    #' List where each element contains the returned value from the action function.
+    #' A list. Each element is the value that the action function returns.
     #' @examples
     #' p <- plnr::Plan$new()
     #' p$add_data("covid_data", fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_location")
@@ -846,13 +867,15 @@ Plan <- R6::R6Class(
     },
 
     #' @description
-    #' Run all analyses in parallel (data is obtained automatically from self$get_data()).
+    #' Run all analyses in parallel. The method gets the data from
+    #' `self$get_data()`.
     #'
-    #' This function only works on linux computers and uses `pbmcapply` as the parallel backend.
-    #' @param mc.cores Number of cores to be used.
+    #' This method works only on linux computers. It uses `pbmcapply` as the
+    #' parallel backend.
+    #' @param mc.cores The number of cores to use.
     #' @param ... Not used.
     #' @return
-    #' List where each element contains the returned value from the action function.
+    #' A list. Each element is the value that the action function returns.
     #' @importFrom pbmcapply pbmclapply
     run_all_parallel = function(mc.cores = getOption("mc.cores", 2L), ...) {
       data <- self$get_data()
