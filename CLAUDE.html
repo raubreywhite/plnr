@@ -212,8 +212,7 @@
 </ul></li>
 <li>
 <p><strong>Check version format</strong> in DESCRIPTION:</p>
-<ul><li>Use YY.M.D format (e.g., 25.3.19 for March 19, 2025)</li>
-<li>Remove leading zeroes from month/day</li>
+<ul><li>Use YYYY.M.D format (e.g., 2026.8.6 for 6 August 2026). Remove leading zeroes from month and day. Do NOT write YY.M.D: <code>package_version("26.8.6") &gt; package_version("2026.8.3")</code> is FALSE, so a two-digit year is a version DECREASE and R refuses the upgrade.</li>
 </ul></li>
 <li><p><strong>Update NEWS.md</strong> with version changes when updating DESCRIPTION version</p></li>
 </ol></div>
@@ -286,10 +285,11 @@
 </div>
 <div class="section level2">
 <h2 id="version-management">Version Management<a class="anchor" aria-label="anchor" href="#version-management"></a></h2>
-<p><strong>Version Format:</strong> YY.M.D (e.g., 25.3.19 for March 19, 2025)</p>
-<p>When updating version in DESCRIPTION: 1. Update <code>Version:</code> field with YY.M.D format 2. Add entry to NEWS.md with: - Version number - Bug fixes (if any) - New features (if any) - Documentation updates (if any)</p>
+<p><strong>Version Format:</strong> YYYY.M.D (e.g., 2026.8.6 for 6 August 2026)</p>
+<p>Do NOT write YY.M.D. <code>package_version("26.8.6") &gt; package_version("2026.8.3")</code> is FALSE, so a two-digit year is a version DECREASE and R refuses the upgrade. A same-day re-release keeps the current version and appends to that NEWS section, rather than bumping to a date that has not arrived.</p>
+<p>When updating version in DESCRIPTION: 1. Update <code>Version:</code> field with YYYY.M.D format 2. Add entry to NEWS.md with: - Version number - Bug fixes (if any) - New features (if any) - Documentation updates (if any)</p>
 <p>Example NEWS.md entry:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu"># Version 25.3.19</span></span>
+<div class="sourceCode" id="cb11"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu"># Version 2026.8.6</span></span>
 <span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="fu">## New Features</span></span>
 <span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="ss">* </span>Added support for custom analysis naming conventions</span>
