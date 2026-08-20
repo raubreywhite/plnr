@@ -11,4 +11,4 @@ jobs:
   r-package:
     permissions:
       contents: write
-    uses: raubreywhite/rwtemplate/.github/workflows/r-package.yml@db9e1137900676eaa7065f1a495989536094d572
+    uses: raubreywhite/rwtemplate/.github/workflows/r-package.yml@bf26ed8e6e40309fc62b4179479c5475530df9f6
