@@ -1,7 +1,7 @@
 url: https://www.rwhite.no/plnr/
 
 template:
-  package: pkgdowntemplate
+  package: rwtemplate
   params:
     hero:
       overline: "R package · Analysis planning"
