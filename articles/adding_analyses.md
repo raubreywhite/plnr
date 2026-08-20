@@ -158,18 +158,18 @@ p$get_argsets_as_dt()
 
     ##                            name_analysis index_analysis location_code
     ##                                   <char>          <int>        <list>
-    ##  1: a5442f1b-36c6-4716-a8e6-d5d818261c21              1  county_nor03
-    ##  2: 7016ae04-8b99-4834-9fd0-67192e5b7f6c              2  county_nor11
-    ##  3: fcd147eb-993b-4c7e-82c5-567e28c01710              3  county_nor15
-    ##  4: fdcf99b1-2d09-45fb-89ca-0da77d1c5382              4  county_nor18
-    ##  5: e6c11652-043b-4fe8-b3e7-a387be637036              5  county_nor30
-    ##  6: 765138f5-b001-432e-a4c7-4f92129bcc74              6  county_nor34
-    ##  7: 75c2e9ac-326c-466f-be7c-2c8487022680              7  county_nor38
-    ##  8: 3c7a2f3c-9591-4731-bff8-36107ff92825              8  county_nor42
-    ##  9: 79f7daf5-2da9-43fc-8777-f572f4e051b9              9  county_nor46
-    ## 10: ef431551-b192-4105-a7e3-e42100794880             10  county_nor50
-    ## 11: c1666dab-43cc-45a9-aefe-07fc9a6e5a7e             11  county_nor54
-    ## 12: 3e40d116-119e-4dfa-a960-ac0993067ae3             12    nation_nor
+    ##  1: 3a00a1c1-9bb4-4d9b-ad5f-8bf602c2fa98              1  county_nor03
+    ##  2: 1a68e7bf-85a0-44f7-b0f8-e7532d296ffa              2  county_nor11
+    ##  3: 3aea309c-ddb1-4be8-b4e9-74d646977af0              3  county_nor15
+    ##  4: 1388b6bb-b6af-4bbf-b4bc-be43c785c378              4  county_nor18
+    ##  5: 9c37b4a4-90df-4cad-a7e1-6eba73e1819e              5  county_nor30
+    ##  6: 7f47e065-d53d-48d2-954a-40d9d3b9ad4c              6  county_nor34
+    ##  7: 8d495186-57e6-4b7c-a0ad-69673c3bd9c9              7  county_nor38
+    ##  8: 5a10fa8b-d99a-46df-8eac-7b2e3e1ff0cf              8  county_nor42
+    ##  9: c2c15a1f-218c-4aee-a17a-8c538acf9408              9  county_nor46
+    ## 10: 541560c5-2705-4480-9ce6-b284bbe301b3             10  county_nor50
+    ## 11: b64037ca-cf9a-4e10-b9e0-24b048443045             11  county_nor54
+    ## 12: 2853d5ec-9f13-4902-aa07-5f13bbdcb15f             12    nation_nor
     ##     granularity_time
     ##               <list>
     ##  1:          isoweek
@@ -336,10 +336,10 @@ p$get_argsets_as_dt()
 
     ##                           name_analysis index_analysis
     ##                                  <char>          <int>
-    ## 1: c30a2923-2a73-445e-82d1-d2b8111e0b4c              1
-    ## 2: 58f08afd-1c02-4cbc-b9f0-44f1d8a50051              2
-    ## 3: 57004999-7931-407e-b7a0-68cecb6cb956              3
-    ## 4: 9d9f3252-2483-4b67-9262-bd714031edcd              4
+    ## 1: 1fe615f2-9bf9-4769-a436-ccd809f98240              1
+    ## 2: 2ada5781-78e6-4455-a91f-9e96ca0c994e              2
+    ## 3: 26db8273-8143-4bfb-ab7f-39dbfe1774f6              3
+    ## 4: d29b3e96-3b24-4909-b23a-9ea03be000dd              4
     ##                           variable granularity_time
     ##                             <list>           <list>
     ## 1:        covid19_cases_testdate_n          isoweek
