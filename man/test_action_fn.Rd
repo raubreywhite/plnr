@@ -38,8 +38,8 @@ function MUST accept at least the supplied data and argset values. It MAY
 take further arguments. A directly supplied \code{fn} receives the argset
 positionally, so its second formal need not be named \code{argset}.
 
-Other example and test functions: 
-\code{\link{example_action_fn}()},
-\code{\link{example_data_fn_nor_covid19_cases_by_time_location}()}
+Other example and test functions:
+\code{\link[=example_action_fn]{example_action_fn()}},
+\code{\link[=example_data_fn_nor_covid19_cases_by_time_location]{example_data_fn_nor_covid19_cases_by_time_location()}}
 }
 \concept{example and test functions}

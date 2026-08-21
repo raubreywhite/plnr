@@ -49,8 +49,8 @@ p$run_one("analysis_1")
 multi-function plans. Those plans attach an action function to a plan by
 \code{fn_name}.
 
-Other example and test functions: 
-\code{\link{example_data_fn_nor_covid19_cases_by_time_location}()},
-\code{\link{test_action_fn}()}
+Other example and test functions:
+\code{\link[=example_data_fn_nor_covid19_cases_by_time_location]{example_data_fn_nor_covid19_cases_by_time_location()}},
+\code{\link[=test_action_fn]{test_action_fn()}}
 }
 \concept{example and test functions}

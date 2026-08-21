@@ -27,8 +27,8 @@ names(p$get_data())
 zero-argument \code{data_fn}. It then attaches that \code{data_fn} to a plan with
 \code{fn_name}.
 
-Other example and test functions: 
-\code{\link{example_action_fn}()},
-\code{\link{test_action_fn}()}
+Other example and test functions:
+\code{\link[=example_action_fn]{example_action_fn()}},
+\code{\link[=test_action_fn]{test_action_fn()}}
 }
 \concept{example and test functions}
