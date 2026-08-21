@@ -144,7 +144,7 @@ Data changes are tracked via `digest::digest()` hashes. This enables:
 **Suggests (optional):**
 - `testthat` - Unit testing framework
 - `knitr`, `rmarkdown` - Vignette compilation
-- `ggplot2`, `readxl`, `magrittr` - Example dependencies
+- `ggplot2`, `readxl` - Example dependencies
 
 ## Code Organization
 
