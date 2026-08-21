@@ -1,6 +1,5 @@
 # create spltidy format data for cases
 library(data.table)
-library(magrittr)
 
 # import data
 # daily, nation
@@ -63,7 +62,7 @@ keyby=.(
   age,
   sex,
   isoyearweek
-)] %>%
+)] |>
   spltidy::create_unified_columns()
 
 week

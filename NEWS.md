@@ -1,3 +1,13 @@
+# Version 2026.8.21
+
+- The package drops `magrittr`. Every `%>%` is now the base pipe `|>`, and
+  `magrittr` is gone from `DESCRIPTION`.
+- The rewrite is a relocation, not an edit. Each `%>%` call was transformed the
+  way R's parser transforms `|>`, and the resulting tree was required to match
+  the tree parsed from the rewritten file. A file whose trees disagreed was left
+  untouched and converted by hand instead.
+
+
 # Version 2026.8.6
 
 ## Licensing

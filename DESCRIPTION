@@ -1,6 +1,6 @@
 Package: plnr
 Title: A Framework for Planning and Executing Analyses
-Version: 2026.8.6
+Version: 2026.8.21
 Authors@R:
     c(
       person(
@@ -48,8 +48,7 @@ Suggests:
     rmarkdown,
     progressr,
     ggplot2,
-    readxl,
-    magrittr
+    readxl
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
 Config/roxygen2/version: 8.0.0

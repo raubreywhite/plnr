@@ -69,7 +69,6 @@ This example loops through multiple geographical locations. It applies a graphin
 ```{r, collapse=FALSE}
 library(ggplot2)
 library(data.table)
-library(magrittr)
 
 # We begin by defining a new plan
 p <- plnr::Plan$new()
@@ -88,8 +87,8 @@ p$add_data(
 
 p$get_data()
 
-location_codes <- p$get_data()$covid19_cases$location_code %>%
-  unique() %>% 
+location_codes <- p$get_data()$covid19_cases$location_code |>
+  unique() |> 
   print()
 
 p$add_argset_from_list(
@@ -141,7 +140,6 @@ The example then applies a graphing function to the data for each combination.
 ```{r, collapse=FALSE}
 library(ggplot2)
 library(data.table)
-library(magrittr)
 
 # We begin by defining a new plan
 p <- plnr::Plan$new()
@@ -203,7 +201,6 @@ Use this approach when you create the output for a report, and you need multiple
 ```{r, collapse=FALSE}
 library(ggplot2)
 library(data.table)
-library(magrittr)
 
 # We begin by defining a new plan
 p <- plnr::Plan$new()
