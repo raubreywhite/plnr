@@ -49,7 +49,7 @@ the framework the generated `run.R` uses. That `run.R` builds one
 # Create a temporary directory for the example
 temp_dir <- tempfile("plnr_example_")
 create_rmarkdown(temp_dir)
-#> ✔ Setting active project to "/tmp/RtmpyGEGWz/plnr_example_1b637404ff1c".
+#> ✔ Setting active project to "/tmp/RtmpNazEnO/plnr_example_1c2243e14fe1".
 #> ✔ Writing a sentinel file .here.
 #> ☐ Build robust paths within your project via `here::here()`.
 #> ℹ Learn more at <https://here.r-lib.org>.
