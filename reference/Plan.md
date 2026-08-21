@@ -56,7 +56,7 @@ for worked single-function and multi-function plans.
 
 ### Public methods
 
-- [`Plan$new()`](#method-Plan-new)
+- [`Plan$new()`](#method-Plan-initialize)
 
 - [`Plan$add_data()`](#method-Plan-add_data)
 
@@ -112,7 +112,7 @@ for worked single-function and multi-function plans.
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `Plan$new()`
 
 Create a new Plan instance.
 
@@ -138,7 +138,7 @@ A new Plan instance.
 
 ------------------------------------------------------------------------
 
-### Method `add_data()`
+### `Plan$add_data()`
 
 Add a new dataset to the plan.
 
@@ -188,7 +188,7 @@ NULL. The method changes the plan in place.
 
 ------------------------------------------------------------------------
 
-### Method `add_argset()`
+### `Plan$add_argset()`
 
 Add a new argset to the plan.
 
@@ -223,7 +223,7 @@ NULL. The method changes the plan in place.
 
 ------------------------------------------------------------------------
 
-### Method `add_argset_from_df()`
+### `Plan$add_argset_from_df()`
 
 Add multiple argsets from a data frame.
 
@@ -260,7 +260,7 @@ NULL. The method changes the plan in place.
 
 ------------------------------------------------------------------------
 
-### Method `add_argset_from_list()`
+### `Plan$add_argset_from_list()`
 
 Add multiple argsets from a list.
 
@@ -297,7 +297,7 @@ NULL. The method changes the plan in place.
 
 ------------------------------------------------------------------------
 
-### Method `add_analysis()`
+### `Plan$add_analysis()`
 
 Add a new analysis to the plan.
 
@@ -346,7 +346,7 @@ NULL. The method changes the plan in place.
 
 ------------------------------------------------------------------------
 
-### Method `add_analysis_from_df()`
+### `Plan$add_analysis_from_df()`
 
 Add multiple analyses from a data frame.
 
@@ -398,7 +398,7 @@ NULL. The method changes the plan in place.
 
 ------------------------------------------------------------------------
 
-### Method `add_analysis_from_list()`
+### `Plan$add_analysis_from_list()`
 
 Add multiple analyses from a list.
 
@@ -450,7 +450,7 @@ NULL. The method changes the plan in place.
 
 ------------------------------------------------------------------------
 
-### Method `apply_action_fn_to_all_argsets()`
+### `Plan$apply_action_fn_to_all_argsets()`
 
 Apply one action function to all the argsets.
 
@@ -478,7 +478,7 @@ Apply one action function to all the argsets.
 
 ------------------------------------------------------------------------
 
-### Method `apply_analysis_fn_to_all()`
+### `Plan$apply_analysis_fn_to_all()`
 
 Deprecated. Use `apply_action_fn_to_all_argsets()` instead.
 
@@ -498,7 +498,7 @@ Deprecated. Use `apply_action_fn_to_all_argsets()` instead.
 
 ------------------------------------------------------------------------
 
-### Method `x_length()`
+### `Plan$x_length()`
 
 Number of analyses in the plan.
 
@@ -508,7 +508,7 @@ Number of analyses in the plan.
 
 ------------------------------------------------------------------------
 
-### Method `x_seq_along()`
+### `Plan$x_seq_along()`
 
 Generate a regular sequence from 1 to the number of analyses in the
 plan.
@@ -519,7 +519,7 @@ plan.
 
 ------------------------------------------------------------------------
 
-### Method `set_progress()`
+### `Plan$set_progress()`
 
 Set an internal progress bar.
 
@@ -535,7 +535,7 @@ Set an internal progress bar.
 
 ------------------------------------------------------------------------
 
-### Method `set_progressor()`
+### `Plan$set_progressor()`
 
 Set an internal progressor progress bar.
 
@@ -551,7 +551,7 @@ Set an internal progressor progress bar.
 
 ------------------------------------------------------------------------
 
-### Method `set_verbose()`
+### `Plan$set_verbose()`
 
 Set the `verbose` flag.
 
@@ -567,7 +567,7 @@ Set the `verbose` flag.
 
 ------------------------------------------------------------------------
 
-### Method `set_use_foreach()`
+### `Plan$set_use_foreach()`
 
 Set the `use_foreach` flag.
 
@@ -583,7 +583,7 @@ Set the `use_foreach` flag.
 
 ------------------------------------------------------------------------
 
-### Method `get_data()`
+### `Plan$get_data()`
 
 Extract the data added with `add_data()` and return it as a named list.
 
@@ -615,7 +615,7 @@ calculates them with the 'spookyhash' algorithm.
 
 ------------------------------------------------------------------------
 
-### Method `get_analysis()`
+### `Plan$get_analysis()`
 
 Extract one analysis from the plan.
 
@@ -651,7 +651,7 @@ An analysis.
 
 ------------------------------------------------------------------------
 
-### Method `get_argset()`
+### `Plan$get_argset()`
 
 Extract one argset from the plan.
 
@@ -687,7 +687,7 @@ An argset.
 
 ------------------------------------------------------------------------
 
-### Method `get_argsets_as_dt()`
+### `Plan$get_argsets_as_dt()`
 
 Get all argsets and return them as a data.table.
 
@@ -716,7 +716,7 @@ A data.table that holds all the argsets within a plan.
 
 ------------------------------------------------------------------------
 
-### Method `run_one_with_data()`
+### `Plan$run_one_with_data()`
 
 Run one analysis. You supply the data.
 
@@ -761,7 +761,7 @@ The value that the action function returns.
 
 ------------------------------------------------------------------------
 
-### Method `run_one()`
+### `Plan$run_one()`
 
 Run one analysis. The method gets the data from `self$get_data()`.
 
@@ -801,7 +801,7 @@ The value that the action function returns.
 
 ------------------------------------------------------------------------
 
-### Method `run_all_with_data()`
+### `Plan$run_all_with_data()`
 
 Run all analyses. You supply the data.
 
@@ -841,7 +841,7 @@ A list. Each element is the value that the action function returns.
 
 ------------------------------------------------------------------------
 
-### Method `run_all()`
+### `Plan$run_all()`
 
 Run all analyses. The method gets the data from `self$get_data()`.
 
@@ -876,7 +876,7 @@ A list. Each element is the value that the action function returns.
 
 ------------------------------------------------------------------------
 
-### Method `run_all_progress()`
+### `Plan$run_all_progress()`
 
 Run all analyses and show a progress bar. The method gets the data from
 `self$get_data()`.
@@ -912,7 +912,7 @@ A list. Each element is the value that the action function returns.
 
 ------------------------------------------------------------------------
 
-### Method `run_all_parallel()`
+### `Plan$run_all_parallel()`
 
 Run all analyses in parallel. The method gets the data from
 `self$get_data()`.
@@ -940,7 +940,7 @@ A list. Each element is the value that the action function returns.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `Plan$clone()`
 
 The objects of this class are cloneable with this method.
 
@@ -958,7 +958,7 @@ The objects of this class are cloneable with this method.
 
 ``` r
 ## ------------------------------------------------
-## Method `Plan$add_data`
+## Method `Plan$add_data()`
 ## ------------------------------------------------
 
 p <- plnr::Plan$new()
@@ -1155,7 +1155,7 @@ p$get_data()
 #> 
 
 ## ------------------------------------------------
-## Method `Plan$add_argset`
+## Method `Plan$add_argset()`
 ## ------------------------------------------------
 
 p <- plnr::Plan$new()
@@ -1172,7 +1172,7 @@ p$get_argsets_as_dt()
 #> 2:      argset_2              2      8 [NULL] hello2
 
 ## ------------------------------------------------
-## Method `Plan$add_argset_from_df`
+## Method `Plan$add_argset_from_df()`
 ## ------------------------------------------------
 
 p <- plnr::Plan$new()
@@ -1196,7 +1196,7 @@ p$get_argsets_as_dt()
 #> 3:             c              3      3      k
 
 ## ------------------------------------------------
-## Method `Plan$add_argset_from_list`
+## Method `Plan$add_argset_from_list()`
 ## ------------------------------------------------
 
 p <- plnr::Plan$new()
@@ -1220,7 +1220,7 @@ p$get_argsets_as_dt()
 #> 3:             c              3      3      k
 
 ## ------------------------------------------------
-## Method `Plan$add_analysis`
+## Method `Plan$add_analysis()`
 ## ------------------------------------------------
 
 p <- plnr::Plan$new()
@@ -1247,7 +1247,7 @@ p$run_one("analysis_1")
 #> [1] "index_analysis"
 
 ## ------------------------------------------------
-## Method `Plan$add_analysis_from_df`
+## Method `Plan$add_analysis_from_df()`
 ## ------------------------------------------------
 
 p <- plnr::Plan$new()
@@ -1283,7 +1283,7 @@ p$run_one(1)
 #> [1] "var_1"          "var_2"          "index_analysis"
 
 ## ------------------------------------------------
-## Method `Plan$add_analysis_from_list`
+## Method `Plan$add_analysis_from_list()`
 ## ------------------------------------------------
 
 p <- plnr::Plan$new()
@@ -1319,7 +1319,7 @@ p$run_one("analysis_1")
 #> [1] "var_1"          "var_2"          "index_analysis"
 
 ## ------------------------------------------------
-## Method `Plan$get_data`
+## Method `Plan$get_data()`
 ## ------------------------------------------------
 
 p <- plnr::Plan$new()
@@ -1391,7 +1391,7 @@ p$get_data()
 #> 
 
 ## ------------------------------------------------
-## Method `Plan$get_analysis`
+## Method `Plan$get_analysis()`
 ## ------------------------------------------------
 
 p <- plnr::Plan$new()
@@ -1425,7 +1425,7 @@ p$get_analysis("analysis_1")
 #> 
 
 ## ------------------------------------------------
-## Method `Plan$get_argset`
+## Method `Plan$get_argset()`
 ## ------------------------------------------------
 
 p <- plnr::Plan$new()
@@ -1448,7 +1448,7 @@ p$get_argset("analysis_1")
 #> 
 
 ## ------------------------------------------------
-## Method `Plan$get_argsets_as_dt`
+## Method `Plan$get_argsets_as_dt()`
 ## ------------------------------------------------
 
 p <- plnr::Plan$new()
@@ -1470,7 +1470,7 @@ p$get_argsets_as_dt()
 #> 3:    analysis_3              3      3      k
 
 ## ------------------------------------------------
-## Method `Plan$run_one_with_data`
+## Method `Plan$run_one_with_data()`
 ## ------------------------------------------------
 
 p <- plnr::Plan$new()
@@ -1493,7 +1493,7 @@ p$run_one_with_data("analysis_1", data)
 #> [1] "var_1"          "var_2"          "index_analysis"
 
 ## ------------------------------------------------
-## Method `Plan$run_one`
+## Method `Plan$run_one()`
 ## ------------------------------------------------
 
 p <- plnr::Plan$new()
@@ -1515,7 +1515,7 @@ p$run_one("analysis_1")
 #> [1] "var_1"          "var_2"          "index_analysis"
 
 ## ------------------------------------------------
-## Method `Plan$run_all_with_data`
+## Method `Plan$run_all_with_data()`
 ## ------------------------------------------------
 
 p <- plnr::Plan$new()
@@ -1545,7 +1545,7 @@ p$run_all_with_data(data)
 #> [1] "var_1"          "var_2"          "index_analysis"
 
 ## ------------------------------------------------
-## Method `Plan$run_all`
+## Method `Plan$run_all()`
 ## ------------------------------------------------
 
 p <- plnr::Plan$new()
@@ -1574,7 +1574,7 @@ p$run_all()
 #> [1] "var_1"          "var_2"          "index_analysis"
 
 ## ------------------------------------------------
-## Method `Plan$run_all_progress`
+## Method `Plan$run_all_progress()`
 ## ------------------------------------------------
 
 p <- plnr::Plan$new()

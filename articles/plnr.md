@@ -38,7 +38,7 @@ This simple example shows the core concepts:
 library(plnr)
 ```
 
-    ## plnr 2026.8.6
+    ## plnr 2026.8.21
     ## https://www.rwhite.no/plnr/
 
 ``` r

@@ -53,8 +53,6 @@ library(data.table)
     ##     %notin%
 
 ``` r
-library(magrittr)
-
 # We begin by defining a new plan
 p <- plnr::Plan$new()
 
@@ -136,8 +134,8 @@ p$get_data()
     ## [1] "7f1b0a581386e75e907bffd94938a3a7"
 
 ``` r
-location_codes <- p$get_data()$covid19_cases$location_code %>%
-  unique() %>% 
+location_codes <- p$get_data()$covid19_cases$location_code |>
+  unique() |> 
   print()
 ```
 
@@ -158,18 +156,18 @@ p$get_argsets_as_dt()
 
     ##                            name_analysis index_analysis location_code
     ##                                   <char>          <int>        <list>
-    ##  1: 91963d1a-82ed-435a-ac24-d81524b587a6              1  county_nor03
-    ##  2: 2cd9f1f3-d22a-4cfc-9960-2c1b1b76f998              2  county_nor11
-    ##  3: 91fec43e-c3b5-447e-b870-b446cf2c4e57              3  county_nor15
-    ##  4: caacd4eb-1664-40b6-95f1-b48ee6730820              4  county_nor18
-    ##  5: b596d200-00ff-4c53-af5b-0dd035680a18              5  county_nor30
-    ##  6: a456e641-8d3f-42d7-ac8b-61fbb03fe70d              6  county_nor34
-    ##  7: e9fc2c90-b1c6-49f3-8d07-8e211b685bc6              7  county_nor38
-    ##  8: f147f2ae-642f-4dd3-b961-b3b7be9316c1              8  county_nor42
-    ##  9: bed209e7-dae0-4de1-b7f3-bcafa0ab7b54              9  county_nor46
-    ## 10: 9e41567f-6222-45f4-87ac-db03087047d0             10  county_nor50
-    ## 11: 827110d0-eee0-42c9-bcb1-74cae7926af7             11  county_nor54
-    ## 12: 8a10662a-8699-416b-8491-184ba0e7dfc7             12    nation_nor
+    ##  1: 2453d0b3-7bad-4763-8d37-8e42e127ee44              1  county_nor03
+    ##  2: 48dbef5f-0c5e-40e2-afb9-0651afb094bd              2  county_nor11
+    ##  3: 3da399c1-bde1-413f-82e0-370c2084c116              3  county_nor15
+    ##  4: 7c0a17e8-cb20-41c7-ad6a-76705884d924              4  county_nor18
+    ##  5: 328457bc-aa7b-4f34-964c-4ef9e7da5be7              5  county_nor30
+    ##  6: 68543503-9d04-4450-a787-9501b384f2a5              6  county_nor34
+    ##  7: 62b7a00c-27e9-43dc-985f-af1a3b47e913              7  county_nor38
+    ##  8: 602abdc4-a1ba-45c5-b122-f3972b41019b              8  county_nor42
+    ##  9: 28a2e600-38fb-458c-8818-d3434a7466a7              9  county_nor46
+    ## 10: 80530db2-c406-4673-a398-d0459ce826a4             10  county_nor50
+    ## 11: c73701f2-83df-4402-8e6c-e0430f9aabba             11  county_nor54
+    ## 12: 6584f196-34f3-430c-9d86-29c173fc6f5d             12    nation_nor
     ##     granularity_time
     ##               <list>
     ##  1:          isoweek
@@ -241,7 +239,6 @@ combination.
 ``` r
 library(ggplot2)
 library(data.table)
-library(magrittr)
 
 # We begin by defining a new plan
 p <- plnr::Plan$new()
@@ -336,10 +333,10 @@ p$get_argsets_as_dt()
 
     ##                           name_analysis index_analysis
     ##                                  <char>          <int>
-    ## 1: b28cca08-367f-40d2-815e-68e4bf8f4cef              1
-    ## 2: b18d7e4a-cb9d-46df-b939-9d0a9308f3b5              2
-    ## 3: 1d1d2bc0-d58b-4e52-b942-cdcf016e15ff              3
-    ## 4: 16698bf5-b2f0-467b-8f21-2ee224da9d8f              4
+    ## 1: ee0a29ad-4500-4ce4-9158-e2747337009d              1
+    ## 2: 53bb440b-b05d-4a79-b5bf-f7da28352323              2
+    ## 3: 23f27d89-c2c3-4c5d-ad76-958920af7ed7              3
+    ## 4: a1360d09-306b-4a34-bca6-d325a856746d              4
     ##                           variable granularity_time
     ##                             <list>           <list>
     ## 1:        covid19_cases_testdate_n          isoweek
@@ -407,7 +404,6 @@ multiple different tables and graphs.
 ``` r
 library(ggplot2)
 library(data.table)
-library(magrittr)
 
 # We begin by defining a new plan
 p <- plnr::Plan$new()

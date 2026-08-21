@@ -43,7 +43,7 @@ Supply built-in debugging tools
 
     <a class="navbar-brand me-2" href="../index.html">plnr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.8.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.8.21</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -124,8 +124,7 @@ action function.</p></dd>
 
 <div class="section">
 <h3 id="public-methods">Public methods<a class="anchor" aria-label="anchor" href="#public-methods"></a></h3>
-
-<ul><li><p><a href="#method-Plan-new"><code>Plan$new()</code></a></p></li>
+<p></p><ul><li><p><a href="#method-Plan-initialize"><code>Plan$new()</code></a></p></li>
 <li><p><a href="#method-Plan-add_data"><code>Plan$add_data()</code></a></p></li>
 <li><p><a href="#method-Plan-add_argset"><code>Plan$add_argset()</code></a></p></li>
 <li><p><a href="#method-Plan-add_argset_from_df"><code>Plan$add_argset_from_df()</code></a></p></li>
@@ -152,66 +151,57 @@ action function.</p></dd>
 <li><p><a href="#method-Plan-run_all_progress"><code>Plan$run_all_progress()</code></a></p></li>
 <li><p><a href="#method-Plan-run_all_parallel"><code>Plan$run_all_parallel()</code></a></p></li>
 <li><p><a href="#method-Plan-clone"><code>Plan$clone()</code></a></p></li>
-</ul></div><p></p><hr><a id="method-Plan-new"></a><div class="section">
-<h3 id="method-new-">Method <code>new()</code><a class="anchor" aria-label="anchor" href="#method-new-"></a></h3>
+</ul></div><p></p><hr><a id="method-Plan-initialize"></a><div class="section">
+<h3 id="plan-new-"><code>Plan$new()</code><a class="anchor" aria-label="anchor" href="#plan-new-"></a></h3>
 <p>Create a new Plan instance.</p><div class="section">
 <h4 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va"><a href="../reference/Plan.html">Plan</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>verbose <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|</span> <span class="va">config</span><span class="op">$</span><span class="va">force_verbose</span>, use_foreach <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>verbose</code></dt>
 <dd><p>Logical. Whether to show verbose output. The default is
 <code>TRUE</code> in interactive mode, or when <code>config$force_verbose</code> is <code>TRUE</code>.</p></dd>
 
-
-<dt><code>use_foreach</code></dt>
+      <dt><code>use_foreach</code></dt>
 <dd><p>Logical. Whether to use foreach for parallel
 processing. <code>NULL</code> lets the program decide. <code>FALSE</code> uses a loop. <code>TRUE</code>
 uses foreach.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns">Returns<a class="anchor" aria-label="anchor" href="#returns"></a></h4>
 <p>A new Plan instance.</p>
 </div>
 
-</div><p></p><hr><a id="method-Plan-add_data"></a><div class="section">
-<h3 id="method-add-data-">Method <code>add_data()</code><a class="anchor" aria-label="anchor" href="#method-add-data-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-Plan-add_data"></a><div class="section">
+<h3 id="plan-add-data-"><code>Plan$add_data()</code><a class="anchor" aria-label="anchor" href="#plan-add-data-"></a></h3>
 <p>Add a new dataset to the plan.</p><div class="section">
 <h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Plan</span><span class="op">$</span><span class="fu">add_data</span><span class="op">(</span><span class="va">name</span>, fn <span class="op">=</span> <span class="cn">NULL</span>, fn_name <span class="op">=</span> <span class="cn">NULL</span>, direct <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>name</code></dt>
 <dd><p>Character string. The name of the dataset.</p></dd>
 
-
-<dt><code>fn</code></dt>
+      <dt><code>fn</code></dt>
 <dd><p>Optional. A function that returns the dataset.</p></dd>
 
-
-<dt><code>fn_name</code></dt>
+      <dt><code>fn_name</code></dt>
 <dd><p>Optional. A character string that names a function that
 returns the dataset.</p></dd>
 
-
-<dt><code>direct</code></dt>
+      <dt><code>direct</code></dt>
 <dd><p>Optional. The dataset object itself.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns-1">Returns<a class="anchor" aria-label="anchor" href="#returns-1"></a></h4>
 <p>NULL. The method changes the plan in place.</p>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">plnr</span><span class="fu">::</span><span class="va"><a href="../reference/Plan.html">Plan</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
@@ -229,32 +219,28 @@ returns the dataset.</p></dd>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">get_data</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-Plan-add_argset"></a><div class="section">
-<h3 id="method-add-argset-">Method <code>add_argset()</code><a class="anchor" aria-label="anchor" href="#method-add-argset-"></a></h3>
+<p></p><hr><a id="method-Plan-add_argset"></a><div class="section">
+<h3 id="plan-add-argset-"><code>Plan$add_argset()</code><a class="anchor" aria-label="anchor" href="#plan-add-argset-"></a></h3>
 <p>Add a new argset to the plan.</p><div class="section">
 <h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Plan</span><span class="op">$</span><span class="fu">add_argset</span><span class="op">(</span>name <span class="op">=</span> <span class="fu">uuid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/uuid/man/UUIDgenerate.html" class="external-link">UUIDgenerate</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-2">Arguments<a class="anchor" aria-label="anchor" href="#arguments-2"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>name</code></dt>
 <dd><p>Character string. The name of the argset. The default is a
 UUID.</p></dd>
 
-
-<dt><code>...</code></dt>
+      <dt><code>...</code></dt>
 <dd><p>Named arguments that make up the argset.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns-2">Returns<a class="anchor" aria-label="anchor" href="#returns-2"></a></h4>
 <p>NULL. The method changes the plan in place.</p>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="examples-1">Examples<a class="anchor" aria-label="anchor" href="#examples-1"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">plnr</span><span class="fu">::</span><span class="va"><a href="../reference/Plan.html">Plan</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
@@ -266,27 +252,24 @@ UUID.</p></dd>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">get_argsets_as_dt</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-Plan-add_argset_from_df"></a><div class="section">
-<h3 id="method-add-argset-from-df-">Method <code>add_argset_from_df()</code><a class="anchor" aria-label="anchor" href="#method-add-argset-from-df-"></a></h3>
+<p></p><hr><a id="method-Plan-add_argset_from_df"></a><div class="section">
+<h3 id="plan-add-argset-from-df-"><code>Plan$add_argset_from_df()</code><a class="anchor" aria-label="anchor" href="#plan-add-argset-from-df-"></a></h3>
 <p>Add multiple argsets from a data frame.</p><div class="section">
 <h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Plan</span><span class="op">$</span><span class="fu">add_argset_from_df</span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-3">Arguments<a class="anchor" aria-label="anchor" href="#arguments-3"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>df</code></dt>
 <dd><p>A data frame. Each row is one new argset.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns-3">Returns<a class="anchor" aria-label="anchor" href="#returns-3"></a></h4>
 <p>NULL. The method changes the plan in place.</p>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="examples-2">Examples<a class="anchor" aria-label="anchor" href="#examples-2"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">plnr</span><span class="fu">::</span><span class="va"><a href="../reference/Plan.html">Plan</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
@@ -304,27 +287,24 @@ UUID.</p></dd>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">get_argsets_as_dt</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-Plan-add_argset_from_list"></a><div class="section">
-<h3 id="method-add-argset-from-list-">Method <code>add_argset_from_list()</code><a class="anchor" aria-label="anchor" href="#method-add-argset-from-list-"></a></h3>
+<p></p><hr><a id="method-Plan-add_argset_from_list"></a><div class="section">
+<h3 id="plan-add-argset-from-list-"><code>Plan$add_argset_from_list()</code><a class="anchor" aria-label="anchor" href="#plan-add-argset-from-list-"></a></h3>
 <p>Add multiple argsets from a list.</p><div class="section">
 <h4 id="usage-4">Usage<a class="anchor" aria-label="anchor" href="#usage-4"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Plan</span><span class="op">$</span><span class="fu">add_argset_from_list</span><span class="op">(</span><span class="va">l</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-4">Arguments<a class="anchor" aria-label="anchor" href="#arguments-4"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>l</code></dt>
 <dd><p>A list of lists. Each inner list is one new argset.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns-4">Returns<a class="anchor" aria-label="anchor" href="#returns-4"></a></h4>
 <p>NULL. The method changes the plan in place.</p>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="examples-3">Examples<a class="anchor" aria-label="anchor" href="#examples-3"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">plnr</span><span class="fu">::</span><span class="va"><a href="../reference/Plan.html">Plan</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
@@ -342,41 +322,35 @@ UUID.</p></dd>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">get_argsets_as_dt</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-Plan-add_analysis"></a><div class="section">
-<h3 id="method-add-analysis-">Method <code>add_analysis()</code><a class="anchor" aria-label="anchor" href="#method-add-analysis-"></a></h3>
+<p></p><hr><a id="method-Plan-add_analysis"></a><div class="section">
+<h3 id="plan-add-analysis-"><code>Plan$add_analysis()</code><a class="anchor" aria-label="anchor" href="#plan-add-analysis-"></a></h3>
 <p>Add a new analysis to the plan.</p><div class="section">
 <h4 id="usage-5">Usage<a class="anchor" aria-label="anchor" href="#usage-5"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Plan</span><span class="op">$</span><span class="fu">add_analysis</span><span class="op">(</span>name <span class="op">=</span> <span class="fu">uuid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/uuid/man/UUIDgenerate.html" class="external-link">UUIDgenerate</a></span><span class="op">(</span><span class="op">)</span>, fn <span class="op">=</span> <span class="cn">NULL</span>, fn_name <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-5">Arguments<a class="anchor" aria-label="anchor" href="#arguments-5"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>name</code></dt>
 <dd><p>Character string. The name of the analysis. The default is a
 UUID.</p></dd>
 
-
-<dt><code>fn</code></dt>
+      <dt><code>fn</code></dt>
 <dd><p>Optional. The function to use for the analysis.</p></dd>
 
-
-<dt><code>fn_name</code></dt>
+      <dt><code>fn_name</code></dt>
 <dd><p>Optional. A character string that names the function to
 use.</p></dd>
 
-
-<dt><code>...</code></dt>
+      <dt><code>...</code></dt>
 <dd><p>Further arguments to add to the argset.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns-5">Returns<a class="anchor" aria-label="anchor" href="#returns-5"></a></h4>
 <p>NULL. The method changes the plan in place.</p>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="examples-4">Examples<a class="anchor" aria-label="anchor" href="#examples-4"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">plnr</span><span class="fu">::</span><span class="va"><a href="../reference/Plan.html">Plan</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
@@ -394,36 +368,31 @@ use.</p></dd>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">run_one</span><span class="op">(</span><span class="st">"analysis_1"</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-Plan-add_analysis_from_df"></a><div class="section">
-<h3 id="method-add-analysis-from-df-">Method <code>add_analysis_from_df()</code><a class="anchor" aria-label="anchor" href="#method-add-analysis-from-df-"></a></h3>
+<p></p><hr><a id="method-Plan-add_analysis_from_df"></a><div class="section">
+<h3 id="plan-add-analysis-from-df-"><code>Plan$add_analysis_from_df()</code><a class="anchor" aria-label="anchor" href="#plan-add-analysis-from-df-"></a></h3>
 <p>Add multiple analyses from a data frame.</p><div class="section">
 <h4 id="usage-6">Usage<a class="anchor" aria-label="anchor" href="#usage-6"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Plan</span><span class="op">$</span><span class="fu">add_analysis_from_df</span><span class="op">(</span>fn <span class="op">=</span> <span class="cn">NULL</span>, fn_name <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">df</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-6">Arguments<a class="anchor" aria-label="anchor" href="#arguments-6"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>fn</code></dt>
 <dd><p>Optional. The function to use for all analyses.</p></dd>
 
-
-<dt><code>fn_name</code></dt>
+      <dt><code>fn_name</code></dt>
 <dd><p>Optional. A character string that names the function to
 use.</p></dd>
 
-
-<dt><code>df</code></dt>
+      <dt><code>df</code></dt>
 <dd><p>A data frame. Each row is one new analysis.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns-6">Returns<a class="anchor" aria-label="anchor" href="#returns-6"></a></h4>
 <p>NULL. The method changes the plan in place.</p>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="examples-5">Examples<a class="anchor" aria-label="anchor" href="#examples-5"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">plnr</span><span class="fu">::</span><span class="va"><a href="../reference/Plan.html">Plan</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
@@ -448,36 +417,31 @@ use.</p></dd>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">run_one</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-Plan-add_analysis_from_list"></a><div class="section">
-<h3 id="method-add-analysis-from-list-">Method <code>add_analysis_from_list()</code><a class="anchor" aria-label="anchor" href="#method-add-analysis-from-list-"></a></h3>
+<p></p><hr><a id="method-Plan-add_analysis_from_list"></a><div class="section">
+<h3 id="plan-add-analysis-from-list-"><code>Plan$add_analysis_from_list()</code><a class="anchor" aria-label="anchor" href="#plan-add-analysis-from-list-"></a></h3>
 <p>Add multiple analyses from a list.</p><div class="section">
 <h4 id="usage-7">Usage<a class="anchor" aria-label="anchor" href="#usage-7"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Plan</span><span class="op">$</span><span class="fu">add_analysis_from_list</span><span class="op">(</span>fn <span class="op">=</span> <span class="cn">NULL</span>, fn_name <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">l</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-7">Arguments<a class="anchor" aria-label="anchor" href="#arguments-7"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>fn</code></dt>
 <dd><p>Optional. The function to use for all analyses.</p></dd>
 
-
-<dt><code>fn_name</code></dt>
+      <dt><code>fn_name</code></dt>
 <dd><p>Optional. A character string that names the function to
 use.</p></dd>
 
-
-<dt><code>l</code></dt>
+      <dt><code>l</code></dt>
 <dd><p>A list of lists. Each inner list is one new analysis.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns-7">Returns<a class="anchor" aria-label="anchor" href="#returns-7"></a></h4>
 <p>NULL. The method changes the plan in place.</p>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="examples-6">Examples<a class="anchor" aria-label="anchor" href="#examples-6"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">plnr</span><span class="fu">::</span><span class="va"><a href="../reference/Plan.html">Plan</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
@@ -502,21 +466,19 @@ use.</p></dd>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">run_one</span><span class="op">(</span><span class="st">"analysis_1"</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-Plan-apply_action_fn_to_all_argsets"></a><div class="section">
-<h3 id="method-apply-action-fn-to-all-argsets-">Method <code>apply_action_fn_to_all_argsets()</code><a class="anchor" aria-label="anchor" href="#method-apply-action-fn-to-all-argsets-"></a></h3>
+<p></p><hr><a id="method-Plan-apply_action_fn_to_all_argsets"></a><div class="section">
+<h3 id="plan-apply-action-fn-to-all-argsets-"><code>Plan$apply_action_fn_to_all_argsets()</code><a class="anchor" aria-label="anchor" href="#plan-apply-action-fn-to-all-argsets-"></a></h3>
 <p>Apply one action function to all the argsets.</p><div class="section">
 <h4 id="usage-8">Usage<a class="anchor" aria-label="anchor" href="#usage-8"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Plan</span><span class="op">$</span><span class="fu">apply_action_fn_to_all_argsets</span><span class="op">(</span>fn <span class="op">=</span> <span class="cn">NULL</span>, fn_name <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-8">Arguments<a class="anchor" aria-label="anchor" href="#arguments-8"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>fn</code></dt>
 <dd><p>Action function.</p></dd>
 
-
-<dt><code>fn_name</code></dt>
+      <dt><code>fn_name</code></dt>
 <dd><p>Action function name.
 p &lt;- plnr::Plan$new()
 p$add_data("covid_data", fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_location")
@@ -537,50 +499,51 @@ p$run_one("analysis_1")</p></dd>
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-Plan-apply_analysis_fn_to_all"></a><div class="section">
-<h3 id="method-apply-analysis-fn-to-all-">Method <code>apply_analysis_fn_to_all()</code><a class="anchor" aria-label="anchor" href="#method-apply-analysis-fn-to-all-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-Plan-apply_analysis_fn_to_all"></a><div class="section">
+<h3 id="plan-apply-analysis-fn-to-all-"><code>Plan$apply_analysis_fn_to_all()</code><a class="anchor" aria-label="anchor" href="#plan-apply-analysis-fn-to-all-"></a></h3>
 <p>Deprecated. Use <code>apply_action_fn_to_all_argsets()</code> instead.</p><div class="section">
 <h4 id="usage-9">Usage<a class="anchor" aria-label="anchor" href="#usage-9"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Plan</span><span class="op">$</span><span class="fu">apply_analysis_fn_to_all</span><span class="op">(</span>fn <span class="op">=</span> <span class="cn">NULL</span>, fn_name <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-9">Arguments<a class="anchor" aria-label="anchor" href="#arguments-9"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>fn</code></dt>
 <dd><p>Action function.</p></dd>
 
-
-<dt><code>fn_name</code></dt>
+      <dt><code>fn_name</code></dt>
 <dd><p>Action function name.</p></dd>
 
 
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-Plan-x_length"></a><div class="section">
-<h3 id="method-x-length-">Method <code>x_length()</code><a class="anchor" aria-label="anchor" href="#method-x-length-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-Plan-x_length"></a><div class="section">
+<h3 id="plan-x-length-"><code>Plan$x_length()</code><a class="anchor" aria-label="anchor" href="#plan-x-length-"></a></h3>
 <p>Number of analyses in the plan.</p><div class="section">
 <h4 id="usage-10">Usage<a class="anchor" aria-label="anchor" href="#usage-10"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Plan</span><span class="op">$</span><span class="fu">x_length</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-Plan-x_seq_along"></a><div class="section">
-<h3 id="method-x-seq-along-">Method <code>x_seq_along()</code><a class="anchor" aria-label="anchor" href="#method-x-seq-along-"></a></h3>
+<p></p><hr><a id="method-Plan-x_seq_along"></a><div class="section">
+<h3 id="plan-x-seq-along-"><code>Plan$x_seq_along()</code><a class="anchor" aria-label="anchor" href="#plan-x-seq-along-"></a></h3>
 <p>Generate a regular sequence from 1 to the number of analyses in the plan.</p><div class="section">
 <h4 id="usage-11">Usage<a class="anchor" aria-label="anchor" href="#usage-11"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Plan</span><span class="op">$</span><span class="fu">x_seq_along</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-Plan-set_progress"></a><div class="section">
-<h3 id="method-set-progress-">Method <code>set_progress()</code><a class="anchor" aria-label="anchor" href="#method-set-progress-"></a></h3>
+<p></p><hr><a id="method-Plan-set_progress"></a><div class="section">
+<h3 id="plan-set-progress-"><code>Plan$set_progress()</code><a class="anchor" aria-label="anchor" href="#plan-set-progress-"></a></h3>
 <p>Set an internal progress bar.</p><div class="section">
 <h4 id="usage-12">Usage<a class="anchor" aria-label="anchor" href="#usage-12"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Plan</span><span class="op">$</span><span class="fu">set_progress</span><span class="op">(</span><span class="va">pb</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-10">Arguments<a class="anchor" aria-label="anchor" href="#arguments-10"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>pb</code></dt>
 <dd><p>Progress bar.</p></dd>
@@ -589,14 +552,14 @@ p$run_one("analysis_1")</p></dd>
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-Plan-set_progressor"></a><div class="section">
-<h3 id="method-set-progressor-">Method <code>set_progressor()</code><a class="anchor" aria-label="anchor" href="#method-set-progressor-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-Plan-set_progressor"></a><div class="section">
+<h3 id="plan-set-progressor-"><code>Plan$set_progressor()</code><a class="anchor" aria-label="anchor" href="#plan-set-progressor-"></a></h3>
 <p>Set an internal progressor progress bar.</p><div class="section">
 <h4 id="usage-13">Usage<a class="anchor" aria-label="anchor" href="#usage-13"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Plan</span><span class="op">$</span><span class="fu">set_progressor</span><span class="op">(</span><span class="va">pb</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-11">Arguments<a class="anchor" aria-label="anchor" href="#arguments-11"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>pb</code></dt>
 <dd><p>progressor progress bar.</p></dd>
@@ -605,14 +568,14 @@ p$run_one("analysis_1")</p></dd>
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-Plan-set_verbose"></a><div class="section">
-<h3 id="method-set-verbose-">Method <code>set_verbose()</code><a class="anchor" aria-label="anchor" href="#method-set-verbose-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-Plan-set_verbose"></a><div class="section">
+<h3 id="plan-set-verbose-"><code>Plan$set_verbose()</code><a class="anchor" aria-label="anchor" href="#plan-set-verbose-"></a></h3>
 <p>Set the <code>verbose</code> flag.</p><div class="section">
 <h4 id="usage-14">Usage<a class="anchor" aria-label="anchor" href="#usage-14"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Plan</span><span class="op">$</span><span class="fu">set_verbose</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-12">Arguments<a class="anchor" aria-label="anchor" href="#arguments-12"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>x</code></dt>
 <dd><p>Boolean.</p></dd>
@@ -621,14 +584,14 @@ p$run_one("analysis_1")</p></dd>
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-Plan-set_use_foreach"></a><div class="section">
-<h3 id="method-set-use-foreach-">Method <code>set_use_foreach()</code><a class="anchor" aria-label="anchor" href="#method-set-use-foreach-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-Plan-set_use_foreach"></a><div class="section">
+<h3 id="plan-set-use-foreach-"><code>Plan$set_use_foreach()</code><a class="anchor" aria-label="anchor" href="#plan-set-use-foreach-"></a></h3>
 <p>Set the <code>use_foreach</code> flag.</p><div class="section">
 <h4 id="usage-15">Usage<a class="anchor" aria-label="anchor" href="#usage-15"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Plan</span><span class="op">$</span><span class="fu">set_use_foreach</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-13">Arguments<a class="anchor" aria-label="anchor" href="#arguments-13"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>x</code></dt>
 <dd><p>Boolean.</p></dd>
@@ -637,14 +600,14 @@ p$run_one("analysis_1")</p></dd>
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-Plan-get_data"></a><div class="section">
-<h3 id="method-get-data-">Method <code>get_data()</code><a class="anchor" aria-label="anchor" href="#method-get-data-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-Plan-get_data"></a><div class="section">
+<h3 id="plan-get-data-"><code>Plan$get_data()</code><a class="anchor" aria-label="anchor" href="#plan-get-data-"></a></h3>
 <p>Extract the data added with <code>add_data()</code> and return it as a named list.</p><div class="section">
 <h4 id="usage-16">Usage<a class="anchor" aria-label="anchor" href="#usage-16"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Plan</span><span class="op">$</span><span class="fu">get_data</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns-8">Returns<a class="anchor" aria-label="anchor" href="#returns-8"></a></h4>
 <p>A named list. Most elements come from <code>add_data()</code>.</p>
 <p>One extra named element is called 'hash'. 'hash' holds the data hashes of
@@ -652,23 +615,22 @@ particular datasets and variables. <code><a href="https://eddelbuettel.github.io
 with the 'spookyhash' algorithm.</p>
 <p>'hash' holds two named elements:</p><ul><li><p>current (the hash of the entire named list)</p></li>
 <li><p>current_elements (the hash of the named elements within the named list)</p></li>
-</ul></div>
-<div class="section">
+</ul><p></p>
+</div><p></p><div class="section">
 <h4 id="examples-7">Examples<a class="anchor" aria-label="anchor" href="#examples-7"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">plnr</span><span class="fu">::</span><span class="va"><a href="../reference/Plan.html">Plan</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">add_data</span><span class="op">(</span><span class="st">"covid_data"</span>, fn_name <span class="op">=</span> <span class="st">"plnr::example_data_fn_nor_covid19_cases_by_time_location"</span><span class="op">)</span></span>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">get_data</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-Plan-get_analysis"></a><div class="section">
-<h3 id="method-get-analysis-">Method <code>get_analysis()</code><a class="anchor" aria-label="anchor" href="#method-get-analysis-"></a></h3>
+<p></p><hr><a id="method-Plan-get_analysis"></a><div class="section">
+<h3 id="plan-get-analysis-"><code>Plan$get_analysis()</code><a class="anchor" aria-label="anchor" href="#plan-get-analysis-"></a></h3>
 <p>Extract one analysis from the plan.</p><div class="section">
 <h4 id="usage-17">Usage<a class="anchor" aria-label="anchor" href="#usage-17"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Plan</span><span class="op">$</span><span class="fu">get_analysis</span><span class="op">(</span><span class="va">index_analysis</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-14">Arguments<a class="anchor" aria-label="anchor" href="#arguments-14"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>index_analysis</code></dt>
 <dd><p>Either an integer in <code>1:length(analyses)</code>, or a
@@ -676,12 +638,10 @@ character string with the name of the analysis.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns-9">Returns<a class="anchor" aria-label="anchor" href="#returns-9"></a></h4>
 <p>An analysis.</p>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="examples-8">Examples<a class="anchor" aria-label="anchor" href="#examples-8"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">plnr</span><span class="fu">::</span><span class="va"><a href="../reference/Plan.html">Plan</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">add_data</span><span class="op">(</span><span class="st">"covid_data"</span>, fn_name <span class="op">=</span> <span class="st">"plnr::example_data_fn_nor_covid19_cases_by_time_location"</span><span class="op">)</span></span>
@@ -697,15 +657,14 @@ character string with the name of the analysis.</p></dd>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">get_analysis</span><span class="op">(</span><span class="st">"analysis_1"</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-Plan-get_argset"></a><div class="section">
-<h3 id="method-get-argset-">Method <code>get_argset()</code><a class="anchor" aria-label="anchor" href="#method-get-argset-"></a></h3>
+<p></p><hr><a id="method-Plan-get_argset"></a><div class="section">
+<h3 id="plan-get-argset-"><code>Plan$get_argset()</code><a class="anchor" aria-label="anchor" href="#plan-get-argset-"></a></h3>
 <p>Extract one argset from the plan.</p><div class="section">
 <h4 id="usage-18">Usage<a class="anchor" aria-label="anchor" href="#usage-18"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Plan</span><span class="op">$</span><span class="fu">get_argset</span><span class="op">(</span><span class="va">index_analysis</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-15">Arguments<a class="anchor" aria-label="anchor" href="#arguments-15"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>index_analysis</code></dt>
 <dd><p>Either an integer in <code>1:length(analyses)</code>, or a
@@ -713,12 +672,10 @@ character string with the name of the analysis.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns-10">Returns<a class="anchor" aria-label="anchor" href="#returns-10"></a></h4>
 <p>An argset.</p>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="examples-9">Examples<a class="anchor" aria-label="anchor" href="#examples-9"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">plnr</span><span class="fu">::</span><span class="va"><a href="../reference/Plan.html">Plan</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">add_data</span><span class="op">(</span><span class="st">"covid_data"</span>, fn_name <span class="op">=</span> <span class="st">"plnr::example_data_fn_nor_covid19_cases_by_time_location"</span><span class="op">)</span></span>
@@ -734,19 +691,17 @@ character string with the name of the analysis.</p></dd>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">get_argset</span><span class="op">(</span><span class="st">"analysis_1"</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-Plan-get_argsets_as_dt"></a><div class="section">
-<h3 id="method-get-argsets-as-dt-">Method <code>get_argsets_as_dt()</code><a class="anchor" aria-label="anchor" href="#method-get-argsets-as-dt-"></a></h3>
+<p></p><hr><a id="method-Plan-get_argsets_as_dt"></a><div class="section">
+<h3 id="plan-get-argsets-as-dt-"><code>Plan$get_argsets_as_dt()</code><a class="anchor" aria-label="anchor" href="#plan-get-argsets-as-dt-"></a></h3>
 <p>Get all argsets and return them as a data.table.</p><div class="section">
 <h4 id="usage-19">Usage<a class="anchor" aria-label="anchor" href="#usage-19"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Plan</span><span class="op">$</span><span class="fu">get_argsets_as_dt</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns-11">Returns<a class="anchor" aria-label="anchor" href="#returns-11"></a></h4>
 <p>A data.table that holds all the argsets within a plan.</p>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="examples-10">Examples<a class="anchor" aria-label="anchor" href="#examples-10"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">plnr</span><span class="fu">::</span><span class="va"><a href="../reference/Plan.html">Plan</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">add_data</span><span class="op">(</span><span class="st">"covid_data"</span>, fn_name <span class="op">=</span> <span class="st">"plnr::example_data_fn_nor_covid19_cases_by_time_location"</span><span class="op">)</span></span>
@@ -762,36 +717,31 @@ character string with the name of the analysis.</p></dd>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">get_argsets_as_dt</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-Plan-run_one_with_data"></a><div class="section">
-<h3 id="method-run-one-with-data-">Method <code>run_one_with_data()</code><a class="anchor" aria-label="anchor" href="#method-run-one-with-data-"></a></h3>
+<p></p><hr><a id="method-Plan-run_one_with_data"></a><div class="section">
+<h3 id="plan-run-one-with-data-"><code>Plan$run_one_with_data()</code><a class="anchor" aria-label="anchor" href="#plan-run-one-with-data-"></a></h3>
 <p>Run one analysis. You supply the data.</p><div class="section">
 <h4 id="usage-20">Usage<a class="anchor" aria-label="anchor" href="#usage-20"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Plan</span><span class="op">$</span><span class="fu">run_one_with_data</span><span class="op">(</span><span class="va">index_analysis</span>, <span class="va">data</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-16">Arguments<a class="anchor" aria-label="anchor" href="#arguments-16"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>index_analysis</code></dt>
 <dd><p>Either an integer in <code>1:length(analyses)</code>, or a
 character string with the name of the analysis.</p></dd>
 
-
-<dt><code>data</code></dt>
+      <dt><code>data</code></dt>
 <dd><p>A named list. You normally get it from <code>p$get_data()</code>.</p></dd>
 
-
-<dt><code>...</code></dt>
+      <dt><code>...</code></dt>
 <dd><p>Not used.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns-12">Returns<a class="anchor" aria-label="anchor" href="#returns-12"></a></h4>
 <p>The value that the action function returns.</p>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="examples-11">Examples<a class="anchor" aria-label="anchor" href="#examples-11"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">plnr</span><span class="fu">::</span><span class="va"><a href="../reference/Plan.html">Plan</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">add_data</span><span class="op">(</span><span class="st">"covid_data"</span>, fn_name <span class="op">=</span> <span class="st">"plnr::example_data_fn_nor_covid19_cases_by_time_location"</span><span class="op">)</span></span>
@@ -808,32 +758,28 @@ character string with the name of the analysis.</p></dd>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">run_one_with_data</span><span class="op">(</span><span class="st">"analysis_1"</span>, <span class="va">data</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-Plan-run_one"></a><div class="section">
-<h3 id="method-run-one-">Method <code>run_one()</code><a class="anchor" aria-label="anchor" href="#method-run-one-"></a></h3>
+<p></p><hr><a id="method-Plan-run_one"></a><div class="section">
+<h3 id="plan-run-one-"><code>Plan$run_one()</code><a class="anchor" aria-label="anchor" href="#plan-run-one-"></a></h3>
 <p>Run one analysis. The method gets the data from <code>self$get_data()</code>.</p><div class="section">
 <h4 id="usage-21">Usage<a class="anchor" aria-label="anchor" href="#usage-21"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Plan</span><span class="op">$</span><span class="fu">run_one</span><span class="op">(</span><span class="va">index_analysis</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-17">Arguments<a class="anchor" aria-label="anchor" href="#arguments-17"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>index_analysis</code></dt>
 <dd><p>Either an integer in <code>1:length(analyses)</code>, or a
 character string with the name of the analysis.</p></dd>
 
-
-<dt><code>...</code></dt>
+      <dt><code>...</code></dt>
 <dd><p>Not used.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns-13">Returns<a class="anchor" aria-label="anchor" href="#returns-13"></a></h4>
 <p>The value that the action function returns.</p>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="examples-12">Examples<a class="anchor" aria-label="anchor" href="#examples-12"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">plnr</span><span class="fu">::</span><span class="va"><a href="../reference/Plan.html">Plan</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">add_data</span><span class="op">(</span><span class="st">"covid_data"</span>, fn_name <span class="op">=</span> <span class="st">"plnr::example_data_fn_nor_covid19_cases_by_time_location"</span><span class="op">)</span></span>
@@ -849,31 +795,27 @@ character string with the name of the analysis.</p></dd>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">run_one</span><span class="op">(</span><span class="st">"analysis_1"</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-Plan-run_all_with_data"></a><div class="section">
-<h3 id="method-run-all-with-data-">Method <code>run_all_with_data()</code><a class="anchor" aria-label="anchor" href="#method-run-all-with-data-"></a></h3>
+<p></p><hr><a id="method-Plan-run_all_with_data"></a><div class="section">
+<h3 id="plan-run-all-with-data-"><code>Plan$run_all_with_data()</code><a class="anchor" aria-label="anchor" href="#plan-run-all-with-data-"></a></h3>
 <p>Run all analyses. You supply the data.</p><div class="section">
 <h4 id="usage-22">Usage<a class="anchor" aria-label="anchor" href="#usage-22"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Plan</span><span class="op">$</span><span class="fu">run_all_with_data</span><span class="op">(</span><span class="va">data</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-18">Arguments<a class="anchor" aria-label="anchor" href="#arguments-18"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>data</code></dt>
 <dd><p>A named list. You normally get it from <code>p$get_data()</code>.</p></dd>
 
-
-<dt><code>...</code></dt>
+      <dt><code>...</code></dt>
 <dd><p>Not used.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns-14">Returns<a class="anchor" aria-label="anchor" href="#returns-14"></a></h4>
 <p>A list. Each element is the value that the action function returns.</p>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="examples-13">Examples<a class="anchor" aria-label="anchor" href="#examples-13"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">plnr</span><span class="fu">::</span><span class="va"><a href="../reference/Plan.html">Plan</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">add_data</span><span class="op">(</span><span class="st">"covid_data"</span>, fn_name <span class="op">=</span> <span class="st">"plnr::example_data_fn_nor_covid19_cases_by_time_location"</span><span class="op">)</span></span>
@@ -890,27 +832,24 @@ character string with the name of the analysis.</p></dd>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">run_all_with_data</span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-Plan-run_all"></a><div class="section">
-<h3 id="method-run-all-">Method <code>run_all()</code><a class="anchor" aria-label="anchor" href="#method-run-all-"></a></h3>
+<p></p><hr><a id="method-Plan-run_all"></a><div class="section">
+<h3 id="plan-run-all-"><code>Plan$run_all()</code><a class="anchor" aria-label="anchor" href="#plan-run-all-"></a></h3>
 <p>Run all analyses. The method gets the data from <code>self$get_data()</code>.</p><div class="section">
 <h4 id="usage-23">Usage<a class="anchor" aria-label="anchor" href="#usage-23"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Plan</span><span class="op">$</span><span class="fu">run_all</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-19">Arguments<a class="anchor" aria-label="anchor" href="#arguments-19"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>...</code></dt>
 <dd><p>Not used.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns-15">Returns<a class="anchor" aria-label="anchor" href="#returns-15"></a></h4>
 <p>A list. Each element is the value that the action function returns.</p>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="examples-14">Examples<a class="anchor" aria-label="anchor" href="#examples-14"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">plnr</span><span class="fu">::</span><span class="va"><a href="../reference/Plan.html">Plan</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">add_data</span><span class="op">(</span><span class="st">"covid_data"</span>, fn_name <span class="op">=</span> <span class="st">"plnr::example_data_fn_nor_covid19_cases_by_time_location"</span><span class="op">)</span></span>
@@ -926,28 +865,25 @@ character string with the name of the analysis.</p></dd>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">run_all</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-Plan-run_all_progress"></a><div class="section">
-<h3 id="method-run-all-progress-">Method <code>run_all_progress()</code><a class="anchor" aria-label="anchor" href="#method-run-all-progress-"></a></h3>
+<p></p><hr><a id="method-Plan-run_all_progress"></a><div class="section">
+<h3 id="plan-run-all-progress-"><code>Plan$run_all_progress()</code><a class="anchor" aria-label="anchor" href="#plan-run-all-progress-"></a></h3>
 <p>Run all analyses and show a progress bar. The method gets the data from
 <code>self$get_data()</code>.</p><div class="section">
 <h4 id="usage-24">Usage<a class="anchor" aria-label="anchor" href="#usage-24"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Plan</span><span class="op">$</span><span class="fu">run_all_progress</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-20">Arguments<a class="anchor" aria-label="anchor" href="#arguments-20"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>...</code></dt>
 <dd><p>Not used.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns-16">Returns<a class="anchor" aria-label="anchor" href="#returns-16"></a></h4>
 <p>A list. Each element is the value that the action function returns.</p>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="examples-15">Examples<a class="anchor" aria-label="anchor" href="#examples-15"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">plnr</span><span class="fu">::</span><span class="va"><a href="../reference/Plan.html">Plan</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">add_data</span><span class="op">(</span><span class="st">"covid_data"</span>, fn_name <span class="op">=</span> <span class="st">"plnr::example_data_fn_nor_covid19_cases_by_time_location"</span><span class="op">)</span></span>
@@ -963,42 +899,39 @@ character string with the name of the analysis.</p></dd>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">run_all_progress</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-Plan-run_all_parallel"></a><div class="section">
-<h3 id="method-run-all-parallel-">Method <code>run_all_parallel()</code><a class="anchor" aria-label="anchor" href="#method-run-all-parallel-"></a></h3>
+<p></p><hr><a id="method-Plan-run_all_parallel"></a><div class="section">
+<h3 id="plan-run-all-parallel-"><code>Plan$run_all_parallel()</code><a class="anchor" aria-label="anchor" href="#plan-run-all-parallel-"></a></h3>
 <p>Run all analyses in parallel. The method gets the data from
 <code>self$get_data()</code>.</p>
 <p>This method works only on linux computers. It uses <code>pbmcapply</code> as the
 parallel backend.</p><div class="section">
 <h4 id="usage-25">Usage<a class="anchor" aria-label="anchor" href="#usage-25"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Plan</span><span class="op">$</span><span class="fu">run_all_parallel</span><span class="op">(</span>mc.cores <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"mc.cores"</span>, <span class="fl">2L</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-21">Arguments<a class="anchor" aria-label="anchor" href="#arguments-21"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>mc.cores</code></dt>
 <dd><p>The number of cores to use.</p></dd>
 
-
-<dt><code>...</code></dt>
+      <dt><code>...</code></dt>
 <dd><p>Not used.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns-17">Returns<a class="anchor" aria-label="anchor" href="#returns-17"></a></h4>
 <p>A list. Each element is the value that the action function returns.</p>
 </div>
 
-</div><p></p><hr><a id="method-Plan-clone"></a><div class="section">
-<h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-Plan-clone"></a><div class="section">
+<h3 id="plan-clone-"><code>Plan$clone()</code><a class="anchor" aria-label="anchor" href="#plan-clone-"></a></h3>
 <p>The objects of this class are cloneable with this method.</p><div class="section">
 <h4 id="usage-26">Usage<a class="anchor" aria-label="anchor" href="#usage-26"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Plan</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-22">Arguments<a class="anchor" aria-label="anchor" href="#arguments-22"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>deep</code></dt>
 <dd><p>Whether to make a deep clone.</p></dd>
@@ -1009,13 +942,14 @@ parallel backend.</p><div class="section">
 
 </div>
 
+
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `Plan$add_data`</span></span></span>
+<span class="r-in"><span><span class="co">## Method `Plan$add_data()`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">plnr</span><span class="fu">::</span><span class="va">Plan</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></span>
@@ -1212,7 +1146,7 @@ parallel backend.</p><div class="section">
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `Plan$add_argset`</span></span></span>
+<span class="r-in"><span><span class="co">## Method `Plan$add_argset()`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">plnr</span><span class="fu">::</span><span class="va">Plan</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></span>
@@ -1229,7 +1163,7 @@ parallel backend.</p><div class="section">
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2:      argset_2              2      8 [NULL] hello2</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `Plan$add_argset_from_df`</span></span></span>
+<span class="r-in"><span><span class="co">## Method `Plan$add_argset_from_df()`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">plnr</span><span class="fu">::</span><span class="va">Plan</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></span>
@@ -1253,7 +1187,7 @@ parallel backend.</p><div class="section">
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3:             c              3      3      k</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `Plan$add_argset_from_list`</span></span></span>
+<span class="r-in"><span><span class="co">## Method `Plan$add_argset_from_list()`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">plnr</span><span class="fu">::</span><span class="va">Plan</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></span>
@@ -1277,7 +1211,7 @@ parallel backend.</p><div class="section">
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3:             c              3      3      k</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `Plan$add_analysis`</span></span></span>
+<span class="r-in"><span><span class="co">## Method `Plan$add_analysis()`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">plnr</span><span class="fu">::</span><span class="va">Plan</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></span>
@@ -1304,7 +1238,7 @@ parallel backend.</p><div class="section">
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "index_analysis"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `Plan$add_analysis_from_df`</span></span></span>
+<span class="r-in"><span><span class="co">## Method `Plan$add_analysis_from_df()`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">plnr</span><span class="fu">::</span><span class="va">Plan</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></span>
@@ -1340,7 +1274,7 @@ parallel backend.</p><div class="section">
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "var_1"          "var_2"          "index_analysis"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `Plan$add_analysis_from_list`</span></span></span>
+<span class="r-in"><span><span class="co">## Method `Plan$add_analysis_from_list()`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">plnr</span><span class="fu">::</span><span class="va">Plan</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></span>
@@ -1376,7 +1310,7 @@ parallel backend.</p><div class="section">
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "var_1"          "var_2"          "index_analysis"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `Plan$get_data`</span></span></span>
+<span class="r-in"><span><span class="co">## Method `Plan$get_data()`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">plnr</span><span class="fu">::</span><span class="va">Plan</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></span>
@@ -1448,7 +1382,7 @@ parallel backend.</p><div class="section">
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `Plan$get_analysis`</span></span></span>
+<span class="r-in"><span><span class="co">## Method `Plan$get_analysis()`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">plnr</span><span class="fu">::</span><span class="va">Plan</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></span>
@@ -1482,7 +1416,7 @@ parallel backend.</p><div class="section">
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `Plan$get_argset`</span></span></span>
+<span class="r-in"><span><span class="co">## Method `Plan$get_argset()`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">plnr</span><span class="fu">::</span><span class="va">Plan</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></span>
@@ -1505,7 +1439,7 @@ parallel backend.</p><div class="section">
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `Plan$get_argsets_as_dt`</span></span></span>
+<span class="r-in"><span><span class="co">## Method `Plan$get_argsets_as_dt()`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">plnr</span><span class="fu">::</span><span class="va">Plan</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></span>
@@ -1527,7 +1461,7 @@ parallel backend.</p><div class="section">
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3:    analysis_3              3      3      k</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `Plan$run_one_with_data`</span></span></span>
+<span class="r-in"><span><span class="co">## Method `Plan$run_one_with_data()`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">plnr</span><span class="fu">::</span><span class="va">Plan</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></span>
@@ -1550,7 +1484,7 @@ parallel backend.</p><div class="section">
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "var_1"          "var_2"          "index_analysis"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `Plan$run_one`</span></span></span>
+<span class="r-in"><span><span class="co">## Method `Plan$run_one()`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">plnr</span><span class="fu">::</span><span class="va">Plan</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></span>
@@ -1572,7 +1506,7 @@ parallel backend.</p><div class="section">
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "var_1"          "var_2"          "index_analysis"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `Plan$run_all_with_data`</span></span></span>
+<span class="r-in"><span><span class="co">## Method `Plan$run_all_with_data()`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">plnr</span><span class="fu">::</span><span class="va">Plan</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></span>
@@ -1602,7 +1536,7 @@ parallel backend.</p><div class="section">
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "var_1"          "var_2"          "index_analysis"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `Plan$run_all`</span></span></span>
+<span class="r-in"><span><span class="co">## Method `Plan$run_all()`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">plnr</span><span class="fu">::</span><span class="va">Plan</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></span>
@@ -1631,7 +1565,7 @@ parallel backend.</p><div class="section">
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "var_1"          "var_2"          "index_analysis"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
-<span class="r-in"><span><span class="co">## Method `Plan$run_all_progress`</span></span></span>
+<span class="r-in"><span><span class="co">## Method `Plan$run_all_progress()`</span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">plnr</span><span class="fu">::</span><span class="va">Plan</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></span>
