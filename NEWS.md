@@ -1,3 +1,10 @@
+# Version 2026.9.23
+
+- This CRAN release carries the `Plan$add_analysis_from_list()` fix from
+  2026.8.3 (#1). CRAN version 2025.11.22 does not have it.
+- `DESCRIPTION` now declares `R (>= 4.1.0)`, because the code uses the base pipe `|>`.
+
+
 # Version 2026.8.21
 
 - The package drops `magrittr`. Every `%>%` is now the base pipe `|>`, and

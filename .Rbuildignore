@@ -7,7 +7,7 @@ project.Rproj
 ^\.Rproj\.user$
 deploy.sh
 make.sh
-cran-comments.md
+^cran-comments\.md$
 ^.*\.Rcheck
 ^Makefile$
 ^Jenkinsfile$

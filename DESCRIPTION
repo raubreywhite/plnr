@@ -1,6 +1,6 @@
 Package: plnr
 Title: A Framework for Planning and Executing Analyses
-Version: 2026.8.21
+Version: 2026.9.23
 Authors@R:
     c(
       person(
@@ -27,7 +27,7 @@ BugReports: https://github.com/raubreywhite/plnr/issues
 Encoding: UTF-8
 Config/Needs/website: raubreywhite/rwtemplate
 LazyData: true
-Depends: R (>= 3.3.0)
+Depends: R (>= 4.1.0)
 Imports: 
     data.table,
     digest,
