@@ -208,7 +208,7 @@ Plan <- R6::R6Class(
     #' p$get_argsets_as_dt()
     add_argset = function(name = uuid::UUIDgenerate(), ...) {
       if (is.null(analyses[[name]])) {
-        analyses[[name]] <- list()
+        analyses[[name]] <<- list()
       }
 
       dots <- list(...)
@@ -297,10 +297,6 @@ Plan <- R6::R6Class(
     ) {
       stopifnot(is.null(fn) | is.function(fn))
       stopifnot(is.null(fn_name) | is.character(fn_name))
-
-      if (is.null(analyses[[name]])) {
-        analyses[[name]] <- list()
-      }
 
       dots <- list(...)
       analyses[[name]] <<- list(fn = fn, fn_name = fn_name)
