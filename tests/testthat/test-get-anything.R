@@ -114,3 +114,14 @@ test_that("get_anything() finds the caller's variable, not its own argument", {
   }
   expect_identical(f(), 1)
 })
+
+# The documented step 2 stops at the first global environment or namespace.
+# It stopped at an attached package environment too, because it used topenv().
+test_that("step 2 continues through an attached package environment", {
+  skip_if_not("package:stats" %in% search())
+  assign("rnorm", function(...) "global", envir = globalenv())
+  on.exit(rm("rnorm", envir = globalenv()), add = TRUE)
+
+  e <- new.env(parent = as.environment("package:stats"))
+  expect_identical(get_anything("rnorm", envir = e), stats::rnorm)
+})

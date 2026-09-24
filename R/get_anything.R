@@ -38,15 +38,10 @@ get_anything <- function(x, envir = parent.frame(), mode = "any") {
     return(getExportedValue(parts[1], parts[2]))
   }
 
-  # Step 2: the local environments, nearest first. topenv() with emptyenv()
-  # ignores the topLevelEnvironment option, which sys.source() sets.
-  env <- envir
-  top <- topenv(envir, emptyenv())
-  while (!identical(env, top) && !identical(env, emptyenv())) {
-    if (exists(x, envir = env, mode = mode, inherits = FALSE)) {
-      return(get(x, envir = env, mode = mode, inherits = FALSE))
-    }
-    env <- parent.env(env)
+  # Step 2: the local environments, nearest first.
+  env <- find_local_env(x, envir, mode)
+  if (!is.null(env)) {
+    return(get(x, envir = env, mode = mode, inherits = FALSE))
   }
 
   # Step 3: the global environment and the search path.
@@ -56,4 +51,23 @@ get_anything <- function(x, envir = parent.frame(), mode = "any") {
 
   # Step 4: the plnr namespace and its imports.
   return(get(x, envir = asNamespace("plnr"), mode = mode))
+}
+
+# Step 2 of get_anything(): the first environment, from `envir` upwards, that
+# holds `x`. The walk stops before the global environment, a namespace or the
+# empty environment. It passes through attached package environments, as R's
+# own lookup does. NULL when no environment on the walk holds `x`.
+find_local_env <- function(x, envir, mode) {
+  env <- envir
+  while (
+    !identical(env, globalenv()) &&
+      !identical(env, emptyenv()) &&
+      !isNamespace(env)
+  ) {
+    if (exists(x, envir = env, mode = mode, inherits = FALSE)) {
+      return(env)
+    }
+    env <- parent.env(env)
+  }
+  return(NULL)
 }
