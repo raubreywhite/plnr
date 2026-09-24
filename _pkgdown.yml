@@ -5,11 +5,11 @@ template:
   params:
     hero:
       overline: "R package · Analysis planning"
-      title: "Plan and fan out analyses."
+      title: "Plan and run many analyses."
       lede: >
-        Load data once, then run one function across a cross-product of
-        argsets — strata, exposures, outcomes — with hash-based caching and
-        optional <em>parallel</em> execution.
+        Load the data once, then run one function over many argsets: strata,
+        exposures or outcomes. Run the analyses in sequence or in
+        <em>parallel</em>.
       cta:
         primary:
           text: "Get started"

@@ -67,7 +67,7 @@ The `Plan` R6 class (`~790 lines`) is the centerpiece of the framework. Key meth
 
 **Data Management:**
 - `add_data(name, fn_name = NULL, direct = NULL, ...)` - Load data once, reuse across analyses
-- `get_data(name)` - Retrieve loaded data with hash tracking
+- `get_data()` - Load every data source into a named list
 
 **Parameter Definition:**
 - `add_argset(name, ...)` - Add single parameter set
@@ -110,10 +110,11 @@ The `Plan` R6 class (`~790 lines`) is the centerpiece of the framework. Key meth
 
 ## Design Principles
 
-### Analysis Function Signature
-All analysis functions must follow this standard signature:
+### Action Function Signature
+An action function MUST take the data first and the argset second. It MAY
+take further arguments, which the run methods pass on from `...`:
 ```r
-function(data, argset) {
+function(data, argset, ...) {
   # data: list of loaded datasets
   # argset: list of analysis-specific parameters
   # Return: results (any format)
@@ -123,14 +124,12 @@ function(data, argset) {
 ### Separation of Concerns
 - **Data loading:** Happens once via `add_data()`
 - **Parameters:** Defined separately via `add_argset()`
-- **Analysis:** Function only receives data and argset
+- **Analysis:** The action function gets data and argset, and MAY take more arguments
 - **Execution:** Plan orchestrates sequential or parallel runs
 
-### Hash-based Caching
-Data changes are tracked via `digest::digest()` hashes. This enables:
-- Reproducibility verification
-- Optimization of analysis execution
-- Debugging of data dependencies
+### No caching
+`get_data()` adds `digest::digest()` hashes under `hash`, but plnr never reads
+them. There is no cache: every call of `get_data()` loads every data source.
 
 ## Package Dependencies
 
@@ -138,7 +137,7 @@ Data changes are tracked via `digest::digest()` hashes. This enables:
 - `data.table` - Efficient data manipulation
 - `R6` - Object-oriented programming (Plan class)
 - `foreach` - Parallel execution framework
-- `digest` - Hash functions for data tracking
+- `digest` - The hashes that `get_data()` adds (plnr does not read them)
 - `fs`, `glue`, `pbmcapply`, `tidyr`, `uuid`, `stats`, `utils`, `usethis`
 
 **Suggests (optional):**
@@ -287,7 +286,7 @@ Example NEWS.md entry:
 * Added support for custom analysis naming conventions
 
 ## Bug Fixes
-* Fixed hash caching issue with complex data structures
+* Fixed `run_all()` returning `gc()` matrices with foreach
 ```
 
 ## CRAN Publishing Notes

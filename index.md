@@ -5,7 +5,7 @@ title: plnr
 <p class="rw-section">What's inside</p>
 
 <div class="rw-cards">
-<div class="rw-card"><div class="rw-card-num">01</div><h3>Load once, reuse</h3><p>Add datasets to the plan and share them across every analysis, instead of re-reading the same data for each run.</p></div>
-<div class="rw-card"><div class="rw-card-num">02</div><h3>Argset cross-products</h3><p>Apply one action function to many argsets. One definition then covers every stratum, variable or scenario.</p></div>
-<div class="rw-card"><div class="rw-card-num">03</div><h3>Cache and parallelize</h3><p>Hash-based caching tracks data changes. Run all argsets in parallel when you need the throughput.</p></div>
+<div class="rw-card"><div class="rw-card-num">01</div><h3>Load once per run</h3><p><code>run_all()</code> loads each dataset once and passes it to every analysis.</p></div>
+<div class="rw-card"><div class="rw-card-num">02</div><h3>Argsets from combinations</h3><p><code>expand_list()</code> makes one argset for each combination of strata, exposures or outcomes. One action function then covers them all.</p></div>
+<div class="rw-card"><div class="rw-card-num">03</div><h3>Sequence or parallel</h3><p>Run the analyses in sequence, or in parallel through a foreach backend. The results come back as one list.</p></div>
 </div>
