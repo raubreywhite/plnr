@@ -713,8 +713,11 @@ Plan <- R6::R6Class(
           }
         }
 
+        # A PSOCK worker gets only the variables of this frame. The body also
+        # needs private and run_one_with_data, which live in the object.
         retval <- foreach(
           i = self$x_seq_along(),
+          .export = c("private", "run_one_with_data"),
           .options.future = list(chunk.size = chunk_size)
         ) %dopar%
           {

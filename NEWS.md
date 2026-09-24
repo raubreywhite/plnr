@@ -9,6 +9,7 @@
 - `.plnr.options = list(chunk_size = n)` now reaches foreach. It no longer reaches the action function.
 - `add_argset()` and `add_analysis()` no longer copy the whole list of analyses on every call.
 - `create_rmarkdown()` now ends every file that it writes with a newline.
+- `run_all()` with foreach on a PSOCK cluster, such as one from doParallel, failed with `object 'private' not found`. The foreach call now exports what the workers need.
 
 ## Behaviour changes
 

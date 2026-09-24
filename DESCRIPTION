@@ -42,6 +42,8 @@ Imports:
     uuid
 Suggests: 
     testthat,
+    doParallel,
+    parallel,
     knitr,
     rmarkdown,
     progressr,
