@@ -3,7 +3,7 @@
 ## Bug fixes
 
 - `run_all()` with foreach returned a `gc()` matrix for every analysis. It now returns what each action function returns.
-- A `fn_name` now resolves first where you wrote it, then in the global environment and on the search path, and last in plnr. A plnr function no longer wins over your function of the same name. `get_anything()` gains `envir` and `mode`.
+- A `fn_name` now resolves first in the local environment where it resolved when you added it, then in the global environment and on the search path, and last in plnr. A plnr function no longer wins over your function of the same name. The plan stores only that local environment. `get_anything()` gains `envir` and `mode`.
 - The vignettes now knit with `rmarkdown::render(envir = new.env())`. They failed with `object 'fn_fig_1' not found`.
 - `progress` is now in Imports. The default verbose path of `run_all()` called it without declaring it.
 - `.plnr.options = list(chunk_size = n)` now reaches foreach. It no longer reaches the action function.

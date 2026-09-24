@@ -25,8 +25,9 @@ to it in one of two ways:
 \code{...} only when it has more than two formal arguments.
 }
 
-\code{\link[=get_anything]{get_anything()}} finds the function that \code{fn_name} names. It starts where
-you called the method that set \code{fn_name}.
+\code{\link[=get_anything]{get_anything()}} finds the function that \code{fn_name} names when the analysis
+runs. If the name resolved in a local environment when you set \code{fn_name},
+the plan stores that environment and looks there first.
 }
 \examples{
 

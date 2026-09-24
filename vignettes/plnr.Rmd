@@ -79,7 +79,13 @@ p$add_analysis(name = "fig_1_2002", fn_name = "fn_fig_1", year_max = 2002)
 p$add_analysis(name = "fig_1_2003", fn = fn_fig_1, year_max = 2003)
 ```
 
-plnr looks up a name when the analysis runs. You can therefore define or change the function after you add the analysis. It looks first where you called `add_analysis()`, then in the global environment and on the search path, and last in plnr itself. `"pkg::fn"` names a function that a package exports. `?get_anything` gives the full order.
+plnr finds the function when the analysis runs. It looks in this order:
+
+1. The local environment where the name resolved when you added the analysis. This applies inside a function, or in a report knit with `envir = new.env()`. There, the function MUST exist before you add the analysis.
+2. The global environment, then the search path. A global function MAY come after the analysis.
+3. plnr itself.
+
+`"pkg::fn"` names a function that a package exports. `?get_anything` gives the full order.
 
 A function object suits a function that another function made. The two forms pass arguments differently, as `?Plan` describes.
 

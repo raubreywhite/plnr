@@ -117,18 +117,6 @@ data_fn <- function() {
 }
 p$add_data(name = "covid19_cases", fn_name = "data_fn")
 
-p$add_analysis(name = "figure_1", fn_name = "figure_1")
-p$add_analysis(
-  name = "figure_2",
-  fn_name = "plot_epicurve_by_location",
-  location_code = "nation_nor"
-)
-p$add_analysis(
-  name = "figure_3",
-  fn_name = "plot_epicurve_by_location",
-  location_code = "county_nor03"
-)
-
 figure_1 <- function(data, argset) {
   if (plnr::is_run_directly()) {
     data <- p$get_data()
@@ -158,6 +146,18 @@ plot_epicurve_by_location <- function(data, argset) {
   q <- q + labs(title = argset$location_code)
   q
 }
+
+p$add_analysis(name = "figure_1", fn_name = "figure_1")
+p$add_analysis(
+  name = "figure_2",
+  fn_name = "plot_epicurve_by_location",
+  location_code = "nation_nor"
+)
+p$add_analysis(
+  name = "figure_3",
+  fn_name = "plot_epicurve_by_location",
+  location_code = "county_nor03"
+)
 
 p$run_one("figure_1")
 p$run_one("figure_2")

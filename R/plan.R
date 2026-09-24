@@ -70,18 +70,15 @@ hash_it <- function(x) {
   return(digest::digest(x))
 }
 
-# The environment that a plan stores with an unqualified `fn_name`, so that the
-# name resolves where the caller wrote it. A qualified name, or a call from the
-# global environment, needs none.
+# The environment that a plan stores with `fn_name`: the local environment
+# where the name resolves now, in step 2 of get_anything(). NULL when the name
+# is qualified, or resolves only globally or in plnr. The plan stores nothing
+# else, so it keeps no unrelated object of the calling frame alive.
 fn_name_env <- function(fn_name, env) {
-  if (
-    is.null(fn_name) ||
-      length(grep("::", fn_name)) > 0 ||
-      identical(env, globalenv())
-  ) {
+  if (is.null(fn_name) || length(grep("::", fn_name)) > 0) {
     return(NULL)
   }
-  return(env)
+  return(find_local_env(fn_name, env, mode = "function"))
 }
 
 # The function that a data source or an analysis names in `fn_name`.
@@ -280,8 +277,9 @@ decide_use_foreach <- function(use_foreach) {
 #' - A function given as `fn_name` gets `data` and `argset` by name. It gets
 #'   `...` only when it has more than two formal arguments.
 #'
-#' [get_anything()] finds the function that `fn_name` names. It starts where
-#' you called the method that set `fn_name`.
+#' [get_anything()] finds the function that `fn_name` names when the analysis
+#' runs. If the name resolved in a local environment when you set `fn_name`,
+#' the plan stores that environment and looks there first.
 #'
 #' @return `Plan$new()` returns a new `Plan` object.
 #' @family plan helpers
