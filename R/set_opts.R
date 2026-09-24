@@ -18,4 +18,5 @@
 #' @export
 set_opts <- function(force_verbose = FALSE) {
   config$force_verbose <- force_verbose
+  return(invisible(force_verbose))
 }

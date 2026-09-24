@@ -21,5 +21,5 @@
 #' while you develop that function.
 #' @export
 is_run_directly <- function() {
-  sys.nframe() == 1
+  return(sys.nframe() == 1)
 }

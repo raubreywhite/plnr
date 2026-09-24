@@ -71,15 +71,15 @@ try_again <- function(
         }
       ),
       expectation_failure = function(err) {
-        err
+        return(err)
       },
       error = function(err) {
-        err
+        return(err)
       }
     )
 
     if (is.null(err)) {
-      if (i > 1 & verbose) {
+      if (i > 1 && verbose) {
         message(i, "/", times, ": Succeeded.")
       }
       return(invisible(TRUE))

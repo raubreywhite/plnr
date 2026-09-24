@@ -2,7 +2,7 @@
   version <- tryCatch(
     utils::packageDescription("plnr", fields = "Version"),
     warning = function(w) {
-      1
+      return(1)
     }
   )
 

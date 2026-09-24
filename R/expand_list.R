@@ -29,5 +29,5 @@
 #' @export
 expand_list <- function(...) {
   dots <- list(...)
-  tidyr::expand_grid(!!!dots) |> purrr::pmap(list)
+  return(tidyr::expand_grid(!!!dots) |> purrr::pmap(list))
 }

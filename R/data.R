@@ -51,5 +51,5 @@
 #' `fn_name`.
 #' @export
 example_data_fn_nor_covid19_cases_by_time_location <- function() {
-  plnr::nor_covid19_cases_by_time_location
+  return(plnr::nor_covid19_cases_by_time_location)
 }

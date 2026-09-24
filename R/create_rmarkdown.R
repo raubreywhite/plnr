@@ -178,5 +178,5 @@ p$run_one("fig_1")
 
   writeLines(txt, fs::path(home, "paper", "paper.Rmd"))
 
-  usethis::create_project(home)
+  return(invisible(usethis::create_project(home)))
 }
