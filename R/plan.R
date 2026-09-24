@@ -700,14 +700,17 @@ Plan <- R6::R6Class(
             is.null(private$pb_progress) &
             is.null(private$pb_progressor)
         ) {
-          progressr::handlers(progressr::handler_progress(
-            format = "[:bar] :current/:total (:percent) in :elapsedfull, eta: :eta\n",
-            clear = FALSE
-          ))
-          private$pb_progressor <- progressr::progressor(
-            steps = self$x_length()
-          )
-          on.exit(private$pb_progressor <- NULL)
+          # progressr is in Suggests. Without it, run without a progress bar.
+          if (requireNamespace("progressr", quietly = TRUE)) {
+            progressr::handlers(progressr::handler_progress(
+              format = "[:bar] :current/:total (:percent) in :elapsedfull, eta: :eta\n",
+              clear = FALSE
+            ))
+            private$pb_progressor <- progressr::progressor(
+              steps = self$x_length()
+            )
+            on.exit(private$pb_progressor <- NULL)
+          }
         }
 
         retval <- foreach(
@@ -757,7 +760,7 @@ Plan <- R6::R6Class(
 
     #' @description Run every analysis, as `run_all()` does, inside
     #' `progressr::with_progress()`. A progressr progressor then shows progress.
-    #' It needs the progressr package.
+    #' It stops with an error when the progressr package is not installed.
     #' @param ... Passed to `run_all()`.
     #' @return A list, invisibly, as `run_all()` returns it.
     #' @examples
@@ -774,6 +777,9 @@ Plan <- R6::R6Class(
     #'   results <- p$run_all_progress()
     #' }
     run_all_progress = function(...) {
+      if (!requireNamespace("progressr", quietly = TRUE)) {
+        stop("run_all_progress() needs the progressr package.", call. = FALSE)
+      }
       return(progressr::with_progress(
         {
           run_all(...)

@@ -16,6 +16,7 @@
 - `get_argsets_as_dt()` reads the element `argset` exactly. An element named `argsets` no longer counts as the argset.
 - With `use_foreach = NULL` and one registered worker, `run_all()` no longer loads the progressr namespace.
 - Errors that plnr raises itself, such as "Both fn and fn_name are NULL", carry no call. The messages are unchanged.
+- Without progressr, `run_all()` with foreach and `verbose = TRUE` runs without a progress bar. It failed. `run_all_progress()` without progressr now stops with a message that names the package.
 
 ## Checks
 

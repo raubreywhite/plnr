@@ -1071,7 +1071,7 @@ results <- p$run_all()
 \subsection{\code{Plan$run_all_progress()}}{
   Run every analysis, as \code{run_all()} does, inside
 \code{progressr::with_progress()}. A progressr progressor then shows progress.
-It needs the progressr package.
+It stops with an error when the progressr package is not installed.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{Plan$run_all_progress(...)}
