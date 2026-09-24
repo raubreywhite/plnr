@@ -162,6 +162,10 @@ test_that("a data frame with no rows adds no argsets and no analyses", {
   expect_identical(p$analyses, list())
 })
 
+test_that("try_again() does not evaluate verbose after a first success", {
+  expect_true(try_again(1, verbose = stop("forced")))
+})
+
 # ---- unchanged, pinned so that a change is visible ----
 
 test_that("get_argsets_as_dt() on a plan with no analyses fails", {
