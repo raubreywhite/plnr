@@ -1,3 +1,27 @@
+# Version 2026.9.24
+
+## Bug fixes
+
+- `run_all()` with foreach returned a `gc()` matrix for every analysis. It now returns what each action function returns.
+- A `fn_name` now resolves first where you wrote it, then in the global environment and on the search path, and last in plnr. A plnr function no longer wins over your function of the same name. `get_anything()` gains `envir` and `mode`.
+- The vignettes now knit with `rmarkdown::render(envir = new.env())`. They failed with `object 'fn_fig_1' not found`.
+- `progress` is now in Imports. The default verbose path of `run_all()` called it without declaring it.
+- `.plnr.options = list(chunk_size = n)` now reaches foreach. It no longer reaches the action function.
+- `add_argset()` and `add_analysis()` no longer copy the whole list of analyses on every call.
+- `create_rmarkdown()` now ends every file that it writes with a newline.
+- An analysis with both `fn` and `fn_name` now stops with a clear error. `add_argset_from_df()` and `add_analysis_from_df()` with zero rows now add nothing.
+
+## Checks
+
+- The code passes the static-checks lint gate again. It had failed since 2026-08-26, so pkgdown had not deployed since 2026.8.21.
+
+## Documentation
+
+- The help pages, both vignettes, `README.md`, `index.md` and the `DESCRIPTION` text follow ASD-STE100.
+- No page claims hash-based caching. `get_data()` computes digests but plnr never reads them.
+- The help pages now say that `...` goes to the action function, and give the true return values.
+
+
 # Version 2026.9.23
 
 - This CRAN release carries the `Plan$add_analysis_from_list()` fix from
