@@ -132,6 +132,7 @@ hash_it <- function(x) {
 #' @import data.table
 #' @import R6
 #' @import foreach
+#' @importFrom progress progress_bar
 #' @export
 Plan <- R6::R6Class(
   "Plan",
