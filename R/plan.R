@@ -807,8 +807,9 @@ Plan <- R6::R6Class(
                 private$pb_progressor()
               }
             }
-            run_one_with_data(index_analysis = i, data = data, ...)
+            retval_i <- run_one_with_data(index_analysis = i, data = data, ...)
             gc(FALSE)
+            retval_i
           }
       }
 
