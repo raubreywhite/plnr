@@ -36,3 +36,27 @@ test_that("create_rmarkdown() writes every R file that run.R calls", {
   )[[1]]
   expect_true(all(called %in% defined))
 })
+
+test_that("create_rmarkdown() ends every file it writes with a newline", {
+  home <- fs::path(tempfile("plnr-create-rmarkdown-"))
+  on.exit(unlink(home, recursive = TRUE, force = TRUE), add = TRUE)
+
+  create_rmarkdown(home)
+
+  written <- fs::path(
+    home,
+    c("run.R", "R/table_death.R", "R/figure_death.R", "paper/paper.Rmd")
+  )
+  last_byte <- vapply(
+    written,
+    function(f) {
+      bytes <- readBin(f, "raw", n = file.size(f))
+      return(as.integer(bytes[length(bytes)]))
+    },
+    integer(1)
+  )
+  expect_identical(unname(last_byte), rep(10L, 4))
+  for (f in written) {
+    expect_no_warning(readLines(f))
+  }
+})

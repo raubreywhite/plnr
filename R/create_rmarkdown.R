@@ -99,7 +99,7 @@ rmarkdown::render(
     home = home
   )
 
-  cat(txt, file = fs::path(home, "run.R"))
+  writeLines(txt, fs::path(home, "run.R"))
 
   ############
   # R/table_death.R
@@ -117,7 +117,7 @@ table_death <- function(data, argset){{
 '
   )
 
-  cat(txt, file = fs::path(home, "R", "table_death.R"))
+  writeLines(txt, fs::path(home, "R", "table_death.R"))
 
   ############
   # R/figure_death.R
@@ -139,7 +139,7 @@ figure_death <- function(data, argset){{
 '
   )
 
-  cat(txt, file = fs::path(home, "R", "figure_death.R"))
+  writeLines(txt, fs::path(home, "R", "figure_death.R"))
 
   ############
   # paper/paper.Rmd
@@ -176,7 +176,7 @@ p$run_one("fig_1")
   '
   )
 
-  cat(txt, file = fs::path(home, "paper", "paper.Rmd"))
+  writeLines(txt, fs::path(home, "paper", "paper.Rmd"))
 
   usethis::create_project(home)
 }
