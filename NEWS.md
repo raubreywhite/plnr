@@ -9,11 +9,18 @@
 - `.plnr.options = list(chunk_size = n)` now reaches foreach. It no longer reaches the action function.
 - `add_argset()` and `add_analysis()` no longer copy the whole list of analyses on every call.
 - `create_rmarkdown()` now ends every file that it writes with a newline.
-- An analysis with both `fn` and `fn_name` now stops with a clear error. `add_argset_from_df()` and `add_analysis_from_df()` with zero rows now add nothing.
+
+## Behaviour changes
+
+- `add_argset_from_df()` and `add_analysis_from_df()` with zero rows add nothing. They failed, and left an analysis named `NA`.
+- `get_argsets_as_dt()` reads the element `argset` exactly. An element named `argsets` no longer counts as the argset.
+- With `use_foreach = NULL` and one registered worker, `run_all()` no longer loads the progressr namespace.
+- Errors that plnr raises itself, such as "Both fn and fn_name are NULL", carry no call. The messages are unchanged.
 
 ## Checks
 
 - The code passes the static-checks lint gate again. It had failed since 2026-08-26, so pkgdown had not deployed since 2026.8.21.
+- `R/plan.R` is exempt from two lint rules, `cyclocomp_linter` and `vector_logic_linter`, because their fixes change behaviour.
 
 ## Documentation
 

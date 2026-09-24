@@ -12,3 +12,14 @@ jobs:
     permissions:
       contents: write
     uses: raubreywhite/rwtemplate/.github/workflows/r-package.yml@3a02a568840bf9d6d41f76e139922eb658da0e13
+    with:
+      # Both entries keep the Plan code as it ran before the lint work, which
+      # cs9 depends on in production.
+      # cyclocomp_linter: the R6Class() call is one expression, so its
+      # complexity is the sum over all methods. Moving method bodies into
+      # helpers changed evaluation order, visibility and error calls.
+      # vector_logic_linter: `verbose` is set by the user, and `&&` fails
+      # with other errors than `&` for a NULL, vector or string value.
+      lint-allowlist: |
+        R/plan.R:cyclocomp_linter
+        R/plan.R:vector_logic_linter
