@@ -97,6 +97,28 @@ hash_it <- function(x) {
   digest::digest(x)
 }
 
+# The environment that a plan stores with an unqualified `fn_name`, so that the
+# name resolves where the caller wrote it. A qualified name, or a call from the
+# global environment, needs none.
+fn_name_env <- function(fn_name, env) {
+  if (
+    is.null(fn_name) ||
+      length(grep("::", fn_name)) > 0 ||
+      identical(env, globalenv())
+  ) {
+    return(NULL)
+  }
+  return(env)
+}
+
+# The function that a data source or an analysis names in `fn_name`.
+find_fn <- function(fn_name, fn_env) {
+  if (is.null(fn_env)) {
+    fn_env <- globalenv()
+  }
+  return(get_anything(fn_name, envir = fn_env, mode = "function"))
+}
+
 #' R6 Class for Planning and Executing Analyses
 #'
 #' @description
@@ -188,7 +210,8 @@ Plan <- R6::R6Class(
         fn = fn,
         fn_name = fn_name,
         direct = direct,
-        name = name
+        name = name,
+        fn_env = fn_name_env(fn_name, parent.frame())
       )
     },
 
@@ -295,12 +318,8 @@ Plan <- R6::R6Class(
       fn_name = NULL,
       ...
     ) {
-      stopifnot(is.null(fn) | is.function(fn))
-      stopifnot(is.null(fn_name) | is.character(fn_name))
-
-      dots <- list(...)
-      analyses[[name]] <<- list(fn = fn, fn_name = fn_name)
-      analyses[[name]][["argset"]] <<- dots
+      add_one <- private$analysis_adder(parent.frame())
+      add_one(name = name, fn = fn, fn_name = fn_name, ...)
     },
 
     #' @description Add multiple analyses from a data frame.
@@ -335,6 +354,7 @@ Plan <- R6::R6Class(
       stopifnot(is.null(fn) | is.function(fn) | "fn_name" %in% names(df))
       stopifnot(is.null(fn_name) | is.character(fn_name))
 
+      add_one <- private$analysis_adder(parent.frame())
       df <- as.data.frame(df)
       for (i in 1:nrow(df)) {
         argset <- df[i, ]
@@ -342,7 +362,7 @@ Plan <- R6::R6Class(
         if (!"fn_name" %in% names(df)) {
           argset$fn_name <- fn_name
         }
-        do.call(add_analysis, argset)
+        do.call(add_one, argset)
       }
     },
 
@@ -378,13 +398,14 @@ Plan <- R6::R6Class(
       stopifnot(is.null(fn) | is.function(fn))
       stopifnot(is.null(fn_name) | is.character(fn_name))
 
+      add_one <- private$analysis_adder(parent.frame())
       for (i in seq_along(l)) {
         argset <- l[[i]]
         argset$fn <- fn
         if (!"fn_name" %in% names(argset)) {
           argset$fn_name <- fn_name
         }
-        do.call(add_analysis, argset)
+        do.call(add_one, argset)
       }
     },
 
@@ -406,20 +427,14 @@ Plan <- R6::R6Class(
     #' p$apply_action_fn_to_all_argsets(fn_name = "plnr::example_action_fn")
     #' p$run_one("analysis_1")
     apply_action_fn_to_all_argsets = function(fn = NULL, fn_name = NULL) {
-      stopifnot(is.null(fn) | is.function(fn))
-      stopifnot(is.null(fn_name) | is.character(fn_name))
-
-      for (i in seq_along(analyses)) {
-        analyses[[i]]$fn <<- fn
-        analyses[[i]]$fn_name <<- fn_name
-      }
+      private$set_action_fn(fn, fn_name, parent.frame())
     },
     #' @description Deprecated. Use `apply_action_fn_to_all_argsets()` instead.
     #' @param fn Action function.
     #' @param fn_name Action function name.
     apply_analysis_fn_to_all = function(fn = NULL, fn_name = NULL) {
       .Deprecated("apply_action_fn_to_all_argsets")
-      self$apply_action_fn_to_all_argsets(fn = fn, fn_name = fn_name)
+      private$set_action_fn(fn, fn_name, parent.frame())
     },
 
     #' @description
@@ -486,7 +501,7 @@ Plan <- R6::R6Class(
           retval[[x$name]] <- x$fn()
         }
         if (!is.null(x$fn_name)) {
-          retval[[x$name]] <- do.call(get_anything(x$fn_name), list())
+          retval[[x$name]] <- do.call(find_fn(x$fn_name, x$fn_env), list())
         }
         if (!is.null(x$direct)) {
           retval[[x$name]] <- x$direct
@@ -646,7 +661,7 @@ Plan <- R6::R6Class(
         num_args <- length(formals(p[["fn"]]))
       } else if (is.null(p[["fn"]]) & !is.null(p[["fn_name"]])) {
         # use fn_name
-        num_args <- length(formals(get_anything(p[["fn_name"]])))
+        num_args <- length(formals(find_fn(p[["fn_name"]], p[["fn_env"]])))
       }
 
       args <- list()
@@ -676,7 +691,7 @@ Plan <- R6::R6Class(
       } else if (is.null(p[["fn"]]) & !is.null(p[["fn_name"]])) {
         # use fn_name
         retval <- do.call(
-          what = get_anything(p$fn_name),
+          what = find_fn(p[["fn_name"]], p[["fn_env"]]),
           args = args
         )
       }
@@ -920,6 +935,40 @@ Plan <- R6::R6Class(
     pb_progressor = NULL,
 
     data = list(),
+
+    # A function with the formals of add_analysis(). It stores each analysis
+    # with the environment where the caller wrote its fn_name.
+    analysis_adder = function(env) {
+      return(function(
+        name = uuid::UUIDgenerate(),
+        fn = NULL,
+        fn_name = NULL,
+        ...
+      ) {
+        stopifnot(is.null(fn) | is.function(fn))
+        stopifnot(is.null(fn_name) | is.character(fn_name))
+
+        dots <- list(...)
+        analyses[[name]] <<- list(
+          fn = fn,
+          fn_name = fn_name,
+          fn_env = fn_name_env(fn_name, env)
+        )
+        analyses[[name]][["argset"]] <<- dots
+      })
+    },
+
+    set_action_fn = function(fn, fn_name, env) {
+      stopifnot(is.null(fn) | is.function(fn))
+      stopifnot(is.null(fn_name) | is.character(fn_name))
+
+      fn_env <- fn_name_env(fn_name, env)
+      for (i in seq_along(analyses)) {
+        analyses[[i]]$fn <<- fn
+        analyses[[i]]$fn_name <<- fn_name
+        analyses[[i]]$fn_env <<- fn_env
+      }
+    },
 
     use_foreach_decision = function() {
       if (!is.null(private$use_foreach)) {
