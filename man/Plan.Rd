@@ -1097,7 +1097,7 @@ p$run_one("analysis_1")
   Run all analyses. You supply the data.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{Plan$run_all_with_data(data, ...)}
+    \preformatted{Plan$run_all_with_data(data, ..., .plnr.options = NULL)}
     \if{html}{\out{</div>}}
   }
   \subsection{Arguments}{
@@ -1105,6 +1105,10 @@ p$run_one("analysis_1")
     \describe{
       \item{\code{data}}{A named list. You normally get it from \code{p$get_data()}.}
       \item{\code{...}}{Not used.}
+      \item{\code{.plnr.options}}{A list of options for plnr. plnr does not pass it to
+the action function. \code{chunk_size} goes to foreach as
+\code{.options.future = list(chunk.size = chunk_size)}, which only a
+future-based backend such as doFuture reads. The default is 1.}
     }
     \if{html}{\out{</div>}}
   }

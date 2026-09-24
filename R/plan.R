@@ -717,6 +717,10 @@ Plan <- R6::R6Class(
     #' Run all analyses. You supply the data.
     #' @param data A named list. You normally get it from `p$get_data()`.
     #' @param ... Not used.
+    #' @param .plnr.options A list of options for plnr. plnr does not pass it to
+    #' the action function. `chunk_size` goes to foreach as
+    #' `.options.future = list(chunk.size = chunk_size)`, which only a
+    #' future-based backend such as doFuture reads. The default is 1.
     #' @return
     #' A list. Each element is the value that the action function returns.
     #' @examples
@@ -733,12 +737,9 @@ Plan <- R6::R6Class(
     #' )
     #' data <- p$get_data()
     #' p$run_all_with_data(data)
-    run_all_with_data = function(data, ...) {
-      # try to deparse important arguments
-      dots <- list(...)
-      if (".plnr.options" %in% names(dots)) {
-        chunk_size <- dots[["chunk_size"]]
-      } else {
+    run_all_with_data = function(data, ..., .plnr.options = NULL) {
+      chunk_size <- .plnr.options[["chunk_size"]]
+      if (is.null(chunk_size)) {
         chunk_size <- 1
       }
 
