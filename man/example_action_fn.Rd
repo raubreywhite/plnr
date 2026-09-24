@@ -2,52 +2,36 @@
 % Please edit documentation in R/plan.R
 \name{example_action_fn}
 \alias{example_action_fn}
-\title{Example action function that shows the analysis structure}
+\title{Print what an action function receives}
 \usage{
 example_action_fn(data, argset)
 }
 \arguments{
-\item{data}{A named list that holds the datasets for the analysis.}
+\item{data}{A named list of datasets, as a \link{Plan} passes it.}
 
-\item{argset}{A named list that holds the arguments for the analysis.}
+\item{argset}{A named list of arguments for one analysis.}
 }
 \value{
-NULL. \code{example_action_fn()} prints information about the input data
-and argset.
+\code{names(argset)}, invisibly.
 }
 \description{
-\code{example_action_fn()} shows how to structure an action function for the
-\code{Plan} class. It prints the names of the data and argset components it
-receives.
+\code{example_action_fn()} is an example action function. It prints the names of
+the datasets in \code{data} and the names of the elements in \code{argset}.
 }
 \examples{
-# Create a new plan
 p <- plnr::Plan$new()
-
-# Add example data
 p$add_data("covid_data", fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_location")
-
-# Create batch of argsets
-batch_argset_list <- list(
-  list(name = "analysis_1", var_1 = 1, var_2 = "i"),
-  list(name = "analysis_2", var_1 = 2, var_2 = "j"),
-  list(name = "analysis_3", var_1 = 3, var_2 = "k")
-)
-
-# Add analyses to plan
 p$add_analysis_from_list(
   fn_name = "plnr::example_action_fn",
-  l = batch_argset_list
+  l = list(
+    list(name = "analysis_1", var_1 = 1),
+    list(name = "analysis_2", var_1 = 2)
+  )
 )
-
-# View argsets and run example
-p$get_argsets_as_dt()
 p$run_one("analysis_1")
 }
 \seealso{
-\code{vignette("adding_analyses")} for worked single-function and
-multi-function plans. Those plans attach an action function to a plan by
-\code{fn_name}.
+\code{vignette("plnr")} for what an action function is.
 
 Other example and test functions:
 \code{\link[=example_data_fn_nor_covid19_cases_by_time_location]{example_data_fn_nor_covid19_cases_by_time_location()}},

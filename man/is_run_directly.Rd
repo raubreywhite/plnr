@@ -2,32 +2,36 @@
 % Please edit documentation in R/is_run_directly.R
 \name{is_run_directly}
 \alias{is_run_directly}
-\title{Check whether code runs directly, or from within a function}
+\title{Check whether code runs at the top level of the console}
 \usage{
 is_run_directly()
 }
 \value{
-A logical value. \code{TRUE} means the code runs directly, from the global
-environment. \code{FALSE} means the code runs from within a function call.
+\code{TRUE} or \code{FALSE}.
 }
 \description{
-\code{is_run_directly()} reports whether the code runs directly in the global
-environment, or from within a function call. Use it during development and
-debugging. A function can then behave one way when you run it directly, and
-another way when a larger analysis plan calls it.
+\code{is_run_directly()} returns \code{TRUE} when you call it at the top level of the R
+console or of an Rscript file. It returns \code{FALSE} inside a function, and
+inside \code{source()}, \code{eval()} and a knitr chunk.
+}
+\details{
+Put it at the start of an action function to load \code{data} and \code{argset} while
+you develop the function line by line. When the plan runs the function, it
+returns \code{FALSE}, so the lines do nothing.
 }
 \examples{
-# When run directly
-is_run_directly()  # TRUE
-
-# When run from within a function
-test_fn <- function() {
-  is_run_directly()  # FALSE
+f <- function() {
+  is_run_directly()
 }
-test_fn()
+f()
 }
 \seealso{
-\code{vignette("plnr")}. Its "Debugging Tools" section calls
-\code{is_run_directly()} inside an action function, to load \code{data} and \code{argset}
-while you develop that function.
+\code{vignette("plnr")}, whose "Debugging" section shows the pattern.
+
+Other plan helpers:
+\code{\link{Plan}},
+\code{\link[=expand_list]{expand_list()}},
+\code{\link[=get_anything]{get_anything()}},
+\code{\link[=set_opts]{set_opts()}}
 }
+\concept{plan helpers}

@@ -20,9 +20,8 @@ The object that \code{x} names. \code{get_anything()} stops with an error when
 no object matches.
 }
 \description{
-\code{get_anything()} returns the object that a name refers to. It also accepts a
-namespace-qualified name such as \code{"pkg::fn"}, which \link{Plan} allows for
-\code{fn_name}.
+\code{get_anything()} returns the object that a name refers to. \link{Plan} uses it to
+find the function that \code{fn_name} names.
 }
 \details{
 \code{get_anything()} looks in this order and returns the first match:
@@ -34,9 +33,6 @@ environment or package namespace above it.
 \item The global environment, then the search path.
 \item The plnr namespace, then the packages that plnr imports.
 }
-
-Because step 4 is last, a function of yours wins over a plnr function with
-the same name.
 }
 \examples{
 # Get a namespace-qualified object
@@ -50,6 +46,13 @@ f <- function() {
 f()
 }
 \seealso{
-\code{vignette("plnr")}. Its "Function Naming" section covers the
-\code{fn_name} strings that a \link{Plan} resolves with \code{get_anything()}.
+\code{vignette("plnr")}, whose "Function names" section shows how a
+\link{Plan} uses \code{fn_name}.
+
+Other plan helpers:
+\code{\link{Plan}},
+\code{\link[=expand_list]{expand_list()}},
+\code{\link[=is_run_directly]{is_run_directly()}},
+\code{\link[=set_opts]{set_opts()}}
 }
+\concept{plan helpers}

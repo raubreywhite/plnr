@@ -10,7 +10,6 @@ uuid_generator()
 A character string that holds a UUID.
 }
 \description{
-\code{uuid_generator()} is an internal function. It generates a unique identifier
-with the uuid package.
+\code{uuid_generator()} is internal. It returns \code{uuid::UUIDgenerate()}.
 }
 \keyword{internal}

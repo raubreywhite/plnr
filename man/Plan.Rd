@@ -2,38 +2,31 @@
 % Please edit documentation in R/plan.R
 \name{Plan}
 \alias{Plan}
-\title{R6 Class for Planning and Executing Analyses}
+\title{Plan and run analyses}
+\value{
+\code{Plan$new()} returns a new \code{Plan} object.
+}
 \description{
-The \code{Plan} class organizes and runs multiple analyses on one or more datasets.
-It enforces a structured approach to analysis in three ways.
-\enumerate{
-\item \strong{Data Management}:
-\itemize{
-\item Load data once and reuse it across analyses
-\item Keep data cleaning separate from analysis
-\item Track data changes with a hash
-}
-\item \strong{Analysis Structure}:
-\itemize{
-\item Require all analyses to use the same data sources
-\item Standardize analysis functions to accept only \code{data} and \code{argset} parameters
-\item Organize analyses into clear, maintainable plans
-}
-\item \strong{Execution Control}:
-\itemize{
-\item Support both single-function and multi-function analysis plans
-\item Run analyses either in sequence or in parallel
-\item Supply built-in debugging tools
-}
-}
+A \code{Plan} holds data sources and analyses, and runs the analyses on the data.
+An analysis is one argset plus one action function.
 }
 \details{
-The framework uses three main concepts:
+An argset is a named list of arguments for one analysis. When an analysis
+runs, its argset also holds \code{index_analysis}: the position or name that ran
+it.
+
+An action function MUST take the data as its first argument and the argset as
+its second. It MAY take further arguments. The run methods pass their \code{...}
+to it in one of two ways:
 \itemize{
-\item \strong{Argset}: A named list that holds a set of arguments for an analysis
-\item \strong{Analysis}: A combination of one argset and one action function
-\item \strong{Plan}: A container that holds one data pull and a list of analyses
+\item A function given as \code{fn} gets the argset by position, and every argument in
+\code{...}.
+\item A function given as \code{fn_name} gets \code{data} and \code{argset} by name. It gets
+\code{...} only when it has more than two formal arguments.
 }
+
+\code{\link[=get_anything]{get_anything()}} finds the function that \code{fn_name} names. It starts where
+you called the method that set \code{fn_name}.
 }
 \examples{
 
@@ -42,31 +35,21 @@ The framework uses three main concepts:
 ## ------------------------------------------------
 
 p <- plnr::Plan$new()
-
-# Add data using a function
-data_fn <- function() { return(plnr::nor_covid19_cases_by_time_location) }
+data_fn <- function() {
+  return(plnr::nor_covid19_cases_by_time_location)
+}
 p$add_data("data_1", fn = data_fn)
-
-# Add data using a function name
 p$add_data("data_2", fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_location")
-
-# Add data directly
 p$add_data("data_3", direct = plnr::nor_covid19_cases_by_time_location)
-
-# View added data
-p$get_data()
+names(p$get_data())
 
 ## ------------------------------------------------
 ## Method `Plan$add_argset()`
 ## ------------------------------------------------
 
 p <- plnr::Plan$new()
-
-# Add argsets with different arguments
 p$add_argset("argset_1", var_1 = 3, var_b = "hello")
 p$add_argset("argset_2", var_1 = 8, var_c = "hello2")
-
-# View added argsets
 p$get_argsets_as_dt()
 
 ## ------------------------------------------------
@@ -74,18 +57,7 @@ p$get_argsets_as_dt()
 ## ------------------------------------------------
 
 p <- plnr::Plan$new()
-
-# Create data frame of argsets
-batch_argset_df <- data.frame(
-  name = c("a", "b", "c"),
-  var_1 = c(1, 2, 3),
-  var_2 = c("i", "j", "k")
-)
-
-# Add argsets from data frame
-p$add_argset_from_df(batch_argset_df)
-
-# View added argsets
+p$add_argset_from_df(data.frame(name = c("a", "b"), var_1 = c(1, 2)))
 p$get_argsets_as_dt()
 
 ## ------------------------------------------------
@@ -93,18 +65,7 @@ p$get_argsets_as_dt()
 ## ------------------------------------------------
 
 p <- plnr::Plan$new()
-
-# Create list of argsets
-batch_argset_list <- list(
-  list(name = "a", var_1 = 1, var_2 = "i"),
-  list(name = "b", var_1 = 2, var_2 = "j"),
-  list(name = "c", var_1 = 3, var_2 = "k")
-)
-
-# Add argsets from list
-p$add_argset_from_list(batch_argset_list)
-
-# View added argsets
+p$add_argset_from_list(plnr::expand_list(var_1 = 1:2, var_2 = c("i", "j")))
 p$get_argsets_as_dt()
 
 ## ------------------------------------------------
@@ -112,18 +73,8 @@ p$get_argsets_as_dt()
 ## ------------------------------------------------
 
 p <- plnr::Plan$new()
-
-# Add example data
 p$add_data("covid_data", fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_location")
-
-# Add analysis
-p$add_analysis(
-  name = "analysis_1",
-  fn_name = "plnr::example_action_fn"
-)
-
-# View argsets and run analysis
-p$get_argsets_as_dt()
+p$add_analysis(name = "analysis_1", fn_name = "plnr::example_action_fn")
 p$run_one("analysis_1")
 
 ## ------------------------------------------------
@@ -131,51 +82,39 @@ p$run_one("analysis_1")
 ## ------------------------------------------------
 
 p <- plnr::Plan$new()
-
-# Add example data
 p$add_data("covid_data", fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_location")
-
-# Create data frame of analyses
-batch_argset_df <- data.frame(
-  name = c("a", "b", "c"),
-  var_1 = c(1, 2, 3),
-  var_2 = c("i", "j", "k")
-)
-
-# Add analyses from data frame
 p$add_analysis_from_df(
   fn_name = "plnr::example_action_fn",
-  df = batch_argset_df
+  df = data.frame(name = c("a", "b"), var_1 = c(1, 2))
 )
-
-# View argsets and run example
-p$get_argsets_as_dt()
-p$run_one(1)
+p$run_one("a")
 
 ## ------------------------------------------------
 ## Method `Plan$add_analysis_from_list()`
 ## ------------------------------------------------
 
 p <- plnr::Plan$new()
-
-# Add example data
 p$add_data("covid_data", fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_location")
-
-# Create list of analyses
-batch_argset_list <- list(
-  list(name = "analysis_1", var_1 = 1, var_2 = "i"),
-  list(name = "analysis_2", var_1 = 2, var_2 = "j"),
-  list(name = "analysis_3", var_1 = 3, var_2 = "k")
-)
-
-# Add analyses from list
 p$add_analysis_from_list(
   fn_name = "plnr::example_action_fn",
-  l = batch_argset_list
+  l = list(
+    list(name = "analysis_1", var_1 = 1),
+    list(name = "analysis_2", var_1 = 2)
+  )
 )
+p$run_one("analysis_1")
 
-# View argsets and run example
-p$get_argsets_as_dt()
+## ------------------------------------------------
+## Method `Plan$apply_action_fn_to_all_argsets()`
+## ------------------------------------------------
+
+p <- plnr::Plan$new()
+p$add_data("covid_data", fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_location")
+p$add_argset_from_list(list(
+  list(name = "analysis_1", var_1 = 1),
+  list(name = "analysis_2", var_1 = 2)
+))
+p$apply_action_fn_to_all_argsets(fn_name = "plnr::example_action_fn")
 p$run_one("analysis_1")
 
 ## ------------------------------------------------
@@ -184,7 +123,7 @@ p$run_one("analysis_1")
 
 p <- plnr::Plan$new()
 p$add_data("covid_data", fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_location")
-p$get_data()
+str(p$get_data(), max.level = 1)
 
 ## ------------------------------------------------
 ## Method `Plan$get_analysis()`
@@ -192,14 +131,12 @@ p$get_data()
 
 p <- plnr::Plan$new()
 p$add_data("covid_data", fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_location")
-batch_argset_list <- list(
-  list(name = "analysis_1", var_1 = 1, var_2 = "i"),
-  list(name = "analysis_2", var_1 = 2, var_2 = "j"),
-  list(name = "analysis_3", var_1 = 3, var_2 = "k")
-)
 p$add_analysis_from_list(
   fn_name = "plnr::example_action_fn",
-  l = batch_argset_list
+  l = list(
+    list(name = "analysis_1", var_1 = 1),
+    list(name = "analysis_2", var_1 = 2)
+  )
 )
 p$get_analysis("analysis_1")
 
@@ -209,14 +146,12 @@ p$get_analysis("analysis_1")
 
 p <- plnr::Plan$new()
 p$add_data("covid_data", fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_location")
-batch_argset_list <- list(
-  list(name = "analysis_1", var_1 = 1, var_2 = "i"),
-  list(name = "analysis_2", var_1 = 2, var_2 = "j"),
-  list(name = "analysis_3", var_1 = 3, var_2 = "k")
-)
 p$add_analysis_from_list(
   fn_name = "plnr::example_action_fn",
-  l = batch_argset_list
+  l = list(
+    list(name = "analysis_1", var_1 = 1),
+    list(name = "analysis_2", var_1 = 2)
+  )
 )
 p$get_argset("analysis_1")
 
@@ -226,14 +161,12 @@ p$get_argset("analysis_1")
 
 p <- plnr::Plan$new()
 p$add_data("covid_data", fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_location")
-batch_argset_list <- list(
-  list(name = "analysis_1", var_1 = 1, var_2 = "i"),
-  list(name = "analysis_2", var_1 = 2, var_2 = "j"),
-  list(name = "analysis_3", var_1 = 3, var_2 = "k")
-)
 p$add_analysis_from_list(
   fn_name = "plnr::example_action_fn",
-  l = batch_argset_list
+  l = list(
+    list(name = "analysis_1", var_1 = 1),
+    list(name = "analysis_2", var_1 = 2)
+  )
 )
 p$get_argsets_as_dt()
 
@@ -243,14 +176,12 @@ p$get_argsets_as_dt()
 
 p <- plnr::Plan$new()
 p$add_data("covid_data", fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_location")
-batch_argset_list <- list(
-  list(name = "analysis_1", var_1 = 1, var_2 = "i"),
-  list(name = "analysis_2", var_1 = 2, var_2 = "j"),
-  list(name = "analysis_3", var_1 = 3, var_2 = "k")
-)
 p$add_analysis_from_list(
   fn_name = "plnr::example_action_fn",
-  l = batch_argset_list
+  l = list(
+    list(name = "analysis_1", var_1 = 1),
+    list(name = "analysis_2", var_1 = 2)
+  )
 )
 data <- p$get_data()
 p$run_one_with_data("analysis_1", data)
@@ -261,14 +192,12 @@ p$run_one_with_data("analysis_1", data)
 
 p <- plnr::Plan$new()
 p$add_data("covid_data", fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_location")
-batch_argset_list <- list(
-  list(name = "analysis_1", var_1 = 1, var_2 = "i"),
-  list(name = "analysis_2", var_1 = 2, var_2 = "j"),
-  list(name = "analysis_3", var_1 = 3, var_2 = "k")
-)
 p$add_analysis_from_list(
   fn_name = "plnr::example_action_fn",
-  l = batch_argset_list
+  l = list(
+    list(name = "analysis_1", var_1 = 1),
+    list(name = "analysis_2", var_1 = 2)
+  )
 )
 p$run_one("analysis_1")
 
@@ -278,17 +207,15 @@ p$run_one("analysis_1")
 
 p <- plnr::Plan$new()
 p$add_data("covid_data", fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_location")
-batch_argset_list <- list(
-  list(name = "analysis_1", var_1 = 1, var_2 = "i"),
-  list(name = "analysis_2", var_1 = 2, var_2 = "j"),
-  list(name = "analysis_3", var_1 = 3, var_2 = "k")
-)
 p$add_analysis_from_list(
   fn_name = "plnr::example_action_fn",
-  l = batch_argset_list
+  l = list(
+    list(name = "analysis_1", var_1 = 1),
+    list(name = "analysis_2", var_1 = 2)
+  )
 )
 data <- p$get_data()
-p$run_all_with_data(data)
+results <- p$run_all_with_data(data)
 
 ## ------------------------------------------------
 ## Method `Plan$run_all()`
@@ -296,16 +223,14 @@ p$run_all_with_data(data)
 
 p <- plnr::Plan$new()
 p$add_data("covid_data", fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_location")
-batch_argset_list <- list(
-  list(name = "analysis_1", var_1 = 1, var_2 = "i"),
-  list(name = "analysis_2", var_1 = 2, var_2 = "j"),
-  list(name = "analysis_3", var_1 = 3, var_2 = "k")
-)
 p$add_analysis_from_list(
   fn_name = "plnr::example_action_fn",
-  l = batch_argset_list
+  l = list(
+    list(name = "analysis_1", var_1 = 1),
+    list(name = "analysis_2", var_1 = 2)
+  )
 )
-p$run_all()
+results <- p$run_all()
 
 ## ------------------------------------------------
 ## Method `Plan$run_all_progress()`
@@ -313,27 +238,33 @@ p$run_all()
 
 p <- plnr::Plan$new()
 p$add_data("covid_data", fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_location")
-batch_argset_list <- list(
-  list(name = "analysis_1", var_1 = 1, var_2 = "i"),
-  list(name = "analysis_2", var_1 = 2, var_2 = "j"),
-  list(name = "analysis_3", var_1 = 3, var_2 = "k")
-)
 p$add_analysis_from_list(
   fn_name = "plnr::example_action_fn",
-  l = batch_argset_list
+  l = list(
+    list(name = "analysis_1", var_1 = 1),
+    list(name = "analysis_2", var_1 = 2)
+  )
 )
-p$run_all_progress()
+if (requireNamespace("progressr", quietly = TRUE)) {
+  results <- p$run_all_progress()
+}
 }
 \seealso{
-\code{vignette("plnr")} for an introduction to argsets, analyses and
-plans. See \code{vignette("adding_analyses")} for worked single-function and
-multi-function plans.
+\code{vignette("plnr")} for the concepts. \code{vignette("adding_analyses")}
+for worked single-function and multi-function plans.
+
+Other plan helpers:
+\code{\link[=expand_list]{expand_list()}},
+\code{\link[=get_anything]{get_anything()}},
+\code{\link[=is_run_directly]{is_run_directly()}},
+\code{\link[=set_opts]{set_opts()}}
 }
+\concept{plan helpers}
 \section{Public fields}{
   \if{html}{\out{<div class="r6-fields">}}
   \describe{
-    \item{\code{analyses}}{List of analyses. Each analysis holds one argset and one
-action function.}
+    \item{\code{analyses}}{A named list with one element for each analysis. Each
+element holds \code{argset} and, once set, \code{fn}, \code{fn_name} and \code{fn_env}.}
   }
   \if{html}{\out{</div>}}
 }
@@ -373,7 +304,7 @@ action function.}
 \if{html}{\out{<a id="method-Plan-initialize"></a>}}
 \if{latex}{\out{\hypertarget{method-Plan-initialize}{}}}
 \subsection{\code{Plan$new()}}{
-  Create a new Plan instance.
+  Create a new plan.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{Plan$new(verbose = interactive() | config$force_verbose, use_foreach = FALSE)}
@@ -382,16 +313,17 @@ action function.}
   \subsection{Arguments}{
     \if{html}{\out{<div class="arguments">}}
     \describe{
-      \item{\code{verbose}}{Logical. Whether to show verbose output. The default is
-\code{TRUE} in interactive mode, or when \code{config$force_verbose} is \code{TRUE}.}
-      \item{\code{use_foreach}}{Logical. Whether to use foreach for parallel
-processing. \code{NULL} lets the program decide. \code{FALSE} uses a loop. \code{TRUE}
-uses foreach.}
+      \item{\code{verbose}}{Logical. \code{TRUE} makes \code{run_all()} show progress. The default
+is \code{TRUE} in an interactive session, or after
+\code{set_opts(force_verbose = TRUE)}.}
+      \item{\code{use_foreach}}{Logical or \code{NULL}. \code{TRUE} makes \code{run_all()} use foreach,
+and \code{FALSE} a loop. \code{NULL} uses foreach when a backend with more than one
+worker is registered and progressr is installed. The default is \code{FALSE}.}
     }
     \if{html}{\out{</div>}}
   }
   \subsection{Returns}{
-    A new Plan instance.
+    A new \code{Plan} object.
   }
 }
 
@@ -399,7 +331,9 @@ uses foreach.}
 \if{html}{\out{<a id="method-Plan-add_data"></a>}}
 \if{latex}{\out{\hypertarget{method-Plan-add_data}{}}}
 \subsection{\code{Plan$add_data()}}{
-  Add a new dataset to the plan.
+  Add a data source. \code{get_data()} loads every data source.
+Give one of \code{fn}, \code{fn_name} and \code{direct}. If you give more, \code{direct}
+wins over \code{fn_name}, and \code{fn_name} wins over \code{fn}.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{Plan$add_data(name, fn = NULL, fn_name = NULL, direct = NULL)}
@@ -408,33 +342,29 @@ uses foreach.}
   \subsection{Arguments}{
     \if{html}{\out{<div class="arguments">}}
     \describe{
-      \item{\code{name}}{Character string. The name of the dataset.}
-      \item{\code{fn}}{Optional. A function that returns the dataset.}
-      \item{\code{fn_name}}{Optional. A character string that names a function that
-returns the dataset.}
-      \item{\code{direct}}{Optional. The dataset object itself.}
+      \item{\code{name}}{Character string. The name of the dataset in the list that
+\code{get_data()} returns.}
+      \item{\code{fn}}{Optional. A function with no arguments that returns the dataset.}
+      \item{\code{fn_name}}{Optional. The name of such a function, as a character string.
+\code{"pkg::fn"} also works.}
+      \item{\code{direct}}{Optional. The dataset itself.}
     }
     \if{html}{\out{</div>}}
   }
   \subsection{Returns}{
-    NULL. The method changes the plan in place.
+    The stored data source, invisibly: a list that holds \code{fn},
+\code{fn_name}, \code{direct}, \code{name} and \code{fn_env}.
   }
   \subsection{Examples}{
     \if{html}{\out{<div class="r example copy">}}
     \preformatted{p <- plnr::Plan$new()
-
-# Add data using a function
-data_fn <- function() { return(plnr::nor_covid19_cases_by_time_location) }
+data_fn <- function() {
+  return(plnr::nor_covid19_cases_by_time_location)
+}
 p$add_data("data_1", fn = data_fn)
-
-# Add data using a function name
 p$add_data("data_2", fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_location")
-
-# Add data directly
 p$add_data("data_3", direct = plnr::nor_covid19_cases_by_time_location)
-
-# View added data
-p$get_data()
+names(p$get_data())
 }
     \if{html}{\out{</div>}}
   }
@@ -444,7 +374,9 @@ p$get_data()
 \if{html}{\out{<a id="method-Plan-add_argset"></a>}}
 \if{latex}{\out{\hypertarget{method-Plan-add_argset}{}}}
 \subsection{\code{Plan$add_argset()}}{
-  Add a new argset to the plan.
+  Add an argset: an analysis that has no action function yet.
+If an analysis with this name exists, \code{add_argset()} replaces its argset and
+keeps its action function.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{Plan$add_argset(name = uuid::UUIDgenerate(), ...)}
@@ -453,24 +385,20 @@ p$get_data()
   \subsection{Arguments}{
     \if{html}{\out{<div class="arguments">}}
     \describe{
-      \item{\code{name}}{Character string. The name of the argset. The default is a
+      \item{\code{name}}{Character string. The name of the analysis. The default is a
 UUID.}
-      \item{\code{...}}{Named arguments that make up the argset.}
+      \item{\code{...}}{Named arguments. They make up the argset.}
     }
     \if{html}{\out{</div>}}
   }
   \subsection{Returns}{
-    NULL. The method changes the plan in place.
+    The argset, invisibly.
   }
   \subsection{Examples}{
     \if{html}{\out{<div class="r example copy">}}
     \preformatted{p <- plnr::Plan$new()
-
-# Add argsets with different arguments
 p$add_argset("argset_1", var_1 = 3, var_b = "hello")
 p$add_argset("argset_2", var_1 = 8, var_c = "hello2")
-
-# View added argsets
 p$get_argsets_as_dt()
 }
     \if{html}{\out{</div>}}
@@ -481,7 +409,7 @@ p$get_argsets_as_dt()
 \if{html}{\out{<a id="method-Plan-add_argset_from_df"></a>}}
 \if{latex}{\out{\hypertarget{method-Plan-add_argset_from_df}{}}}
 \subsection{\code{Plan$add_argset_from_df()}}{
-  Add multiple argsets from a data frame.
+  Add one argset for each row of a data frame.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{Plan$add_argset_from_df(df)}
@@ -490,28 +418,18 @@ p$get_argsets_as_dt()
   \subsection{Arguments}{
     \if{html}{\out{<div class="arguments">}}
     \describe{
-      \item{\code{df}}{A data frame. Each row is one new argset.}
+      \item{\code{df}}{A data frame. Each row is one argset. A column \code{name} names the
+analyses.}
     }
     \if{html}{\out{</div>}}
   }
   \subsection{Returns}{
-    NULL. The method changes the plan in place.
+    \code{NULL}, invisibly.
   }
   \subsection{Examples}{
     \if{html}{\out{<div class="r example copy">}}
     \preformatted{p <- plnr::Plan$new()
-
-# Create data frame of argsets
-batch_argset_df <- data.frame(
-  name = c("a", "b", "c"),
-  var_1 = c(1, 2, 3),
-  var_2 = c("i", "j", "k")
-)
-
-# Add argsets from data frame
-p$add_argset_from_df(batch_argset_df)
-
-# View added argsets
+p$add_argset_from_df(data.frame(name = c("a", "b"), var_1 = c(1, 2)))
 p$get_argsets_as_dt()
 }
     \if{html}{\out{</div>}}
@@ -522,7 +440,7 @@ p$get_argsets_as_dt()
 \if{html}{\out{<a id="method-Plan-add_argset_from_list"></a>}}
 \if{latex}{\out{\hypertarget{method-Plan-add_argset_from_list}{}}}
 \subsection{\code{Plan$add_argset_from_list()}}{
-  Add multiple argsets from a list.
+  Add one argset for each element of a list.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{Plan$add_argset_from_list(l)}
@@ -531,28 +449,18 @@ p$get_argsets_as_dt()
   \subsection{Arguments}{
     \if{html}{\out{<div class="arguments">}}
     \describe{
-      \item{\code{l}}{A list of lists. Each inner list is one new argset.}
+      \item{\code{l}}{A list of named lists. Each inner list is one argset. An element
+\code{name} names the analysis.}
     }
     \if{html}{\out{</div>}}
   }
   \subsection{Returns}{
-    NULL. The method changes the plan in place.
+    \code{NULL}, invisibly.
   }
   \subsection{Examples}{
     \if{html}{\out{<div class="r example copy">}}
     \preformatted{p <- plnr::Plan$new()
-
-# Create list of argsets
-batch_argset_list <- list(
-  list(name = "a", var_1 = 1, var_2 = "i"),
-  list(name = "b", var_1 = 2, var_2 = "j"),
-  list(name = "c", var_1 = 3, var_2 = "k")
-)
-
-# Add argsets from list
-p$add_argset_from_list(batch_argset_list)
-
-# View added argsets
+p$add_argset_from_list(plnr::expand_list(var_1 = 1:2, var_2 = c("i", "j")))
 p$get_argsets_as_dt()
 }
     \if{html}{\out{</div>}}
@@ -563,7 +471,8 @@ p$get_argsets_as_dt()
 \if{html}{\out{<a id="method-Plan-add_analysis"></a>}}
 \if{latex}{\out{\hypertarget{method-Plan-add_analysis}{}}}
 \subsection{\code{Plan$add_analysis()}}{
-  Add a new analysis to the plan.
+  Add an analysis: one argset and one action function. If an
+analysis with this name exists, \code{add_analysis()} replaces it.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{Plan$add_analysis(name = uuid::UUIDgenerate(), fn = NULL, fn_name = NULL, ...)}
@@ -574,31 +483,21 @@ p$get_argsets_as_dt()
     \describe{
       \item{\code{name}}{Character string. The name of the analysis. The default is a
 UUID.}
-      \item{\code{fn}}{Optional. The function to use for the analysis.}
-      \item{\code{fn_name}}{Optional. A character string that names the function to
-use.}
-      \item{\code{...}}{Further arguments to add to the argset.}
+      \item{\code{fn}}{Optional. The action function.}
+      \item{\code{fn_name}}{Optional. The name of the action function, as a character
+string. \code{"pkg::fn"} also works. Give \code{fn} or \code{fn_name}, not both.}
+      \item{\code{...}}{Named arguments. They make up the argset.}
     }
     \if{html}{\out{</div>}}
   }
   \subsection{Returns}{
-    NULL. The method changes the plan in place.
+    The argset, invisibly.
   }
   \subsection{Examples}{
     \if{html}{\out{<div class="r example copy">}}
     \preformatted{p <- plnr::Plan$new()
-
-# Add example data
 p$add_data("covid_data", fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_location")
-
-# Add analysis
-p$add_analysis(
-  name = "analysis_1",
-  fn_name = "plnr::example_action_fn"
-)
-
-# View argsets and run analysis
-p$get_argsets_as_dt()
+p$add_analysis(name = "analysis_1", fn_name = "plnr::example_action_fn")
 p$run_one("analysis_1")
 }
     \if{html}{\out{</div>}}
@@ -609,7 +508,7 @@ p$run_one("analysis_1")
 \if{html}{\out{<a id="method-Plan-add_analysis_from_df"></a>}}
 \if{latex}{\out{\hypertarget{method-Plan-add_analysis_from_df}{}}}
 \subsection{\code{Plan$add_analysis_from_df()}}{
-  Add multiple analyses from a data frame.
+  Add one analysis for each row of a data frame.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{Plan$add_analysis_from_df(fn = NULL, fn_name = NULL, df)}
@@ -618,39 +517,26 @@ p$run_one("analysis_1")
   \subsection{Arguments}{
     \if{html}{\out{<div class="arguments">}}
     \describe{
-      \item{\code{fn}}{Optional. The function to use for all analyses.}
-      \item{\code{fn_name}}{Optional. A character string that names the function to
-use.}
-      \item{\code{df}}{A data frame. Each row is one new analysis.}
+      \item{\code{fn}}{Optional. The action function of every analysis.}
+      \item{\code{fn_name}}{Optional. The name of the action function of every analysis.
+A column \code{fn_name} in \code{df} overrides it.}
+      \item{\code{df}}{A data frame. Each row is one argset. A column \code{name} names the
+analyses.}
     }
     \if{html}{\out{</div>}}
   }
   \subsection{Returns}{
-    NULL. The method changes the plan in place.
+    \code{NULL}, invisibly.
   }
   \subsection{Examples}{
     \if{html}{\out{<div class="r example copy">}}
     \preformatted{p <- plnr::Plan$new()
-
-# Add example data
 p$add_data("covid_data", fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_location")
-
-# Create data frame of analyses
-batch_argset_df <- data.frame(
-  name = c("a", "b", "c"),
-  var_1 = c(1, 2, 3),
-  var_2 = c("i", "j", "k")
-)
-
-# Add analyses from data frame
 p$add_analysis_from_df(
   fn_name = "plnr::example_action_fn",
-  df = batch_argset_df
+  df = data.frame(name = c("a", "b"), var_1 = c(1, 2))
 )
-
-# View argsets and run example
-p$get_argsets_as_dt()
-p$run_one(1)
+p$run_one("a")
 }
     \if{html}{\out{</div>}}
   }
@@ -660,7 +546,7 @@ p$run_one(1)
 \if{html}{\out{<a id="method-Plan-add_analysis_from_list"></a>}}
 \if{latex}{\out{\hypertarget{method-Plan-add_analysis_from_list}{}}}
 \subsection{\code{Plan$add_analysis_from_list()}}{
-  Add multiple analyses from a list.
+  Add one analysis for each element of a list.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{Plan$add_analysis_from_list(fn = NULL, fn_name = NULL, l)}
@@ -669,38 +555,28 @@ p$run_one(1)
   \subsection{Arguments}{
     \if{html}{\out{<div class="arguments">}}
     \describe{
-      \item{\code{fn}}{Optional. The function to use for all analyses.}
-      \item{\code{fn_name}}{Optional. A character string that names the function to
-use.}
-      \item{\code{l}}{A list of lists. Each inner list is one new analysis.}
+      \item{\code{fn}}{Optional. The action function of every analysis.}
+      \item{\code{fn_name}}{Optional. The name of the action function of every analysis.
+An element \code{fn_name} in an inner list overrides it.}
+      \item{\code{l}}{A list of named lists. Each inner list is one argset. An element
+\code{name} names the analysis.}
     }
     \if{html}{\out{</div>}}
   }
   \subsection{Returns}{
-    NULL. The method changes the plan in place.
+    \code{NULL}, invisibly.
   }
   \subsection{Examples}{
     \if{html}{\out{<div class="r example copy">}}
     \preformatted{p <- plnr::Plan$new()
-
-# Add example data
 p$add_data("covid_data", fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_location")
-
-# Create list of analyses
-batch_argset_list <- list(
-  list(name = "analysis_1", var_1 = 1, var_2 = "i"),
-  list(name = "analysis_2", var_1 = 2, var_2 = "j"),
-  list(name = "analysis_3", var_1 = 3, var_2 = "k")
-)
-
-# Add analyses from list
 p$add_analysis_from_list(
   fn_name = "plnr::example_action_fn",
-  l = batch_argset_list
+  l = list(
+    list(name = "analysis_1", var_1 = 1),
+    list(name = "analysis_2", var_1 = 2)
+  )
 )
-
-# View argsets and run example
-p$get_argsets_as_dt()
 p$run_one("analysis_1")
 }
     \if{html}{\out{</div>}}
@@ -711,7 +587,8 @@ p$run_one("analysis_1")
 \if{html}{\out{<a id="method-Plan-apply_action_fn_to_all_argsets"></a>}}
 \if{latex}{\out{\hypertarget{method-Plan-apply_action_fn_to_all_argsets}{}}}
 \subsection{\code{Plan$apply_action_fn_to_all_argsets()}}{
-  Apply one action function to all the argsets.
+  Give every analysis in the plan the same action function. It
+replaces any action function that an analysis already has.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{Plan$apply_action_fn_to_all_argsets(fn = NULL, fn_name = NULL)}
@@ -720,23 +597,26 @@ p$run_one("analysis_1")
   \subsection{Arguments}{
     \if{html}{\out{<div class="arguments">}}
     \describe{
-      \item{\code{fn}}{Action function.}
-      \item{\code{fn_name}}{Action function name.
-p <- plnr::Plan$new()
-p$add_data("covid_data", fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_location")
-batch_argset_list <- list(
-list(name = "analysis_1", var_1 = 1, var_2 = "i"),
-list(name = "analysis_2", var_1 = 2, var_2 = "j"),
-list(name = "analysis_3", var_1 = 3, var_2 = "k")
-)
-p$add_argset_from_list(
-fn_name = "plnr::example_action_fn",
-l = batch_argset_list
-)
-p$get_argsets_as_dt()
-p$apply_action_fn_to_all_argsets(fn_name = "plnr::example_action_fn")
-p$run_one("analysis_1")}
+      \item{\code{fn}}{Optional. The action function.}
+      \item{\code{fn_name}}{Optional. The name of the action function, as a character
+string.}
     }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    \code{NULL}, invisibly.
+  }
+  \subsection{Examples}{
+    \if{html}{\out{<div class="r example copy">}}
+    \preformatted{p <- plnr::Plan$new()
+p$add_data("covid_data", fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_location")
+p$add_argset_from_list(list(
+  list(name = "analysis_1", var_1 = 1),
+  list(name = "analysis_2", var_1 = 2)
+))
+p$apply_action_fn_to_all_argsets(fn_name = "plnr::example_action_fn")
+p$run_one("analysis_1")
+}
     \if{html}{\out{</div>}}
   }
 }
@@ -745,7 +625,7 @@ p$run_one("analysis_1")}
 \if{html}{\out{<a id="method-Plan-apply_analysis_fn_to_all"></a>}}
 \if{latex}{\out{\hypertarget{method-Plan-apply_analysis_fn_to_all}{}}}
 \subsection{\code{Plan$apply_analysis_fn_to_all()}}{
-  Deprecated. Use \code{apply_action_fn_to_all_argsets()} instead.
+  Deprecated. Use \code{apply_action_fn_to_all_argsets()}.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{Plan$apply_analysis_fn_to_all(fn = NULL, fn_name = NULL)}
@@ -754,10 +634,13 @@ p$run_one("analysis_1")}
   \subsection{Arguments}{
     \if{html}{\out{<div class="arguments">}}
     \describe{
-      \item{\code{fn}}{Action function.}
-      \item{\code{fn_name}}{Action function name.}
+      \item{\code{fn}}{Optional. The action function.}
+      \item{\code{fn_name}}{Optional. The name of the action function.}
     }
     \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    \code{NULL}, invisibly.
   }
 }
 
@@ -765,11 +648,14 @@ p$run_one("analysis_1")}
 \if{html}{\out{<a id="method-Plan-x_length"></a>}}
 \if{latex}{\out{\hypertarget{method-Plan-x_length}{}}}
 \subsection{\code{Plan$x_length()}}{
-  Number of analyses in the plan.
+  Count the analyses in the plan.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{Plan$x_length()}
     \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    An integer.
   }
 }
 
@@ -777,11 +663,14 @@ p$run_one("analysis_1")}
 \if{html}{\out{<a id="method-Plan-x_seq_along"></a>}}
 \if{latex}{\out{\hypertarget{method-Plan-x_seq_along}{}}}
 \subsection{\code{Plan$x_seq_along()}}{
-  Generate a regular sequence from 1 to the number of analyses in the plan.
+  Get the positions of the analyses, \code{seq_along(analyses)}.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{Plan$x_seq_along()}
     \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    An integer vector.
   }
 }
 
@@ -789,7 +678,8 @@ p$run_one("analysis_1")}
 \if{html}{\out{<a id="method-Plan-set_progress"></a>}}
 \if{latex}{\out{\hypertarget{method-Plan-set_progress}{}}}
 \subsection{\code{Plan$set_progress()}}{
-  Set an internal progress bar.
+  Set a progress bar that \code{run_all()} ticks once for each
+analysis.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{Plan$set_progress(pb)}
@@ -798,9 +688,13 @@ p$run_one("analysis_1")}
   \subsection{Arguments}{
     \if{html}{\out{<div class="arguments">}}
     \describe{
-      \item{\code{pb}}{Progress bar.}
+      \item{\code{pb}}{An object with a \code{tick()} method, such as one from
+\code{progress::progress_bar$new()}.}
     }
     \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    \code{pb}, invisibly.
   }
 }
 
@@ -808,7 +702,8 @@ p$run_one("analysis_1")}
 \if{html}{\out{<a id="method-Plan-set_progressor"></a>}}
 \if{latex}{\out{\hypertarget{method-Plan-set_progressor}{}}}
 \subsection{\code{Plan$set_progressor()}}{
-  Set an internal progressor progress bar.
+  Set a progressr progressor that \code{run_all()} calls once for each
+analysis.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{Plan$set_progressor(pb)}
@@ -817,9 +712,12 @@ p$run_one("analysis_1")}
   \subsection{Arguments}{
     \if{html}{\out{<div class="arguments">}}
     \describe{
-      \item{\code{pb}}{progressor progress bar.}
+      \item{\code{pb}}{A function from \code{progressr::progressor()}.}
     }
     \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    \code{pb}, invisibly.
   }
 }
 
@@ -827,7 +725,7 @@ p$run_one("analysis_1")}
 \if{html}{\out{<a id="method-Plan-set_verbose"></a>}}
 \if{latex}{\out{\hypertarget{method-Plan-set_verbose}{}}}
 \subsection{\code{Plan$set_verbose()}}{
-  Set the \code{verbose} flag.
+  Set \code{verbose}, which \code{new()} describes.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{Plan$set_verbose(x)}
@@ -836,9 +734,12 @@ p$run_one("analysis_1")}
   \subsection{Arguments}{
     \if{html}{\out{<div class="arguments">}}
     \describe{
-      \item{\code{x}}{Boolean.}
+      \item{\code{x}}{Logical.}
     }
     \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    \code{x}, invisibly.
   }
 }
 
@@ -846,7 +747,7 @@ p$run_one("analysis_1")}
 \if{html}{\out{<a id="method-Plan-set_use_foreach"></a>}}
 \if{latex}{\out{\hypertarget{method-Plan-set_use_foreach}{}}}
 \subsection{\code{Plan$set_use_foreach()}}{
-  Set the \code{use_foreach} flag.
+  Set \code{use_foreach}, which \code{new()} describes.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{Plan$set_use_foreach(x)}
@@ -855,9 +756,12 @@ p$run_one("analysis_1")}
   \subsection{Arguments}{
     \if{html}{\out{<div class="arguments">}}
     \describe{
-      \item{\code{x}}{Boolean.}
+      \item{\code{x}}{Logical or \code{NULL}.}
     }
     \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    \code{x}, invisibly.
   }
 }
 
@@ -865,30 +769,27 @@ p$run_one("analysis_1")}
 \if{html}{\out{<a id="method-Plan-get_data"></a>}}
 \if{latex}{\out{\hypertarget{method-Plan-get_data}{}}}
 \subsection{\code{Plan$get_data()}}{
-  Extract the data added with \code{add_data()} and return it as a named list.
+  Load every data source, and return the datasets as a named
+list.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{Plan$get_data()}
     \if{html}{\out{</div>}}
   }
   \subsection{Returns}{
-    A named list. Most elements come from \code{add_data()}.
+    A named list with one element for each dataset, and an element
+\code{hash}. \code{hash$current} is the spookyhash digest of the datasets.
+\code{hash$current_elements} holds one digest for each dataset. plnr does not
+read these digests.
 
-One extra named element is called 'hash'. 'hash' holds the data hashes of
-particular datasets and variables. \code{digest::digest()} calculates them
-with the 'spookyhash' algorithm.
-
-'hash' holds two named elements:
-\itemize{
-\item current (the hash of the entire named list)
-\item current_elements (the hash of the named elements within the named list)
-}
+If the only data source is \code{data__________go_up_one_level} and it returns
+a named list, that list holds the datasets.
   }
   \subsection{Examples}{
     \if{html}{\out{<div class="r example copy">}}
     \preformatted{p <- plnr::Plan$new()
 p$add_data("covid_data", fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_location")
-p$get_data()
+str(p$get_data(), max.level = 1)
 }
     \if{html}{\out{</div>}}
   }
@@ -898,7 +799,7 @@ p$get_data()
 \if{html}{\out{<a id="method-Plan-get_analysis"></a>}}
 \if{latex}{\out{\hypertarget{method-Plan-get_analysis}{}}}
 \subsection{\code{Plan$get_analysis()}}{
-  Extract one analysis from the plan.
+  Get one analysis.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{Plan$get_analysis(index_analysis)}
@@ -907,26 +808,24 @@ p$get_data()
   \subsection{Arguments}{
     \if{html}{\out{<div class="arguments">}}
     \describe{
-      \item{\code{index_analysis}}{Either an integer in \code{1:length(analyses)}, or a
-character string with the name of the analysis.}
+      \item{\code{index_analysis}}{The position of the analysis, or its name.}
     }
     \if{html}{\out{</div>}}
   }
   \subsection{Returns}{
-    An analysis.
+    The analysis, as \code{analyses} holds it. Its argset also holds
+\code{index_analysis}.
   }
   \subsection{Examples}{
     \if{html}{\out{<div class="r example copy">}}
     \preformatted{p <- plnr::Plan$new()
 p$add_data("covid_data", fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_location")
-batch_argset_list <- list(
-  list(name = "analysis_1", var_1 = 1, var_2 = "i"),
-  list(name = "analysis_2", var_1 = 2, var_2 = "j"),
-  list(name = "analysis_3", var_1 = 3, var_2 = "k")
-)
 p$add_analysis_from_list(
   fn_name = "plnr::example_action_fn",
-  l = batch_argset_list
+  l = list(
+    list(name = "analysis_1", var_1 = 1),
+    list(name = "analysis_2", var_1 = 2)
+  )
 )
 p$get_analysis("analysis_1")
 }
@@ -938,7 +837,7 @@ p$get_analysis("analysis_1")
 \if{html}{\out{<a id="method-Plan-get_argset"></a>}}
 \if{latex}{\out{\hypertarget{method-Plan-get_argset}{}}}
 \subsection{\code{Plan$get_argset()}}{
-  Extract one argset from the plan.
+  Get the argset of one analysis.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{Plan$get_argset(index_analysis)}
@@ -947,26 +846,23 @@ p$get_analysis("analysis_1")
   \subsection{Arguments}{
     \if{html}{\out{<div class="arguments">}}
     \describe{
-      \item{\code{index_analysis}}{Either an integer in \code{1:length(analyses)}, or a
-character string with the name of the analysis.}
+      \item{\code{index_analysis}}{The position of the analysis, or its name.}
     }
     \if{html}{\out{</div>}}
   }
   \subsection{Returns}{
-    An argset.
+    The argset, a named list.
   }
   \subsection{Examples}{
     \if{html}{\out{<div class="r example copy">}}
     \preformatted{p <- plnr::Plan$new()
 p$add_data("covid_data", fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_location")
-batch_argset_list <- list(
-  list(name = "analysis_1", var_1 = 1, var_2 = "i"),
-  list(name = "analysis_2", var_1 = 2, var_2 = "j"),
-  list(name = "analysis_3", var_1 = 3, var_2 = "k")
-)
 p$add_analysis_from_list(
   fn_name = "plnr::example_action_fn",
-  l = batch_argset_list
+  l = list(
+    list(name = "analysis_1", var_1 = 1),
+    list(name = "analysis_2", var_1 = 2)
+  )
 )
 p$get_argset("analysis_1")
 }
@@ -978,27 +874,26 @@ p$get_argset("analysis_1")
 \if{html}{\out{<a id="method-Plan-get_argsets_as_dt"></a>}}
 \if{latex}{\out{\hypertarget{method-Plan-get_argsets_as_dt}{}}}
 \subsection{\code{Plan$get_argsets_as_dt()}}{
-  Get all argsets and return them as a data.table.
+  Get every argset as one row of a data.table.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{Plan$get_argsets_as_dt()}
     \if{html}{\out{</div>}}
   }
   \subsection{Returns}{
-    A data.table that holds all the argsets within a plan.
+    A data.table. Its first columns are \code{name_analysis} and
+\code{index_analysis}, and it has one more column for each argset element.
   }
   \subsection{Examples}{
     \if{html}{\out{<div class="r example copy">}}
     \preformatted{p <- plnr::Plan$new()
 p$add_data("covid_data", fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_location")
-batch_argset_list <- list(
-  list(name = "analysis_1", var_1 = 1, var_2 = "i"),
-  list(name = "analysis_2", var_1 = 2, var_2 = "j"),
-  list(name = "analysis_3", var_1 = 3, var_2 = "k")
-)
 p$add_analysis_from_list(
   fn_name = "plnr::example_action_fn",
-  l = batch_argset_list
+  l = list(
+    list(name = "analysis_1", var_1 = 1),
+    list(name = "analysis_2", var_1 = 2)
+  )
 )
 p$get_argsets_as_dt()
 }
@@ -1010,7 +905,7 @@ p$get_argsets_as_dt()
 \if{html}{\out{<a id="method-Plan-run_one_with_data"></a>}}
 \if{latex}{\out{\hypertarget{method-Plan-run_one_with_data}{}}}
 \subsection{\code{Plan$run_one_with_data()}}{
-  Run one analysis. You supply the data.
+  Run one analysis on data that you give it.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{Plan$run_one_with_data(index_analysis, data, ...)}
@@ -1019,10 +914,9 @@ p$get_argsets_as_dt()
   \subsection{Arguments}{
     \if{html}{\out{<div class="arguments">}}
     \describe{
-      \item{\code{index_analysis}}{Either an integer in \code{1:length(analyses)}, or a
-character string with the name of the analysis.}
-      \item{\code{data}}{A named list. You normally get it from \code{p$get_data()}.}
-      \item{\code{...}}{Not used.}
+      \item{\code{index_analysis}}{The position of the analysis, or its name.}
+      \item{\code{data}}{A named list of datasets, normally from \code{get_data()}.}
+      \item{\code{...}}{Further arguments for the action function. See 'Details'.}
     }
     \if{html}{\out{</div>}}
   }
@@ -1033,14 +927,12 @@ character string with the name of the analysis.}
     \if{html}{\out{<div class="r example copy">}}
     \preformatted{p <- plnr::Plan$new()
 p$add_data("covid_data", fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_location")
-batch_argset_list <- list(
-  list(name = "analysis_1", var_1 = 1, var_2 = "i"),
-  list(name = "analysis_2", var_1 = 2, var_2 = "j"),
-  list(name = "analysis_3", var_1 = 3, var_2 = "k")
-)
 p$add_analysis_from_list(
   fn_name = "plnr::example_action_fn",
-  l = batch_argset_list
+  l = list(
+    list(name = "analysis_1", var_1 = 1),
+    list(name = "analysis_2", var_1 = 2)
+  )
 )
 data <- p$get_data()
 p$run_one_with_data("analysis_1", data)
@@ -1053,7 +945,8 @@ p$run_one_with_data("analysis_1", data)
 \if{html}{\out{<a id="method-Plan-run_one"></a>}}
 \if{latex}{\out{\hypertarget{method-Plan-run_one}{}}}
 \subsection{\code{Plan$run_one()}}{
-  Run one analysis. The method gets the data from \code{self$get_data()}.
+  Run one analysis. \code{run_one()} loads the data with \code{get_data()}
+each time you call it.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{Plan$run_one(index_analysis, ...)}
@@ -1062,9 +955,8 @@ p$run_one_with_data("analysis_1", data)
   \subsection{Arguments}{
     \if{html}{\out{<div class="arguments">}}
     \describe{
-      \item{\code{index_analysis}}{Either an integer in \code{1:length(analyses)}, or a
-character string with the name of the analysis.}
-      \item{\code{...}}{Not used.}
+      \item{\code{index_analysis}}{The position of the analysis, or its name.}
+      \item{\code{...}}{Further arguments for the action function. See 'Details'.}
     }
     \if{html}{\out{</div>}}
   }
@@ -1075,14 +967,12 @@ character string with the name of the analysis.}
     \if{html}{\out{<div class="r example copy">}}
     \preformatted{p <- plnr::Plan$new()
 p$add_data("covid_data", fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_location")
-batch_argset_list <- list(
-  list(name = "analysis_1", var_1 = 1, var_2 = "i"),
-  list(name = "analysis_2", var_1 = 2, var_2 = "j"),
-  list(name = "analysis_3", var_1 = 3, var_2 = "k")
-)
 p$add_analysis_from_list(
   fn_name = "plnr::example_action_fn",
-  l = batch_argset_list
+  l = list(
+    list(name = "analysis_1", var_1 = 1),
+    list(name = "analysis_2", var_1 = 2)
+  )
 )
 p$run_one("analysis_1")
 }
@@ -1094,7 +984,7 @@ p$run_one("analysis_1")
 \if{html}{\out{<a id="method-Plan-run_all_with_data"></a>}}
 \if{latex}{\out{\hypertarget{method-Plan-run_all_with_data}{}}}
 \subsection{\code{Plan$run_all_with_data()}}{
-  Run all analyses. You supply the data.
+  Run every analysis on data that you give it.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{Plan$run_all_with_data(data, ..., .plnr.options = NULL)}
@@ -1103,33 +993,33 @@ p$run_one("analysis_1")
   \subsection{Arguments}{
     \if{html}{\out{<div class="arguments">}}
     \describe{
-      \item{\code{data}}{A named list. You normally get it from \code{p$get_data()}.}
-      \item{\code{...}}{Not used.}
-      \item{\code{.plnr.options}}{A list of options for plnr. plnr does not pass it to
-the action function. \code{chunk_size} goes to foreach as
-\code{.options.future = list(chunk.size = chunk_size)}, which only a
-future-based backend such as doFuture reads. The default is 1.}
+      \item{\code{data}}{A named list of datasets, normally from \code{get_data()}.}
+      \item{\code{...}}{Further arguments for the action function. See 'Details'.}
+      \item{\code{.plnr.options}}{A list of options for plnr. The action function
+does not get it. \code{chunk_size} goes to foreach as
+\code{.options.future = list(chunk.size = chunk_size)}. Only a future-based
+backend, such as doFuture, reads it. The default is 1.}
     }
     \if{html}{\out{</div>}}
   }
   \subsection{Returns}{
-    A list. Each element is the value that the action function returns.
+    A list, invisibly. Element \code{i} is the value that the action function
+of analysis \code{i} returns. Without foreach, a \code{NULL} value at the end of the
+plan adds no element, so the list can be shorter than the plan.
   }
   \subsection{Examples}{
     \if{html}{\out{<div class="r example copy">}}
     \preformatted{p <- plnr::Plan$new()
 p$add_data("covid_data", fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_location")
-batch_argset_list <- list(
-  list(name = "analysis_1", var_1 = 1, var_2 = "i"),
-  list(name = "analysis_2", var_1 = 2, var_2 = "j"),
-  list(name = "analysis_3", var_1 = 3, var_2 = "k")
-)
 p$add_analysis_from_list(
   fn_name = "plnr::example_action_fn",
-  l = batch_argset_list
+  l = list(
+    list(name = "analysis_1", var_1 = 1),
+    list(name = "analysis_2", var_1 = 2)
+  )
 )
 data <- p$get_data()
-p$run_all_with_data(data)
+results <- p$run_all_with_data(data)
 }
     \if{html}{\out{</div>}}
   }
@@ -1139,7 +1029,8 @@ p$run_all_with_data(data)
 \if{html}{\out{<a id="method-Plan-run_all"></a>}}
 \if{latex}{\out{\hypertarget{method-Plan-run_all}{}}}
 \subsection{\code{Plan$run_all()}}{
-  Run all analyses. The method gets the data from \code{self$get_data()}.
+  Run every analysis. \code{run_all()} loads the data once with
+\code{get_data()}, and passes it to every analysis.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{Plan$run_all(...)}
@@ -1148,27 +1039,26 @@ p$run_all_with_data(data)
   \subsection{Arguments}{
     \if{html}{\out{<div class="arguments">}}
     \describe{
-      \item{\code{...}}{Not used.}
+      \item{\code{...}}{Further arguments for the action function, and \code{.plnr.options}.
+\code{run_all_with_data()} describes both.}
     }
     \if{html}{\out{</div>}}
   }
   \subsection{Returns}{
-    A list. Each element is the value that the action function returns.
+    A list, invisibly, as \code{run_all_with_data()} returns it.
   }
   \subsection{Examples}{
     \if{html}{\out{<div class="r example copy">}}
     \preformatted{p <- plnr::Plan$new()
 p$add_data("covid_data", fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_location")
-batch_argset_list <- list(
-  list(name = "analysis_1", var_1 = 1, var_2 = "i"),
-  list(name = "analysis_2", var_1 = 2, var_2 = "j"),
-  list(name = "analysis_3", var_1 = 3, var_2 = "k")
-)
 p$add_analysis_from_list(
   fn_name = "plnr::example_action_fn",
-  l = batch_argset_list
+  l = list(
+    list(name = "analysis_1", var_1 = 1),
+    list(name = "analysis_2", var_1 = 2)
+  )
 )
-p$run_all()
+results <- p$run_all()
 }
     \if{html}{\out{</div>}}
   }
@@ -1178,8 +1068,9 @@ p$run_all()
 \if{html}{\out{<a id="method-Plan-run_all_progress"></a>}}
 \if{latex}{\out{\hypertarget{method-Plan-run_all_progress}{}}}
 \subsection{\code{Plan$run_all_progress()}}{
-  Run all analyses and show a progress bar. The method gets the data from
-\code{self$get_data()}.
+  Run every analysis, as \code{run_all()} does, inside
+\code{progressr::with_progress()}. A progressr progressor then shows progress.
+It needs the progressr package.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{Plan$run_all_progress(...)}
@@ -1188,27 +1079,27 @@ p$run_all()
   \subsection{Arguments}{
     \if{html}{\out{<div class="arguments">}}
     \describe{
-      \item{\code{...}}{Not used.}
+      \item{\code{...}}{Passed to \code{run_all()}.}
     }
     \if{html}{\out{</div>}}
   }
   \subsection{Returns}{
-    A list. Each element is the value that the action function returns.
+    A list, invisibly, as \code{run_all()} returns it.
   }
   \subsection{Examples}{
     \if{html}{\out{<div class="r example copy">}}
     \preformatted{p <- plnr::Plan$new()
 p$add_data("covid_data", fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_location")
-batch_argset_list <- list(
-  list(name = "analysis_1", var_1 = 1, var_2 = "i"),
-  list(name = "analysis_2", var_1 = 2, var_2 = "j"),
-  list(name = "analysis_3", var_1 = 3, var_2 = "k")
-)
 p$add_analysis_from_list(
   fn_name = "plnr::example_action_fn",
-  l = batch_argset_list
+  l = list(
+    list(name = "analysis_1", var_1 = 1),
+    list(name = "analysis_2", var_1 = 2)
+  )
 )
-p$run_all_progress()
+if (requireNamespace("progressr", quietly = TRUE)) {
+  results <- p$run_all_progress()
+}
 }
     \if{html}{\out{</div>}}
   }
@@ -1218,11 +1109,10 @@ p$run_all_progress()
 \if{html}{\out{<a id="method-Plan-run_all_parallel"></a>}}
 \if{latex}{\out{\hypertarget{method-Plan-run_all_parallel}{}}}
 \subsection{\code{Plan$run_all_parallel()}}{
-  Run all analyses in parallel. The method gets the data from
-\code{self$get_data()}.
-
-This method works only on linux computers. It uses \code{pbmcapply} as the
-parallel backend.
+  Run every analysis in forked processes with
+\code{pbmcapply::pbmclapply()}, which shows a progress bar. It loads the data once
+with \code{get_data()}. Windows cannot fork. There, pbmcapply sets \code{mc.cores} to
+1, warns, and runs the analyses in sequence.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{Plan$run_all_parallel(mc.cores = getOption("mc.cores", 2L), ...)}
@@ -1231,13 +1121,14 @@ parallel backend.
   \subsection{Arguments}{
     \if{html}{\out{<div class="arguments">}}
     \describe{
-      \item{\code{mc.cores}}{The number of cores to use.}
-      \item{\code{...}}{Not used.}
+      \item{\code{mc.cores}}{The number of processes.}
+      \item{\code{...}}{Further arguments for the action function. See 'Details'.}
     }
     \if{html}{\out{</div>}}
   }
   \subsection{Returns}{
-    A list. Each element is the value that the action function returns.
+    A list, invisibly. Element \code{i} is the value that the action function
+of analysis \code{i} returns.
   }
 }
 

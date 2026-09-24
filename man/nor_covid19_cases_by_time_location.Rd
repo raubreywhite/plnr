@@ -3,27 +3,28 @@
 \docType{data}
 \name{nor_covid19_cases_by_time_location}
 \alias{nor_covid19_cases_by_time_location}
-\title{Covid-19 data for PCR-confirmed cases in Norway (nation and county)}
+\title{Covid-19 cases confirmed by PCR in Norway, by nation and county}
 \format{
-A csfmt_rts_data_v1 with 11028 rows and 18 variables:
+A data.table with 11028 rows and 18 variables:
 \describe{
-\item{granularity_time}{day/isoweek}
-\item{granularity_geo}{nation, county}
-\item{country_iso3}{nor}
-\item{location_code}{norge, 11 counties}
-\item{border}{2020}
-\item{age}{total}
-\item{isoyear}{Isoyear of event}
-\item{isoweek}{Isoweek of event}
-\item{isoyearweek}{Isoyearweek of event}
-\item{season}{Season of event}
-\item{seasonweek}{Seasonweek of event}
-\item{calyear}{Calyear of event}
-\item{calmonth}{Calmonth of event}
-\item{calyearmonth}{Calyearmonth of event}
-\item{date}{Date of event}
-\item{covid19_cases_testdate_n}{Number of confirmed covid19 cases}
-\item{covid19_cases_testdate_pr100000}{Number of confirmed covid19 cases per 100.000 population}
+\item{granularity_time}{\code{"day"} or \code{"isoweek"}.}
+\item{granularity_geo}{\code{"nation"} or \code{"county"}.}
+\item{country_iso3}{\code{"nor"}.}
+\item{location_code}{\code{"nation_nor"}, or one of 11 county codes such as \code{"county_nor03"}.}
+\item{border}{The year of the county borders, 2020.}
+\item{age}{\code{"total"}.}
+\item{sex}{\code{"total"}.}
+\item{isoyear}{ISO year.}
+\item{isoweek}{ISO week.}
+\item{isoyearweek}{ISO year and week, such as \code{"2020-08"}.}
+\item{season}{Season, such as \code{"2020/2021"}.}
+\item{seasonweek}{Week within the season.}
+\item{calyear}{Calendar year. \code{NA} in weekly rows.}
+\item{calmonth}{Calendar month. \code{NA} in weekly rows.}
+\item{calyearmonth}{Calendar year and month, such as \code{"2020-M02"}. \code{NA} in weekly rows.}
+\item{date}{The date. In weekly rows, the Sunday that ends the ISO week.}
+\item{covid19_cases_testdate_n}{Number of confirmed cases.}
+\item{covid19_cases_testdate_pr100000}{Number of confirmed cases per 100 000 population.}
 }
 }
 \source{
@@ -33,13 +34,8 @@ A csfmt_rts_data_v1 with 11028 rows and 18 variables:
 nor_covid19_cases_by_time_location
 }
 \description{
-The Norwegian Surveillance System for Communicable Diseases (MSIS) supplies
-this data. The date corresponds to when the PCR-test was taken.
-}
-\details{
-The data records the raw number of cases, and the number of cases per
-100.000 population.
-
-The extraction date of this data is 2022-05-04.
+The data come from the Norwegian Surveillance System for Communicable
+Diseases (MSIS). \code{date} is the date of the PCR test. The data were extracted
+on 2022-05-04.
 }
 \keyword{datasets}

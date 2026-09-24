@@ -2,7 +2,7 @@
 % Please edit documentation in R/plan.R
 \name{hash_it}
 \alias{hash_it}
-\title{Generate a hash of an object}
+\title{Hash an object}
 \usage{
 hash_it(x)
 }
@@ -13,7 +13,6 @@ hash_it(x)
 A character string that holds the hash.
 }
 \description{
-\code{hash_it()} is an internal function. It creates a hash of an object with the
-digest package.
+\code{hash_it()} is internal. It returns \code{digest::digest(x)}.
 }
 \keyword{internal}

@@ -2,47 +2,47 @@
 % Please edit documentation in R/create_rmarkdown.R
 \name{create_rmarkdown}
 \alias{create_rmarkdown}
-\title{Create an example R Markdown project structure}
+\title{Create an example R Markdown project that uses plnr}
 \usage{
 create_rmarkdown(home)
 }
 \arguments{
-\item{home}{Character string. The path where \code{create_rmarkdown()} creates the
-project.}
+\item{home}{Character string. The directory for the project.}
 }
 \value{
-NULL. \code{create_rmarkdown()} creates files and directories under
-\code{home}.
+The project path, invisibly, as \code{usethis::create_project()} returns
+it.
 }
 \description{
-\code{create_rmarkdown()} creates a complete example project structure for an R
-Markdown analysis that uses the \code{plnr} framework. It creates a standardized
-directory structure. It also creates example files that show how to use
-\code{plnr} for data analysis and for report generation.
+\code{create_rmarkdown()} writes a small project to \code{home}. Its \code{run.R} builds a
+\link{Plan} with one dataset and two analyses, then renders a report that runs
+them.
 }
 \details{
-The created project includes:
+The project holds:
 \itemize{
-\item A main \code{run.R} script that initializes the project and demonstrates \code{plnr} usage
-\item Example analysis functions in the \code{R} directory
-\item A template R Markdown document
-\item Standard project directories (results, paper, raw)
+\item \code{run.R}, which calls \code{org::initialize_project()}, builds the plan and
+renders the report.
+\item \code{R/table_death.R} and \code{R/figure_death.R}, the two action functions.
+\item \code{paper/paper.Rmd}, the report.
+\item The empty directories \code{results} and \code{raw}.
 }
+
+\code{run.R} needs the org, ggplot2, huxtable, lubridate and rmarkdown packages.
+plnr does not install them.
 }
 \examples{
 \donttest{
-# Create a temporary directory for the example
-temp_dir <- tempfile("plnr_example_")
-create_rmarkdown(temp_dir)
-
-# View the created structure
-list.files(temp_dir, recursive = TRUE)
-
-unlink(temp_dir, recursive = TRUE)
+home <- tempfile("plnr_example_")
+create_rmarkdown(home)
+list.files(home, recursive = TRUE)
+unlink(home, recursive = TRUE)
 }
 }
 \seealso{
-\code{vignette("plnr")} for the framework the generated \code{run.R} uses. That
-\code{run.R} builds one \link{Plan}. It then makes one \code{add_data()} call, and one
-\code{add_analysis()} call per output.
+\code{vignette("plnr")} for the concepts that \code{run.R} uses.
+
+Other utilities:
+\code{\link[=try_again]{try_again()}}
 }
+\concept{utilities}

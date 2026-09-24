@@ -2,30 +2,32 @@
 % Please edit documentation in R/set_opts.R
 \name{set_opts}
 \alias{set_opts}
-\title{Set package configuration options}
+\title{Set plnr options}
 \usage{
 set_opts(force_verbose = FALSE)
 }
 \arguments{
-\item{force_verbose}{Logical. Whether to force verbose output messages,
-whatever the interactive state is. The default is \code{FALSE}.}
+\item{force_verbose}{Logical. \code{TRUE} makes every \link{Plan} that you create
+afterwards verbose, even in a non-interactive session. The default is
+\code{FALSE}.}
 }
 \value{
-NULL. \code{set_opts()} changes the internal configuration of the package.
+\code{force_verbose}, invisibly.
 }
 \description{
-\code{set_opts()} sets package-wide options, such as the verbosity of output
-messages. It changes the internal configuration state of the package.
+\code{set_opts()} sets options for the whole package.
 }
 \examples{
-# Enable verbose output
 set_opts(force_verbose = TRUE)
-
-# Disable verbose output
 set_opts(force_verbose = FALSE)
 }
 \seealso{
-\link{Plan}. Its \code{verbose} argument is on by default when the session is
-interactive, or when \code{force_verbose} is \code{TRUE}. See \code{vignette("plnr")} for an
-introduction to the framework.
+\code{vignette("plnr")} for the concepts.
+
+Other plan helpers:
+\code{\link{Plan}},
+\code{\link[=expand_list]{expand_list()}},
+\code{\link[=get_anything]{get_anything()}},
+\code{\link[=is_run_directly]{is_run_directly()}}
 }
+\concept{plan helpers}

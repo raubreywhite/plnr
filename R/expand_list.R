@@ -1,31 +1,19 @@
-#' Create a cross product of lists
+#' Make a list of argsets from every combination of values
 #'
-#' `expand_list()` creates a cross product of multiple lists. It works like
-#' `tidyr::expand_grid()`, but you do not need to wrap the arguments in an extra
-#' `list()`. Use it to build combinations of analysis parameters.
+#' `expand_list()` returns one named list for each combination of the values
+#' of its arguments. It works like `tidyr::expand_grid()`, but it returns a list
+#' of lists, which `Plan$add_argset_from_list()` and
+#' `Plan$add_analysis_from_list()` take.
 #'
-#' @param ... Named arguments. Each one holds a vector or a list of values to
-#' combine.
-#' @return A list of lists. Each inner list holds one combination of values from
-#' the input arguments.
+#' @param ... Named vectors or lists. Each holds the values of one argument.
+#' @return A list of named lists, one for each combination. The first argument
+#' varies slowest.
 #' @examples
-#' # Create combinations of parameters
-#' combinations <- plnr::expand_list(
-#'   a = 1:2,
-#'   b = c("a", "b")
-#' )
-#'
-#' # View the combinations
-#' str(combinations)
-#'
-#' # Compare with tidyr::expand_grid
-#' tidyr::expand_grid(list(
-#'   a = 1:2,
-#'   b = c("a", "b")
-#' ))
-#' @seealso [Plan]. Its `add_argset_from_list()` method takes this list. See
-#' `vignette("adding_analyses")`, which builds argsets with
-#' `plnr::expand_list()`, then applies one action function to all of them.
+#' argsets <- plnr::expand_list(location = c("oslo", "bergen"), age = c("0-14", "15+"))
+#' str(argsets)
+#' @family plan helpers
+#' @seealso `vignette("adding_analyses")`, which builds argsets with
+#' `expand_list()`.
 #' @export
 expand_list <- function(...) {
   dots <- list(...)

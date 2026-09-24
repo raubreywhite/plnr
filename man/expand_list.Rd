@@ -2,41 +2,35 @@
 % Please edit documentation in R/expand_list.R
 \name{expand_list}
 \alias{expand_list}
-\title{Create a cross product of lists}
+\title{Make a list of argsets from every combination of values}
 \usage{
 expand_list(...)
 }
 \arguments{
-\item{...}{Named arguments. Each one holds a vector or a list of values to
-combine.}
+\item{...}{Named vectors or lists. Each holds the values of one argument.}
 }
 \value{
-A list of lists. Each inner list holds one combination of values from
-the input arguments.
+A list of named lists, one for each combination. The first argument
+varies slowest.
 }
 \description{
-\code{expand_list()} creates a cross product of multiple lists. It works like
-\code{tidyr::expand_grid()}, but you do not need to wrap the arguments in an extra
-\code{list()}. Use it to build combinations of analysis parameters.
+\code{expand_list()} returns one named list for each combination of the values
+of its arguments. It works like \code{tidyr::expand_grid()}, but it returns a list
+of lists, which \code{Plan$add_argset_from_list()} and
+\code{Plan$add_analysis_from_list()} take.
 }
 \examples{
-# Create combinations of parameters
-combinations <- plnr::expand_list(
-  a = 1:2,
-  b = c("a", "b")
-)
-
-# View the combinations
-str(combinations)
-
-# Compare with tidyr::expand_grid
-tidyr::expand_grid(list(
-  a = 1:2,
-  b = c("a", "b")
-))
+argsets <- plnr::expand_list(location = c("oslo", "bergen"), age = c("0-14", "15+"))
+str(argsets)
 }
 \seealso{
-\link{Plan}. Its \code{add_argset_from_list()} method takes this list. See
 \code{vignette("adding_analyses")}, which builds argsets with
-\code{plnr::expand_list()}, then applies one action function to all of them.
+\code{expand_list()}.
+
+Other plan helpers:
+\code{\link{Plan}},
+\code{\link[=get_anything]{get_anything()}},
+\code{\link[=is_run_directly]{is_run_directly()}},
+\code{\link[=set_opts]{set_opts()}}
 }
+\concept{plan helpers}

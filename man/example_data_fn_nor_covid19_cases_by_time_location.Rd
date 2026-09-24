@@ -2,19 +2,21 @@
 % Please edit documentation in R/data.R
 \name{example_data_fn_nor_covid19_cases_by_time_location}
 \alias{example_data_fn_nor_covid19_cases_by_time_location}
-\title{An example data_fn that returns a data set}
+\title{Return the example Covid-19 dataset}
 \usage{
 example_data_fn_nor_covid19_cases_by_time_location()
 }
+\value{
+\link{nor_covid19_cases_by_time_location}, a data.table.
+}
 \description{
-An example data_fn that returns a data set
+\code{example_data_fn_nor_covid19_cases_by_time_location()} is an example data
+function: it takes no arguments and returns one dataset. Give its name to
+\code{Plan$add_data()} as \code{fn_name}.
 }
 \examples{
-# A data function takes no arguments and returns one data set
-d <- example_data_fn_nor_covid19_cases_by_time_location()
-dim(d)
+dim(example_data_fn_nor_covid19_cases_by_time_location())
 
-# Its intended use is as an `fn_name` passed to Plan$add_data()
 p <- plnr::Plan$new()
 p$add_data(
   name = "covid19_cases",
@@ -23,9 +25,7 @@ p$add_data(
 names(p$get_data())
 }
 \seealso{
-\code{vignette("adding_analyses")}. It defines the same kind of
-zero-argument \code{data_fn}. It then attaches that \code{data_fn} to a plan with
-\code{fn_name}.
+\code{vignette("adding_analyses")}, which writes its own data functions.
 
 Other example and test functions:
 \code{\link[=example_action_fn]{example_action_fn()}},

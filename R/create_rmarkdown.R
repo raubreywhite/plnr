@@ -1,34 +1,31 @@
-#' Create an example R Markdown project structure
+#' Create an example R Markdown project that uses plnr
 #'
-#' `create_rmarkdown()` creates a complete example project structure for an R
-#' Markdown analysis that uses the `plnr` framework. It creates a standardized
-#' directory structure. It also creates example files that show how to use
-#' `plnr` for data analysis and for report generation.
+#' `create_rmarkdown()` writes a small project to `home`. Its `run.R` builds a
+#' [Plan] with one dataset and two analyses, then renders a report that runs
+#' them.
 #'
-#' The created project includes:
-#' - A main `run.R` script that initializes the project and demonstrates `plnr` usage
-#' - Example analysis functions in the `R` directory
-#' - A template R Markdown document
-#' - Standard project directories (results, paper, raw)
+#' The project holds:
+#' - `run.R`, which calls `org::initialize_project()`, builds the plan and
+#'   renders the report.
+#' - `R/table_death.R` and `R/figure_death.R`, the two action functions.
+#' - `paper/paper.Rmd`, the report.
+#' - The empty directories `results` and `raw`.
 #'
-#' @param home Character string. The path where `create_rmarkdown()` creates the
-#' project.
-#' @return NULL. `create_rmarkdown()` creates files and directories under
-#' `home`.
+#' `run.R` needs the org, ggplot2, huxtable, lubridate and rmarkdown packages.
+#' plnr does not install them.
+#'
+#' @param home Character string. The directory for the project.
+#' @return The project path, invisibly, as `usethis::create_project()` returns
+#' it.
 #' @examples
 #' \donttest{
-#' # Create a temporary directory for the example
-#' temp_dir <- tempfile("plnr_example_")
-#' create_rmarkdown(temp_dir)
-#'
-#' # View the created structure
-#' list.files(temp_dir, recursive = TRUE)
-#'
-#' unlink(temp_dir, recursive = TRUE)
+#' home <- tempfile("plnr_example_")
+#' create_rmarkdown(home)
+#' list.files(home, recursive = TRUE)
+#' unlink(home, recursive = TRUE)
 #' }
-#' @seealso `vignette("plnr")` for the framework the generated `run.R` uses. That
-#' `run.R` builds one [Plan]. It then makes one `add_data()` call, and one
-#' `add_analysis()` call per output.
+#' @family utilities
+#' @seealso `vignette("plnr")` for the concepts that `run.R` uses.
 #' @export
 create_rmarkdown <- function(home) {
   fs::dir_create(fs::path(home))

@@ -1,24 +1,21 @@
-#' Check whether code runs directly, or from within a function
+#' Check whether code runs at the top level of the console
 #'
-#' `is_run_directly()` reports whether the code runs directly in the global
-#' environment, or from within a function call. Use it during development and
-#' debugging. A function can then behave one way when you run it directly, and
-#' another way when a larger analysis plan calls it.
+#' `is_run_directly()` returns `TRUE` when you call it at the top level of the R
+#' console or of an Rscript file. It returns `FALSE` inside a function, and
+#' inside `source()`, `eval()` and a knitr chunk.
 #'
-#' @return A logical value. `TRUE` means the code runs directly, from the global
-#' environment. `FALSE` means the code runs from within a function call.
+#' Put it at the start of an action function to load `data` and `argset` while
+#' you develop the function line by line. When the plan runs the function, it
+#' returns `FALSE`, so the lines do nothing.
+#'
+#' @return `TRUE` or `FALSE`.
 #' @examples
-#' # When run directly
-#' is_run_directly()  # TRUE
-#'
-#' # When run from within a function
-#' test_fn <- function() {
-#'   is_run_directly()  # FALSE
+#' f <- function() {
+#'   is_run_directly()
 #' }
-#' test_fn()
-#' @seealso `vignette("plnr")`. Its "Debugging Tools" section calls
-#' `is_run_directly()` inside an action function, to load `data` and `argset`
-#' while you develop that function.
+#' f()
+#' @family plan helpers
+#' @seealso `vignette("plnr")`, whose "Debugging" section shows the pattern.
 #' @export
 is_run_directly <- function() {
   return(sys.nframe() == 1)
