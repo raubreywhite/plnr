@@ -1,44 +1,35 @@
 # Introduction to plnr
 
-## Introduction
+plnr runs many analyses on the same data. You describe the data and the
+analyses in a plan, and the plan runs them.
 
-`plnr` is a framework for planning and executing analyses in R. Use it
-to organize and run multiple analyses. It covers two cases: the same
-function applied with different arguments, and multiple different
-functions applied to your data.
+## Core concepts
 
-### Core Concepts
+| Term            | Meaning                                                                                                                                  |
+|-----------------|------------------------------------------------------------------------------------------------------------------------------------------|
+| argset          | A named list of arguments for one analysis.                                                                                              |
+| action function | A function that does one analysis. It MUST take the data as its first argument and the argset as its second. It MAY take more arguments. |
+| analysis        | One argset plus one action function. A plan runs analyses.                                                                               |
+| plan            | A `Plan` object. It holds the data sources and a list of analyses.                                                                       |
 
-#### Broad technical terms
+A plan is one of two kinds:
 
-[TABLE]
+- A **single-function plan** applies one action function to many
+  argsets. Use it for many strata, such as locations or age groups, or
+  for many variables, such as exposures or outcomes.
+- A **multi-function plan** applies different action functions to the
+  same data. Use it for the tables and figures of one report.
 
-#### Different types of plans
+[`vignette("adding_analyses")`](https://www.rwhite.no/plnr/articles/adding_analyses.md)
+builds both kinds on real data.
 
-|                      |                                                                                                  |
-|----------------------|--------------------------------------------------------------------------------------------------|
-| **Plan Type**        | **Description**                                                                                  |
-| Single-function plan | Same action function applied multiple times with different argsets applied to the same datasets. |
-| Multi-function plan  | Different action functions applied to the same datasets.                                         |
-
-#### Plan Examples
-
-|                      |                                                                                                                                                                     |
-|----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Plan Type**        | **Example**                                                                                                                                                         |
-| Single-function plan | Multiple strata (e.g. locations, age groups) that you need to apply the same function to to (e.g. outbreak detection, trend detection, graphing).                   |
-| Single-function plan | Multiple variables (e.g. multiple outcomes, multiple exposures) that you need to apply the same statistical methods to (e.g. regression models, correlation plots). |
-| Multi-function plan  | Creating the output for a report (e.g. multiple different tables and graphs).                                                                                       |
-
-### Basic Usage
-
-This simple example shows the core concepts:
+## A first plan
 
 ``` r
 library(plnr)
 ```
 
-    ## plnr 2026.8.21
+    ## plnr 2026.9.24
     ## https://www.rwhite.no/plnr/
 
 ``` r
@@ -54,82 +45,81 @@ library(data.table)
     ##     %notin%
 
 ``` r
-# Create a new plan
 p <- Plan$new()
 
-# Add data
 p$add_data(
   name = "deaths",
-  direct = data.table(deaths=1:4, year=2001:2004)
+  direct = data.table(deaths = 1:4, year = 2001:2004)
 )
 
-# Add argsets for different years
-p$add_argset(
-  name = "fig_1_2002",
-  year_max = 2002
-)
+p$add_argset(name = "fig_1_2002", year_max = 2002)
+p$add_argset(name = "fig_1_2003", year_max = 2003)
 
-p$add_argset(
-  name = "fig_1_2003",
-  year_max = 2003
-)
-
-# Define analysis function
 fn_fig_1 <- function(data, argset) {
   plot_data <- data$deaths[year <= argset$year_max]
-  
-  ggplot(plot_data, aes(x=year, y=deaths)) +
+
+  ggplot(plot_data, aes(x = year, y = deaths)) +
     geom_line() +
-    geom_point(size=3) +
+    geom_point(size = 3) +
     labs(title = glue::glue("Deaths from 2001 until {argset$year_max}"))
 }
 
-# Apply function to all argsets
 p$apply_action_fn_to_all_argsets(fn_name = "fn_fig_1")
 
-# Run analyses
 p$run_one("fig_1_2002")
 ```
 
 ![](plnr_files/figure-html/unnamed-chunk-1-1.png)
 
-### Advanced Features
+`run_one()` runs one analysis. `run_all()` runs every analysis and
+returns a list of the results.
 
-#### Data Management
+## Data
 
-The framework makes data management efficient in three ways:
+`add_data()` takes a data source in one of three forms:
 
-- It loads data once and reuses it across analyses.
-- It keeps data cleaning separate from analysis.
-- It tracks data changes with a hash.
+- `direct`: the dataset itself.
+- `fn`: a function with no arguments that returns the dataset.
+- `fn_name`: the name of such a function.
 
-#### Debugging Tools
+`run_all()` calls `get_data()` once and passes the result to every
+analysis. `run_one()` calls `get_data()` each time you call it.
+`get_data()` also adds an element `hash`, with a spookyhash digest of
+each dataset. plnr does not read these digests. It does not cache, so
+every call of `get_data()` loads every data source again.
 
-`plnr` includes several tools for development and debugging:
+## Function names
+
+An analysis gets its action function by name or as a function object:
 
 ``` r
-# Access data directly
-p$get_data()
+p$add_analysis(name = "fig_1_2002", fn_name = "fn_fig_1", year_max = 2002)
+p$add_analysis(name = "fig_1_2003", fn = fn_fig_1, year_max = 2003)
 ```
 
-    ## $deaths
-    ##    deaths  year
-    ##     <int> <int>
-    ## 1:      1  2001
-    ## 2:      2  2002
-    ## 3:      3  2003
-    ## 4:      4  2004
-    ## 
-    ## $hash
-    ## $hash$current
-    ## [1] "1e95d7e0bebc100ba24647f2b28f429e"
-    ## 
-    ## $hash$current_elements
-    ## $hash$current_elements$deaths
-    ## [1] "c9e30a8d0af2d4d284347ce8c275e2b9"
+plnr finds the function when the analysis runs. It looks in this order:
+
+1.  The local environment where the name resolved when you added the
+    analysis. This applies inside a function, or in a report knit with
+    `envir = new.env()`. There, the function MUST exist before you add
+    the analysis.
+2.  The global environment, then the search path. A global function MAY
+    come after the analysis.
+3.  plnr itself.
+
+`"pkg::fn"` names a function that a package exports.
+[`?get_anything`](https://www.rwhite.no/plnr/reference/get_anything.md)
+gives the full order.
+
+A function object suits a function that another function made. The two
+forms pass arguments differently, as
+[`?Plan`](https://www.rwhite.no/plnr/reference/Plan.md) describes.
+
+## Debugging
+
+These methods show what an action function gets:
 
 ``` r
-# Access specific argset
 p$get_argset("fig_1_2002")
 ```
 
@@ -137,115 +127,48 @@ p$get_argset("fig_1_2002")
     ## [1] 2002
 
 ``` r
-# Access analysis by name or index
 p$get_analysis(1)
 ```
 
+    ## $fn
+    ## NULL
+    ## 
+    ## $fn_name
+    ## [1] "fn_fig_1"
+    ## 
+    ## $fn_env
+    ## NULL
+    ## 
     ## $argset
     ## $argset$year_max
     ## [1] 2002
     ## 
     ## $argset$index_analysis
     ## [1] 1
-    ## 
-    ## 
-    ## $fn_name
-    ## [1] "fn_fig_1"
 
 ``` r
-# Use is_run_directly() for development
+str(p$get_data(), max.level = 1)
+```
+
+    ## List of 2
+    ##  $ deaths:Classes 'data.table' and 'data.frame': 4 obs. of  2 variables:
+    ##   ..- attr(*, ".internal.selfref")=<pointer: 0x564f98525f20> 
+    ##  $ hash  :List of 2
+
+To develop an action function line by line, start it with
+[`is_run_directly()`](https://www.rwhite.no/plnr/reference/is_run_directly.md):
+
+``` r
 fn_analysis <- function(data, argset) {
-  if(plnr::is_run_directly()) {
+  if (plnr::is_run_directly()) {
     data <- p$get_data()
     argset <- p$get_argset("fig_1_2002")
   }
-  
-  # function continues here
+  data$deaths[year <= argset$year_max]
 }
 ```
 
-#### Function Naming
-
-When you add an analysis, you can use either `fn_name` or `fn`:
-
-``` r
-# Using fn_name (recommended)
-p$add_analysis(
-  name = "fig_1_2002",
-  fn_name = "fn_fig_1",
-  year_max = 2002
-)
-
-# Using fn (for function factories)
-p$add_analysis(
-  name = "fig_1_2003",
-  fn = fn_fig_1,
-  year_max = 2003
-)
-```
-
-#### Hash-based Caching
-
-The framework uses hashing to track data changes:
-
-``` r
-# Create two plans with same data
-p1 <- Plan$new()
-p1$add_data(direct = data.table(deaths=1:4, year=2001:2004), name = "deaths")
-p1$add_data(direct = data.table(deaths=1:4, year=2001:2004), name = "deaths2")
-
-p2 <- Plan$new()
-p2$add_data(direct = data.table(deaths=1:4, year=2001:2004), name = "deaths")
-p2$add_data(direct = data.table(deaths=1:4, year=2001:2004), name = "deaths2")
-
-# Same data has same hash
-identical(p1$get_data()$hash$current_elements, p2$get_data()$hash$current_elements)
-```
-
-    ## [1] TRUE
-
-``` r
-# Different data has different hash
-p1$add_data(direct = data.table(deaths=1:5, year=2001:2005), name = "deaths3")
-p1$get_data()$hash$current_elements
-```
-
-    ## $deaths
-    ## [1] "c9e30a8d0af2d4d284347ce8c275e2b9"
-    ## 
-    ## $deaths2
-    ## [1] "c9e30a8d0af2d4d284347ce8c275e2b9"
-    ## 
-    ## $deaths3
-    ## [1] "3840cef6dc64a556e25ff652446512d0"
-
-### Best Practices
-
-1.  **Data Organization**
-    - Keep data cleaning separate from analysis.
-    - Use meaningful names for datasets.
-    - Document the data structure and the assumptions.
-2.  **Analysis Functions**
-    - An action function MUST accept `data` and `argset` parameters.
-    - Use
-      [`is_run_directly()`](https://www.rwhite.no/plnr/reference/is_run_directly.md)
-      during development.
-    - Keep each function focused on one purpose.
-3.  **Plan Structure**
-    - Use meaningful names for argsets and analyses.
-    - Group related analyses together.
-    - Document the plan structure and its dependencies.
-4.  **Development Workflow**
-    - Start with small examples.
-    - Use the debugging tools during development.
-    - Test each analysis on its own, before you run the full plan.
-
-### Next Steps
-
-1.  Read the [Adding
-    Analyses](https://www.rwhite.no/plnr/articles/adding_analyses.html)
-    vignette for more detailed examples.
-2.  Visit the [package website](https://www.rwhite.no/plnr/) for
-    additional resources.
-3.  Read the function documentation with
-    [`help(package="plnr")`](https://www.rwhite.no/plnr/reference).
+When you run the lines of the body in the console,
+[`is_run_directly()`](https://www.rwhite.no/plnr/reference/is_run_directly.md)
+returns `TRUE`, so `data` and `argset` come from the plan. When the plan
+runs the function, it returns `FALSE`, and the two lines do nothing.

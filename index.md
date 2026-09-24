@@ -2,21 +2,21 @@ What’s inside
 
 01
 
-### Load once, reuse
+### Load once per run
 
-Add datasets to the plan and share them across every analysis, instead
-of re-reading the same data for each run.
+`run_all()` loads each dataset once and passes it to every analysis.
 
 02
 
-### Argset cross-products
+### Argsets from combinations
 
-Apply one action function to many argsets. One definition then covers
-every stratum, variable or scenario.
+[`expand_list()`](https://www.rwhite.no/plnr/reference/expand_list.md)
+makes one argset for each combination of strata, exposures or outcomes.
+One action function then covers them all.
 
 03
 
-### Cache and parallelize
+### Sequence or parallel
 
-Hash-based caching tracks data changes. Run all argsets in parallel when
-you need the throughput.
+Run the analyses in sequence, or in parallel through a foreach backend.
+The results come back as one list.

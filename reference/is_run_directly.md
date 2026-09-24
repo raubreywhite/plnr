@@ -1,9 +1,9 @@
-# Check whether code runs directly, or from within a function
+# Check whether code runs at the top level of the console
 
-`is_run_directly()` reports whether the code runs directly in the global
-environment, or from within a function call. Use it during development
-and debugging. A function can then behave one way when you run it
-directly, and another way when a larger analysis plan calls it.
+`is_run_directly()` returns `TRUE` when you call it at the top level of
+the R console or of an Rscript file. It returns `FALSE` inside a
+function, and inside [`source()`](https://rdrr.io/r/base/source.html),
+[`eval()`](https://rdrr.io/r/base/eval.html) and a knitr chunk.
 
 ## Usage
 
@@ -13,26 +13,31 @@ is_run_directly()
 
 ## Value
 
-A logical value. `TRUE` means the code runs directly, from the global
-environment. `FALSE` means the code runs from within a function call.
+`TRUE` or `FALSE`.
+
+## Details
+
+Put it at the start of an action function to load `data` and `argset`
+while you develop the function line by line. When the plan runs the
+function, it returns `FALSE`, so the lines do nothing.
 
 ## See also
 
-[`vignette("plnr")`](https://www.rwhite.no/plnr/articles/plnr.md). Its
-"Debugging Tools" section calls `is_run_directly()` inside an action
-function, to load `data` and `argset` while you develop that function.
+[`vignette("plnr")`](https://www.rwhite.no/plnr/articles/plnr.md), whose
+"Debugging" section shows the pattern.
+
+Other plan helpers:
+[`Plan`](https://www.rwhite.no/plnr/reference/Plan.md),
+[`expand_list()`](https://www.rwhite.no/plnr/reference/expand_list.md),
+[`get_anything()`](https://www.rwhite.no/plnr/reference/get_anything.md),
+[`set_opts()`](https://www.rwhite.no/plnr/reference/set_opts.md)
 
 ## Examples
 
 ``` r
-# When run directly
-is_run_directly()  # TRUE
-#> [1] FALSE
-
-# When run from within a function
-test_fn <- function() {
-  is_run_directly()  # FALSE
+f <- function() {
+  is_run_directly()
 }
-test_fn()
+f()
 #> [1] FALSE
 ```

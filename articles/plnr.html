@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">plnr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.8.21</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.9.24</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -83,128 +83,60 @@
 
     
     
+<p>plnr runs many analyses on the same data. You describe the data and
+the analyses in a plan, and the plan runs them.</p>
 <div class="section level2">
-<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+<h2 id="core-concepts">Core concepts<a class="anchor" aria-label="anchor" href="#core-concepts"></a>
 </h2>
-<p><code>plnr</code> is a framework for planning and executing analyses
-in R. Use it to organize and run multiple analyses. It covers two cases:
-the same function applied with different arguments, and multiple
-different functions applied to your data.</p>
-<div class="section level3">
-<h3 id="core-concepts">Core Concepts<a class="anchor" aria-label="anchor" href="#core-concepts"></a>
-</h3>
-<div class="section level4">
-<h4 id="broad-technical-terms">Broad technical terms<a class="anchor" aria-label="anchor" href="#broad-technical-terms"></a>
-</h4>
 <table class="table">
 <colgroup>
-<col width="19%">
-<col width="80%">
+<col width="50%">
+<col width="50%">
 </colgroup>
+<thead><tr class="header">
+<th>Term</th>
+<th>Meaning</th>
+</tr></thead>
 <tbody>
 <tr class="odd">
-<td><strong>Object</strong></td>
-<td><strong>Description</strong></td>
+<td>argset</td>
+<td>A named list of arguments for one analysis.</td>
 </tr>
 <tr class="even">
-<td>argset</td>
-<td>A named list containing a set of arguments.</td>
+<td>action function</td>
+<td>A function that does one analysis. It MUST take the data as its
+first argument and the argset as its second. It MAY take more
+arguments.</td>
 </tr>
 <tr class="odd">
 <td>analysis</td>
-<td>
-<p>These are the fundamental units that are scheduled in
-<code>plnr</code>:</p>
-<ul>
-<li>1 argset</li>
-<li>1 (action) function that takes two arguments
-<ol style="list-style-type: decimal">
-<li>data (named list)</li>
-<li>argset (named list)</li>
-</ol>
-</li>
-</ul>
-</td>
+<td>One argset plus one action function. A plan runs analyses.</td>
 </tr>
 <tr class="even">
 <td>plan</td>
-<td>
-<p>This is the overarching “scheduler”:</p>
+<td>A <code>Plan</code> object. It holds the data sources and a list of
+analyses.</td>
+</tr>
+</tbody>
+</table>
+<p>A plan is one of two kinds:</p>
 <ul>
-<li>1 data pull</li>
-<li>1 list of analyses</li>
+<li>A <strong>single-function plan</strong> applies one action function
+to many argsets. Use it for many strata, such as locations or age
+groups, or for many variables, such as exposures or outcomes.</li>
+<li>A <strong>multi-function plan</strong> applies different action
+functions to the same data. Use it for the tables and figures of one
+report.</li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+<p><code><a href="../articles/adding_analyses.html">vignette("adding_analyses")</a></code> builds both kinds on real
+data.</p>
 </div>
-<div class="section level4">
-<h4 id="different-types-of-plans">Different types of plans<a class="anchor" aria-label="anchor" href="#different-types-of-plans"></a>
-</h4>
-<table class="table">
-<colgroup>
-<col width="19%">
-<col width="80%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><strong>Plan Type</strong></td>
-<td><strong>Description</strong></td>
-</tr>
-<tr class="even">
-<td>Single-function plan</td>
-<td>Same action function applied multiple times with different argsets
-applied to the same datasets.</td>
-</tr>
-<tr class="odd">
-<td>Multi-function plan</td>
-<td>Different action functions applied to the same datasets.</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="plan-examples">Plan Examples<a class="anchor" aria-label="anchor" href="#plan-examples"></a>
-</h4>
-<table class="table">
-<colgroup>
-<col width="19%">
-<col width="80%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><strong>Plan Type</strong></td>
-<td><strong>Example</strong></td>
-</tr>
-<tr class="even">
-<td>Single-function plan</td>
-<td>Multiple strata (e.g. locations, age groups) that you need to apply
-the same function to to (e.g. outbreak detection, trend detection,
-graphing).</td>
-</tr>
-<tr class="odd">
-<td>Single-function plan</td>
-<td>Multiple variables (e.g. multiple outcomes, multiple exposures) that
-you need to apply the same statistical methods to (e.g. regression
-models, correlation plots).</td>
-</tr>
-<tr class="even">
-<td>Multi-function plan</td>
-<td>Creating the output for a report (e.g. multiple different tables and
-graphs).</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="section level3">
-<h3 id="basic-usage">Basic Usage<a class="anchor" aria-label="anchor" href="#basic-usage"></a>
-</h3>
-<p>This simple example shows the core concepts:</p>
+<div class="section level2">
+<h2 id="a-first-plan">A first plan<a class="anchor" aria-label="anchor" href="#a-first-plan"></a>
+</h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://www.rwhite.no/plnr/">plnr</a></span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## plnr 2026.8.21</span></span>
+<pre><code><span><span class="co">## plnr 2026.9.24</span></span>
 <span><span class="co">## https://www.rwhite.no/plnr/</span></span></code></pre>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
@@ -215,210 +147,124 @@ graphs).</td>
 <span><span class="co">## </span></span>
 <span><span class="co">##     %notin%</span></span></code></pre>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Create a new plan</span></span>
-<span><span class="va">p</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/Plan.html">Plan</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/Plan.html">Plan</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Add data</span></span>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">add_data</span><span class="op">(</span></span>
 <span>  name <span class="op">=</span> <span class="st">"deaths"</span>,</span>
-<span>  direct <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/data.table/man/data.table.html" class="external-link">data.table</a></span><span class="op">(</span>deaths<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, year<span class="op">=</span><span class="fl">2001</span><span class="op">:</span><span class="fl">2004</span><span class="op">)</span></span>
+<span>  direct <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/data.table/man/data.table.html" class="external-link">data.table</a></span><span class="op">(</span>deaths <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, year <span class="op">=</span> <span class="fl">2001</span><span class="op">:</span><span class="fl">2004</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Add argsets for different years</span></span>
-<span><span class="va">p</span><span class="op">$</span><span class="fu">add_argset</span><span class="op">(</span></span>
-<span>  name <span class="op">=</span> <span class="st">"fig_1_2002"</span>,</span>
-<span>  year_max <span class="op">=</span> <span class="fl">2002</span></span>
-<span><span class="op">)</span></span>
+<span><span class="va">p</span><span class="op">$</span><span class="fu">add_argset</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"fig_1_2002"</span>, year_max <span class="op">=</span> <span class="fl">2002</span><span class="op">)</span></span>
+<span><span class="va">p</span><span class="op">$</span><span class="fu">add_argset</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"fig_1_2003"</span>, year_max <span class="op">=</span> <span class="fl">2003</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">p</span><span class="op">$</span><span class="fu">add_argset</span><span class="op">(</span></span>
-<span>  name <span class="op">=</span> <span class="st">"fig_1_2003"</span>,</span>
-<span>  year_max <span class="op">=</span> <span class="fl">2003</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Define analysis function</span></span>
 <span><span class="va">fn_fig_1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">argset</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">plot_data</span> <span class="op">&lt;-</span> <span class="va">data</span><span class="op">$</span><span class="va">deaths</span><span class="op">[</span><span class="va">year</span> <span class="op">&lt;=</span> <span class="va">argset</span><span class="op">$</span><span class="va">year_max</span><span class="op">]</span></span>
-<span>  </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">plot_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">year</span>, y<span class="op">=</span><span class="va">deaths</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">plot_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">year</span>, y <span class="op">=</span> <span class="va">deaths</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>size<span class="op">=</span><span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html" class="external-link">glue</a></span><span class="op">(</span><span class="st">"Deaths from 2001 until {argset$year_max}"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
-<span><span class="co"># Apply function to all argsets</span></span>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">apply_action_fn_to_all_argsets</span><span class="op">(</span>fn_name <span class="op">=</span> <span class="st">"fn_fig_1"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Run analyses</span></span>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">run_one</span><span class="op">(</span><span class="st">"fig_1_2002"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="plnr_files/figure-html/unnamed-chunk-1-1.png" class="r-plt" alt="" width="700"></p>
+<p><code>run_one()</code> runs one analysis. <code>run_all()</code> runs
+every analysis and returns a list of the results.</p>
 </div>
-<div class="section level3">
-<h3 id="advanced-features">Advanced Features<a class="anchor" aria-label="anchor" href="#advanced-features"></a>
-</h3>
-<div class="section level4">
-<h4 id="data-management">Data Management<a class="anchor" aria-label="anchor" href="#data-management"></a>
-</h4>
-<p>The framework makes data management efficient in three ways:</p>
+<div class="section level2">
+<h2 id="data">Data<a class="anchor" aria-label="anchor" href="#data"></a>
+</h2>
+<p><code>add_data()</code> takes a data source in one of three
+forms:</p>
 <ul>
-<li>It loads data once and reuses it across analyses.</li>
-<li>It keeps data cleaning separate from analysis.</li>
-<li>It tracks data changes with a hash.</li>
+<li>
+<code>direct</code>: the dataset itself.</li>
+<li>
+<code>fn</code>: a function with no arguments that returns the
+dataset.</li>
+<li>
+<code>fn_name</code>: the name of such a function.</li>
 </ul>
+<p><code>run_all()</code> calls <code>get_data()</code> once and passes
+the result to every analysis. <code>run_one()</code> calls
+<code>get_data()</code> each time you call it. <code>get_data()</code>
+also adds an element <code>hash</code>, with a spookyhash digest of each
+dataset. plnr does not read these digests. It does not cache, so every
+call of <code>get_data()</code> loads every data source again.</p>
 </div>
-<div class="section level4">
-<h4 id="debugging-tools">Debugging Tools<a class="anchor" aria-label="anchor" href="#debugging-tools"></a>
-</h4>
-<p><code>plnr</code> includes several tools for development and
-debugging:</p>
+<div class="section level2">
+<h2 id="function-names">Function names<a class="anchor" aria-label="anchor" href="#function-names"></a>
+</h2>
+<p>An analysis gets its action function by name or as a function
+object:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Access data directly</span></span>
-<span><span class="va">p</span><span class="op">$</span><span class="fu">get_data</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## $deaths</span></span>
-<span><span class="co">##    deaths  year</span></span>
-<span><span class="co">##     &lt;int&gt; &lt;int&gt;</span></span>
-<span><span class="co">## 1:      1  2001</span></span>
-<span><span class="co">## 2:      2  2002</span></span>
-<span><span class="co">## 3:      3  2003</span></span>
-<span><span class="co">## 4:      4  2004</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## $hash</span></span>
-<span><span class="co">## $hash$current</span></span>
-<span><span class="co">## [1] "1e95d7e0bebc100ba24647f2b28f429e"</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## $hash$current_elements</span></span>
-<span><span class="co">## $hash$current_elements$deaths</span></span>
-<span><span class="co">## [1] "c9e30a8d0af2d4d284347ce8c275e2b9"</span></span></code></pre>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Access specific argset</span></span>
-<span><span class="va">p</span><span class="op">$</span><span class="fu">get_argset</span><span class="op">(</span><span class="st">"fig_1_2002"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">p</span><span class="op">$</span><span class="fu">add_analysis</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"fig_1_2002"</span>, fn_name <span class="op">=</span> <span class="st">"fn_fig_1"</span>, year_max <span class="op">=</span> <span class="fl">2002</span><span class="op">)</span></span>
+<span><span class="va">p</span><span class="op">$</span><span class="fu">add_analysis</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"fig_1_2003"</span>, fn <span class="op">=</span> <span class="va">fn_fig_1</span>, year_max <span class="op">=</span> <span class="fl">2003</span><span class="op">)</span></span></code></pre></div>
+<p>plnr finds the function when the analysis runs. It looks in this
+order:</p>
+<ol style="list-style-type: decimal">
+<li>The local environment where the name resolved when you added the
+analysis. This applies inside a function, or in a report knit with
+<code>envir = new.env()</code>. There, the function MUST exist before
+you add the analysis.</li>
+<li>The global environment, then the search path. A global function MAY
+come after the analysis.</li>
+<li>plnr itself.</li>
+</ol>
+<p><code>"pkg::fn"</code> names a function that a package exports.
+<code><a href="../reference/get_anything.html">?get_anything</a></code> gives the full order.</p>
+<p>A function object suits a function that another function made. The
+two forms pass arguments differently, as <code><a href="../reference/Plan.html">?Plan</a></code>
+describes.</p>
+</div>
+<div class="section level2">
+<h2 id="debugging">Debugging<a class="anchor" aria-label="anchor" href="#debugging"></a>
+</h2>
+<p>These methods show what an action function gets:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">p</span><span class="op">$</span><span class="fu">get_argset</span><span class="op">(</span><span class="st">"fig_1_2002"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## $year_max</span></span>
 <span><span class="co">## [1] 2002</span></span></code></pre>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Access analysis by name or index</span></span>
-<span><span class="va">p</span><span class="op">$</span><span class="fu">get_analysis</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## $argset</span></span>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">p</span><span class="op">$</span><span class="fu">get_analysis</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## $fn</span></span>
+<span><span class="co">## NULL</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $fn_name</span></span>
+<span><span class="co">## [1] "fn_fig_1"</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $fn_env</span></span>
+<span><span class="co">## NULL</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $argset</span></span>
 <span><span class="co">## $argset$year_max</span></span>
 <span><span class="co">## [1] 2002</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $argset$index_analysis</span></span>
-<span><span class="co">## [1] 1</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## $fn_name</span></span>
-<span><span class="co">## [1] "fn_fig_1"</span></span></code></pre>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Use is_run_directly() for development</span></span>
-<span><span class="va">fn_analysis</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">argset</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="kw">if</span><span class="op">(</span><span class="fu">plnr</span><span class="fu">::</span><span class="fu"><a href="../reference/is_run_directly.html">is_run_directly</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span><span class="co">## [1] 1</span></span></code></pre>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">p</span><span class="op">$</span><span class="fu">get_data</span><span class="op">(</span><span class="op">)</span>, max.level <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## List of 2</span></span>
+<span><span class="co">##  $ deaths:Classes 'data.table' and 'data.frame': 4 obs. of  2 variables:</span></span>
+<span><span class="co">##   ..- attr(*, ".internal.selfref")=&lt;pointer: 0x564f98525f20&gt; </span></span>
+<span><span class="co">##  $ hash  :List of 2</span></span></code></pre>
+<p>To develop an action function line by line, start it with
+<code><a href="../reference/is_run_directly.html">is_run_directly()</a></code>:</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">fn_analysis</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">argset</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="fu">plnr</span><span class="fu">::</span><span class="fu"><a href="../reference/is_run_directly.html">is_run_directly</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">data</span> <span class="op">&lt;-</span> <span class="va">p</span><span class="op">$</span><span class="fu">get_data</span><span class="op">(</span><span class="op">)</span></span>
 <span>    <span class="va">argset</span> <span class="op">&lt;-</span> <span class="va">p</span><span class="op">$</span><span class="fu">get_argset</span><span class="op">(</span><span class="st">"fig_1_2002"</span><span class="op">)</span></span>
 <span>  <span class="op">}</span></span>
-<span>  </span>
-<span>  <span class="co"># function continues here</span></span>
+<span>  <span class="va">data</span><span class="op">$</span><span class="va">deaths</span><span class="op">[</span><span class="va">year</span> <span class="op">&lt;=</span> <span class="va">argset</span><span class="op">$</span><span class="va">year_max</span><span class="op">]</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-</div>
-<div class="section level4">
-<h4 id="function-naming">Function Naming<a class="anchor" aria-label="anchor" href="#function-naming"></a>
-</h4>
-<p>When you add an analysis, you can use either <code>fn_name</code> or
-<code>fn</code>:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Using fn_name (recommended)</span></span>
-<span><span class="va">p</span><span class="op">$</span><span class="fu">add_analysis</span><span class="op">(</span></span>
-<span>  name <span class="op">=</span> <span class="st">"fig_1_2002"</span>,</span>
-<span>  fn_name <span class="op">=</span> <span class="st">"fn_fig_1"</span>,</span>
-<span>  year_max <span class="op">=</span> <span class="fl">2002</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Using fn (for function factories)</span></span>
-<span><span class="va">p</span><span class="op">$</span><span class="fu">add_analysis</span><span class="op">(</span></span>
-<span>  name <span class="op">=</span> <span class="st">"fig_1_2003"</span>,</span>
-<span>  fn <span class="op">=</span> <span class="va">fn_fig_1</span>,</span>
-<span>  year_max <span class="op">=</span> <span class="fl">2003</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level4">
-<h4 id="hash-based-caching">Hash-based Caching<a class="anchor" aria-label="anchor" href="#hash-based-caching"></a>
-</h4>
-<p>The framework uses hashing to track data changes:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Create two plans with same data</span></span>
-<span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/Plan.html">Plan</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">p1</span><span class="op">$</span><span class="fu">add_data</span><span class="op">(</span>direct <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/data.table/man/data.table.html" class="external-link">data.table</a></span><span class="op">(</span>deaths<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, year<span class="op">=</span><span class="fl">2001</span><span class="op">:</span><span class="fl">2004</span><span class="op">)</span>, name <span class="op">=</span> <span class="st">"deaths"</span><span class="op">)</span></span>
-<span><span class="va">p1</span><span class="op">$</span><span class="fu">add_data</span><span class="op">(</span>direct <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/data.table/man/data.table.html" class="external-link">data.table</a></span><span class="op">(</span>deaths<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, year<span class="op">=</span><span class="fl">2001</span><span class="op">:</span><span class="fl">2004</span><span class="op">)</span>, name <span class="op">=</span> <span class="st">"deaths2"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/Plan.html">Plan</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">p2</span><span class="op">$</span><span class="fu">add_data</span><span class="op">(</span>direct <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/data.table/man/data.table.html" class="external-link">data.table</a></span><span class="op">(</span>deaths<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, year<span class="op">=</span><span class="fl">2001</span><span class="op">:</span><span class="fl">2004</span><span class="op">)</span>, name <span class="op">=</span> <span class="st">"deaths"</span><span class="op">)</span></span>
-<span><span class="va">p2</span><span class="op">$</span><span class="fu">add_data</span><span class="op">(</span>direct <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/data.table/man/data.table.html" class="external-link">data.table</a></span><span class="op">(</span>deaths<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, year<span class="op">=</span><span class="fl">2001</span><span class="op">:</span><span class="fl">2004</span><span class="op">)</span>, name <span class="op">=</span> <span class="st">"deaths2"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Same data has same hash</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">p1</span><span class="op">$</span><span class="fu">get_data</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">hash</span><span class="op">$</span><span class="va">current_elements</span>, <span class="va">p2</span><span class="op">$</span><span class="fu">get_data</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">hash</span><span class="op">$</span><span class="va">current_elements</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] TRUE</span></span></code></pre>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Different data has different hash</span></span>
-<span><span class="va">p1</span><span class="op">$</span><span class="fu">add_data</span><span class="op">(</span>direct <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/data.table/man/data.table.html" class="external-link">data.table</a></span><span class="op">(</span>deaths<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, year<span class="op">=</span><span class="fl">2001</span><span class="op">:</span><span class="fl">2005</span><span class="op">)</span>, name <span class="op">=</span> <span class="st">"deaths3"</span><span class="op">)</span></span>
-<span><span class="va">p1</span><span class="op">$</span><span class="fu">get_data</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">hash</span><span class="op">$</span><span class="va">current_elements</span></span></code></pre></div>
-<pre><code><span><span class="co">## $deaths</span></span>
-<span><span class="co">## [1] "c9e30a8d0af2d4d284347ce8c275e2b9"</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## $deaths2</span></span>
-<span><span class="co">## [1] "c9e30a8d0af2d4d284347ce8c275e2b9"</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## $deaths3</span></span>
-<span><span class="co">## [1] "3840cef6dc64a556e25ff652446512d0"</span></span></code></pre>
-</div>
-</div>
-<div class="section level3">
-<h3 id="best-practices">Best Practices<a class="anchor" aria-label="anchor" href="#best-practices"></a>
-</h3>
-<ol style="list-style-type: decimal">
-<li>
-<strong>Data Organization</strong>
-<ul>
-<li>Keep data cleaning separate from analysis.</li>
-<li>Use meaningful names for datasets.</li>
-<li>Document the data structure and the assumptions.</li>
-</ul>
-</li>
-<li>
-<strong>Analysis Functions</strong>
-<ul>
-<li>An action function MUST accept <code>data</code> and
-<code>argset</code> parameters.</li>
-<li>Use <code><a href="../reference/is_run_directly.html">is_run_directly()</a></code> during development.</li>
-<li>Keep each function focused on one purpose.</li>
-</ul>
-</li>
-<li>
-<strong>Plan Structure</strong>
-<ul>
-<li>Use meaningful names for argsets and analyses.</li>
-<li>Group related analyses together.</li>
-<li>Document the plan structure and its dependencies.</li>
-</ul>
-</li>
-<li>
-<strong>Development Workflow</strong>
-<ul>
-<li>Start with small examples.</li>
-<li>Use the debugging tools during development.</li>
-<li>Test each analysis on its own, before you run the full plan.</li>
-</ul>
-</li>
-</ol>
-</div>
-<div class="section level3">
-<h3 id="next-steps">Next Steps<a class="anchor" aria-label="anchor" href="#next-steps"></a>
-</h3>
-<ol style="list-style-type: decimal">
-<li>Read the <a href="https://www.rwhite.no/plnr/articles/adding_analyses.html">Adding
-Analyses</a> vignette for more detailed examples.</li>
-<li>Visit the <a href="https://www.rwhite.no/plnr/">package website</a>
-for additional resources.</li>
-<li>Read the function documentation with
-<code><a href="https://www.rwhite.no/plnr/reference">help(package="plnr")</a></code>.</li>
-</ol>
-</div>
+<p>When you run the lines of the body in the console,
+<code><a href="../reference/is_run_directly.html">is_run_directly()</a></code> returns <code>TRUE</code>, so
+<code>data</code> and <code>argset</code> come from the plan. When the
+plan runs the function, it returns <code>FALSE</code>, and the two lines
+do nothing.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

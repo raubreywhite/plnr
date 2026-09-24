@@ -1,9 +1,8 @@
-# Create an example R Markdown project structure
+# Create an example R Markdown project that uses plnr
 
-`create_rmarkdown()` creates a complete example project structure for an
-R Markdown analysis that uses the `plnr` framework. It creates a
-standardized directory structure. It also creates example files that
-show how to use `plnr` for data analysis and for report generation.
+`create_rmarkdown()` writes a small project to `home`. Its `run.R`
+builds a [Plan](https://www.rwhite.no/plnr/reference/Plan.md) with one
+dataset and two analyses, then renders a report that runs them.
 
 ## Usage
 
@@ -15,50 +14,51 @@ create_rmarkdown(home)
 
 - home:
 
-  Character string. The path where `create_rmarkdown()` creates the
-  project.
+  Character string. The directory for the project.
 
 ## Value
 
-NULL. `create_rmarkdown()` creates files and directories under `home`.
+The project path, invisibly, as
+[`usethis::create_project()`](https://usethis.r-lib.org/reference/create_package.html)
+returns it.
 
 ## Details
 
-The created project includes:
+The project holds:
 
-- A main `run.R` script that initializes the project and demonstrates
-  `plnr` usage
+- `run.R`, which calls `org::initialize_project()`, builds the plan and
+  renders the report.
 
-- Example analysis functions in the `R` directory
+- `R/table_death.R` and `R/figure_death.R`, the two action functions.
 
-- A template R Markdown document
+- `paper/paper.Rmd`, the report.
 
-- Standard project directories (results, paper, raw)
+- The empty directories `results` and `raw`.
+
+`run.R` needs the org, ggplot2, huxtable, lubridate and rmarkdown
+packages. plnr does not install them.
 
 ## See also
 
 [`vignette("plnr")`](https://www.rwhite.no/plnr/articles/plnr.md) for
-the framework the generated `run.R` uses. That `run.R` builds one
-[Plan](https://www.rwhite.no/plnr/reference/Plan.md). It then makes one
-`add_data()` call, and one `add_analysis()` call per output.
+the concepts that `run.R` uses.
+
+Other utilities:
+[`try_again()`](https://www.rwhite.no/plnr/reference/try_again.md)
 
 ## Examples
 
 ``` r
 # \donttest{
-# Create a temporary directory for the example
-temp_dir <- tempfile("plnr_example_")
-create_rmarkdown(temp_dir)
-#> ✔ Setting active project to "/tmp/RtmptGEIBL/plnr_example_1b2c39335b74".
+home <- tempfile("plnr_example_")
+create_rmarkdown(home)
+#> ✔ Setting active project to "/tmp/RtmpeX3tAJ/plnr_example_1bc02ef71e87".
 #> ✔ Writing a sentinel file .here.
 #> ☐ Build robust paths within your project via `here::here()`.
 #> ℹ Learn more at <https://here.r-lib.org>.
 #> ✔ Setting active project to "<no active project>".
-
-# View the created structure
-list.files(temp_dir, recursive = TRUE)
+list.files(home, recursive = TRUE)
 #> [1] "R/figure_death.R" "R/table_death.R"  "paper/paper.Rmd"  "run.R"           
-
-unlink(temp_dir, recursive = TRUE)
+unlink(home, recursive = TRUE)
 # }
 ```

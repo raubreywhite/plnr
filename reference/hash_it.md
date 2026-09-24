@@ -1,7 +1,6 @@
-# Generate a hash of an object
+# Hash an object
 
-`hash_it()` is an internal function. It creates a hash of an object with
-the digest package.
+`hash_it()` is internal. It returns `digest::digest(x)`.
 
 ## Usage
 

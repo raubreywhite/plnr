@@ -1,5 +1,77 @@
 # Changelog
 
+## Version 2026.9.24
+
+### Bug fixes
+
+- `run_all()` with foreach returned a
+  [`gc()`](https://rdrr.io/r/base/gc.html) matrix for every analysis. It
+  now returns what each action function returns.
+- A `fn_name` now resolves first in the local environment where it
+  resolved when you added it, then in the global environment and on the
+  search path, and last in plnr. A plnr function no longer wins over
+  your function of the same name. The plan stores only that local
+  environment.
+  [`get_anything()`](https://www.rwhite.no/plnr/reference/get_anything.md)
+  gains `envir` and `mode`.
+- The vignettes now knit with `rmarkdown::render(envir = new.env())`.
+  They failed with `object 'fn_fig_1' not found`.
+- `progress` is now in Imports. The default verbose path of `run_all()`
+  called it without declaring it.
+- `.plnr.options = list(chunk_size = n)` now reaches foreach. It no
+  longer reaches the action function.
+- `add_argset()` and `add_analysis()` no longer copy the whole list of
+  analyses on every call.
+- [`create_rmarkdown()`](https://www.rwhite.no/plnr/reference/create_rmarkdown.md)
+  now ends every file that it writes with a newline.
+- `run_all()` with foreach on a PSOCK cluster, such as one from
+  doParallel, failed with `object 'private' not found`. The foreach call
+  now exports what the workers need.
+
+### Behaviour changes
+
+- `add_argset_from_df()` and `add_analysis_from_df()` with zero rows add
+  nothing. They failed, and left an analysis named `NA`.
+- `get_argsets_as_dt()` reads the element `argset` exactly. An element
+  named `argsets` no longer counts as the argset.
+- With `use_foreach = NULL` and one registered worker, `run_all()` no
+  longer loads the progressr namespace.
+- Errors that plnr raises itself, such as “Both fn and fn_name are
+  NULL”, carry no call. The messages are unchanged.
+- [`try_again()`](https://www.rwhite.no/plnr/reference/try_again.md)
+  evaluates `verbose` only when it reports.
+  `try_again(1, verbose = stop("forced"))` now returns `TRUE`. It
+  failed.
+- Without progressr, `run_all()` with foreach and `verbose = TRUE` runs
+  without a progress bar. It failed. `run_all_progress()` without
+  progressr now stops with a message that names the package.
+
+### Checks
+
+- The code passes the static-checks lint gate again. It had failed since
+  2026-08-26, so pkgdown had not deployed since 2026.8.21.
+- `R/plan.R` is exempt from two lint rules, `cyclocomp_linter` and
+  `vector_logic_linter`, because their fixes change behaviour.
+
+### Documentation
+
+- The help pages, both vignettes, `README.md`, `index.md` and the
+  `DESCRIPTION` text follow ASD-STE100.
+- No page claims hash-based caching. `get_data()` computes digests but
+  plnr never reads them.
+- The help pages now say that `...` goes to the action function, and
+  give the true return values.
+
+## Version 2026.9.23
+
+CRAN release: 2026-09-23
+
+- This CRAN release carries the `Plan$add_analysis_from_list()` fix from
+  2026.8.3 ([\#1](https://github.com/raubreywhite/plnr/issues/1)). CRAN
+  version 2025.11.22 does not have it.
+- `DESCRIPTION` now declares `R (>= 4.1.0)`, because the code uses the
+  base pipe `|>`.
+
 ## Version 2026.8.21
 
 - The package drops `magrittr`. Every `%>%` is now the base pipe `|>`,

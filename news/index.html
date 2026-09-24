@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">plnr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.8.21</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.9.24</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,6 +44,56 @@
       <small>Source: <a href="https://github.com/raubreywhite/plnr/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2026.9.24" id="version-2026924">Version 2026.9.24<a class="anchor" aria-label="anchor" href="#version-2026924"></a></h2>
+<div class="section level3">
+<h3 id="bug-fixes-2026-9-24">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2026-9-24"></a></h3>
+<ul><li>
+<code>run_all()</code> with foreach returned a <code><a href="https://rdrr.io/r/base/gc.html" class="external-link">gc()</a></code> matrix for every analysis. It now returns what each action function returns.</li>
+<li>A <code>fn_name</code> now resolves first in the local environment where it resolved when you added it, then in the global environment and on the search path, and last in plnr. A plnr function no longer wins over your function of the same name. The plan stores only that local environment. <code><a href="../reference/get_anything.html">get_anything()</a></code> gains <code>envir</code> and <code>mode</code>.</li>
+<li>The vignettes now knit with <code>rmarkdown::render(envir = new.env())</code>. They failed with <code>object 'fn_fig_1' not found</code>.</li>
+<li>
+<code>progress</code> is now in Imports. The default verbose path of <code>run_all()</code> called it without declaring it.</li>
+<li>
+<code>.plnr.options = list(chunk_size = n)</code> now reaches foreach. It no longer reaches the action function.</li>
+<li>
+<code>add_argset()</code> and <code>add_analysis()</code> no longer copy the whole list of analyses on every call.</li>
+<li>
+<code><a href="../reference/create_rmarkdown.html">create_rmarkdown()</a></code> now ends every file that it writes with a newline.</li>
+<li>
+<code>run_all()</code> with foreach on a PSOCK cluster, such as one from doParallel, failed with <code>object 'private' not found</code>. The foreach call now exports what the workers need.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="behaviour-changes-2026-9-24">Behaviour changes<a class="anchor" aria-label="anchor" href="#behaviour-changes-2026-9-24"></a></h3>
+<ul><li>
+<code>add_argset_from_df()</code> and <code>add_analysis_from_df()</code> with zero rows add nothing. They failed, and left an analysis named <code>NA</code>.</li>
+<li>
+<code>get_argsets_as_dt()</code> reads the element <code>argset</code> exactly. An element named <code>argsets</code> no longer counts as the argset.</li>
+<li>With <code>use_foreach = NULL</code> and one registered worker, <code>run_all()</code> no longer loads the progressr namespace.</li>
+<li>Errors that plnr raises itself, such as “Both fn and fn_name are NULL”, carry no call. The messages are unchanged.</li>
+<li>
+<code><a href="../reference/try_again.html">try_again()</a></code> evaluates <code>verbose</code> only when it reports. <code>try_again(1, verbose = stop("forced"))</code> now returns <code>TRUE</code>. It failed.</li>
+<li>Without progressr, <code>run_all()</code> with foreach and <code>verbose = TRUE</code> runs without a progress bar. It failed. <code>run_all_progress()</code> without progressr now stops with a message that names the package.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="checks-2026-9-24">Checks<a class="anchor" aria-label="anchor" href="#checks-2026-9-24"></a></h3>
+<ul><li>The code passes the static-checks lint gate again. It had failed since 2026-08-26, so pkgdown had not deployed since 2026.8.21.</li>
+<li>
+<code>R/plan.R</code> is exempt from two lint rules, <code>cyclocomp_linter</code> and <code>vector_logic_linter</code>, because their fixes change behaviour.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="documentation-2026-9-24">Documentation<a class="anchor" aria-label="anchor" href="#documentation-2026-9-24"></a></h3>
+<ul><li>The help pages, both vignettes, <code>README.md</code>, <code>index.md</code> and the <code>DESCRIPTION</code> text follow ASD-STE100.</li>
+<li>No page claims hash-based caching. <code>get_data()</code> computes digests but plnr never reads them.</li>
+<li>The help pages now say that <code>...</code> goes to the action function, and give the true return values.</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2026.9.23" id="version-2026923">Version 2026.9.23<a class="anchor" aria-label="anchor" href="#version-2026923"></a></h2><p class="text-muted">CRAN release: 2026-09-23</p>
+<ul><li>This CRAN release carries the <code>Plan$add_analysis_from_list()</code> fix from 2026.8.3 (<a href="https://github.com/raubreywhite/plnr/issues/1" class="external-link">#1</a>). CRAN version 2025.11.22 does not have it.</li>
+<li>
+<code>DESCRIPTION</code> now declares <code>R (&gt;= 4.1.0)</code>, because the code uses the base pipe <code>|&gt;</code>.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2026.8.21" id="version-2026821">Version 2026.8.21<a class="anchor" aria-label="anchor" href="#version-2026821"></a></h2>
 <ul><li>The package drops <code>magrittr</code>. Every <code>%&gt;%</code> is now the base pipe <code>|&gt;</code>, and <code>magrittr</code> is gone from <code>DESCRIPTION</code>.</li>

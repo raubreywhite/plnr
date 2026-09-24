@@ -1,44 +1,20 @@
 # Adding analyses to a plan
 
-## Core Concepts
-
-### Broad technical terms
-
-[TABLE]
-
-### Different types of plans
-
-|                      |                                                                                                  |
-|----------------------|--------------------------------------------------------------------------------------------------|
-| **Plan Type**        | **Description**                                                                                  |
-| Single-function plan | Same action function applied multiple times with different argsets applied to the same datasets. |
-| Multi-function plan  | Different action functions applied to the same datasets.                                         |
-
-### Plan Examples
-
-|                      |                                                                                                                                                                     |
-|----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Plan Type**        | **Example**                                                                                                                                                         |
-| Single-function plan | Multiple strata (e.g. locations, age groups) that you need to apply the same function to to (e.g. outbreak detection, trend detection, graphing).                   |
-| Single-function plan | Multiple variables (e.g. multiple outcomes, multiple exposures) that you need to apply the same statistical methods to (e.g. regression models, correlation plots). |
-| Multi-function plan  | Creating the output for a report (e.g. multiple different tables and graphs).                                                                                       |
+This vignette builds three plans on
+`nor_covid19_cases_by_time_location`, a dataset of Covid-19 cases in
+Norway.
+[`vignette("plnr")`](https://www.rwhite.no/plnr/articles/plnr.md)
+defines the terms: argset, action function, analysis and plan.
 
 ## Single-function plan
 
-Use this approach in one of these two cases:
+A single-function plan applies one action function to many argsets. Add
+the argsets first. Then give every argset the same action function with
+`apply_action_fn_to_all_argsets()`.
 
-- You have multiple strata (e.g. locations, age groups) that you need to
-  apply the same statistical methods to.
-- You have multiple variables (e.g. multiple exposures, multiple
-  outcomes) that you want to apply the same statistical methods to.
+### Many strata
 
-When you apply the same function multiple times, add the argsets first.
-Then apply the analysis function, just before you run the analyses.
-
-### Multiple strata
-
-This example loops through multiple geographical locations. It applies a
-graphing function to the data from each of those locations.
+This plan draws one graph for each location.
 
 ``` r
 library(ggplot2)
@@ -53,90 +29,15 @@ library(data.table)
     ##     %notin%
 
 ``` r
-# We begin by defining a new plan
 p <- plnr::Plan$new()
 
-# Data function
-data_fn <- function(){
+data_fn <- function() {
   return(plnr::nor_covid19_cases_by_time_location)
 }
+p$add_data(name = "covid19_cases", fn_name = "data_fn")
 
-# We add sources of data
-# We can add data directly
-p$add_data(
-  name = "covid19_cases",
-  fn_name = "data_fn"
-)
-
-p$get_data()
-```
-
-    ## $covid19_cases
-    ##        granularity_time granularity_geo country_iso3 location_code border
-    ##                  <char>          <char>       <char>        <char>  <int>
-    ##     1:              day          county          nor  county_nor03   2020
-    ##     2:              day          county          nor  county_nor03   2020
-    ##     3:              day          county          nor  county_nor03   2020
-    ##     4:              day          county          nor  county_nor03   2020
-    ##     5:              day          county          nor  county_nor03   2020
-    ##    ---                                                                   
-    ## 11024:          isoweek          nation          nor    nation_nor   2020
-    ## 11025:          isoweek          nation          nor    nation_nor   2020
-    ## 11026:          isoweek          nation          nor    nation_nor   2020
-    ## 11027:          isoweek          nation          nor    nation_nor   2020
-    ## 11028:          isoweek          nation          nor    nation_nor   2020
-    ##           age    sex isoyear isoweek isoyearweek    season seasonweek calyear
-    ##        <char> <char>   <int>   <int>      <char>    <char>      <num>   <int>
-    ##     1:  total  total    2020       8     2020-08 2019/2020         31    2020
-    ##     2:  total  total    2020       8     2020-08 2019/2020         31    2020
-    ##     3:  total  total    2020       8     2020-08 2019/2020         31    2020
-    ##     4:  total  total    2020       9     2020-09 2019/2020         32    2020
-    ##     5:  total  total    2020       9     2020-09 2019/2020         32    2020
-    ##    ---                                                                       
-    ## 11024:  total  total    2022      14     2022-14 2021/2022         37      NA
-    ## 11025:  total  total    2022      15     2022-15 2021/2022         38      NA
-    ## 11026:  total  total    2022      16     2022-16 2021/2022         39      NA
-    ## 11027:  total  total    2022      17     2022-17 2021/2022         40      NA
-    ## 11028:  total  total    2022      18     2022-18 2021/2022         41      NA
-    ##        calmonth calyearmonth       date covid19_cases_testdate_n
-    ##           <int>       <char>     <Date>                    <int>
-    ##     1:        2     2020-M02 2020-02-21                        0
-    ##     2:        2     2020-M02 2020-02-22                        0
-    ##     3:        2     2020-M02 2020-02-23                        0
-    ##     4:        2     2020-M02 2020-02-24                        0
-    ##     5:        2     2020-M02 2020-02-25                        0
-    ##    ---                                                          
-    ## 11024:       NA         <NA> 2022-04-10                     6888
-    ## 11025:       NA         <NA> 2022-04-17                     3635
-    ## 11026:       NA         <NA> 2022-04-24                     3764
-    ## 11027:       NA         <NA> 2022-05-01                     2243
-    ## 11028:       NA         <NA> 2022-05-08                      502
-    ##        covid19_cases_testdate_pr100000
-    ##                                  <num>
-    ##     1:                        0.000000
-    ##     2:                        0.000000
-    ##     3:                        0.000000
-    ##     4:                        0.000000
-    ##     5:                        0.000000
-    ##    ---                                
-    ## 11024:                      126.961423
-    ## 11025:                       67.001274
-    ## 11026:                       69.379036
-    ## 11027:                       41.343564
-    ## 11028:                        9.252996
-    ## 
-    ## $hash
-    ## $hash$current
-    ## [1] "cbb5d442160f26df4c2d9a4fec794fd7"
-    ## 
-    ## $hash$current_elements
-    ## $hash$current_elements$covid19_cases
-    ## [1] "7f1b0a581386e75e907bffd94938a3a7"
-
-``` r
-location_codes <- p$get_data()$covid19_cases$location_code |>
-  unique() |> 
-  print()
+location_codes <- unique(p$get_data()$covid19_cases$location_code)
+location_codes
 ```
 
     ##  [1] "county_nor03" "county_nor11" "county_nor15" "county_nor18" "county_nor30"
@@ -150,24 +51,23 @@ p$add_argset_from_list(
     granularity_time = "isoweek"
   )
 )
-# Examine the argsets that are available
 p$get_argsets_as_dt()
 ```
 
     ##                            name_analysis index_analysis location_code
     ##                                   <char>          <int>        <list>
-    ##  1: 1a83f564-1eb1-4be8-b5b5-81ab1c8e836f              1  county_nor03
-    ##  2: 6d3fb97d-350d-4567-b359-d92586d321f2              2  county_nor11
-    ##  3: 06934ce6-0ded-4b69-bc98-a9925555cf04              3  county_nor15
-    ##  4: 9e76beb7-9f95-4c6d-8b46-d5063886def2              4  county_nor18
-    ##  5: 49fbbc71-0a9f-4616-90fb-f0600cd0de32              5  county_nor30
-    ##  6: 599ecf4a-9d1f-482f-90df-61dfa64d19a0              6  county_nor34
-    ##  7: c506c7fc-414d-4d3c-8e64-2f204267cfc3              7  county_nor38
-    ##  8: 9b36932c-4c3d-4dea-96c7-29d78bda117d              8  county_nor42
-    ##  9: e0e520d2-347b-46de-b642-f32d41c8b3ad              9  county_nor46
-    ## 10: ff684952-4ba5-411a-9ccb-1f74332d9e1e             10  county_nor50
-    ## 11: 8bb8be9e-1a06-4557-af1e-ce09744400bd             11  county_nor54
-    ## 12: 377ce844-e72d-443c-b4b5-60ef8fa06e7f             12    nation_nor
+    ##  1: df0234c6-126e-4792-bdd2-2707d7c4c675              1  county_nor03
+    ##  2: 444ae03f-962b-4165-a499-992f10f6c969              2  county_nor11
+    ##  3: b104bc16-4f7f-4458-a246-f684756be227              3  county_nor15
+    ##  4: e333268a-5898-4b54-bb6e-100940cb9de2              4  county_nor18
+    ##  5: 2bac9b0b-9f10-49a3-b8c3-c1d568762027              5  county_nor30
+    ##  6: 8c6cd191-fbee-45ee-aae8-2270169e8a6a              6  county_nor34
+    ##  7: 8a64df0b-041e-4ec3-83c9-c6f37e014d69              7  county_nor38
+    ##  8: 407d805e-d6cc-4df8-86b1-b59493c5f1c3              8  county_nor42
+    ##  9: a9a82506-f586-4ae4-8822-0eaa49d5ca62              9  county_nor46
+    ## 10: 109d4594-6a30-4194-b806-4c28968a6241             10  county_nor50
+    ## 11: de0d74dd-9959-4e5d-92f8-7479d749392b             11  county_nor54
+    ## 12: ab3a51a0-82a2-40bb-9a54-24542a8d3680             12    nation_nor
     ##     granularity_time
     ##               <list>
     ##  1:          isoweek
@@ -184,21 +84,17 @@ p$get_argsets_as_dt()
     ## 12:          isoweek
 
 ``` r
-# We can then add a simple analysis that returns a figure:
-
-# To do this, we first need to create an action function
-# (takes two arguments -- data and argset)
-action_fn <- function(data, argset){
-  if(plnr::is_run_directly()){
+action_fn <- function(data, argset) {
+  if (plnr::is_run_directly()) {
     data <- p$get_data()
     argset <- p$get_argset(1)
   }
   pd <- data$covid19_cases[
     location_code == argset$location_code &
-    granularity_time == argset$granularity_time
+      granularity_time == argset$granularity_time
   ]
-  
-  q <- ggplot(pd, aes(x=date, y=covid19_cases_testdate_n))
+
+  q <- ggplot(pd, aes(x = date, y = covid19_cases_testdate_n))
   q <- q + geom_line()
   q <- q + labs(title = argset$location_code)
   q
@@ -206,137 +102,47 @@ action_fn <- function(data, argset){
 
 p$apply_action_fn_to_all_argsets(fn_name = "action_fn")
 
-p$run_one(1)
+q <- p$run_all()
+q[[1]]
 ```
 
 ![](adding_analyses_files/figure-html/unnamed-chunk-1-1.png)
 
 ``` r
-q <- p$run_all()
-q[[1]]
+q[[2]]
 ```
 
 ![](adding_analyses_files/figure-html/unnamed-chunk-1-2.png)
 
-``` r
-q[[2]]
-```
+### Many variables
 
-![](adding_analyses_files/figure-html/unnamed-chunk-1-3.png)
-
-### Multiple variables
-
-This example loops through multiple variable combinations. The
-combinations cross two choices:
-
-1.  raw numbers of Covid-19 cases, against Covid-19 cases per 100 000
-    population;
-2.  aggregation over isoweek, against aggregation over day.
-
-The example then applies a graphing function to the data for each
-combination.
+This plan crosses two choices: cases or cases per 100 000 population,
+and weekly or daily data. It draws one graph for each of the four
+combinations.
 
 ``` r
-library(ggplot2)
-library(data.table)
-
-# We begin by defining a new plan
 p <- plnr::Plan$new()
 
-# Data function
-data_fn <- function(){
-  return(plnr::nor_covid19_cases_by_time_location[location_code=="nation_nor"])
+data_fn <- function() {
+  return(plnr::nor_covid19_cases_by_time_location[location_code == "nation_nor"])
 }
+p$add_data(name = "covid19_cases", fn_name = "data_fn")
 
-# We add sources of data
-# We can add data directly
-p$add_data(
-  name = "covid19_cases",
-  fn_name = "data_fn"
-)
-
-p$get_data()
-```
-
-    ## $covid19_cases
-    ##      granularity_time granularity_geo country_iso3 location_code border    age
-    ##                <char>          <char>       <char>        <char>  <int> <char>
-    ##   1:              day          nation          nor    nation_nor   2020  total
-    ##   2:              day          nation          nor    nation_nor   2020  total
-    ##   3:              day          nation          nor    nation_nor   2020  total
-    ##   4:              day          nation          nor    nation_nor   2020  total
-    ##   5:              day          nation          nor    nation_nor   2020  total
-    ##  ---                                                                          
-    ## 915:          isoweek          nation          nor    nation_nor   2020  total
-    ## 916:          isoweek          nation          nor    nation_nor   2020  total
-    ## 917:          isoweek          nation          nor    nation_nor   2020  total
-    ## 918:          isoweek          nation          nor    nation_nor   2020  total
-    ## 919:          isoweek          nation          nor    nation_nor   2020  total
-    ##         sex isoyear isoweek isoyearweek    season seasonweek calyear calmonth
-    ##      <char>   <int>   <int>      <char>    <char>      <num>   <int>    <int>
-    ##   1:  total    2020       8     2020-08 2019/2020         31    2020        2
-    ##   2:  total    2020       8     2020-08 2019/2020         31    2020        2
-    ##   3:  total    2020       8     2020-08 2019/2020         31    2020        2
-    ##   4:  total    2020       9     2020-09 2019/2020         32    2020        2
-    ##   5:  total    2020       9     2020-09 2019/2020         32    2020        2
-    ##  ---                                                                         
-    ## 915:  total    2022      14     2022-14 2021/2022         37      NA       NA
-    ## 916:  total    2022      15     2022-15 2021/2022         38      NA       NA
-    ## 917:  total    2022      16     2022-16 2021/2022         39      NA       NA
-    ## 918:  total    2022      17     2022-17 2021/2022         40      NA       NA
-    ## 919:  total    2022      18     2022-18 2021/2022         41      NA       NA
-    ##      calyearmonth       date covid19_cases_testdate_n
-    ##            <char>     <Date>                    <int>
-    ##   1:     2020-M02 2020-02-21                        1
-    ##   2:     2020-M02 2020-02-22                        0
-    ##   3:     2020-M02 2020-02-23                        0
-    ##   4:     2020-M02 2020-02-24                        0
-    ##   5:     2020-M02 2020-02-25                        0
-    ##  ---                                                 
-    ## 915:         <NA> 2022-04-10                     6888
-    ## 916:         <NA> 2022-04-17                     3635
-    ## 917:         <NA> 2022-04-24                     3764
-    ## 918:         <NA> 2022-05-01                     2243
-    ## 919:         <NA> 2022-05-08                      502
-    ##      covid19_cases_testdate_pr100000
-    ##                                <num>
-    ##   1:                      0.01863037
-    ##   2:                      0.00000000
-    ##   3:                      0.00000000
-    ##   4:                      0.00000000
-    ##   5:                      0.00000000
-    ##  ---                                
-    ## 915:                    126.96142312
-    ## 916:                     67.00127367
-    ## 917:                     69.37903551
-    ## 918:                     41.34356447
-    ## 919:                      9.25299570
-    ## 
-    ## $hash
-    ## $hash$current
-    ## [1] "0ad573d37712f0a8ab666846d1b721a1"
-    ## 
-    ## $hash$current_elements
-    ## $hash$current_elements$covid19_cases
-    ## [1] "07cc51795bccaf2afebe48619ce87227"
-
-``` r
 p$add_argset_from_list(
   plnr::expand_list(
     variable = c("covid19_cases_testdate_n", "covid19_cases_testdate_pr100000"),
-    granularity_time = c("isoweek","day")
+    granularity_time = c("isoweek", "day")
   )
 )
-# Examine the argsets that are available
 p$get_argsets_as_dt()
 ```
 
     ##                           name_analysis index_analysis
     ##                                  <char>          <int>
-    ## 1: fd701af9-9baf-4371-b715-c268a59432f7              1
-    ## 2: 8c53e154-33b2-43f2-bc07-b7721f153668              2
-    ## 3: e8efcb0e-69f8-4487-851c-9617c2950277              3
-    ## 4: 803fa859-c814-4e67-9e3f-389412dec842              4
+    ## 1: 7d09b0a8-ff34-4af5-b276-faa9b8af67e5              1
+    ## 2: a01a30ab-fad8-40d5-92a8-49c9384db955              2
+    ## 3: 5c562b55-4fcc-44b4-a9f1-db60d2fa0064              3
+    ## 4: edf6bc10-d42f-43ec-a800-836ba31f3e44              4
     ##                           variable granularity_time
     ##                             <list>           <list>
     ## 1:        covid19_cases_testdate_n          isoweek
@@ -345,22 +151,16 @@ p$get_argsets_as_dt()
     ## 4: covid19_cases_testdate_pr100000              day
 
 ``` r
-# We can then add a simple analysis that returns a figure:
-
-# To do this, we first need to create an action function
-# (takes two arguments -- data and argset)
-action_fn <- function(data, argset){
-  if(plnr::is_run_directly()){
+action_fn <- function(data, argset) {
+  if (plnr::is_run_directly()) {
     data <- p$get_data()
     argset <- p$get_argset(1)
   }
-  pd <- data$covid19_cases[
-    granularity_time == argset$granularity_time
-  ]
-  
-  q <- ggplot(pd, aes_string(x="date", y=argset$variable))
+  pd <- data$covid19_cases[granularity_time == argset$granularity_time]
+
+  q <- ggplot(pd, aes(x = date, y = .data[[argset$variable]]))
   q <- q + geom_line()
-  q <- q + labs(title = argset$granularity_time)
+  q <- q + labs(title = paste(argset$variable, argset$granularity_time))
   q
 }
 
@@ -368,13 +168,6 @@ p$apply_action_fn_to_all_argsets(fn_name = "action_fn")
 
 p$run_one(1)
 ```
-
-    ## Warning: `aes_string()` was deprecated in ggplot2 3.0.0.
-    ## ℹ Please use tidy evaluation idioms with `aes()`.
-    ## ℹ See also `vignette("ggplot2-in-packages")` for more information.
-    ## This warning is displayed once per session.
-    ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-    ## generated.
 
 ![](adding_analyses_files/figure-html/unnamed-chunk-2-1.png)
 
@@ -398,147 +191,59 @@ p$run_one(4)
 
 ## Multi-function plan
 
-Use this approach when you create the output for a report, and you need
-multiple different tables and graphs.
+A multi-function plan gives each analysis its own action function. This
+plan makes the figures of a short report. Figure 1 has its own action
+function, and figures 2 and 3 share one.
 
 ``` r
-library(ggplot2)
-library(data.table)
-
-# We begin by defining a new plan
 p <- plnr::Plan$new()
 
-# Data function
-data_fn <- function(){
+data_fn <- function() {
   return(plnr::nor_covid19_cases_by_time_location)
 }
+p$add_data(name = "covid19_cases", fn_name = "data_fn")
 
-# We add sources of data
-# We can add data directly
-p$add_data(
-  name = "covid19_cases",
-  fn_name = "data_fn"
-)
-
-p$get_data()
-```
-
-    ## $covid19_cases
-    ## Indices: <granularity_time__location_code>, <location_code>
-    ##        granularity_time granularity_geo country_iso3 location_code border
-    ##                  <char>          <char>       <char>        <char>  <int>
-    ##     1:              day          county          nor  county_nor03   2020
-    ##     2:              day          county          nor  county_nor03   2020
-    ##     3:              day          county          nor  county_nor03   2020
-    ##     4:              day          county          nor  county_nor03   2020
-    ##     5:              day          county          nor  county_nor03   2020
-    ##    ---                                                                   
-    ## 11024:          isoweek          nation          nor    nation_nor   2020
-    ## 11025:          isoweek          nation          nor    nation_nor   2020
-    ## 11026:          isoweek          nation          nor    nation_nor   2020
-    ## 11027:          isoweek          nation          nor    nation_nor   2020
-    ## 11028:          isoweek          nation          nor    nation_nor   2020
-    ##           age    sex isoyear isoweek isoyearweek    season seasonweek calyear
-    ##        <char> <char>   <int>   <int>      <char>    <char>      <num>   <int>
-    ##     1:  total  total    2020       8     2020-08 2019/2020         31    2020
-    ##     2:  total  total    2020       8     2020-08 2019/2020         31    2020
-    ##     3:  total  total    2020       8     2020-08 2019/2020         31    2020
-    ##     4:  total  total    2020       9     2020-09 2019/2020         32    2020
-    ##     5:  total  total    2020       9     2020-09 2019/2020         32    2020
-    ##    ---                                                                       
-    ## 11024:  total  total    2022      14     2022-14 2021/2022         37      NA
-    ## 11025:  total  total    2022      15     2022-15 2021/2022         38      NA
-    ## 11026:  total  total    2022      16     2022-16 2021/2022         39      NA
-    ## 11027:  total  total    2022      17     2022-17 2021/2022         40      NA
-    ## 11028:  total  total    2022      18     2022-18 2021/2022         41      NA
-    ##        calmonth calyearmonth       date covid19_cases_testdate_n
-    ##           <int>       <char>     <Date>                    <int>
-    ##     1:        2     2020-M02 2020-02-21                        0
-    ##     2:        2     2020-M02 2020-02-22                        0
-    ##     3:        2     2020-M02 2020-02-23                        0
-    ##     4:        2     2020-M02 2020-02-24                        0
-    ##     5:        2     2020-M02 2020-02-25                        0
-    ##    ---                                                          
-    ## 11024:       NA         <NA> 2022-04-10                     6888
-    ## 11025:       NA         <NA> 2022-04-17                     3635
-    ## 11026:       NA         <NA> 2022-04-24                     3764
-    ## 11027:       NA         <NA> 2022-05-01                     2243
-    ## 11028:       NA         <NA> 2022-05-08                      502
-    ##        covid19_cases_testdate_pr100000
-    ##                                  <num>
-    ##     1:                        0.000000
-    ##     2:                        0.000000
-    ##     3:                        0.000000
-    ##     4:                        0.000000
-    ##     5:                        0.000000
-    ##    ---                                
-    ## 11024:                      126.961423
-    ## 11025:                       67.001274
-    ## 11026:                       69.379036
-    ## 11027:                       41.343564
-    ## 11028:                        9.252996
-    ## 
-    ## $hash
-    ## $hash$current
-    ## [1] "0306cac791d5f990073167e17ed15f9b"
-    ## 
-    ## $hash$current_elements
-    ## $hash$current_elements$covid19_cases
-    ## [1] "bad75e8e213b3de3eee2b4ecbf157f46"
-
-``` r
-# Completely unique function for figure 1
-p$add_analysis(
-  name = "figure_1",
-  fn_name = "figure_1"
-)
-
-figure_1 <- function(data, argset){
-  if(plnr::is_run_directly()){
+figure_1 <- function(data, argset) {
+  if (plnr::is_run_directly()) {
     data <- p$get_data()
     argset <- p$get_argset("figure_1")
   }
-  pd <- data$covid19_cases[
-    granularity_time == "isoweek"
-  ]
-  
-  q <- ggplot(pd, aes_string(x="date", y="covid19_cases_testdate_pr100000"))
+  pd <- data$covid19_cases[granularity_time == "isoweek"]
+
+  q <- ggplot(pd, aes(x = date, y = covid19_cases_testdate_pr100000))
   q <- q + geom_line()
   q <- q + facet_wrap(~location_code)
-  q <- q + labs(title = "Weekly covid-19 cases per 100 000 population")
+  q <- q + labs(title = "Weekly Covid-19 cases per 100 000 population")
   q
 }
 
-# Reusing a function for figures 2 and 3
+plot_epicurve_by_location <- function(data, argset) {
+  if (plnr::is_run_directly()) {
+    data <- p$get_data()
+    argset <- p$get_argset("figure_2")
+  }
+  pd <- data$covid19_cases[
+    granularity_time == "isoweek" &
+      location_code == argset$location_code
+  ]
+
+  q <- ggplot(pd, aes(x = date, y = covid19_cases_testdate_n))
+  q <- q + geom_line()
+  q <- q + labs(title = argset$location_code)
+  q
+}
+
+p$add_analysis(name = "figure_1", fn_name = "figure_1")
 p$add_analysis(
   name = "figure_2",
   fn_name = "plot_epicurve_by_location",
   location_code = "nation_nor"
 )
-
-# Reusing a function for figures 2 and 3
 p$add_analysis(
   name = "figure_3",
   fn_name = "plot_epicurve_by_location",
   location_code = "county_nor03"
 )
-
-plot_epicurve_by_location <- function(data, argset){
-  if(plnr::is_run_directly()){
-    data <- p$get_data()
-    argset <- p$get_argset("figure_2")
-    argset <- p$get_argset("figure_3")
-  }
-  pd <- data$covid19_cases[
-    granularity_time == "isoweek" & 
-    location_code == argset$location_code
-  ]
-  
-  q <- ggplot(pd, aes_string(x="date", y="covid19_cases_testdate_n"))
-  q <- q + geom_line()
-  q <- q + labs(title = argset$location_code)
-  q
-}
 
 p$run_one("figure_1")
 ```

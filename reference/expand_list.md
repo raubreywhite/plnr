@@ -1,10 +1,10 @@
-# Create a cross product of lists
+# Make a list of argsets from every combination of values
 
-`expand_list()` creates a cross product of multiple lists. It works like
+`expand_list()` returns one named list for each combination of the
+values of its arguments. It works like
 [`tidyr::expand_grid()`](https://tidyr.tidyverse.org/reference/expand_grid.html),
-but you do not need to wrap the arguments in an extra
-[`list()`](https://rdrr.io/r/base/list.html). Use it to build
-combinations of analysis parameters.
+but it returns a list of lists, which `Plan$add_argset_from_list()` and
+`Plan$add_analysis_from_list()` take.
 
 ## Usage
 
@@ -16,55 +16,40 @@ expand_list(...)
 
 - ...:
 
-  Named arguments. Each one holds a vector or a list of values to
-  combine.
+  Named vectors or lists. Each holds the values of one argument.
 
 ## Value
 
-A list of lists. Each inner list holds one combination of values from
-the input arguments.
+A list of named lists, one for each combination. The first argument
+varies slowest.
 
 ## See also
 
-[Plan](https://www.rwhite.no/plnr/reference/Plan.md). Its
-`add_argset_from_list()` method takes this list. See
 [`vignette("adding_analyses")`](https://www.rwhite.no/plnr/articles/adding_analyses.md),
-which builds argsets with `plnr::expand_list()`, then applies one action
-function to all of them.
+which builds argsets with `expand_list()`.
+
+Other plan helpers:
+[`Plan`](https://www.rwhite.no/plnr/reference/Plan.md),
+[`get_anything()`](https://www.rwhite.no/plnr/reference/get_anything.md),
+[`is_run_directly()`](https://www.rwhite.no/plnr/reference/is_run_directly.md),
+[`set_opts()`](https://www.rwhite.no/plnr/reference/set_opts.md)
 
 ## Examples
 
 ``` r
-# Create combinations of parameters
-combinations <- plnr::expand_list(
-  a = 1:2,
-  b = c("a", "b")
-)
-
-# View the combinations
-str(combinations)
+argsets <- plnr::expand_list(location = c("oslo", "bergen"), age = c("0-14", "15+"))
+str(argsets)
 #> List of 4
 #>  $ :List of 2
-#>   ..$ a: int 1
-#>   ..$ b: chr "a"
+#>   ..$ location: chr "oslo"
+#>   ..$ age     : chr "0-14"
 #>  $ :List of 2
-#>   ..$ a: int 1
-#>   ..$ b: chr "b"
+#>   ..$ location: chr "oslo"
+#>   ..$ age     : chr "15+"
 #>  $ :List of 2
-#>   ..$ a: int 2
-#>   ..$ b: chr "a"
+#>   ..$ location: chr "bergen"
+#>   ..$ age     : chr "0-14"
 #>  $ :List of 2
-#>   ..$ a: int 2
-#>   ..$ b: chr "b"
-
-# Compare with tidyr::expand_grid
-tidyr::expand_grid(list(
-  a = 1:2,
-  b = c("a", "b")
-))
-#> # A tibble: 2 × 1
-#>   `list(a = 1:2, b = c("a", "b"))`
-#>   <named list>                    
-#> 1 <int [2]>                       
-#> 2 <chr [2]>                       
+#>   ..$ location: chr "bergen"
+#>   ..$ age     : chr "15+"
 ```

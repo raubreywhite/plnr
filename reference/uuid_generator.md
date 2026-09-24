@@ -1,7 +1,7 @@
 # Generate a UUID
 
-`uuid_generator()` is an internal function. It generates a unique
-identifier with the uuid package.
+`uuid_generator()` is internal. It returns
+[`uuid::UUIDgenerate()`](https://rdrr.io/pkg/uuid/man/UUIDgenerate.html).
 
 ## Usage
 

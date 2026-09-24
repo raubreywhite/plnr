@@ -1,7 +1,6 @@
-# Set package configuration options
+# Set plnr options
 
-`set_opts()` sets package-wide options, such as the verbosity of output
-messages. It changes the internal configuration state of the package.
+`set_opts()` sets options for the whole package.
 
 ## Usage
 
@@ -13,27 +12,29 @@ set_opts(force_verbose = FALSE)
 
 - force_verbose:
 
-  Logical. Whether to force verbose output messages, whatever the
-  interactive state is. The default is `FALSE`.
+  Logical. `TRUE` makes every
+  [Plan](https://www.rwhite.no/plnr/reference/Plan.md) that you create
+  afterwards verbose, even in a non-interactive session. The default is
+  `FALSE`.
 
 ## Value
 
-NULL. `set_opts()` changes the internal configuration of the package.
+`force_verbose`, invisibly.
 
 ## See also
 
-[Plan](https://www.rwhite.no/plnr/reference/Plan.md). Its `verbose`
-argument is on by default when the session is interactive, or when
-`force_verbose` is `TRUE`. See
-[`vignette("plnr")`](https://www.rwhite.no/plnr/articles/plnr.md) for an
-introduction to the framework.
+[`vignette("plnr")`](https://www.rwhite.no/plnr/articles/plnr.md) for
+the concepts.
+
+Other plan helpers:
+[`Plan`](https://www.rwhite.no/plnr/reference/Plan.md),
+[`expand_list()`](https://www.rwhite.no/plnr/reference/expand_list.md),
+[`get_anything()`](https://www.rwhite.no/plnr/reference/get_anything.md),
+[`is_run_directly()`](https://www.rwhite.no/plnr/reference/is_run_directly.md)
 
 ## Examples
 
 ``` r
-# Enable verbose output
 set_opts(force_verbose = TRUE)
-
-# Disable verbose output
 set_opts(force_verbose = FALSE)
 ```

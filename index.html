@@ -19,8 +19,8 @@
 <link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="A Framework for Planning and Executing Analyses">
-<meta name="description" content="A comprehensive framework for planning and executing analyses in R. It provides a structured approach to running the same function multiple times with different arguments, executing multiple functions on the same datasets, and creating systematic analyses across multiple strata or variables. The framework is particularly useful for applying the same analysis across multiple strata (e.g., locations, age groups), running statistical methods on multiple variables (e.g., exposures, outcomes), generating multiple tables or graphs for reports, and creating systematic surveillance analyses. Key features include efficient data management, structured analysis planning, flexible execution options, built-in debugging tools, and hash-based caching.">
-<meta property="og:description" content="A comprehensive framework for planning and executing analyses in R. It provides a structured approach to running the same function multiple times with different arguments, executing multiple functions on the same datasets, and creating systematic analyses across multiple strata or variables. The framework is particularly useful for applying the same analysis across multiple strata (e.g., locations, age groups), running statistical methods on multiple variables (e.g., exposures, outcomes), generating multiple tables or graphs for reports, and creating systematic surveillance analyses. Key features include efficient data management, structured analysis planning, flexible execution options, built-in debugging tools, and hash-based caching.">
+<meta name="description" content="Use a plan to run the same analysis function over many sets of arguments, or to run different functions on the same data. A plan holds the data sources, the argument sets and the functions. Running the plan loads the data once and passes it to every analysis, in sequence or in parallel. Typical uses are one method applied across strata such as locations or age groups, or across exposures and outcomes, and the tables and figures of a report.">
+<meta property="og:description" content="Use a plan to run the same analysis function over many sets of arguments, or to run different functions on the same data. A plan holds the data sources, the argument sets and the functions. Running the plan loads the data once and passes it to every analysis, in sequence or in parallel. Typical uses are one method applied across strata such as locations or age groups, or across exposures and outcomes, and the tables and figures of a report.">
 <meta property="og:image" content="https://www.rwhite.no/plnr/logo.png">
 </head>
 <body>
@@ -31,7 +31,7 @@
 
     <a class="navbar-brand me-2" href="index.html">plnr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.8.21</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.9.24</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,10 +76,10 @@
   <div class="rw-hero-body">
     <p class="overline">R package · Analysis planning</p>
     <div class="page-header">
-<img src="logo.png" class="logo" alt=""><h1>Plan and fan out analyses.</h1>
+<img src="logo.png" class="logo" alt=""><h1>Plan and run many analyses.</h1>
 </div>
     <div class="rw-rule"></div>
-    <p class="rw-lede">Load data once, then run one function across a cross-product of argsets — strata, exposures, outcomes — with hash-based caching and optional <em>parallel</em> execution.
+    <p class="rw-lede">Load the data once, then run one function over many argsets: strata, exposures or outcomes. Run the analyses in sequence or in <em>parallel</em>.
 </p>
     <p class="rw-cta"><a class="rw-btn" href="articles/plnr.html">Get started</a> <a class="rw-btn-link" href="reference/index.html">Browse the reference →</a></p>
   </div>
@@ -96,10 +96,10 @@ What’s inside
 01
 </div>
 <h3>
-Load once, reuse
+Load once per run
 </h3>
 <p>
-Add datasets to the plan and share them across every analysis, instead of re-reading the same data for each run.
+<code>run_all()</code> loads each dataset once and passes it to every analysis.
 </p>
 </div>
 <div class="rw-card">
@@ -107,10 +107,10 @@ Add datasets to the plan and share them across every analysis, instead of re-rea
 02
 </div>
 <h3>
-Argset cross-products
+Argsets from combinations
 </h3>
 <p>
-Apply one action function to many argsets. One definition then covers every stratum, variable or scenario.
+<code><a href="reference/expand_list.html">expand_list()</a></code> makes one argset for each combination of strata, exposures or outcomes. One action function then covers them all.
 </p>
 </div>
 <div class="rw-card">
@@ -118,10 +118,10 @@ Apply one action function to many argsets. One definition then covers every stra
 03
 </div>
 <h3>
-Cache and parallelize
+Sequence or parallel
 </h3>
 <p>
-Hash-based caching tracks data changes. Run all argsets in parallel when you need the throughput.
+Run the analyses in sequence, or in parallel through a foreach backend. The results come back as one list.
 </p>
 </div>
 </div>

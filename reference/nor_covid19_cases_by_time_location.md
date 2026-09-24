@@ -1,7 +1,8 @@
-# Covid-19 data for PCR-confirmed cases in Norway (nation and county)
+# Covid-19 cases confirmed by PCR in Norway, by nation and county
 
-The Norwegian Surveillance System for Communicable Diseases (MSIS)
-supplies this data. The date corresponds to when the PCR-test was taken.
+The data come from the Norwegian Surveillance System for Communicable
+Diseases (MSIS). `date` is the date of the PCR test. The data were
+extracted on 2022-05-04.
 
 ## Usage
 
@@ -11,83 +12,80 @@ nor_covid19_cases_by_time_location
 
 ## Format
 
-A csfmt_rts_data_v1 with 11028 rows and 18 variables:
+A data.table with 11028 rows and 18 variables:
 
 - granularity_time:
 
-  day/isoweek
+  `"day"` or `"isoweek"`.
 
 - granularity_geo:
 
-  nation, county
+  `"nation"` or `"county"`.
 
 - country_iso3:
 
-  nor
+  `"nor"`.
 
 - location_code:
 
-  norge, 11 counties
+  `"nation_nor"`, or one of 11 county codes such as `"county_nor03"`.
 
 - border:
 
-  2020
+  The year of the county borders, 2020.
 
 - age:
 
-  total
+  `"total"`.
+
+- sex:
+
+  `"total"`.
 
 - isoyear:
 
-  Isoyear of event
+  ISO year.
 
 - isoweek:
 
-  Isoweek of event
+  ISO week.
 
 - isoyearweek:
 
-  Isoyearweek of event
+  ISO year and week, such as `"2020-08"`.
 
 - season:
 
-  Season of event
+  Season, such as `"2020/2021"`.
 
 - seasonweek:
 
-  Seasonweek of event
+  Week within the season.
 
 - calyear:
 
-  Calyear of event
+  Calendar year. `NA` in weekly rows.
 
 - calmonth:
 
-  Calmonth of event
+  Calendar month. `NA` in weekly rows.
 
 - calyearmonth:
 
-  Calyearmonth of event
+  Calendar year and month, such as `"2020-M02"`. `NA` in weekly rows.
 
 - date:
 
-  Date of event
+  The date. In weekly rows, the Sunday that ends the ISO week.
 
 - covid19_cases_testdate_n:
 
-  Number of confirmed covid19 cases
+  Number of confirmed cases.
 
 - covid19_cases_testdate_pr100000:
 
-  Number of confirmed covid19 cases per 100.000 population
+  Number of confirmed cases per 100 000 population.
 
 ## Source
 
 <https://github.com/folkehelseinstituttet/surveillance_data/blob/master/covid19/_DOCUMENTATION_data_covid19_msis_by_time_location.txt>
-
-## Details
-
-The data records the raw number of cases, and the number of cases per
-100.000 population.
-
-The extraction date of this data is 2022-05-04.
