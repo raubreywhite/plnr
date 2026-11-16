@@ -11,7 +11,7 @@ jobs:
   r-package:
     permissions:
       contents: write
-    uses: raubreywhite/rwtemplate/.github/workflows/r-package.yml@d8ac8295e20f72700129d27ed38e5f55ae1b6a34
+    uses: raubreywhite/rwtemplate/.github/workflows/r-package.yml@04e5cacf3cc2de9cb71a00caf3d1346aa668c997
     with:
       # Both entries keep the Plan code as it ran before the lint work, which
       # cs9 depends on in production.
