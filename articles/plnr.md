@@ -152,7 +152,7 @@ str(p$get_data(), max.level = 1)
 
     ## List of 2
     ##  $ deaths:Classes 'data.table' and 'data.frame': 4 obs. of  2 variables:
-    ##   ..- attr(*, ".internal.selfref")=<pointer: 0x5b6b9aa7e190> 
+    ##   ..- attr(*, ".internal.selfref")=<pointer: 0x61300710b180> 
     ##  $ hash  :List of 2
 
 To develop an action function line by line, start it with
