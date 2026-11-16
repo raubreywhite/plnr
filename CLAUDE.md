@@ -92,13 +92,9 @@ The `Plan` R6 class (`~790 lines`) is the centerpiece of the framework. Key meth
 
 ### Supporting Functions
 
-- **R/create_rmarkdown.R** - Project template generation utilities
 - **R/expand_list.R** - List expansion helpers
 - **R/get_anything.R** - Generic getter utility
 - **R/is_run_directly.R** - Debug utility to detect direct vs. function execution
-- **R/try_again.R** - Retry logic with a random delay between attempts, drawn
-  from a uniform distribution. The delay does not grow with the attempt number,
-  so it is not exponential backoff.
 - **R/set_opts.R** - Global configuration options
 - **R/0_env.R, R/1_config.R, R/2_onLoad.R, R/3_onAttach.R** - Package initialization
 
@@ -138,12 +134,12 @@ them. There is no cache: every call of `get_data()` loads every data source.
 - `R6` - Object-oriented programming (Plan class)
 - `foreach` - Parallel execution framework
 - `digest` - The hashes that `get_data()` adds (plnr does not read them)
-- `fs`, `glue`, `pbmcapply`, `tidyr`, `uuid`, `stats`, `utils`, `usethis`
+- `pbmcapply`, `tidyr`, `uuid`, `utils`
 
 **Suggests (optional):**
 - `testthat` - Unit testing framework
 - `knitr`, `rmarkdown` - Vignette compilation
-- `ggplot2`, `readxl` - Example dependencies
+- `ggplot2`, `glue`, `readxl` - Example dependencies
 
 ## Code Organization
 

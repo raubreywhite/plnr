@@ -1,3 +1,9 @@
+# Version 2026.11.16
+
+## Breaking changes
+
+- `create_rmarkdown()` and `try_again()` are removed. No known project calls them. The project that `create_rmarkdown()` wrote did not run: its `run.R` stopped with "object 'table_death' of mode 'function' was not found". To keep either function, stay on plnr 2026.9.24. plnr no longer imports fs, glue, stats or usethis.
+
 # Version 2026.9.24
 
 ## Bug fixes

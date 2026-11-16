@@ -31,12 +31,6 @@ reference:
     - get_anything
     - is_run_directly
     - set_opts
-    - try_again
-
-- title: "Project Creation"
-  desc: "Functions for setting up and managing example RMarkdown projects."
-  contents:
-    - create_rmarkdown
 
 - title: "Testing Functions"
   desc: "Functions designed for testing analysis workflows."

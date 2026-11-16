@@ -1,6 +1,6 @@
 Package: plnr
 Title: A Framework for Planning and Executing Analyses
-Version: 2026.9.24
+Version: 2026.11.16
 Authors@R:
     c(
       person(
@@ -28,16 +28,12 @@ Depends: R (>= 4.1.0)
 Imports: 
     data.table,
     digest,
-    fs,
     foreach,
-    glue,
     pbmcapply,
     progress,
     purrr,
     R6,
-    stats,
     tidyr,
-    usethis,
     utils,
     uuid
 Suggests: 
@@ -48,6 +44,7 @@ Suggests:
     rmarkdown,
     progressr,
     ggplot2,
+    glue,
     readxl
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
