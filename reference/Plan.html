@@ -9,7 +9,7 @@ An analysis is one argset plus one action function."><meta property="og:image" c
 
     <a class="navbar-brand me-2" href="../index.html">plnr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.11.16</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.11.17</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -164,7 +164,7 @@ wins over <code>fn_name</code>, and <code>fn_name</code> wins over <code>fn</cod
 <code>get_data()</code> returns.</p></dd>
 
       <dt><code>fn</code></dt>
-<dd><p>Optional. A function with no arguments that returns the dataset.</p></dd>
+<dd><p>Optional. A function that returns the dataset.</p></dd>
 
       <dt><code>fn_name</code></dt>
 <dd><p>Optional. The name of such a function, as a character string.
@@ -175,6 +175,37 @@ wins over <code>fn_name</code>, and <code>fn_name</code> wins over <code>fn</cod
 
 
 </dl><p></p></div>
+</div><p></p><div class="section">
+<h4 id="details-1">Details<a class="anchor" aria-label="anchor" href="#details-1"></a></h4>
+<p>The key fields of a data function are its arguments without a default,
+other than <code>...</code>. A data function without a key field makes one dataset
+for the whole run: the plan calls it once, with no arguments. A data
+function with key fields makes keyed data:</p><ul><li><p>For each analysis, the plan calls the function with the key fields of
+the argset, by name. Arguments with a default keep their default, and
+<code>...</code> gets nothing.</p></li>
+<li><p>The plan keeps the dataset under the values of the key fields, and
+gives the same object to each analysis with the same values.</p></li>
+<li><p>If an argset does not have a key field, the run stops before the first
+analysis.</p></li>
+<li><p>Two values are the same only when they have the same type and the same
+value. So <code>1</code> and <code>1L</code> are different, <code>NA</code> and <code>NA_character_</code> are
+different, and <code>NULL</code> is a value.</p></li>
+<li><p>When no remaining analysis of the run needs a kept dataset, the plan
+drops it.</p></li>
+</ul><p>The plan calls a keyed data function exactly once for each distinct set
+of values, in <code>run_all()</code> with or without foreach and in
+<code>run_all_parallel()</code>. <code>run_one()</code> and <code>get_data()</code> call it once for each
+call. A parallel run puts the analyses that share a value of any keyed
+data source in one group, and runs each group in one task. So a run has
+at most one busy worker for each group:</p><ul><li><p>With one keyed data source, there is one group for each set of values.</p></li>
+<li><p>With one source keyed by <code>scenario</code> and one by <code>scenario</code> and <code>sim</code>,
+there is one group for each scenario.</p></li>
+<li><p>With one source keyed by <code>scenario</code> and one by <code>sim</code>, all analyses are
+in one group, and the run is sequential.</p></li>
+</ul><p>On a PSOCK worker, a data function finds the objects of the environment
+where you defined it. It does not find the objects of the global
+environment of the main process. Pass such an object as an argset field,
+or define the function inside another function.</p>
 </div><p></p><div class="section">
 <h4 id="returns-1">Returns<a class="anchor" aria-label="anchor" href="#returns-1"></a></h4>
 <p>The stored data source, invisibly: a list that holds <code>fn</code>,
@@ -188,7 +219,19 @@ wins over <code>fn_name</code>, and <code>fn_name</code> wins over <code>fn</cod
 <span><span class="va">p</span><span class="op">$</span><span class="fu">add_data</span><span class="op">(</span><span class="st">"data_1"</span>, fn <span class="op">=</span> <span class="va">data_fn</span><span class="op">)</span></span>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">add_data</span><span class="op">(</span><span class="st">"data_2"</span>, fn_name <span class="op">=</span> <span class="st">"plnr::example_data_fn_nor_covid19_cases_by_time_location"</span><span class="op">)</span></span>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">add_data</span><span class="op">(</span><span class="st">"data_3"</span>, direct <span class="op">=</span> <span class="fu">plnr</span><span class="fu">::</span><span class="va"><a href="../reference/nor_covid19_cases_by_time_location.html">nor_covid19_cases_by_time_location</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">p</span><span class="op">$</span><span class="fu">get_data</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">p</span><span class="op">$</span><span class="fu">get_data</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Keyed data: one simulated dataset for each value of `sim`</span></span>
+<span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">plnr</span><span class="fu">::</span><span class="va"><a href="../reference/Plan.html">Plan</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">p</span><span class="op">$</span><span class="fu">add_data</span><span class="op">(</span><span class="st">"sim_data"</span>, fn <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">sim</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="va">sim</span><span class="op">)</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span>
+<span><span class="va">p</span><span class="op">$</span><span class="fu">add_argset_from_list</span><span class="op">(</span><span class="fu">plnr</span><span class="fu">::</span><span class="fu"><a href="../reference/expand_list.html">expand_list</a></span><span class="op">(</span>sim <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, stat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"mean"</span>, <span class="st">"max"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">p</span><span class="op">$</span><span class="fu">apply_action_fn_to_all_argsets</span><span class="op">(</span>fn <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">argset</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/match.fun.html" class="external-link">match.fun</a></span><span class="op">(</span><span class="va">argset</span><span class="op">$</span><span class="va">stat</span><span class="op">)</span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">sim_data</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">p</span><span class="op">$</span><span class="fu">run_all</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 </div>
@@ -548,22 +591,39 @@ analysis.</p><div class="section">
 <p></p><hr><a id="method-Plan-get_data"></a><div class="section">
 <h3 id="plan-get-data-"><code>Plan$get_data()</code><a class="anchor" aria-label="anchor" href="#plan-get-data-"></a></h3>
 <p>Load every data source, and return the datasets as a named
-list.</p><div class="section">
+list. For a plan with keyed data, give an analysis: <code>get_data()</code> then
+returns the list that the action function of that analysis gets.</p><div class="section">
 <h4 id="usage-16">Usage<a class="anchor" aria-label="anchor" href="#usage-16"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Plan</span><span class="op">$</span><span class="fu">get_data</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Plan</span><span class="op">$</span><span class="fu">get_data</span><span class="op">(</span>index_analysis <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
+<h4 id="arguments-14">Arguments<a class="anchor" aria-label="anchor" href="#arguments-14"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>index_analysis</code></dt>
+<dd><p>Optional. The position of an analysis, or its name.
+A plan with keyed data needs it, and <code>get_data()</code> without it stops with
+an error. A plan without keyed data does not use it.</p></dd>
+
+
+</dl><p></p></div>
 </div><p></p><div class="section">
 <h4 id="returns-16">Returns<a class="anchor" aria-label="anchor" href="#returns-16"></a></h4>
 <p>A named list with one element for each dataset, and an element
-<code>hash</code>. <code>hash$current</code> is the spookyhash digest of the datasets.
-<code>hash$current_elements</code> holds one digest for each dataset. plnr does not
-read these digests.</p>
+<code>hash</code>. <code>hash$current_elements</code> holds one spookyhash digest for each
+dataset. Without keyed data, <code>hash$current</code> is the digest of the
+datasets. With keyed data, it is the digest of <code>hash$current_elements</code>,
+so that each dataset is hashed once. plnr does not read these digests.</p>
 <p>If the only data source is <code>data__________go_up_one_level</code> and it returns
 a named list, that list holds the datasets.</p>
 </div><p></p><div class="section">
 <h4 id="examples-8">Examples<a class="anchor" aria-label="anchor" href="#examples-8"></a></h4>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">plnr</span><span class="fu">::</span><span class="va"><a href="../reference/Plan.html">Plan</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">p</span><span class="op">$</span><span class="fu">add_data</span><span class="op">(</span><span class="st">"covid_data"</span>, fn_name <span class="op">=</span> <span class="st">"plnr::example_data_fn_nor_covid19_cases_by_time_location"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">p</span><span class="op">$</span><span class="fu">get_data</span><span class="op">(</span><span class="op">)</span>, max.level <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">p</span><span class="op">$</span><span class="fu">get_data</span><span class="op">(</span><span class="op">)</span>, max.level <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Keyed data: give the analysis</span></span>
+<span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">plnr</span><span class="fu">::</span><span class="va"><a href="../reference/Plan.html">Plan</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">p</span><span class="op">$</span><span class="fu">add_data</span><span class="op">(</span><span class="st">"d"</span>, fn <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">scenario</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"data for"</span>, <span class="va">scenario</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">p</span><span class="op">$</span><span class="fu">add_argset</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"a"</span>, scenario <span class="op">=</span> <span class="st">"null"</span><span class="op">)</span></span>
+<span><span class="va">p</span><span class="op">$</span><span class="fu">get_data</span><span class="op">(</span><span class="st">"a"</span><span class="op">)</span><span class="op">$</span><span class="va">d</span></span></code></pre></div><p></p></div>
 </div>
 
 </div>
@@ -574,7 +634,7 @@ a named list, that list holds the datasets.</p>
 <h4 id="usage-17">Usage<a class="anchor" aria-label="anchor" href="#usage-17"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Plan</span><span class="op">$</span><span class="fu">get_analysis</span><span class="op">(</span><span class="va">index_analysis</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div><p></p><div class="section">
-<h4 id="arguments-14">Arguments<a class="anchor" aria-label="anchor" href="#arguments-14"></a></h4>
+<h4 id="arguments-15">Arguments<a class="anchor" aria-label="anchor" href="#arguments-15"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>index_analysis</code></dt>
 <dd><p>The position of the analysis, or its name.</p></dd>
 
@@ -606,7 +666,7 @@ a named list, that list holds the datasets.</p>
 <h4 id="usage-18">Usage<a class="anchor" aria-label="anchor" href="#usage-18"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Plan</span><span class="op">$</span><span class="fu">get_argset</span><span class="op">(</span><span class="va">index_analysis</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div><p></p><div class="section">
-<h4 id="arguments-15">Arguments<a class="anchor" aria-label="anchor" href="#arguments-15"></a></h4>
+<h4 id="arguments-16">Arguments<a class="anchor" aria-label="anchor" href="#arguments-16"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>index_analysis</code></dt>
 <dd><p>The position of the analysis, or its name.</p></dd>
 
@@ -658,11 +718,12 @@ a named list, that list holds the datasets.</p>
 
 <p></p><hr><a id="method-Plan-run_one_with_data"></a><div class="section">
 <h3 id="plan-run-one-with-data-"><code>Plan$run_one_with_data()</code><a class="anchor" aria-label="anchor" href="#plan-run-one-with-data-"></a></h3>
-<p>Run one analysis on data that you give it.</p><div class="section">
+<p>Run one analysis on data that you give it. The plan calls
+no data function, also no keyed data function.</p><div class="section">
 <h4 id="usage-20">Usage<a class="anchor" aria-label="anchor" href="#usage-20"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Plan</span><span class="op">$</span><span class="fu">run_one_with_data</span><span class="op">(</span><span class="va">index_analysis</span>, <span class="va">data</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div><p></p><div class="section">
-<h4 id="arguments-16">Arguments<a class="anchor" aria-label="anchor" href="#arguments-16"></a></h4>
+<h4 id="arguments-17">Arguments<a class="anchor" aria-label="anchor" href="#arguments-17"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>index_analysis</code></dt>
 <dd><p>The position of the analysis, or its name.</p></dd>
 
@@ -696,12 +757,12 @@ a named list, that list holds the datasets.</p>
 
 <p></p><hr><a id="method-Plan-run_one"></a><div class="section">
 <h3 id="plan-run-one-"><code>Plan$run_one()</code><a class="anchor" aria-label="anchor" href="#plan-run-one-"></a></h3>
-<p>Run one analysis. <code>run_one()</code> loads the data with <code>get_data()</code>
-each time you call it.</p><div class="section">
+<p>Run one analysis. <code>run_one()</code> loads the data for that
+analysis with <code>get_data()</code> each time you call it.</p><div class="section">
 <h4 id="usage-21">Usage<a class="anchor" aria-label="anchor" href="#usage-21"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Plan</span><span class="op">$</span><span class="fu">run_one</span><span class="op">(</span><span class="va">index_analysis</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div><p></p><div class="section">
-<h4 id="arguments-17">Arguments<a class="anchor" aria-label="anchor" href="#arguments-17"></a></h4>
+<h4 id="arguments-18">Arguments<a class="anchor" aria-label="anchor" href="#arguments-18"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>index_analysis</code></dt>
 <dd><p>The position of the analysis, or its name.</p></dd>
 
@@ -731,11 +792,12 @@ each time you call it.</p><div class="section">
 
 <p></p><hr><a id="method-Plan-run_all_with_data"></a><div class="section">
 <h3 id="plan-run-all-with-data-"><code>Plan$run_all_with_data()</code><a class="anchor" aria-label="anchor" href="#plan-run-all-with-data-"></a></h3>
-<p>Run every analysis on data that you give it.</p><div class="section">
+<p>Run every analysis on data that you give it. Every analysis
+gets <code>data</code>. The plan calls no data function, also no keyed data function.</p><div class="section">
 <h4 id="usage-22">Usage<a class="anchor" aria-label="anchor" href="#usage-22"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Plan</span><span class="op">$</span><span class="fu">run_all_with_data</span><span class="op">(</span><span class="va">data</span>, <span class="va">...</span>, .plnr.options <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div><p></p><div class="section">
-<h4 id="arguments-18">Arguments<a class="anchor" aria-label="anchor" href="#arguments-18"></a></h4>
+<h4 id="arguments-19">Arguments<a class="anchor" aria-label="anchor" href="#arguments-19"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>data</code></dt>
 <dd><p>A named list of datasets, normally from <code>get_data()</code>.</p></dd>
 
@@ -775,11 +837,12 @@ plan adds no element, so the list can be shorter than the plan.</p>
 <p></p><hr><a id="method-Plan-run_all"></a><div class="section">
 <h3 id="plan-run-all-"><code>Plan$run_all()</code><a class="anchor" aria-label="anchor" href="#plan-run-all-"></a></h3>
 <p>Run every analysis. <code>run_all()</code> loads the data once with
-<code>get_data()</code>, and passes it to every analysis.</p><div class="section">
+<code>get_data()</code>, and passes it to every analysis. <code>add_data()</code> gives how
+often it calls a keyed data function.</p><div class="section">
 <h4 id="usage-23">Usage<a class="anchor" aria-label="anchor" href="#usage-23"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Plan</span><span class="op">$</span><span class="fu">run_all</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div><p></p><div class="section">
-<h4 id="arguments-19">Arguments<a class="anchor" aria-label="anchor" href="#arguments-19"></a></h4>
+<h4 id="arguments-20">Arguments<a class="anchor" aria-label="anchor" href="#arguments-20"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>...</code></dt>
 <dd><p>Further arguments for the action function, and <code>.plnr.options</code>.
 <code>run_all_with_data()</code> describes both.</p></dd>
@@ -813,7 +876,7 @@ It stops with an error when the progressr package is not installed.</p><div clas
 <h4 id="usage-24">Usage<a class="anchor" aria-label="anchor" href="#usage-24"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Plan</span><span class="op">$</span><span class="fu">run_all_progress</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div><p></p><div class="section">
-<h4 id="arguments-20">Arguments<a class="anchor" aria-label="anchor" href="#arguments-20"></a></h4>
+<h4 id="arguments-21">Arguments<a class="anchor" aria-label="anchor" href="#arguments-21"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>...</code></dt>
 <dd><p>Passed to <code>run_all()</code>.</p></dd>
 
@@ -845,11 +908,16 @@ It stops with an error when the progressr package is not installed.</p><div clas
 <p>Run every analysis in forked processes with
 <code><a href="https://rdrr.io/pkg/pbmcapply/man/pbmclapply.html" class="external-link">pbmcapply::pbmclapply()</a></code>, which shows a progress bar. It loads the data once
 with <code>get_data()</code>. Windows cannot fork. There, pbmcapply sets <code>mc.cores</code> to
-1, warns, and runs the analyses in sequence.</p><div class="section">
+1, warns, and runs the analyses in sequence.</p>
+<p>With keyed data, each task is one group of analyses, as <code>add_data()</code>
+describes, and the progress bar counts groups. An error gives a
+<code>try-error</code> to its own analysis only. An error in a keyed data function
+goes to each analysis that needs that dataset. Without keyed data, an
+error gives a <code>try-error</code> to each analysis that ran in the same process.</p><div class="section">
 <h4 id="usage-25">Usage<a class="anchor" aria-label="anchor" href="#usage-25"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Plan</span><span class="op">$</span><span class="fu">run_all_parallel</span><span class="op">(</span>mc.cores <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"mc.cores"</span>, <span class="fl">2L</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div><p></p><div class="section">
-<h4 id="arguments-21">Arguments<a class="anchor" aria-label="anchor" href="#arguments-21"></a></h4>
+<h4 id="arguments-22">Arguments<a class="anchor" aria-label="anchor" href="#arguments-22"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>mc.cores</code></dt>
 <dd><p>The number of processes.</p></dd>
 
@@ -872,7 +940,7 @@ of analysis <code>i</code> returns.</p>
 <h4 id="usage-26">Usage<a class="anchor" aria-label="anchor" href="#usage-26"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Plan</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div><p></p><div class="section">
-<h4 id="arguments-22">Arguments<a class="anchor" aria-label="anchor" href="#arguments-22"></a></h4>
+<h4 id="arguments-23">Arguments<a class="anchor" aria-label="anchor" href="#arguments-23"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>deep</code></dt>
 <dd><p>Whether to make a deep clone.</p></dd>
 
@@ -901,6 +969,19 @@ of analysis <code>i</code> returns.</p>
 <span class="r-in"><span><span class="va">p</span><span class="op">$</span><span class="fu">add_data</span><span class="op">(</span><span class="st">"data_3"</span>, direct <span class="op">=</span> <span class="fu">plnr</span><span class="fu">::</span><span class="va"><a href="nor_covid19_cases_by_time_location.html">nor_covid19_cases_by_time_location</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">p</span><span class="op">$</span><span class="fu">get_data</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "data_1" "data_2" "data_3" "hash"  </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Keyed data: one simulated dataset for each value of `sim`</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">plnr</span><span class="fu">::</span><span class="va">Plan</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p</span><span class="op">$</span><span class="fu">add_data</span><span class="op">(</span><span class="st">"sim_data"</span>, fn <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">sim</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="va">sim</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p</span><span class="op">$</span><span class="fu">add_argset_from_list</span><span class="op">(</span><span class="fu">plnr</span><span class="fu">::</span><span class="fu"><a href="expand_list.html">expand_list</a></span><span class="op">(</span>sim <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, stat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"mean"</span>, <span class="st">"max"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p</span><span class="op">$</span><span class="fu">apply_action_fn_to_all_argsets</span><span class="op">(</span>fn <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">argset</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/match.fun.html" class="external-link">match.fun</a></span><span class="op">(</span><span class="va">argset</span><span class="op">$</span><span class="va">stat</span><span class="op">)</span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">sim_data</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">p</span><span class="op">$</span><span class="fu">run_all</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.12926990  1.59528080 -0.06696949  1.58784533</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span><span class="co">## Method `Plan$add_argset()`</span></span></span>
@@ -936,10 +1017,10 @@ of analysis <code>i</code> returns.</p>
 <span class="r-in"><span><span class="va">p</span><span class="op">$</span><span class="fu">get_argsets_as_dt</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                           name_analysis index_analysis  var_1  var_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                  &lt;char&gt;          &lt;int&gt; &lt;list&gt; &lt;list&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: 4f693bac-c803-4b21-a527-fa8bb8bfe774              1      1      i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2: b0012067-fe5c-4a4b-a23d-52d1cffa8ce7              2      1      j</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3: 05e505e8-c4e3-4f85-bbd8-4489a6198c6a              3      2      i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4: b8c7f9c0-f4a6-43cb-bd43-0ebf4e57d9fb              4      2      j</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1: ff19b7dd-5bcb-4bc6-8fea-bfb232c4ce50              1      1      i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2: b95f570d-427e-4393-b63f-913ce3f7c4c1              2      1      j</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3: 7051d408-9e9f-4321-8ac4-d466ae87ddc4              3      2      i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4: aa8189cd-ef86-4af6-ac06-ebe2fd871f7b              4      2      j</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span><span class="co">## Method `Plan$add_analysis()`</span></span></span>
@@ -1022,6 +1103,13 @@ of analysis <code>i</code> returns.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, ".internal.selfref")=&lt;pointer: (nil)&gt; </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "index")= int(0) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ hash      :List of 2</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Keyed data: give the analysis</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">plnr</span><span class="fu">::</span><span class="va">Plan</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p</span><span class="op">$</span><span class="fu">add_data</span><span class="op">(</span><span class="st">"d"</span>, fn <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">scenario</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"data for"</span>, <span class="va">scenario</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p</span><span class="op">$</span><span class="fu">add_argset</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"a"</span>, scenario <span class="op">=</span> <span class="st">"null"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p</span><span class="op">$</span><span class="fu">get_data</span><span class="op">(</span><span class="st">"a"</span><span class="op">)</span><span class="op">$</span><span class="va">d</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "data for null"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## ------------------------------------------------</span></span></span>
 <span class="r-in"><span><span class="co">## Method `Plan$get_analysis()`</span></span></span>

@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">plnr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.11.16</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.11.17</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,6 +45,20 @@
       <small>Source: <a href="https://github.com/raubreywhite/plnr/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2026.11.17" id="version-20261117">Version 2026.11.17<a class="anchor" aria-label="anchor" href="#version-20261117"></a></h2>
+<div class="section level3">
+<h3 id="new-features-2026-11-17">New features<a class="anchor" aria-label="anchor" href="#new-features-2026-11-17"></a></h3>
+<ul><li>A data function MAY have key fields: its arguments without a default, other than <code>...</code>. <code>run_all()</code> and <code>run_all_parallel()</code> call it once for each distinct set of values of these argset fields. <code><a href="../reference/Plan.html">?Plan</a></code> gives the rules.</li>
+<li>
+<code>get_data()</code> gains <code>index_analysis</code>, and returns the data of that analysis.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="behaviour-changes-2026-11-17">Behaviour changes<a class="anchor" aria-label="anchor" href="#behaviour-changes-2026-11-17"></a></h3>
+<ul><li>A data function with only defaulted arguments or <code>...</code> runs as before, once, with no arguments.</li>
+<li>A data function with an argument without a default, such as <code>function(x) x</code>, failed before, if it used the argument. One that did not use it, such as <code>function(x) 1</code>, ran. That function is now keyed: the run stops if an argset has no field <code>x</code>, and <code>get_data()</code> needs an analysis. A scan of cs9, cs9example, norsyss.cs9 and the analysis projects found no data function with arguments.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2026.11.16" id="version-20261116">Version 2026.11.16<a class="anchor" aria-label="anchor" href="#version-20261116"></a></h2>
 <div class="section level3">

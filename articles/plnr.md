@@ -29,7 +29,7 @@ builds both kinds on real data.
 library(plnr)
 ```
 
-    ## plnr 2026.11.16
+    ## plnr 2026.11.17
     ## https://www.rwhite.no/plnr/
 
 ``` r
@@ -79,14 +79,85 @@ returns a list of the results.
 `add_data()` takes a data source in one of three forms:
 
 - `direct`: the dataset itself.
-- `fn`: a function with no arguments that returns the dataset.
+- `fn`: a function that returns the dataset.
 - `fn_name`: the name of such a function.
 
+A data function without arguments makes one dataset for the whole plan.
 `run_all()` calls `get_data()` once and passes the result to every
 analysis. `run_one()` calls `get_data()` each time you call it.
 `get_data()` also adds an element `hash`, with a spookyhash digest of
 each dataset. plnr does not read these digests. It does not cache, so
 every call of `get_data()` loads every data source again.
+
+## Data that depends on the argset
+
+The key fields of a data function are its arguments without a default,
+other than `...`. For each analysis, the plan calls the function with
+these fields of its argset. It keeps each dataset for the run, so the
+analyses with the same values share one dataset. A data function without
+key fields runs once, with no arguments.
+
+This plan simulates one dataset for each scenario and simulation. It
+then fits a model to each of two outcomes in each dataset:
+
+``` r
+n_calls <- 0
+simulate <- function(scenario, sim) {
+  n_calls <<- n_calls + 1
+  set.seed(sim)
+  effect <- if (scenario == "null") 0 else 0.5
+  x <- rnorm(100)
+  data.frame(x = x, a = effect * x + rnorm(100), b = rnorm(100))
+}
+
+sim_plan <- Plan$new()
+sim_plan$add_data("sim_data", fn = simulate)
+sim_plan$add_argset_from_list(expand_list(
+  scenario = c("null", "real"),
+  sim = 1:3,
+  outcome = c("a", "b")
+))
+sim_plan$apply_action_fn_to_all_argsets(fn = function(data, argset) {
+  d <- data$sim_data
+  coef(lm(d[[argset$outcome]] ~ d$x))[[2]]
+})
+
+results <- sim_plan$run_all()
+length(results)
+```
+
+    ## [1] 12
+
+``` r
+n_calls
+```
+
+    ## [1] 6
+
+The plan ran 12 analyses and called
+[`simulate()`](https://rdrr.io/r/stats/simulate.html) 6 times, once for
+each of the 2 scenarios and 3 simulations. The analyses for outcomes `a`
+and `b` got the same dataset.
+[`simulate()`](https://rdrr.io/r/stats/simulate.html) did not get the
+field `outcome`.
+
+Each key field MUST be in every argset. The plan compares values
+exactly, so `1` and `1L` make two datasets. `get_data()` needs an
+analysis for such a plan:
+
+``` r
+str(sim_plan$get_data(1), max.level = 1)
+```
+
+    ## List of 2
+    ##  $ sim_data:'data.frame':    100 obs. of  3 variables:
+    ##  $ hash    :List of 2
+
+The parallel runs also call the function once for each distinct set of
+values. They run each group of analyses that share a value in one task,
+so the number of groups limits the parallelism.
+[`?Plan`](https://www.rwhite.no/plnr/reference/Plan.md) gives the
+details.
 
 ## Function names
 
@@ -152,7 +223,7 @@ str(p$get_data(), max.level = 1)
 
     ## List of 2
     ##  $ deaths:Classes 'data.table' and 'data.frame': 4 obs. of  2 variables:
-    ##   ..- attr(*, ".internal.selfref")=<pointer: 0x61300710b180> 
+    ##   ..- attr(*, ".internal.selfref")=<pointer: 0x5df99a915190> 
     ##  $ hash  :List of 2
 
 To develop an action function line by line, start it with

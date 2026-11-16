@@ -18,8 +18,8 @@
 <link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="A Framework for Planning and Executing Analyses">
-<meta name="description" content="Use a plan to run the same analysis function over many sets of arguments, or to run different functions on the same data. A plan holds the data sources, the argument sets and the functions. Running the plan loads the data once and passes it to every analysis, in sequence or in parallel. Typical uses are one method applied across strata such as locations or age groups, or across exposures and outcomes, and the tables and figures of a report.">
-<meta property="og:description" content="Use a plan to run the same analysis function over many sets of arguments, or to run different functions on the same data. A plan holds the data sources, the argument sets and the functions. Running the plan loads the data once and passes it to every analysis, in sequence or in parallel. Typical uses are one method applied across strata such as locations or age groups, or across exposures and outcomes, and the tables and figures of a report.">
+<meta name="description" content="Use a plan to run the same analysis function over many sets of arguments, or to run different functions on the same data. A plan holds the data sources, the argument sets and the functions. Running the plan loads the data once, or once for each set of argset values that the data depends on, and passes it to every analysis, in sequence or in parallel. Typical uses are one method applied across strata such as locations or age groups, or across exposures and outcomes, and the tables and figures of a report.">
+<meta property="og:description" content="Use a plan to run the same analysis function over many sets of arguments, or to run different functions on the same data. A plan holds the data sources, the argument sets and the functions. Running the plan loads the data once, or once for each set of argset values that the data depends on, and passes it to every analysis, in sequence or in parallel. Typical uses are one method applied across strata such as locations or age groups, or across exposures and outcomes, and the tables and figures of a report.">
 <meta property="og:image" content="https://www.rwhite.no/plnr/logo.png">
 </head>
 <body>
@@ -30,7 +30,7 @@
 
     <a class="navbar-brand me-2" href="index.html">plnr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.11.16</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.11.17</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,7 +79,7 @@
 <img src="logo.png" class="logo" alt=""><h1>Plan and run many analyses.</h1>
 </div>
     <div class="rw-rule"></div>
-    <p class="rw-lede">Load the data once, then run one function over many argsets: strata, exposures or outcomes. Run the analyses in sequence or in <em>parallel</em>.
+    <p class="rw-lede">Load the data once, or once for each key, then run one function over many argsets: strata, exposures or outcomes. Run the analyses in sequence or in <em>parallel</em>.
 </p>
     <p class="rw-cta"><a class="rw-btn" href="articles/plnr.html">Get started</a> <a class="rw-btn-link" href="reference/index.html">Browse the reference →</a></p>
   </div>
@@ -99,7 +99,7 @@ What’s inside
 Load once per run
 </h3>
 <p>
-<code>run_all()</code> loads each dataset once and passes it to every analysis.
+<code>run_all()</code> loads each dataset once and passes it to every analysis, or once for each set of key values when the data depends on the argset.
 </p>
 </div>
 <div class="rw-card">

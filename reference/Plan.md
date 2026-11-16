@@ -154,7 +154,7 @@ Add a data source. `get_data()` loads every data source. Give one of
 
 - `fn`:
 
-  Optional. A function with no arguments that returns the dataset.
+  Optional. A function that returns the dataset.
 
 - `fn_name`:
 
@@ -164,6 +164,50 @@ Add a data source. `get_data()` loads every data source. Give one of
 - `direct`:
 
   Optional. The dataset itself.
+
+#### Details
+
+The key fields of a data function are its arguments without a default,
+other than `...`. A data function without a key field makes one dataset
+for the whole run: the plan calls it once, with no arguments. A data
+function with key fields makes keyed data:
+
+- For each analysis, the plan calls the function with the key fields of
+  the argset, by name. Arguments with a default keep their default, and
+  `...` gets nothing.
+
+- The plan keeps the dataset under the values of the key fields, and
+  gives the same object to each analysis with the same values.
+
+- If an argset does not have a key field, the run stops before the first
+  analysis.
+
+- Two values are the same only when they have the same type and the same
+  value. So `1` and `1L` are different, `NA` and `NA_character_` are
+  different, and `NULL` is a value.
+
+- When no remaining analysis of the run needs a kept dataset, the plan
+  drops it.
+
+The plan calls a keyed data function exactly once for each distinct set
+of values, in `run_all()` with or without foreach and in
+`run_all_parallel()`. `run_one()` and `get_data()` call it once for each
+call. A parallel run puts the analyses that share a value of any keyed
+data source in one group, and runs each group in one task. So a run has
+at most one busy worker for each group:
+
+- With one keyed data source, there is one group for each set of values.
+
+- With one source keyed by `scenario` and one by `scenario` and `sim`,
+  there is one group for each scenario.
+
+- With one source keyed by `scenario` and one by `sim`, all analyses are
+  in one group, and the run is sequential.
+
+On a PSOCK worker, a data function finds the objects of the environment
+where you defined it. It does not find the objects of the global
+environment of the main process. Pass such an object as an argset field,
+or define the function inside another function.
 
 #### Returns
 
@@ -180,6 +224,18 @@ The stored data source, invisibly: a list that holds `fn`, `fn_name`,
     p$add_data("data_2", fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_location")
     p$add_data("data_3", direct = plnr::nor_covid19_cases_by_time_location)
     names(p$get_data())
+
+    # Keyed data: one simulated dataset for each value of `sim`
+    p <- plnr::Plan$new()
+    p$add_data("sim_data", fn = function(sim) {
+      set.seed(sim)
+      return(rnorm(5))
+    })
+    p$add_argset_from_list(plnr::expand_list(sim = 1:2, stat = c("mean", "max")))
+    p$apply_action_fn_to_all_argsets(fn = function(data, argset) {
+      return(match.fun(argset$stat)(data$sim_data))
+    })
+    unlist(p$run_all())
 
 ------------------------------------------------------------------------
 
@@ -567,18 +623,29 @@ Set `use_foreach`, which `new()` describes.
 
 ### `Plan$get_data()`
 
-Load every data source, and return the datasets as a named list.
+Load every data source, and return the datasets as a named list. For a
+plan with keyed data, give an analysis: `get_data()` then returns the
+list that the action function of that analysis gets.
 
 #### Usage
 
-    Plan$get_data()
+    Plan$get_data(index_analysis = NULL)
+
+#### Arguments
+
+- `index_analysis`:
+
+  Optional. The position of an analysis, or its name. A plan with keyed
+  data needs it, and `get_data()` without it stops with an error. A plan
+  without keyed data does not use it.
 
 #### Returns
 
 A named list with one element for each dataset, and an element `hash`.
-`hash$current` is the spookyhash digest of the datasets.
-`hash$current_elements` holds one digest for each dataset. plnr does not
-read these digests.
+`hash$current_elements` holds one spookyhash digest for each dataset.
+Without keyed data, `hash$current` is the digest of the datasets. With
+keyed data, it is the digest of `hash$current_elements`, so that each
+dataset is hashed once. plnr does not read these digests.
 
 If the only data source is `data__________go_up_one_level` and it
 returns a named list, that list holds the datasets.
@@ -588,6 +655,12 @@ returns a named list, that list holds the datasets.
     p <- plnr::Plan$new()
     p$add_data("covid_data", fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_location")
     str(p$get_data(), max.level = 1)
+
+    # Keyed data: give the analysis
+    p <- plnr::Plan$new()
+    p$add_data("d", fn = function(scenario) paste("data for", scenario))
+    p$add_argset(name = "a", scenario = "null")
+    p$get_data("a")$d
 
 ------------------------------------------------------------------------
 
@@ -688,7 +761,8 @@ A data.table. Its first columns are `name_analysis` and
 
 ### `Plan$run_one_with_data()`
 
-Run one analysis on data that you give it.
+Run one analysis on data that you give it. The plan calls no data
+function, also no keyed data function.
 
 #### Usage
 
@@ -730,8 +804,8 @@ The value that the action function returns.
 
 ### `Plan$run_one()`
 
-Run one analysis. `run_one()` loads the data with `get_data()` each time
-you call it.
+Run one analysis. `run_one()` loads the data for that analysis with
+`get_data()` each time you call it.
 
 #### Usage
 
@@ -768,7 +842,8 @@ The value that the action function returns.
 
 ### `Plan$run_all_with_data()`
 
-Run every analysis on data that you give it.
+Run every analysis on data that you give it. Every analysis gets `data`.
+The plan calls no data function, also no keyed data function.
 
 #### Usage
 
@@ -816,7 +891,8 @@ plan adds no element, so the list can be shorter than the plan.
 ### `Plan$run_all()`
 
 Run every analysis. `run_all()` loads the data once with `get_data()`,
-and passes it to every analysis.
+and passes it to every analysis. `add_data()` gives how often it calls a
+keyed data function.
 
 #### Usage
 
@@ -894,6 +970,12 @@ which shows a progress bar. It loads the data once with `get_data()`.
 Windows cannot fork. There, pbmcapply sets `mc.cores` to 1, warns, and
 runs the analyses in sequence.
 
+With keyed data, each task is one group of analyses, as `add_data()`
+describes, and the progress bar counts groups. An error gives a
+`try-error` to its own analysis only. An error in a keyed data function
+goes to each analysis that needs that dataset. Without keyed data, an
+error gives a `try-error` to each analysis that ran in the same process.
+
 #### Usage
 
     Plan$run_all_parallel(mc.cores = getOption("mc.cores", 2L), ...)
@@ -946,6 +1028,19 @@ p$add_data("data_3", direct = plnr::nor_covid19_cases_by_time_location)
 names(p$get_data())
 #> [1] "data_1" "data_2" "data_3" "hash"  
 
+# Keyed data: one simulated dataset for each value of `sim`
+p <- plnr::Plan$new()
+p$add_data("sim_data", fn = function(sim) {
+  set.seed(sim)
+  return(rnorm(5))
+})
+p$add_argset_from_list(plnr::expand_list(sim = 1:2, stat = c("mean", "max")))
+p$apply_action_fn_to_all_argsets(fn = function(data, argset) {
+  return(match.fun(argset$stat)(data$sim_data))
+})
+unlist(p$run_all())
+#> [1]  0.12926990  1.59528080 -0.06696949  1.58784533
+
 ## ------------------------------------------------
 ## Method `Plan$add_argset()`
 ## ------------------------------------------------
@@ -980,10 +1075,10 @@ p$add_argset_from_list(plnr::expand_list(var_1 = 1:2, var_2 = c("i", "j")))
 p$get_argsets_as_dt()
 #>                           name_analysis index_analysis  var_1  var_2
 #>                                  <char>          <int> <list> <list>
-#> 1: 4f693bac-c803-4b21-a527-fa8bb8bfe774              1      1      i
-#> 2: b0012067-fe5c-4a4b-a23d-52d1cffa8ce7              2      1      j
-#> 3: 05e505e8-c4e3-4f85-bbd8-4489a6198c6a              3      2      i
-#> 4: b8c7f9c0-f4a6-43cb-bd43-0ebf4e57d9fb              4      2      j
+#> 1: ff19b7dd-5bcb-4bc6-8fea-bfb232c4ce50              1      1      i
+#> 2: b95f570d-427e-4393-b63f-913ce3f7c4c1              2      1      j
+#> 3: 7051d408-9e9f-4321-8ac4-d466ae87ddc4              3      2      i
+#> 4: aa8189cd-ef86-4af6-ac06-ebe2fd871f7b              4      2      j
 
 ## ------------------------------------------------
 ## Method `Plan$add_analysis()`
@@ -1066,6 +1161,13 @@ str(p$get_data(), max.level = 1)
 #>   ..- attr(*, ".internal.selfref")=<pointer: (nil)> 
 #>   ..- attr(*, "index")= int(0) 
 #>  $ hash      :List of 2
+
+# Keyed data: give the analysis
+p <- plnr::Plan$new()
+p$add_data("d", fn = function(scenario) paste("data for", scenario))
+p$add_argset(name = "a", scenario = "null")
+p$get_data("a")$d
+#> [1] "data for null"
 
 ## ------------------------------------------------
 ## Method `Plan$get_analysis()`

@@ -1,5 +1,28 @@
 # Changelog
 
+## Version 2026.11.17
+
+### New features
+
+- A data function MAY have key fields: its arguments without a default,
+  other than `...`. `run_all()` and `run_all_parallel()` call it once
+  for each distinct set of values of these argset fields.
+  [`?Plan`](https://www.rwhite.no/plnr/reference/Plan.md) gives the
+  rules.
+- `get_data()` gains `index_analysis`, and returns the data of that
+  analysis.
+
+### Behaviour changes
+
+- A data function with only defaulted arguments or `...` runs as before,
+  once, with no arguments.
+- A data function with an argument without a default, such as
+  `function(x) x`, failed before, if it used the argument. One that did
+  not use it, such as `function(x) 1`, ran. That function is now keyed:
+  the run stops if an argset has no field `x`, and `get_data()` needs an
+  analysis. A scan of cs9, cs9example, norsyss.cs9 and the analysis
+  projects found no data function with arguments.
+
 ## Version 2026.11.16
 
 ### Breaking changes

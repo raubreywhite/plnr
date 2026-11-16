@@ -4,7 +4,8 @@ What’s inside
 
 ### Load once per run
 
-`run_all()` loads each dataset once and passes it to every analysis.
+`run_all()` loads each dataset once and passes it to every analysis, or
+once for each set of key values when the data depends on the argset.
 
 02
 
