@@ -5,12 +5,12 @@ analyses in a plan, and the plan runs them.
 
 ## Core concepts
 
-| Term            | Meaning                                                                                                                                  |
-|-----------------|------------------------------------------------------------------------------------------------------------------------------------------|
-| argset          | A named list of arguments for one analysis.                                                                                              |
+| Term | Meaning |
+|----|----|
+| argset | A named list of arguments for one analysis. |
 | action function | A function that does one analysis. It MUST take the data as its first argument and the argset as its second. It MAY take more arguments. |
-| analysis        | One argset plus one action function. A plan runs analyses.                                                                               |
-| plan            | A `Plan` object. It holds the data sources and a list of analyses.                                                                       |
+| analysis | One argset plus one action function. A plan runs analyses. |
+| plan | A `Plan` object. It holds the data sources and a list of analyses. |
 
 A plan is one of two kinds:
 
@@ -29,7 +29,7 @@ builds both kinds on real data.
 library(plnr)
 ```
 
-    ## plnr 2026.9.24
+    ## plnr 2026.11.16
     ## https://www.rwhite.no/plnr/
 
 ``` r
@@ -152,7 +152,7 @@ str(p$get_data(), max.level = 1)
 
     ## List of 2
     ##  $ deaths:Classes 'data.table' and 'data.frame': 4 obs. of  2 variables:
-    ##   ..- attr(*, ".internal.selfref")=<pointer: 0x564f98525f20> 
+    ##   ..- attr(*, ".internal.selfref")=<pointer: 0x60b8adef7190> 
     ##  $ hash  :List of 2
 
 To develop an action function line by line, start it with

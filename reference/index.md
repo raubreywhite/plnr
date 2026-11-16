@@ -19,15 +19,6 @@ General-purpose utility functions for various tasks.
   : Check whether code runs at the top level of the console
 - [`set_opts()`](https://www.rwhite.no/plnr/reference/set_opts.md) : Set
   plnr options
-- [`try_again()`](https://www.rwhite.no/plnr/reference/try_again.md) :
-  Retry code, with a random delay between attempts
-
-## Project Creation
-
-Functions for setting up and managing example RMarkdown projects.
-
-- [`create_rmarkdown()`](https://www.rwhite.no/plnr/reference/create_rmarkdown.md)
-  : Create an example R Markdown project that uses plnr
 
 ## Testing Functions
 

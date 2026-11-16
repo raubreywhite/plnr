@@ -1,5 +1,15 @@
 # Changelog
 
+## Version 2026.11.16
+
+### Breaking changes
+
+- `create_rmarkdown()` and `try_again()` are removed. No known project
+  calls them. The project that `create_rmarkdown()` wrote did not run:
+  its `run.R` stopped with “object ‘table_death’ of mode ‘function’ was
+  not found”. To keep either function, stay on plnr 2026.9.24. plnr no
+  longer imports fs, glue, stats or usethis.
+
 ## Version 2026.9.24
 
 ### Bug fixes
@@ -22,8 +32,8 @@
   longer reaches the action function.
 - `add_argset()` and `add_analysis()` no longer copy the whole list of
   analyses on every call.
-- [`create_rmarkdown()`](https://www.rwhite.no/plnr/reference/create_rmarkdown.md)
-  now ends every file that it writes with a newline.
+- `create_rmarkdown()` now ends every file that it writes with a
+  newline.
 - `run_all()` with foreach on a PSOCK cluster, such as one from
   doParallel, failed with `object 'private' not found`. The foreach call
   now exports what the workers need.
@@ -38,8 +48,7 @@
   longer loads the progressr namespace.
 - Errors that plnr raises itself, such as “Both fn and fn_name are
   NULL”, carry no call. The messages are unchanged.
-- [`try_again()`](https://www.rwhite.no/plnr/reference/try_again.md)
-  evaluates `verbose` only when it reports.
+- `try_again()` evaluates `verbose` only when it reports.
   `try_again(1, verbose = stop("forced"))` now returns `TRUE`. It
   failed.
 - Without progressr, `run_all()` with foreach and `verbose = TRUE` runs
@@ -96,9 +105,8 @@ CRAN release: 2026-09-23
 
 ### Corrections
 
-- [`try_again()`](https://www.rwhite.no/plnr/reference/try_again.md) was
-  titled “Retry code execution with exponential backoff”. It does not
-  implement exponential backoff. The delay is
+- `try_again()` was titled “Retry code execution with exponential
+  backoff”. It does not implement exponential backoff. The delay is
   `stats::runif(1, delay_seconds_min, delay_seconds_max)`, drawn afresh
   before every retry from fixed bounds that the loop never reassigns, so
   it does not grow with the attempt number. The title now names the real
@@ -124,16 +132,14 @@ CRAN release: 2026-09-23
 ## Version 2026.8.3
 
 - This release is mostly documentation and roxygen comments. It also
-  carries two bug fixes that do change behavior:
-  [`create_rmarkdown()`](https://www.rwhite.no/plnr/reference/create_rmarkdown.md)
+  carries two bug fixes that do change behavior: `create_rmarkdown()`
   and `Plan$add_analysis_from_list()`. The entries below describe both.
   Apart from those two fixes, the R sources are semantically identical
   to the previous release.
 - `@seealso` added to all ten exported functions. Eight point at the
   vignette that covers them. No vignette covers
   [`set_opts()`](https://www.rwhite.no/plnr/reference/set_opts.md) or
-  [`try_again()`](https://www.rwhite.no/plnr/reference/try_again.md),
-  and the text of those two says so.
+  `try_again()`, and the text of those two says so.
 - `@family example and test functions` added to
   [`example_action_fn()`](https://www.rwhite.no/plnr/reference/example_action_fn.md),
   [`test_action_fn()`](https://www.rwhite.no/plnr/reference/test_action_fn.md)
@@ -144,22 +150,17 @@ CRAN release: 2026-09-23
   and
   [`test_action_fn()`](https://www.rwhite.no/plnr/reference/test_action_fn.md),
   which previously had none.
-- [`try_again()`](https://www.rwhite.no/plnr/reference/try_again.md)
-  examples taken out of `\dontrun{}`. They now run, and show a retry
-  that fails once and succeeds on the second attempt.
-- [`create_rmarkdown()`](https://www.rwhite.no/plnr/reference/create_rmarkdown.md)
-  examples moved from `\dontrun{}` to `\donttest{}`, so `R CMD check`
-  runs them.
-- Fixed
-  [`create_rmarkdown()`](https://www.rwhite.no/plnr/reference/create_rmarkdown.md),
-  which evaluated `{lubridate::today()}` while it generated `run.R`,
-  instead of writing the brace out literally. The brace was not escaped,
-  so glue resolved it at generation time. That had two consequences.
-  Every generated project carried a frozen date, not one that evaluates
-  when the user runs it.
-  [`create_rmarkdown()`](https://www.rwhite.no/plnr/reference/create_rmarkdown.md)
-  also silently needed lubridate, which plnr does not depend on. Both
-  consequences are gone.
+- `try_again()` examples taken out of `\dontrun{}`. They now run, and
+  show a retry that fails once and succeeds on the second attempt.
+- `create_rmarkdown()` examples moved from `\dontrun{}` to
+  `\donttest{}`, so `R CMD check` runs them.
+- Fixed `create_rmarkdown()`, which evaluated `{lubridate::today()}`
+  while it generated `run.R`, instead of writing the brace out
+  literally. The brace was not escaped, so glue resolved it at
+  generation time. That had two consequences. Every generated project
+  carried a frozen date, not one that evaluates when the user runs it.
+  `create_rmarkdown()` also silently needed lubridate, which plnr does
+  not depend on. Both consequences are gone.
 - `index.md` and `Rplots.pdf` added to `.Rbuildignore`, so `R CMD build`
   no longer ships the pkgdown home page source in the tarball.
 - Fixed `Plan$add_analysis_from_list()`. It decided whether to apply the
@@ -249,9 +250,7 @@ CRAN release: 2022-06-09
 
 ## Version 2020.2.20
 
-- Created the
-  [`create_rmarkdown()`](https://www.rwhite.no/plnr/reference/create_rmarkdown.md)
-  skeleton.
+- Created the `create_rmarkdown()` skeleton.
 
 ## Version 2020.1.28
 
