@@ -7,8 +7,8 @@ template:
       overline: "R package · Analysis planning"
       title: "Plan and run many analyses."
       lede: >
-        Load the data once, then run one function over many argsets: strata,
-        exposures or outcomes. Run the analyses in sequence or in
+        Load the data once, or once for each key, then run one function over
+        many argsets: strata, exposures or outcomes. Run the analyses in sequence or in
         <em>parallel</em>.
       cta:
         primary:

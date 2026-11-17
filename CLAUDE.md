@@ -63,11 +63,11 @@ pkgdown::build_articles()
 
 ### Core Component: The Plan Class (R/plan.R)
 
-The `Plan` R6 class (`~790 lines`) is the centerpiece of the framework. Key methods:
+The `Plan` R6 class is the centerpiece of the framework. Key methods:
 
 **Data Management:**
-- `add_data(name, fn = NULL, fn_name = NULL, direct = NULL)` - Load data once, reuse across analyses
-- `get_data()` - Load every data source into a named list
+- `add_data(name, fn = NULL, fn_name = NULL, direct = NULL)` - A data function without arguments loads once for the run. A data function with arguments without a default (other than `...`) is keyed: those argument names are argset fields, and the plan calls it once for each distinct set of values
+- `get_data(index_analysis = NULL)` - Load every data source into a named list. A plan with keyed data needs `index_analysis`
 
 **Parameter Definition:**
 - `add_argset(name, ...)` - Add single parameter set
@@ -118,14 +118,19 @@ function(data, argset, ...) {
 ```
 
 ### Separation of Concerns
-- **Data loading:** Happens once via `add_data()`
+- **Data loading:** Once for the run, or once for each set of key values for keyed data
 - **Parameters:** Defined separately via `add_argset()`
 - **Analysis:** The action function gets data and argset, and MAY take more arguments
 - **Execution:** Plan orchestrates sequential or parallel runs
 
-### No caching
+### Caching
 `get_data()` adds `digest::digest()` hashes under `hash`, but plnr never reads
-them. There is no cache: every call of `get_data()` loads every data source.
+them. Every call of `get_data()` loads every data source. The only cache is the
+keyed-data cache of one run: it lives in the run method's frame, keys on the
+exact argset values (`key_of_value()` in `R/plan.R`), and drops a dataset after
+the last analysis that needs it. The parallel paths run one task per connected
+group of analyses (`keyed_groups()`): analyses that share a key in any keyed
+source, so each key is computed in exactly one task.
 
 ## Package Dependencies
 
@@ -149,7 +154,7 @@ them. There is no cache: every call of `get_data()` loads every data source.
 - **roxygen2 documentation:** All .Rd files auto-generated from R code comments
 - **Markdown support:** Uses roxygen2 8.0.0 (`Config/roxygen2/version`) with markdown = TRUE
 - **Vignettes:** 2 comprehensive guides (plnr.Rmd, adding_analyses.Rmd)
-- **Tests:** Nine test files in `tests/testthat/`
+- **Tests:** Ten test files in `tests/testthat/`
 
 ### Documentation Standards
 

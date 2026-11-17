@@ -1,6 +1,14 @@
 ## Summary
 
-This release moves plnr from the CRAN version 2026.9.23 to 2026.11.16. It includes the changes of version 2026.9.24, which was not sent to CRAN.
+This release moves plnr from the CRAN version 2026.9.23 to 2026.11.17. It includes the changes of versions 2026.9.24 and 2026.11.16, which were not sent to CRAN.
+
+### New feature: data that depends on the argset
+
+- The key fields of a data function are its arguments without a default, other than `...`.
+- `run_all()` and `run_all_parallel()` call such a function once for each distinct set of values. Analyses with the same values share the dataset.
+- A data function without key fields runs as before. A data function with a key field failed before if it used that argument. One that did not use it now needs the field in every argset.
+- The local csalert source calls `add_data()` once, in `dev/`, which `.Rbuildignore` excludes. That data function has no arguments.
+- `get_data()` gains the argument `index_analysis`.
 
 ### Removed functions
 

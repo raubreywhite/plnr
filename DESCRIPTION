@@ -1,6 +1,6 @@
 Package: plnr
 Title: A Framework for Planning and Executing Analyses
-Version: 2026.11.16
+Version: 2026.11.17
 Authors@R:
     c(
       person(
@@ -14,8 +14,9 @@ Authors@R:
 Description: Use a plan to run the same analysis function over many sets of
     arguments, or to run different functions on the same data. A plan holds
     the data sources, the argument sets and the functions. Running
-    the plan loads the data once and passes it to every analysis, in sequence
-    or in parallel. Typical uses are one method applied across strata such as
+    the plan loads the data once, or once for each set of argset values that
+    the data depends on, and passes it to every analysis, in sequence or in
+    parallel. Typical uses are one method applied across strata such as
     locations or age groups, or across exposures and outcomes, and the tables
     and figures of a report.
 License: MIT + file LICENSE

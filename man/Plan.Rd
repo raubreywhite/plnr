@@ -44,6 +44,18 @@ p$add_data("data_2", fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_
 p$add_data("data_3", direct = plnr::nor_covid19_cases_by_time_location)
 names(p$get_data())
 
+# Keyed data: one simulated dataset for each value of `sim`
+p <- plnr::Plan$new()
+p$add_data("sim_data", fn = function(sim) {
+  set.seed(sim)
+  return(rnorm(5))
+})
+p$add_argset_from_list(plnr::expand_list(sim = 1:2, stat = c("mean", "max")))
+p$apply_action_fn_to_all_argsets(fn = function(data, argset) {
+  return(match.fun(argset$stat)(data$sim_data))
+})
+unlist(p$run_all())
+
 ## ------------------------------------------------
 ## Method `Plan$add_argset()`
 ## ------------------------------------------------
@@ -125,6 +137,12 @@ p$run_one("analysis_1")
 p <- plnr::Plan$new()
 p$add_data("covid_data", fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_location")
 str(p$get_data(), max.level = 1)
+
+# Keyed data: give the analysis
+p <- plnr::Plan$new()
+p$add_data("d", fn = function(scenario) paste("data for", scenario))
+p$add_argset(name = "a", scenario = "null")
+p$get_data("a")$d
 
 ## ------------------------------------------------
 ## Method `Plan$get_analysis()`
@@ -345,12 +363,51 @@ wins over \code{fn_name}, and \code{fn_name} wins over \code{fn}.
     \describe{
       \item{\code{name}}{Character string. The name of the dataset in the list that
 \code{get_data()} returns.}
-      \item{\code{fn}}{Optional. A function with no arguments that returns the dataset.}
+      \item{\code{fn}}{Optional. A function that returns the dataset.}
       \item{\code{fn_name}}{Optional. The name of such a function, as a character string.
 \code{"pkg::fn"} also works.}
       \item{\code{direct}}{Optional. The dataset itself.}
     }
     \if{html}{\out{</div>}}
+  }
+  \subsection{Details}{
+    The key fields of a data function are its arguments without a default,
+other than \code{...}. A data function without a key field makes one dataset
+for the whole run: the plan calls it once, with no arguments. A data
+function with key fields makes keyed data:
+\itemize{
+\item For each analysis, the plan calls the function with the key fields of
+the argset, by name. Arguments with a default keep their default, and
+\code{...} gets nothing.
+\item The plan keeps the dataset under the values of the key fields, and
+gives the same object to each analysis with the same values.
+\item If an argset does not have a key field, the run stops before the first
+analysis.
+\item Two values are the same only when they have the same type and the same
+value. So \code{1} and \code{1L} are different, \code{NA} and \code{NA_character_} are
+different, and \code{NULL} is a value.
+\item When no remaining analysis of the run needs a kept dataset, the plan
+drops it.
+}
+
+The plan calls a keyed data function exactly once for each distinct set
+of values, in \code{run_all()} with or without foreach and in
+\code{run_all_parallel()}. \code{run_one()} and \code{get_data()} call it once for each
+call. A parallel run puts the analyses that share a value of any keyed
+data source in one group, and runs each group in one task. So a run has
+at most one busy worker for each group:
+\itemize{
+\item With one keyed data source, there is one group for each set of values.
+\item With one source keyed by \code{scenario} and one by \code{scenario} and \code{sim},
+there is one group for each scenario.
+\item With one source keyed by \code{scenario} and one by \code{sim}, all analyses are
+in one group, and the run is sequential.
+}
+
+On a PSOCK worker, a data function finds the objects of the environment
+where you defined it. It does not find the objects of the global
+environment of the main process. Pass such an object as an argset field,
+or define the function inside another function.
   }
   \subsection{Returns}{
     The stored data source, invisibly: a list that holds \code{fn},
@@ -366,6 +423,18 @@ p$add_data("data_1", fn = data_fn)
 p$add_data("data_2", fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_location")
 p$add_data("data_3", direct = plnr::nor_covid19_cases_by_time_location)
 names(p$get_data())
+
+# Keyed data: one simulated dataset for each value of `sim`
+p <- plnr::Plan$new()
+p$add_data("sim_data", fn = function(sim) {
+  set.seed(sim)
+  return(rnorm(5))
+})
+p$add_argset_from_list(plnr::expand_list(sim = 1:2, stat = c("mean", "max")))
+p$apply_action_fn_to_all_argsets(fn = function(data, argset) {
+  return(match.fun(argset$stat)(data$sim_data))
+})
+unlist(p$run_all())
 }
     \if{html}{\out{</div>}}
   }
@@ -771,17 +840,28 @@ analysis.
 \if{latex}{\out{\hypertarget{method-Plan-get_data}{}}}
 \subsection{\code{Plan$get_data()}}{
   Load every data source, and return the datasets as a named
-list.
+list. For a plan with keyed data, give an analysis: \code{get_data()} then
+returns the list that the action function of that analysis gets.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{Plan$get_data()}
+    \preformatted{Plan$get_data(index_analysis = NULL)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{index_analysis}}{Optional. The position of an analysis, or its name.
+A plan with keyed data needs it, and \code{get_data()} without it stops with
+an error. A plan without keyed data does not use it.}
+    }
     \if{html}{\out{</div>}}
   }
   \subsection{Returns}{
     A named list with one element for each dataset, and an element
-\code{hash}. \code{hash$current} is the spookyhash digest of the datasets.
-\code{hash$current_elements} holds one digest for each dataset. plnr does not
-read these digests.
+\code{hash}. \code{hash$current_elements} holds one spookyhash digest for each
+dataset. Without keyed data, \code{hash$current} is the digest of the
+datasets. With keyed data, it is the digest of \code{hash$current_elements},
+so that each dataset is hashed once. plnr does not read these digests.
 
 If the only data source is \code{data__________go_up_one_level} and it returns
 a named list, that list holds the datasets.
@@ -791,6 +871,12 @@ a named list, that list holds the datasets.
     \preformatted{p <- plnr::Plan$new()
 p$add_data("covid_data", fn_name = "plnr::example_data_fn_nor_covid19_cases_by_time_location")
 str(p$get_data(), max.level = 1)
+
+# Keyed data: give the analysis
+p <- plnr::Plan$new()
+p$add_data("d", fn = function(scenario) paste("data for", scenario))
+p$add_argset(name = "a", scenario = "null")
+p$get_data("a")$d
 }
     \if{html}{\out{</div>}}
   }
@@ -906,7 +992,8 @@ p$get_argsets_as_dt()
 \if{html}{\out{<a id="method-Plan-run_one_with_data"></a>}}
 \if{latex}{\out{\hypertarget{method-Plan-run_one_with_data}{}}}
 \subsection{\code{Plan$run_one_with_data()}}{
-  Run one analysis on data that you give it.
+  Run one analysis on data that you give it. The plan calls
+no data function, also no keyed data function.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{Plan$run_one_with_data(index_analysis, data, ...)}
@@ -946,8 +1033,8 @@ p$run_one_with_data("analysis_1", data)
 \if{html}{\out{<a id="method-Plan-run_one"></a>}}
 \if{latex}{\out{\hypertarget{method-Plan-run_one}{}}}
 \subsection{\code{Plan$run_one()}}{
-  Run one analysis. \code{run_one()} loads the data with \code{get_data()}
-each time you call it.
+  Run one analysis. \code{run_one()} loads the data for that
+analysis with \code{get_data()} each time you call it.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{Plan$run_one(index_analysis, ...)}
@@ -985,7 +1072,8 @@ p$run_one("analysis_1")
 \if{html}{\out{<a id="method-Plan-run_all_with_data"></a>}}
 \if{latex}{\out{\hypertarget{method-Plan-run_all_with_data}{}}}
 \subsection{\code{Plan$run_all_with_data()}}{
-  Run every analysis on data that you give it.
+  Run every analysis on data that you give it. Every analysis
+gets \code{data}. The plan calls no data function, also no keyed data function.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{Plan$run_all_with_data(data, ..., .plnr.options = NULL)}
@@ -1031,7 +1119,8 @@ results <- p$run_all_with_data(data)
 \if{latex}{\out{\hypertarget{method-Plan-run_all}{}}}
 \subsection{\code{Plan$run_all()}}{
   Run every analysis. \code{run_all()} loads the data once with
-\code{get_data()}, and passes it to every analysis.
+\code{get_data()}, and passes it to every analysis. \code{add_data()} gives how
+often it calls a keyed data function.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{Plan$run_all(...)}
@@ -1114,6 +1203,12 @@ if (requireNamespace("progressr", quietly = TRUE)) {
 \code{pbmcapply::pbmclapply()}, which shows a progress bar. It loads the data once
 with \code{get_data()}. Windows cannot fork. There, pbmcapply sets \code{mc.cores} to
 1, warns, and runs the analyses in sequence.
+
+With keyed data, each task is one group of analyses, as \code{add_data()}
+describes, and the progress bar counts groups. An error gives a
+\code{try-error} to its own analysis only. An error in a keyed data function
+goes to each analysis that needs that dataset. Without keyed data, an
+error gives a \code{try-error} to each analysis that ran in the same process.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{Plan$run_all_parallel(mc.cores = getOption("mc.cores", 2L), ...)}
