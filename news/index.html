@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">plnr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.11.17</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.11.18</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,6 +45,15 @@
       <small>Source: <a href="https://github.com/raubreywhite/plnr/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2026.11.18" id="version-20261118">Version 2026.11.18<a class="anchor" aria-label="anchor" href="#version-20261118"></a></h2>
+<div class="section level3">
+<h3 id="performance-2026-11-18">Performance<a class="anchor" aria-label="anchor" href="#performance-2026-11-18"></a></h3>
+<ul><li>plnr no longer calls <code><a href="https://rdrr.io/r/base/gc.html" class="external-link">gc()</a></code> after each analysis. One call took about 45 ms. On one machine with R 4.6.0, data.table and ggplot2, 2,000 trivial analyses took 0.016 s in <code>run_all()</code>, against 92 s before. With keyed data of 200 keys, they took 0.11 s, against 95 s.</li>
+<li>Peak memory can be higher, because R now collects only when it needs memory. Each of 200 analyses copied a 16 MB column of one 2e6-row data.table. The peak vector memory that <code><a href="https://rdrr.io/r/base/gc.html" class="external-link">gc()</a></code> reports rose from 62 Mb to 108 Mb.</li>
+<li>Finalizers run later for the same reason. An analysis that leaves a connection open for a finalizer to close MUST close it itself, for example with <code><a href="https://rdrr.io/r/base/on.exit.html" class="external-link">on.exit()</a></code>.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2026.11.17" id="version-20261117">Version 2026.11.17<a class="anchor" aria-label="anchor" href="#version-20261117"></a></h2>
 <div class="section level3">
