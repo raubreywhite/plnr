@@ -719,7 +719,6 @@ Plan <- R6::R6Class(
             }
           }
           retval[[i]] <- run_one_with_data(index_analysis = i, data = data, ...)
-          gc(FALSE)
         }
       } else {
         # running in parallel
@@ -759,9 +758,7 @@ Plan <- R6::R6Class(
                 private$pb_progressor()
               }
             }
-            retval_i <- run_one_with_data(index_analysis = i, data = data, ...)
-            gc(FALSE)
-            retval_i
+            run_one_with_data(index_analysis = i, data = data, ...)
           }
       }
 
@@ -1167,7 +1164,6 @@ Plan <- R6::R6Class(
           retval[j] <- list(private$keyed_run_one(state, sources, keys, i, ...))
         }
         keyed_release(state, keys[[i]])
-        gc(FALSE)
       }
       return(retval)
     },

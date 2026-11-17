@@ -1,3 +1,11 @@
+# Version 2026.11.18
+
+## Performance
+
+- plnr no longer calls `gc()` after each analysis. One call took about 45 ms. On one machine with R 4.6.0, data.table and ggplot2, 2,000 trivial analyses took 0.016 s in `run_all()`, against 92 s before. With keyed data of 200 keys, they took 0.11 s, against 95 s.
+- Peak memory can be higher, because R now collects only when it needs memory. Each of 200 analyses copied a 16 MB column of one 2e6-row data.table. The peak vector memory that `gc()` reports rose from 62 Mb to 108 Mb.
+- Finalizers run later for the same reason. An analysis that leaves a connection open for a finalizer to close MUST close it itself, for example with `on.exit()`.
+
 # Version 2026.11.17
 
 ## New features
