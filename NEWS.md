@@ -1,3 +1,14 @@
+# Version 2026.11.19
+
+## Behaviour changes
+
+- `run_all()` and `run_all_with_data()` call `gc(FALSE)` after an analysis again. They call it only when 1 second of elapsed time passed since the last plnr collection in that R process. `run_all_parallel()` does the same with keyed data, and does not collect without it. The first check in a process only records the time. Each foreach or forked worker keeps its own time, so each worker throttles itself.
+- Version 2026.11.18 never called `gc()`. Its NEWS said that R collects when it needs memory. cs9 runs long sequential plans under a memory limit and relied on a collection inside each plan, so plnr collects again.
+- One call takes about 46 ms, so the calls take at most about 5% of the run time. On one machine with R 4.6.0, data.table and ggplot2, 2,000 trivial analyses took 0.019 s in `run_all()`. They took 0.016 s in 2026.11.18 and 92 s in 2026.11.17. With keyed data of 200 keys, they took 0.13 s, against 0.12 s and 95 s.
+- Short plans keep the peak memory of 2026.11.18. 200 analyses that each copy a 16 MB column ran for 2.2 s, with a peak vector memory of 108 Mb that `gc()` reports. In 2026.11.17 the peak was 62 Mb.
+- A sequential plan of 60 analyses that each run 0.5 s and hold 200 MB took 31.8 s, with a peak of 367 Mb. With no collection it took 30.3 s and 318 Mb. With a collection after each analysis it took 33.0 s and 353 Mb. In this case, a collection inside the plan did not lower the peak.
+- An object that an analysis drops is finalized at the next collection, by R or by plnr. An analysis that leaves a connection open for a finalizer to close MUST close it itself, for example with `on.exit()`.
+
 # Version 2026.11.18
 
 ## Performance

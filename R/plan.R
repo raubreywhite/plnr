@@ -70,6 +70,39 @@ hash_it <- function(x) {
   return(digest::digest(x))
 }
 
+# plnr calls gc(FALSE) after an analysis only when this many seconds of
+# elapsed time passed since its last collection. One call took about 46 ms
+# with data.table and ggplot2 loaded, so the calls take at most about 5% of
+# the run time.
+gc_interval_seconds <- 1
+
+# The elapsed time of the last collection that plnr made in this process.
+# NULL until the first check, which only records the time. Each process has
+# its own copy, so each foreach or forked worker throttles itself.
+gc_state <- new.env(parent = emptyenv())
+gc_state$last <- NULL
+
+# The elapsed time in seconds. Tests replace this function with a counter.
+gc_clock <- function() {
+  return(proc.time()[["elapsed"]])
+}
+
+# Call gc(FALSE) if gc_interval_seconds passed since the last collection that
+# plnr made in this process. Returns TRUE if it collected.
+gc_if_due <- function() {
+  now <- gc_clock()
+  if (is.null(gc_state$last)) {
+    gc_state$last <- now
+    return(invisible(FALSE))
+  }
+  if (now - gc_state$last < gc_interval_seconds) {
+    return(invisible(FALSE))
+  }
+  gc(FALSE)
+  gc_state$last <- now
+  return(invisible(TRUE))
+}
+
 # The environment that a plan stores with `fn_name`: the local environment
 # where the name resolves now, in step 2 of get_anything(). NULL when the name
 # is qualified, or resolves only globally or in plnr. The plan stores nothing
@@ -719,6 +752,7 @@ Plan <- R6::R6Class(
             }
           }
           retval[[i]] <- run_one_with_data(index_analysis = i, data = data, ...)
+          gc_if_due()
         }
       } else {
         # running in parallel
@@ -742,6 +776,7 @@ Plan <- R6::R6Class(
 
         # A PSOCK worker gets only the variables of this frame. The body also
         # needs private and run_one_with_data, which live in the object.
+        # The body returns the value of the analysis, not that of gc().
         retval <- foreach(
           i = self$x_seq_along(),
           .export = c("private", "run_one_with_data"),
@@ -758,7 +793,9 @@ Plan <- R6::R6Class(
                 private$pb_progressor()
               }
             }
-            run_one_with_data(index_analysis = i, data = data, ...)
+            retval_i <- run_one_with_data(index_analysis = i, data = data, ...)
+            private$gc_check()
+            retval_i
           }
       }
 
@@ -911,6 +948,12 @@ Plan <- R6::R6Class(
         analyses[[i]]$fn_env <<- fn_env
       }
       return(invisible(NULL))
+    },
+
+    # The foreach body calls gc_if_due() through private, which a PSOCK
+    # worker receives.
+    gc_check = function() {
+      return(gc_if_due())
     },
 
     use_foreach_decision = function() {
@@ -1164,6 +1207,7 @@ Plan <- R6::R6Class(
           retval[j] <- list(private$keyed_run_one(state, sources, keys, i, ...))
         }
         keyed_release(state, keys[[i]])
+        gc_if_due()
       }
       return(retval)
     },

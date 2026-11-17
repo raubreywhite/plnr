@@ -1,6 +1,6 @@
 Package: plnr
 Title: A Framework for Planning and Executing Analyses
-Version: 2026.11.18
+Version: 2026.11.19
 Authors@R:
     c(
       person(
