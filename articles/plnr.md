@@ -29,7 +29,7 @@ builds both kinds on real data.
 library(plnr)
 ```
 
-    ## plnr 2026.11.18
+    ## plnr 2026.11.19
     ## https://www.rwhite.no/plnr/
 
 ``` r
@@ -223,7 +223,7 @@ str(p$get_data(), max.level = 1)
 
     ## List of 2
     ##  $ deaths:Classes 'data.table' and 'data.frame': 4 obs. of  2 variables:
-    ##   ..- attr(*, ".internal.selfref")=<pointer: 0x557a208c6190> 
+    ##   ..- attr(*, ".internal.selfref")=<pointer: 0x58d75fffe190> 
     ##  $ hash  :List of 2
 
 To develop an action function line by line, start it with
