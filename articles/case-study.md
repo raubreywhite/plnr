@@ -12,21 +12,23 @@ registry, a sentinel system or a notification system.
 
 6
 
-types of surveillance data
+### types of surveillance data
 
-from GP consultations to deaths
+From primary care consultations to deaths, in one pipeline at NIPH/FHI.
 
 7
 
-registries
+### registries
 
-in three file formats
+In three file formats. An eighth registry joins when the hospital
+extract has it.
 
 Weekly
 
-since November 2023
+### since November 2023
 
-into the national status reports
+The results go into the national status reports on respiratory
+infections.
 
 ## The structure
 

@@ -1075,10 +1075,10 @@ p$add_argset_from_list(plnr::expand_list(var_1 = 1:2, var_2 = c("i", "j")))
 p$get_argsets_as_dt()
 #>                           name_analysis index_analysis  var_1  var_2
 #>                                  <char>          <int> <list> <list>
-#> 1: fb0bc760-9d67-45fe-b05a-308f1e6a6f91              1      1      i
-#> 2: 6245d495-9e88-441d-a1ca-3a004828073b              2      1      j
-#> 3: d3efaa82-721a-4b69-bd8e-11399eb92fbe              3      2      i
-#> 4: eb511f91-385d-4f91-b93c-4f7c7a842b20              4      2      j
+#> 1: 368fed8d-0b06-41c4-ab33-0a81584374aa              1      1      i
+#> 2: fe2cf363-5f40-4086-9aad-a725184395f3              2      1      j
+#> 3: 8ac71639-db12-476d-aa68-694eab02d4d7              3      2      i
+#> 4: 8c23b99b-c478-4419-ac1e-bf5b1b2e8047              4      2      j
 
 ## ------------------------------------------------
 ## Method `Plan$add_analysis()`
