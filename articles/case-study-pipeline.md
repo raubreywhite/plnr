@@ -150,10 +150,11 @@ q
 
 ![](case-study-pipeline_files/figure-html/unnamed-chunk-6-1.png)
 
-## The same structure at FHI
+## The same structure in production
 
-FHI runs the trend analysis of its respiratory surveillance with a
-version of this structure, as [the
+The Norwegian Institute of Public Health/Folkehelseinstituttet
+(NIPH/FHI) runs the trend analysis of its respiratory surveillance with
+a version of this structure, as [the
 overview](https://www.rwhite.no/plnr/articles/case-study.md) describes.
 Each registry has a function that returns a table that follows the
 contract. Four plnr plans then run in sequence:

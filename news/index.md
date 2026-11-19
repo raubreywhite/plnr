@@ -41,7 +41,8 @@
   contract for each registry, the methods in an analysis package
   (csalert), and one plnr plan over every indicator. The overview
   describes the same structure in production at the Norwegian Institute
-  of Public Health. The articles run on synthetic data.
+  of Public Health/Folkehelseinstituttet (NIPH/FHI). The articles run on
+  synthetic data.
 
 ## Version 2026.11.18
 
