@@ -113,9 +113,9 @@ q <- q + theme(axis.line = element_line(colour = "black", linewidth = 0.6), axis
 q
 ```
 
-## The same structure at FHI
+## The same structure in production
 
-FHI runs the trend analysis of its respiratory surveillance with a version of this structure, as [the overview](case-study.html) describes. Each registry has a function that returns a table that follows the contract. Four plnr plans then run in sequence:
+The Norwegian Institute of Public Health/Folkehelseinstituttet (NIPH/FHI) runs the trend analysis of its respiratory surveillance with a version of this structure, as [the overview](case-study.html) describes. Each registry has a function that returns a table that follows the contract. Four plnr plans then run in sequence:
 
 1. **Quality control.** One analysis checks every registry and removes known bad records.
 2. **Trends.** One analysis for each indicator, as in this article, with csalert.

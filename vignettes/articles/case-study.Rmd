@@ -5,7 +5,7 @@ author: "[Richard Aubrey White](https://www.rwhite.no)"
 
 A ministry of health holds many registries, with different formats, owners and delivery schedules. Surveillance runs the same analysis on all of them every week. In this case study, a registry is any source of surveillance data: a registry, a sentinel system or a notification system.
 
-This case study shows a structure in three layers for this work. The Norwegian Institute of Public Health (FHI) uses a version of it for its weekly respiratory surveillance.
+This case study shows a structure in three layers for this work. The Norwegian Institute of Public Health/Folkehelseinstituttet (NIPH/FHI) uses a version of it for its weekly respiratory surveillance.
 
 ## In production at FHI
 
