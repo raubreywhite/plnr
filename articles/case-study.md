@@ -103,5 +103,15 @@ reads it.
 NIPH/FHI’s methods are in the methods package
 [csalert](https://niphr.github.io/csalert/), which part 2 runs.
 
-The three articles run on synthetic data. The code on each page runs as
+The three parts run on synthetic data. The code on each page runs as
 written, and the page shows its output.
+
+## The case study
+
+- **Overview: weekly surveillance over many registries**
+- [Part 1: a contract for each
+  registry](https://www.rwhite.no/plnr/articles/case-study-contract.md)
+- [Part 2: the methods are in
+  packages](https://www.rwhite.no/plnr/articles/case-study-methods.md)
+- [Part 3: one pipeline over every
+  registry](https://www.rwhite.no/plnr/articles/case-study-pipeline.md)

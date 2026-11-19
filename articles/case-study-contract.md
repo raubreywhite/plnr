@@ -361,3 +361,13 @@ and changes it when the raw format changes.
 the surveillance methods on one indicator. [Part
 3](https://www.rwhite.no/plnr/articles/case-study-pipeline.md) runs them
 on every indicator of every registry.
+
+## The case study
+
+- [Overview: weekly surveillance over many
+  registries](https://www.rwhite.no/plnr/articles/case-study.md)
+- **Part 1: a contract for each registry**
+- [Part 2: the methods are in
+  packages](https://www.rwhite.no/plnr/articles/case-study-methods.md)
+- [Part 3: one pipeline over every
+  registry](https://www.rwhite.no/plnr/articles/case-study-pipeline.md)

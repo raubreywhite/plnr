@@ -171,3 +171,13 @@ contract. Four plnr plans then run in sequence:
 4.  **Figures.** One analysis writes the figures as image files.
 
 A Quarto document then renders the weekly report from the saved tables.
+
+## The case study
+
+- [Overview: weekly surveillance over many
+  registries](https://www.rwhite.no/plnr/articles/case-study.md)
+- [Part 1: a contract for each
+  registry](https://www.rwhite.no/plnr/articles/case-study-contract.md)
+- [Part 2: the methods are in
+  packages](https://www.rwhite.no/plnr/articles/case-study-methods.md)
+- **Part 3: one pipeline over every registry**

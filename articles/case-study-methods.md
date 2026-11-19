@@ -154,3 +154,13 @@ csalert also reruns each nowcast method on past weeks whose counts are
 now complete, and scores the result. A [csalert
 vignette](https://niphr.github.io/csalert/articles/pipeline.html) runs
 every step, including this validation.
+
+## The case study
+
+- [Overview: weekly surveillance over many
+  registries](https://www.rwhite.no/plnr/articles/case-study.md)
+- [Part 1: a contract for each
+  registry](https://www.rwhite.no/plnr/articles/case-study-contract.md)
+- **Part 2: the methods are in packages**
+- [Part 3: one pipeline over every
+  registry](https://www.rwhite.no/plnr/articles/case-study-pipeline.md)
