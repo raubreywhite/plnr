@@ -57,7 +57,7 @@ In this case study, a registry is any source of surveillance data: a registry, a
 <figcaption>The three layers. Each registry team maintains one registry package. The pipeline reads only tables that follow the data contract.</figcaption>
 </figure>
 
-| Layer | Holds | Owner | Article |
+| Layer | Holds | Owner | Part |
 |---|---|---|---|
 | Registry packages | One package for each registry. It reads the raw data and returns a table that follows the data contract. | The registry team | [1. A contract for each registry](case-study-contract.html) |
 | Methods packages | The surveillance methods: nowcasting, trends and intensity levels. They read tables that follow the data contract. | The methods team | [2. The methods are in packages](case-study-methods.html) |
@@ -130,6 +130,6 @@ The registries arrive as delimited text files, Excel workbooks and R data files.
 
 At NIPH/FHI, the registry functions are part of the pipeline code, one function for each registry. This case study puts each function in its own registry package. The team that owns a registry then also owns the code that reads it.
 
-NIPH/FHI's methods are in the methods package [csalert](https://niphr.github.io/csalert/), which article 2 runs.
+NIPH/FHI's methods are in the methods package [csalert](https://niphr.github.io/csalert/), which part 2 runs.
 
 The three articles run on synthetic data. The code on each page runs as written, and the page shows its output.

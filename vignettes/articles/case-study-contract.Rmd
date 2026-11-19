@@ -1,5 +1,5 @@
 ---
-title: "Article 1: a contract for each registry"
+title: "Case study, part 1: a contract for each registry"
 author: "[Richard Aubrey White](https://www.rwhite.no)"
 ---
 
@@ -58,7 +58,7 @@ A registry package MUST return a `data.table` that follows these 9 rules. The ta
 8. Where `denominator` exists, `numerator` MUST NOT be above it.
 9. The table MUST have rows with `location_code` equal to `national`.
 
-Each row is one cell of a reporting triangle: the count of one reference week that arrived on one reporting date. The sum over the reporting dates is the count of the reference week as known today. The methods need the reporting dates to nowcast the most recent weeks, as [article 2](case-study-methods.html) shows. A nowcast estimates the final count of a week from the counts reported so far.
+Each row is one cell of a reporting triangle: the count of one reference week that arrived on one reporting date. The sum over the reporting dates is the count of the reference week as known today. The methods need the reporting dates to nowcast the most recent weeks, as [part 2](case-study-methods.html) shows. A nowcast estimates the final count of a week from the counts reported so far.
 
 Under rule 6, the counts of a registry without reporting dates are complete on arrival. The methods do not nowcast them.
 
@@ -108,4 +108,4 @@ A registry package holds three things:
 
 The fake data lets the registry team and the methods team test their code without access to the real data. The registry team owns the package and changes it when the raw format changes.
 
-[Article 2](case-study-methods.html) runs the surveillance methods on one indicator. [Article 3](case-study-pipeline.html) runs them on every indicator of every registry.
+[Part 2](case-study-methods.html) runs the surveillance methods on one indicator. [Part 3](case-study-pipeline.html) runs them on every indicator of every registry.

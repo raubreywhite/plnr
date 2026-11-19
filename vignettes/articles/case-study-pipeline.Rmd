@@ -1,5 +1,5 @@
 ---
-title: "Article 3: one pipeline over every registry"
+title: "Case study, part 3: one pipeline over every registry"
 author: "[Richard Aubrey White](https://www.rwhite.no)"
 ---
 
@@ -16,7 +16,7 @@ read_code(registries)
 ```{r, ref.label = c("raw", "get_data", "check_contract"), include = FALSE}
 ```
 
-The pipeline uses the two other layers. It loads the table of every registry package of [article 1](case-study-contract.html). It then runs the methods of [article 2](case-study-methods.html) on every indicator in every location, one plnr analysis for each.
+The pipeline uses the two other layers. It loads the table of every registry package of [part 1](case-study-contract.html). It then runs the methods of [part 2](case-study-methods.html) on every indicator in every location, one plnr analysis for each.
 
 <figure style="margin: 1.5em 0;">
 <svg viewBox="0 0 680 250" role="img" aria-labelledby="fan-title" style="width: 100%; max-width: 680px; height: auto; display: block; margin: 0 auto; font-family: inherit;">
@@ -50,7 +50,7 @@ The pipeline uses the two other layers. It loads the table of every registry pac
 
 ## Data: one plnr data source for each registry
 
-This article first runs the code of article 1 that makes the synthetic registries, their tables and `check_contract()`. It does not print that code again.
+This article first runs the code of part 1 that makes the synthetic registries, their tables and `check_contract()`. It does not print that code again.
 
 ```{r, message = FALSE}
 library(csalert)
@@ -86,7 +86,7 @@ argsets[, .N, keyby = .(source, has_denominator, arrives_late)]
 
 ## One action function
 
-The action function runs the csalert methods of article 2 on one indicator in one location. The two facts in the argset decide which nowcast and which measure it uses. It returns the growth rate of the newest week. Article 2 also adds the intensity levels, which this function leaves out.
+The action function runs the csalert methods of part 2 on one indicator in one location. The two facts in the argset decide which nowcast and which measure it uses. It returns the growth rate of the newest week. Part 2 also adds the intensity levels, which this function leaves out.
 
 ```{r}
 trend_fn <- function(data, argset) {

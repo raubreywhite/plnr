@@ -25,7 +25,7 @@ articles:
   - plnr
   - adding_analyses
 - title: "Case study: many registries"
-  navbar: "Case study"
+  navbar: ~
   contents:
   - articles/case-study
   - articles/case-study-contract
