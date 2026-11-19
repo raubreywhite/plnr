@@ -132,4 +132,11 @@ At NIPH/FHI, the code that reads each registry is one function in the pipeline c
 
 NIPH/FHI's methods are in the methods package [csalert](https://niphr.github.io/csalert/), which part 2 runs.
 
-The three articles run on synthetic data. The code on each page runs as written, and the page shows its output.
+The three parts run on synthetic data. The code on each page runs as written, and the page shows its output.
+
+## The case study
+
+- **Overview: weekly surveillance over many registries**
+- [Part 1: a contract for each registry](case-study-contract.html)
+- [Part 2: the methods are in packages](case-study-methods.html)
+- [Part 3: one pipeline over every registry](case-study-pipeline.html)

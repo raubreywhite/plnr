@@ -109,3 +109,10 @@ A registry package holds three things:
 The fake data lets the registry team and the methods team test their code without access to the real data. The registry team owns the package and changes it when the raw format changes.
 
 [Part 2](case-study-methods.html) runs the surveillance methods on one indicator. [Part 3](case-study-pipeline.html) runs them on every indicator of every registry.
+
+## The case study
+
+- [Overview: weekly surveillance over many registries](case-study.html)
+- **Part 1: a contract for each registry**
+- [Part 2: the methods are in packages](case-study-methods.html)
+- [Part 3: one pipeline over every registry](case-study-pipeline.html)

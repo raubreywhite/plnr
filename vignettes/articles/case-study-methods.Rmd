@@ -101,3 +101,10 @@ The hospital indicator has no denominator. The other functions run on its counts
 [Part 3](case-study-pipeline.html) reads from the data whether each indicator has a denominator and a reporting delay. It then runs the methods on every indicator.
 
 csalert also reruns each nowcast method on past weeks whose counts are now complete, and scores the result. A [csalert vignette](https://niphr.github.io/csalert/articles/pipeline.html) runs every step, including this validation.
+
+## The case study
+
+- [Overview: weekly surveillance over many registries](case-study.html)
+- [Part 1: a contract for each registry](case-study-contract.html)
+- **Part 2: the methods are in packages**
+- [Part 3: one pipeline over every registry](case-study-pipeline.html)

@@ -153,3 +153,10 @@ The Norwegian Institute of Public Health/Folkehelseinstituttet (NIPH/FHI) runs t
 4. **Figures.** One analysis writes the figures as image files.
 
 A Quarto document then renders the weekly report from the saved tables.
+
+## The case study
+
+- [Overview: weekly surveillance over many registries](case-study.html)
+- [Part 1: a contract for each registry](case-study-contract.html)
+- [Part 2: the methods are in packages](case-study-methods.html)
+- **Part 3: one pipeline over every registry**
