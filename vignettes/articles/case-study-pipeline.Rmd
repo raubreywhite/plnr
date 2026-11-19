@@ -37,12 +37,12 @@ The pipeline uses the two other layers. It loads the table of every registry pac
 </g>
 <g fill="currentColor" text-anchor="middle" font-size="12">
 <text x="65" y="56">gp</text><text x="65" y="126">hosp</text><text x="65" y="196">lab</text>
-<text x="245" y="44" font-weight="bold">add_data()</text><text x="245" y="62">one data source</text><text x="245" y="78">for each registry</text>
-<text x="245" y="156" font-weight="bold">argsets</text><text x="245" y="174">read from the data:</text><text x="245" y="190">10 pairs of an</text><text x="245" y="206">indicator and a location</text>
-<text x="442" y="44">gp_ili, 4 locations</text><text x="442" y="96">hosp_sari, 4 locations</text><text x="442" y="148">lab_influenza</text><text x="442" y="200">lab_rsv</text>
-<text x="615" y="84">one results</text><text x="615" y="100">table</text>
-<text x="615" y="164">one figure</text><text x="615" y="180">for all</text>
-<text x="442" y="240" font-size="11">the same action function in each analysis</text>
+<text x="245" y="44" font-weight="bold">add_data()</text><text x="245" y="62">one&#160;data&#160;source</text><text x="245" y="78">for&#160;each&#160;registry</text>
+<text x="245" y="156" font-weight="bold">argsets</text><text x="245" y="174">read&#160;from&#160;the&#160;data:</text><text x="245" y="190">10&#160;pairs&#160;of&#160;an</text><text x="245" y="206">indicator&#160;and&#160;a&#160;location</text>
+<text x="442" y="44">gp_ili,&#160;4&#160;locations</text><text x="442" y="96">hosp_sari,&#160;4&#160;locations</text><text x="442" y="148">lab_influenza</text><text x="442" y="200">lab_rsv</text>
+<text x="615" y="84">one&#160;results</text><text x="615" y="100">table</text>
+<text x="615" y="164">one&#160;figure</text><text x="615" y="180">for&#160;all</text>
+<text x="442" y="240" font-size="11">the&#160;same&#160;action&#160;function&#160;in&#160;each&#160;analysis</text>
 </g>
 </svg>
 <figcaption>The plan of this article. A new registry adds one data source. A new indicator or location adds analyses without a change to the code.</figcaption>

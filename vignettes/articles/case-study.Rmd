@@ -39,19 +39,19 @@ In this case study, a registry is any source of surveillance data: a registry, a
 <line x1="550" y1="178" x2="573" y2="178"/>
 </g>
 <g fill="currentColor" text-anchor="middle" font-size="12">
-<text x="72" y="46">GP consultations</text><text x="72" y="102">Hospital admissions</text><text x="72" y="158">Laboratory tests</text><text x="72" y="214">Deaths</text>
+<text x="72" y="46">GP&#160;consultations</text><text x="72" y="102">Hospital&#160;admissions</text><text x="72" y="158">Laboratory&#160;tests</text><text x="72" y="214">Deaths</text>
 <text x="72" y="256" font-size="14">...</text>
-<text x="215" y="46">registry package</text><text x="215" y="102">registry package</text><text x="215" y="158">registry package</text><text x="215" y="214">registry package</text>
-<text x="345" y="112" font-weight="bold" font-size="13">One data</text><text x="345" y="128" font-weight="bold" font-size="13">contract</text>
-<text x="345" y="150" font-size="11">checked on</text><text x="345" y="164" font-size="11">every load</text>
-<text x="485" y="45" font-weight="bold" font-size="13">Methods packages</text><text x="485" y="63" font-size="11">nowcast, trend,</text><text x="485" y="77" font-size="11">intensity levels</text>
-<text x="485" y="165" font-weight="bold" font-size="13">The pipeline</text><text x="485" y="183" font-size="11">every indicator,</text><text x="485" y="197" font-size="11">every location</text>
-<text x="622" y="165">Tables,</text><text x="622" y="181">figures,</text><text x="622" y="197">weekly report</text>
+<text x="215" y="46">registry&#160;package</text><text x="215" y="102">registry&#160;package</text><text x="215" y="158">registry&#160;package</text><text x="215" y="214">registry&#160;package</text>
+<text x="345" y="112" font-weight="bold" font-size="13">One&#160;data</text><text x="345" y="128" font-weight="bold" font-size="13">contract</text>
+<text x="345" y="150" font-size="11">checked&#160;on</text><text x="345" y="164" font-size="11">every&#160;load</text>
+<text x="485" y="45" font-weight="bold" font-size="13">Methods&#160;packages</text><text x="485" y="63" font-size="11">nowcast,&#160;trend,</text><text x="485" y="77" font-size="11">intensity&#160;levels</text>
+<text x="485" y="165" font-weight="bold" font-size="13">The&#160;pipeline</text><text x="485" y="183" font-size="11">every&#160;indicator,</text><text x="485" y="197" font-size="11">every&#160;location</text>
+<text x="622" y="165">Tables,</text><text x="622" y="181">figures,</text><text x="622" y="197">weekly&#160;report</text>
 </g>
 <g font-size="12" fill="currentColor">
-<rect x="10" y="272" width="12" height="12" fill="#2166ac" fill-opacity="0.35" stroke="currentColor" stroke-width="0.5"/><text x="28" y="282">Layer 1: registry packages, owned by each registry team</text>
-<rect x="10" y="294" width="12" height="12" fill="#e08214" fill-opacity="0.35" stroke="currentColor" stroke-width="0.5"/><text x="28" y="304">Layer 2: methods packages, owned by the methods team</text>
-<rect x="380" y="272" width="12" height="12" fill="#4d9221" fill-opacity="0.35" stroke="currentColor" stroke-width="0.5"/><text x="398" y="282">Layer 3: the pipeline, owned by</text><text x="398" y="298">the surveillance team</text>
+<rect x="10" y="272" width="12" height="12" fill="#2166ac" fill-opacity="0.35" stroke="currentColor" stroke-width="0.5"/><text x="28" y="282">Layer&#160;1:&#160;registry&#160;packages,&#160;owned&#160;by&#160;each&#160;registry&#160;team</text>
+<rect x="10" y="294" width="12" height="12" fill="#e08214" fill-opacity="0.35" stroke="currentColor" stroke-width="0.5"/><text x="28" y="304">Layer&#160;2:&#160;methods&#160;packages,&#160;owned&#160;by&#160;the&#160;methods&#160;team</text>
+<rect x="380" y="272" width="12" height="12" fill="#4d9221" fill-opacity="0.35" stroke="currentColor" stroke-width="0.5"/><text x="398" y="282">Layer&#160;3:&#160;the&#160;pipeline,&#160;owned&#160;by</text><text x="398" y="298">the&#160;surveillance&#160;team</text>
 </g>
 </svg>
 <figcaption>The three layers. Each registry team maintains one registry package. The pipeline reads only tables that follow the data contract.</figcaption>
@@ -79,8 +79,8 @@ Without a shared format, each method needs code for the format of each registry.
 <svg viewBox="0 0 680 230" role="img" aria-labelledby="nm-title" style="width: 100%; max-width: 680px; height: auto; display: block; margin: 0 auto; font-family: inherit;">
 <title id="nm-title">Left: 3 registries and 3 methods without a contract need 9 links, one for each pair. Right: with a contract they need 6 links, one for each registry and one for each method.</title>
 <g fill="currentColor" text-anchor="middle" font-size="13" font-weight="bold">
-<text x="165" y="18">Without a contract: 3 × 3 = 9 links</text>
-<text x="515" y="18">With a contract: 3 + 3 = 6 links</text>
+<text x="165" y="18">Without&#160;a&#160;contract:&#160;3&#160;×&#160;3&#160;=&#160;9&#160;links</text>
+<text x="515" y="18">With&#160;a&#160;contract:&#160;3&#160;+&#160;3&#160;=&#160;6&#160;links</text>
 </g>
 <g stroke="currentColor" stroke-width="1">
 <g fill="#2166ac" fill-opacity="0.2"><rect x="20" y="40" width="90" height="36" rx="5"/><rect x="20" y="100" width="90" height="36" rx="5"/><rect x="20" y="160" width="90" height="36" rx="5"/><rect x="370" y="40" width="90" height="36" rx="5"/><rect x="370" y="100" width="90" height="36" rx="5"/><rect x="370" y="160" width="90" height="36" rx="5"/></g>
@@ -104,8 +104,8 @@ Without a shared format, each method needs code for the format of each registry.
 <text x="520" y="122" font-weight="bold" font-size="11">contract</text>
 </g>
 <g fill="currentColor" text-anchor="middle" font-size="12">
-<text x="165" y="222">Each link is code that reads one format for one method.</text>
-<text x="515" y="222">Each link is one function of a package.</text>
+<text x="165" y="222">Each&#160;link&#160;is&#160;code&#160;that&#160;reads&#160;one&#160;format&#160;for&#160;one&#160;method.</text>
+<text x="515" y="222">Each&#160;link&#160;is&#160;one&#160;function&#160;of&#160;a&#160;package.</text>
 </g>
 </svg>
 <figcaption>With 20 registries and 5 methods, the difference is 100 links against 25.</figcaption>
