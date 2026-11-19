@@ -2,19 +2,80 @@
 
 A ministry of health holds many registries, with different formats,
 owners and delivery schedules. Surveillance runs the same analysis on
-all of them every week. In this case study, a registry is any source of
-surveillance data: a registry, a sentinel system or a notification
-system.
+all of them every week. This case study shows a structure in three
+layers for this work. The Norwegian Institute of Public
+Health/Folkehelseinstituttet (NIPH/FHI) uses a version of it for its
+weekly respiratory surveillance.
 
-This case study shows a structure in three layers for this work. The
-Norwegian Institute of Public Health/Folkehelseinstituttet (NIPH/FHI)
-uses a version of it for its weekly respiratory surveillance.
+In this case study, a registry is any source of surveillance data: a
+registry, a sentinel system or a notification system.
 
-## In production at FHI
+6
 
-FHI runs its respiratory surveillance trend analysis on this structure
-every week. The results go into the [weekly status reports on covid-19,
-influenza and other respiratory
+### types of surveillance data
+
+From primary care consultations to deaths, in one pipeline at NIPH/FHI.
+
+7
+
+### registries
+
+In three file formats. An eighth registry joins when the hospital
+extract has it.
+
+Weekly
+
+### since November 2023
+
+The results go into the national status reports on respiratory
+infections.
+
+## The structure
+
+![](data:image/svg+xml;base64,PHN2ZyB2aWV3Ym94PSIwIDAgNjgwIDMyMCIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsbGVkYnk9ImZsb3ctdGl0bGUiIHN0eWxlPSJ3aWR0aDogMTAwJTsgbWF4LXdpZHRoOiA2ODBweDsgaGVpZ2h0OiBhdXRvOyBkaXNwbGF5OiBibG9jazsgbWFyZ2luOiAwIGF1dG87IGZvbnQtZmFtaWx5OiBpbmhlcml0OyI+PHRpdGxlIGlkPSJmbG93LXRpdGxlIj4KRWFjaCByZWdpc3RyeSBoYXMgYSByZWdpc3RyeSBwYWNrYWdlLiBFdmVyeSByZWdpc3RyeSBwYWNrYWdlIHJldHVybnMgYQp0YWJsZSB0aGF0IGZvbGxvd3Mgb25lIGRhdGEgY29udHJhY3QuIFRoZSBwaXBlbGluZSByZWFkcyB0aGUgY29udHJhY3QsCnJ1bnMgdGhlIG1ldGhvZHMgcGFja2FnZXMgb24gZXZlcnkgaW5kaWNhdG9yLCBhbmQgbWFrZXMgdGhlIHRhYmxlcywKZmlndXJlcyBhbmQgd2Vla2x5IHJlcG9ydC4KPC90aXRsZT4KPGRlZnM+PG1hcmtlciBpZD0iZmEiIHZpZXdib3g9IjAgMCAxMCAxMCIgcmVmeD0iOSIgcmVmeT0iNSIgbWFya2Vyd2lkdGg9IjYiIG1hcmtlcmhlaWdodD0iNiIgb3JpZW50PSJhdXRvLXN0YXJ0LXJldmVyc2UiPjxwYXRoIGQ9Ik0wLDAgTDEwLDUgTDAsMTAgeiIgZmlsbD0iY3VycmVudENvbG9yIiAvPjwvbWFya2VyPjwvZGVmcz48ZyBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIxIj48ZyBmaWxsPSIjOTk5OTk5IiBmaWxsLW9wYWNpdHk9IjAuMTIiPjxyZWN0IHg9IjEwIiB5PSIyMCIgd2lkdGg9IjEyNSIgaGVpZ2h0PSI0NCIgcng9IjUiIC8+PHJlY3QgeD0iMTAiIHk9Ijc2IiB3aWR0aD0iMTI1IiBoZWlnaHQ9IjQ0IiByeD0iNSIgLz48cmVjdCB4PSIxMCIgeT0iMTMyIiB3aWR0aD0iMTI1IiBoZWlnaHQ9IjQ0IiByeD0iNSIgLz48cmVjdCB4PSIxMCIgeT0iMTg4IiB3aWR0aD0iMTI1IiBoZWlnaHQ9IjQ0IiByeD0iNSIgLz48cmVjdCB4PSI1NzUiIHk9IjEyNSIgd2lkdGg9Ijk1IiBoZWlnaHQ9IjEwNyIgcng9IjUiIC8+PC9nPjxnIGZpbGw9IiMyMTY2YWMiIGZpbGwtb3BhY2l0eT0iMC4yIj48cmVjdCB4PSIxNjAiIHk9IjIwIiB3aWR0aD0iMTEwIiBoZWlnaHQ9IjQ0IiByeD0iNSIgLz48cmVjdCB4PSIxNjAiIHk9Ijc2IiB3aWR0aD0iMTEwIiBoZWlnaHQ9IjQ0IiByeD0iNSIgLz48cmVjdCB4PSIxNjAiIHk9IjEzMiIgd2lkdGg9IjExMCIgaGVpZ2h0PSI0NCIgcng9IjUiIC8+PHJlY3QgeD0iMTYwIiB5PSIxODgiIHdpZHRoPSIxMTAiIGhlaWdodD0iNDQiIHJ4PSI1IiAvPjwvZz48cmVjdCB4PSIyOTUiIHk9IjIwIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjIxMiIgcng9IjUiIGZpbGw9IiMyMTY2YWMiIGZpbGwtb3BhY2l0eT0iMC4wOCIgc3Ryb2tlLWRhc2hhcnJheT0iNSAzIiAvPjxyZWN0IHg9IjQyMCIgeT0iMjAiIHdpZHRoPSIxMzAiIGhlaWdodD0iNzAiIHJ4PSI1IiBmaWxsPSIjZTA4MjE0IiBmaWxsLW9wYWNpdHk9IjAuMiIgLz48cmVjdCB4PSI0MjAiIHk9IjEyNSIgd2lkdGg9IjEzMCIgaGVpZ2h0PSIxMDciIHJ4PSI1IiBmaWxsPSIjNGQ5MjIxIiBmaWxsLW9wYWNpdHk9IjAuMiIgLz48L2c+PGcgc3Ryb2tlPSJjdXJyZW50Q29sb3IiIHN0cm9rZS13aWR0aD0iMS40IiBmaWxsPSJub25lIiBtYXJrZXItZW5kPSJ1cmwoI2ZhKSI+PGxpbmUgeDE9IjEzNSIgeTE9IjQyIiB4Mj0iMTU4IiB5Mj0iNDIiPjwvbGluZT48bGluZSB4MT0iMTM1IiB5MT0iOTgiIHgyPSIxNTgiIHkyPSI5OCI+PC9saW5lPjxsaW5lIHgxPSIxMzUiIHkxPSIxNTQiIHgyPSIxNTgiIHkyPSIxNTQiPjwvbGluZT48bGluZSB4MT0iMTM1IiB5MT0iMjEwIiB4Mj0iMTU4IiB5Mj0iMjEwIj48L2xpbmU+PGxpbmUgeDE9IjI3MCIgeTE9IjQyIiB4Mj0iMjkzIiB5Mj0iNDIiPjwvbGluZT48bGluZSB4MT0iMjcwIiB5MT0iOTgiIHgyPSIyOTMiIHkyPSI5OCI+PC9saW5lPjxsaW5lIHgxPSIyNzAiIHkxPSIxNTQiIHgyPSIyOTMiIHkyPSIxNTQiPjwvbGluZT48bGluZSB4MT0iMjcwIiB5MT0iMjEwIiB4Mj0iMjkzIiB5Mj0iMjEwIj48L2xpbmU+PGxpbmUgeDE9IjM5NSIgeTE9IjE3OCIgeDI9IjQxOCIgeTI9IjE3OCI+PC9saW5lPjxsaW5lIHgxPSI0ODUiIHkxPSI5MCIgeDI9IjQ4NSIgeTI9IjEyMyI+PC9saW5lPjxsaW5lIHgxPSI1NTAiIHkxPSIxNzgiIHgyPSI1NzMiIHkyPSIxNzgiPjwvbGluZT48L2c+PGcgZmlsbD0iY3VycmVudENvbG9yIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LXNpemU9IjEyIj48dGV4dCB4PSI3MiIgeT0iNDYiPkdQIGNvbnN1bHRhdGlvbnM8L3RleHQ+PHRleHQgeD0iNzIiIHk9IjEwMiI+SG9zcGl0YWwKYWRtaXNzaW9uczwvdGV4dD48dGV4dCB4PSI3MiIgeT0iMTU4Ij5MYWJvcmF0b3J5CnRlc3RzPC90ZXh0Pjx0ZXh0IHg9IjcyIiB5PSIyMTQiPkRlYXRoczwvdGV4dD48dGV4dCB4PSI3MiIgeT0iMjU2IiBmb250LXNpemU9IjE0Ij7igKY8L3RleHQ+PHRleHQgeD0iMjE1IiB5PSI0NiI+cmVnaXN0cnkKcGFja2FnZTwvdGV4dD48dGV4dCB4PSIyMTUiIHk9IjEwMiI+cmVnaXN0cnkKcGFja2FnZTwvdGV4dD48dGV4dCB4PSIyMTUiIHk9IjE1OCI+cmVnaXN0cnkKcGFja2FnZTwvdGV4dD48dGV4dCB4PSIyMTUiIHk9IjIxNCI+cmVnaXN0cnkgcGFja2FnZTwvdGV4dD48dGV4dCB4PSIzNDUiIHk9IjExMiIgZm9udC13ZWlnaHQ9ImJvbGQiIGZvbnQtc2l6ZT0iMTMiPk9uZQpkYXRhPC90ZXh0Pjx0ZXh0IHg9IjM0NSIgeT0iMTI4IiBmb250LXdlaWdodD0iYm9sZCIgZm9udC1zaXplPSIxMyI+Y29udHJhY3Q8L3RleHQ+PHRleHQgeD0iMzQ1IiB5PSIxNTAiIGZvbnQtc2l6ZT0iMTEiPmNoZWNrZWQKb248L3RleHQ+PHRleHQgeD0iMzQ1IiB5PSIxNjQiIGZvbnQtc2l6ZT0iMTEiPmV2ZXJ5IGxvYWQ8L3RleHQ+PHRleHQgeD0iNDg1IiB5PSI0NSIgZm9udC13ZWlnaHQ9ImJvbGQiIGZvbnQtc2l6ZT0iMTMiPk1ldGhvZHMKcGFja2FnZXM8L3RleHQ+PHRleHQgeD0iNDg1IiB5PSI2MyIgZm9udC1zaXplPSIxMSI+bm93Y2FzdCwKdHJlbmQsPC90ZXh0Pjx0ZXh0IHg9IjQ4NSIgeT0iNzciIGZvbnQtc2l6ZT0iMTEiPmludGVuc2l0eSBsZXZlbHM8L3RleHQ+PHRleHQgeD0iNDg1IiB5PSIxNjUiIGZvbnQtd2VpZ2h0PSJib2xkIiBmb250LXNpemU9IjEzIj5UaGUKcGlwZWxpbmU8L3RleHQ+PHRleHQgeD0iNDg1IiB5PSIxODMiIGZvbnQtc2l6ZT0iMTEiPmV2ZXJ5CmluZGljYXRvciw8L3RleHQ+PHRleHQgeD0iNDg1IiB5PSIxOTciIGZvbnQtc2l6ZT0iMTEiPmV2ZXJ5CmxvY2F0aW9uPC90ZXh0Pjx0ZXh0IHg9IjYyMiIgeT0iMTY1Ij5UYWJsZXMsPC90ZXh0Pjx0ZXh0IHg9IjYyMiIgeT0iMTgxIj5maWd1cmVzLDwvdGV4dD48dGV4dCB4PSI2MjIiIHk9IjE5NyI+d2Vla2x5CnJlcG9ydDwvdGV4dD48L2c+PGcgZm9udC1zaXplPSIxMiIgZmlsbD0iY3VycmVudENvbG9yIj48cmVjdCB4PSIxMCIgeT0iMjcyIiB3aWR0aD0iMTIiIGhlaWdodD0iMTIiIGZpbGw9IiMyMTY2YWMiIGZpbGwtb3BhY2l0eT0iMC4zNSIgc3Ryb2tlPSJjdXJyZW50Q29sb3IiIHN0cm9rZS13aWR0aD0iMC41IiAvPjx0ZXh0IHg9IjI4IiB5PSIyODIiPkxheWVyCjE6IHJlZ2lzdHJ5IHBhY2thZ2VzLCBvd25lZCBieSBlYWNoIHJlZ2lzdHJ5IHRlYW08L3RleHQ+PHJlY3QgeD0iMTAiIHk9IjI5NCIgd2lkdGg9IjEyIiBoZWlnaHQ9IjEyIiBmaWxsPSIjZTA4MjE0IiBmaWxsLW9wYWNpdHk9IjAuMzUiIHN0cm9rZT0iY3VycmVudENvbG9yIiBzdHJva2Utd2lkdGg9IjAuNSIgLz48dGV4dCB4PSIyOCIgeT0iMzA0Ij5MYXllcgoyOiBtZXRob2RzIHBhY2thZ2VzLCBvd25lZCBieSB0aGUgbWV0aG9kcyB0ZWFtPC90ZXh0PjxyZWN0IHg9IjM4MCIgeT0iMjcyIiB3aWR0aD0iMTIiIGhlaWdodD0iMTIiIGZpbGw9IiM0ZDkyMjEiIGZpbGwtb3BhY2l0eT0iMC4zNSIgc3Ryb2tlPSJjdXJyZW50Q29sb3IiIHN0cm9rZS13aWR0aD0iMC41IiAvPjx0ZXh0IHg9IjM5OCIgeT0iMjgyIj5MYXllcgozOiB0aGUgcGlwZWxpbmUsIG93bmVkIGJ5PC90ZXh0Pjx0ZXh0IHg9IjM5OCIgeT0iMjk4Ij50aGUgc3VydmVpbGxhbmNlCnRlYW08L3RleHQ+PC9nPjwvc3ZnPg==)
+
+The three layers. Each registry team maintains one registry package. The
+pipeline reads only tables that follow the data contract.
+
+| Layer | Holds | Owner | Article |
+|----|----|----|----|
+| Registry packages | One package for each registry. It reads the raw data and returns a table that follows the data contract. | The registry team | [1. A contract for each registry](https://www.rwhite.no/plnr/articles/case-study-contract.md) |
+| Methods packages | The surveillance methods: nowcasting, trends and intensity levels. They read tables that follow the data contract. | The methods team | [2. The methods are in packages](https://www.rwhite.no/plnr/articles/case-study-methods.md) |
+| The pipeline | One plnr plan. It runs the methods on every indicator of every registry. Later plans make the tables, figures and report. | The surveillance team | [3. One pipeline over every registry](https://www.rwhite.no/plnr/articles/case-study-pipeline.md) |
+
+## What the structure gives a ministry
+
+- **A new registry needs one package and one line.** The package returns
+  a table that follows the contract. The pipeline needs one `add_data()`
+  call, and reads the indicators and locations from the data.
+- **A method change applies to every indicator.** The next run uses the
+  changed method for every indicator of every registry, with no change
+  to the pipeline.
+- **Broken data stops the run before the report.** The pipeline checks
+  the contract each time it loads a registry. The error names the
+  registry and every rule it breaks.
+- **Each team works on its own layer.** The registry team does not need
+  to understand the methods. The methods team does not need to read the
+  raw formats.
+- **One results format.** The analysis of every indicator returns the
+  same columns, so one table and one figure show every registry.
+
+## Why one contract
+
+Without a shared format, each method needs code for the format of each
+registry. With a contract, each registry needs one function that writes
+the contract, and each method needs one function that reads it.
+
+![](data:image/svg+xml;base64,PHN2ZyB2aWV3Ym94PSIwIDAgNjgwIDIzMCIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsbGVkYnk9Im5tLXRpdGxlIiBzdHlsZT0id2lkdGg6IDEwMCU7IG1heC13aWR0aDogNjgwcHg7IGhlaWdodDogYXV0bzsgZGlzcGxheTogYmxvY2s7IG1hcmdpbjogMCBhdXRvOyBmb250LWZhbWlseTogaW5oZXJpdDsiPjx0aXRsZSBpZD0ibm0tdGl0bGUiPgpMZWZ0OiAzIHJlZ2lzdHJpZXMgYW5kIDMgbWV0aG9kcyB3aXRob3V0IGEgY29udHJhY3QgbmVlZCA5IGxpbmtzLCBvbmUKZm9yIGVhY2ggcGFpci4gUmlnaHQ6IHdpdGggYSBjb250cmFjdCB0aGV5IG5lZWQgNiBsaW5rcywgb25lIGZvciBlYWNoCnJlZ2lzdHJ5IGFuZCBvbmUgZm9yIGVhY2ggbWV0aG9kLgo8L3RpdGxlPgo8ZyBmaWxsPSJjdXJyZW50Q29sb3IiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTMiIGZvbnQtd2VpZ2h0PSJib2xkIj48dGV4dCB4PSIxNjUiIHk9IjE4Ij5XaXRob3V0IGEgY29udHJhY3Q6IDMgw5cgMyA9IDkgbGlua3M8L3RleHQ+PHRleHQgeD0iNTE1IiB5PSIxOCI+V2l0aCBhIGNvbnRyYWN0OiAzICsgMyA9IDYgbGlua3M8L3RleHQ+PC9nPjxnIHN0cm9rZT0iY3VycmVudENvbG9yIiBzdHJva2Utd2lkdGg9IjEiPjxnIGZpbGw9IiMyMTY2YWMiIGZpbGwtb3BhY2l0eT0iMC4yIj48cmVjdCB4PSIyMCIgeT0iNDAiIHdpZHRoPSI5MCIgaGVpZ2h0PSIzNiIgcng9IjUiIC8+PHJlY3QgeD0iMjAiIHk9IjEwMCIgd2lkdGg9IjkwIiBoZWlnaHQ9IjM2IiByeD0iNSIgLz48cmVjdCB4PSIyMCIgeT0iMTYwIiB3aWR0aD0iOTAiIGhlaWdodD0iMzYiIHJ4PSI1IiAvPjxyZWN0IHg9IjM3MCIgeT0iNDAiIHdpZHRoPSI5MCIgaGVpZ2h0PSIzNiIgcng9IjUiIC8+PHJlY3QgeD0iMzcwIiB5PSIxMDAiIHdpZHRoPSI5MCIgaGVpZ2h0PSIzNiIgcng9IjUiIC8+PHJlY3QgeD0iMzcwIiB5PSIxNjAiIHdpZHRoPSI5MCIgaGVpZ2h0PSIzNiIgcng9IjUiIC8+PC9nPjxnIGZpbGw9IiNlMDgyMTQiIGZpbGwtb3BhY2l0eT0iMC4yIj48cmVjdCB4PSIyMjAiIHk9IjQwIiB3aWR0aD0iOTAiIGhlaWdodD0iMzYiIHJ4PSI1IiAvPjxyZWN0IHg9IjIyMCIgeT0iMTAwIiB3aWR0aD0iOTAiIGhlaWdodD0iMzYiIHJ4PSI1IiAvPjxyZWN0IHg9IjIyMCIgeT0iMTYwIiB3aWR0aD0iOTAiIGhlaWdodD0iMzYiIHJ4PSI1IiAvPjxyZWN0IHg9IjU4MCIgeT0iNDAiIHdpZHRoPSI5MCIgaGVpZ2h0PSIzNiIgcng9IjUiIC8+PHJlY3QgeD0iNTgwIiB5PSIxMDAiIHdpZHRoPSI5MCIgaGVpZ2h0PSIzNiIgcng9IjUiIC8+PHJlY3QgeD0iNTgwIiB5PSIxNjAiIHdpZHRoPSI5MCIgaGVpZ2h0PSIzNiIgcng9IjUiIC8+PC9nPjxyZWN0IHg9IjQ5MCIgeT0iNDAiIHdpZHRoPSI2MCIgaGVpZ2h0PSIxNTYiIHJ4PSI1IiBmaWxsPSIjMjE2NmFjIiBmaWxsLW9wYWNpdHk9IjAuMDgiIHN0cm9rZS1kYXNoYXJyYXk9IjUgMyIgLz48L2c+PGcgc3Ryb2tlPSIjYjIxODJiIiBzdHJva2Utd2lkdGg9IjEuMyI+PGxpbmUgeDE9IjExMCIgeTE9IjU4IiB4Mj0iMjIwIiB5Mj0iNTgiPjwvbGluZT48bGluZSB4MT0iMTEwIiB5MT0iNTgiIHgyPSIyMjAiIHkyPSIxMTgiPjwvbGluZT48bGluZSB4MT0iMTEwIiB5MT0iNTgiIHgyPSIyMjAiIHkyPSIxNzgiPjwvbGluZT48bGluZSB4MT0iMTEwIiB5MT0iMTE4IiB4Mj0iMjIwIiB5Mj0iNTgiPjwvbGluZT48bGluZSB4MT0iMTEwIiB5MT0iMTE4IiB4Mj0iMjIwIiB5Mj0iMTE4Ij48L2xpbmU+PGxpbmUgeDE9IjExMCIgeTE9IjExOCIgeDI9IjIyMCIgeTI9IjE3OCI+PC9saW5lPjxsaW5lIHgxPSIxMTAiIHkxPSIxNzgiIHgyPSIyMjAiIHkyPSI1OCI+PC9saW5lPjxsaW5lIHgxPSIxMTAiIHkxPSIxNzgiIHgyPSIyMjAiIHkyPSIxMTgiPjwvbGluZT48bGluZSB4MT0iMTEwIiB5MT0iMTc4IiB4Mj0iMjIwIiB5Mj0iMTc4Ij48L2xpbmU+PC9nPjxnIHN0cm9rZT0iIzRkOTIyMSIgc3Ryb2tlLXdpZHRoPSIxLjMiPjxsaW5lIHgxPSI0NjAiIHkxPSI1OCIgeDI9IjQ5MCIgeTI9IjU4Ij48L2xpbmU+PGxpbmUgeDE9IjQ2MCIgeTE9IjExOCIgeDI9IjQ5MCIgeTI9IjExOCI+PC9saW5lPjxsaW5lIHgxPSI0NjAiIHkxPSIxNzgiIHgyPSI0OTAiIHkyPSIxNzgiPjwvbGluZT48bGluZSB4MT0iNTUwIiB5MT0iNTgiIHgyPSI1ODAiIHkyPSI1OCI+PC9saW5lPjxsaW5lIHgxPSI1NTAiIHkxPSIxMTgiIHgyPSI1ODAiIHkyPSIxMTgiPjwvbGluZT48bGluZSB4MT0iNTUwIiB5MT0iMTc4IiB4Mj0iNTgwIiB5Mj0iMTc4Ij48L2xpbmU+PC9nPjxnIGZpbGw9ImN1cnJlbnRDb2xvciIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMiI+PHRleHQgeD0iNjUiIHk9IjYyIj5yZWdpc3RyeTwvdGV4dD48dGV4dCB4PSI2NSIgeT0iMTIyIj5yZWdpc3RyeTwvdGV4dD48dGV4dCB4PSI2NSIgeT0iMTgyIj5yZWdpc3RyeTwvdGV4dD48dGV4dCB4PSIyNjUiIHk9IjYyIj5tZXRob2Q8L3RleHQ+PHRleHQgeD0iMjY1IiB5PSIxMjIiPm1ldGhvZDwvdGV4dD48dGV4dCB4PSIyNjUiIHk9IjE4MiI+bWV0aG9kPC90ZXh0Pjx0ZXh0IHg9IjQxNSIgeT0iNjIiPnJlZ2lzdHJ5PC90ZXh0Pjx0ZXh0IHg9IjQxNSIgeT0iMTIyIj5yZWdpc3RyeTwvdGV4dD48dGV4dCB4PSI0MTUiIHk9IjE4MiI+cmVnaXN0cnk8L3RleHQ+PHRleHQgeD0iNjI1IiB5PSI2MiI+bWV0aG9kPC90ZXh0Pjx0ZXh0IHg9IjYyNSIgeT0iMTIyIj5tZXRob2Q8L3RleHQ+PHRleHQgeD0iNjI1IiB5PSIxODIiPm1ldGhvZDwvdGV4dD48dGV4dCB4PSI1MjAiIHk9IjEyMiIgZm9udC13ZWlnaHQ9ImJvbGQiIGZvbnQtc2l6ZT0iMTEiPmNvbnRyYWN0PC90ZXh0PjwvZz48ZyBmaWxsPSJjdXJyZW50Q29sb3IiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMTIiPjx0ZXh0IHg9IjE2NSIgeT0iMjIyIj5FYWNoIGxpbmsgaXMgY29kZSB0aGF0IHJlYWRzIG9uZSBmb3JtYXQgZm9yIG9uZQptZXRob2QuPC90ZXh0Pjx0ZXh0IHg9IjUxNSIgeT0iMjIyIj5FYWNoIGxpbmsgaXMgb25lIGZ1bmN0aW9uIG9mIGEKcGFja2FnZS48L3RleHQ+PC9nPjwvc3ZnPg==)
+
+With 20 registries and 5 methods, the difference is 100 links against
+25.
+
+## In production at NIPH/FHI
+
+NIPH/FHI runs its respiratory surveillance trend analysis on this
+structure every week. The results go into the [weekly status reports on
+covid-19, influenza and other respiratory
 infections](https://www.fhi.no/publ/statusrapporter/luftveisinfeksjoner/).
 The code started in November 2023.
 
@@ -36,42 +97,13 @@ Some give the date each count was reported, and some do not. Each type
 of data gives one or more indicators, for example influenza and RSV from
 the laboratory.
 
-One function for each registry converts its data to a table that follows
-one data contract. One pipeline then runs the same methods on every
-indicator.
-
-## Three layers
-
-| Layer | Holds | Owner | Article |
-|----|----|----|----|
-| Registry packages | One package for each registry. It reads the raw data and returns a table that follows the data contract. | The registry team | [1. A contract for each registry](https://www.rwhite.no/plnr/articles/case-study-contract.md) |
-| Methods packages | The surveillance methods: nowcasting, trends and intensity levels. They read tables that follow the data contract. | The methods team | [2. The methods are in packages](https://www.rwhite.no/plnr/articles/case-study-methods.md) |
-| The pipeline | One plnr plan. It runs the methods on every indicator of every registry. Later plans make the tables, figures and report. | The surveillance team | [3. One pipeline over every registry](https://www.rwhite.no/plnr/articles/case-study-pipeline.md) |
-
-At FHI, the registry functions are part of the pipeline code, one
+At NIPH/FHI, the registry functions are part of the pipeline code, one
 function for each registry. This case study puts each function in its
 own registry package. The team that owns a registry then also owns the
 code that reads it.
 
-FHI’s methods are in the methods package
+NIPH/FHI’s methods are in the methods package
 [csalert](https://niphr.github.io/csalert/), which article 2 runs.
-
-## What the structure gives a ministry
-
-- **A new registry needs one package and one line.** The package returns
-  a table that follows the contract. The pipeline needs one `add_data()`
-  call, and reads the indicators and locations from the data.
-- **A method change applies to every indicator.** The next run uses the
-  changed method for every indicator of every registry, with no change
-  to the pipeline.
-- **Broken data stops the run before the report.** The pipeline checks
-  the contract each time it loads a registry. The error names the
-  registry and every rule it breaks.
-- **Each team works on its own layer.** The registry team does not need
-  to understand the methods. The methods team does not need to read the
-  raw formats.
-- **One results format.** The analysis of every indicator returns the
-  same columns, so one table and one figure show every registry.
 
 The three articles run on synthetic data. The code on each page runs as
 written, and the page shows its output.
