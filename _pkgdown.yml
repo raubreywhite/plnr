@@ -18,6 +18,20 @@ template:
           text: "Browse the reference →"
           href: "reference/index.html"
 
+articles:
+- title: "Get started"
+  navbar: ~
+  contents:
+  - plnr
+  - adding_analyses
+- title: "Case study: many registries"
+  navbar: "Case study"
+  contents:
+  - articles/case-study
+  - articles/case-study-contract
+  - articles/case-study-methods
+  - articles/case-study-pipeline
+
 reference:
 - title: "Plan Management"
   desc: "Classes and functions related to defining and managing an analysis plan."

@@ -9,6 +9,10 @@
 - A sequential plan of 60 analyses that each run 0.5 s and hold 200 MB took 31.8 s, with a peak of 367 Mb. With no collection it took 30.3 s and 318 Mb. With a collection after each analysis it took 33.0 s and 353 Mb. In this case, a collection inside the plan did not lower the peak.
 - An object that an analysis drops is finalized at the next collection, by R or by plnr. An analysis that leaves a connection open for a finalizer to close MUST close it itself, for example with `on.exit()`.
 
+## Documentation
+
+- New case study on the website: one surveillance pipeline over many registries, in an overview and three articles. They cover a data contract for each registry, the methods in an analysis package (csalert), and one plnr plan over every indicator. The overview describes the same structure in production at the Norwegian Institute of Public Health. The articles run on synthetic data.
+
 # Version 2026.11.18
 
 ## Performance

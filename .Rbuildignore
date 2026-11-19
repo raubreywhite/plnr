@@ -26,3 +26,4 @@ CLAUDE.md
 ^index\.md$
 ^Rplots\.pdf$
 ^docs$
+^vignettes/articles$

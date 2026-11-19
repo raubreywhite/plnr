@@ -23,7 +23,7 @@ License: MIT + file LICENSE
 URL: https://www.rwhite.no/plnr/, https://github.com/raubreywhite/plnr
 BugReports: https://github.com/raubreywhite/plnr/issues
 Encoding: UTF-8
-Config/Needs/website: raubreywhite/rwtemplate
+Config/Needs/website: raubreywhite/rwtemplate, niphr/csalert, mem, ggplot2
 LazyData: true
 Depends: R (>= 4.1.0)
 Imports: 
