@@ -7,9 +7,9 @@ A ministry of health holds many registries, with different formats, owners and d
 
 This case study shows a structure in three layers for this work. The Norwegian Institute of Public Health/Folkehelseinstituttet (NIPH/FHI) uses a version of it for its weekly respiratory surveillance.
 
-## In production at FHI
+## In production at NIPH/FHI
 
-FHI runs its respiratory surveillance trend analysis on this structure every week. The results go into the [weekly status reports on covid-19, influenza and other respiratory infections](https://www.fhi.no/publ/statusrapporter/luftveisinfeksjoner/). The code started in November 2023.
+NIPH/FHI runs its respiratory surveillance trend analysis on this structure every week. The results go into the [weekly status reports on covid-19, influenza and other respiratory infections](https://www.fhi.no/publ/statusrapporter/luftveisinfeksjoner/). The code started in November 2023.
 
 The pipeline uses 6 types of surveillance data from 7 registries. It uses an eighth registry when the newest hospital extract has it.
 
@@ -34,9 +34,9 @@ One function for each registry converts its data to a table that follows one dat
 | Methods packages | The surveillance methods: nowcasting, trends and intensity levels. They read tables that follow the data contract. | The methods team | [2. The methods are in packages](case-study-methods.html) |
 | The pipeline | One plnr plan. It runs the methods on every indicator of every registry. Later plans make the tables, figures and report. | The surveillance team | [3. One pipeline over every registry](case-study-pipeline.html) |
 
-At FHI, the registry functions are part of the pipeline code, one function for each registry. This case study puts each function in its own registry package. The team that owns a registry then also owns the code that reads it.
+At NIPH/FHI, the registry functions are part of the pipeline code, one function for each registry. This case study puts each function in its own registry package. The team that owns a registry then also owns the code that reads it.
 
-FHI's methods are in the methods package [csalert](https://niphr.github.io/csalert/), which article 2 runs.
+NIPH/FHI's methods are in the methods package [csalert](https://niphr.github.io/csalert/), which article 2 runs.
 
 ## What the structure gives a ministry
 
