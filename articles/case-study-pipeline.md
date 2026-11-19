@@ -1,9 +1,9 @@
-# Article 3: one pipeline over every registry
+# Case study, part 3: one pipeline over every registry
 
 The pipeline uses the two other layers. It loads the table of every
-registry package of [article
+registry package of [part
 1](https://www.rwhite.no/plnr/articles/case-study-contract.md). It then
-runs the methods of [article
+runs the methods of [part
 2](https://www.rwhite.no/plnr/articles/case-study-methods.md) on every
 indicator in every location, one plnr analysis for each.
 
@@ -14,7 +14,7 @@ indicator or location adds analyses without a change to the code.
 
 ## Data: one plnr data source for each registry
 
-This article first runs the code of article 1 that makes the synthetic
+This article first runs the code of part 1 that makes the synthetic
 registries, their tables and `check_contract()`. It does not print that
 code again.
 
@@ -64,11 +64,10 @@ code.
 
 ## One action function
 
-The action function runs the csalert methods of article 2 on one
-indicator in one location. The two facts in the argset decide which
-nowcast and which measure it uses. It returns the growth rate of the
-newest week. Article 2 also adds the intensity levels, which this
-function leaves out.
+The action function runs the csalert methods of part 2 on one indicator
+in one location. The two facts in the argset decide which nowcast and
+which measure it uses. It returns the growth rate of the newest week.
+Part 2 also adds the intensity levels, which this function leaves out.
 
 ``` r
 trend_fn <- function(data, argset) {

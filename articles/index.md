@@ -10,9 +10,9 @@
 
 - [Case study: weekly surveillance over many
   registries](https://www.rwhite.no/plnr/articles/case-study.md):
-- [Article 1: a contract for each
+- [Case study, part 1: a contract for each
   registry](https://www.rwhite.no/plnr/articles/case-study-contract.md):
-- [Article 2: the methods are in
+- [Case study, part 2: the methods are in
   packages](https://www.rwhite.no/plnr/articles/case-study-methods.md):
-- [Article 3: one pipeline over every
+- [Case study, part 3: one pipeline over every
   registry](https://www.rwhite.no/plnr/articles/case-study-pipeline.md):

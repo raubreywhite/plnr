@@ -12,23 +12,21 @@ registry, a sentinel system or a notification system.
 
 6
 
-### types of surveillance data
+types of surveillance data
 
-From primary care consultations to deaths, in one pipeline at NIPH/FHI.
+from GP consultations to deaths
 
 7
 
-### registries
+registries
 
-In three file formats. An eighth registry joins when the hospital
-extract has it.
+in three file formats
 
 Weekly
 
-### since November 2023
+since November 2023
 
-The results go into the national status reports on respiratory
-infections.
+into the national status reports
 
 ## The structure
 
@@ -37,7 +35,7 @@ infections.
 The three layers. Each registry team maintains one registry package. The
 pipeline reads only tables that follow the data contract.
 
-| Layer | Holds | Owner | Article |
+| Layer | Holds | Owner | Part |
 |----|----|----|----|
 | Registry packages | One package for each registry. It reads the raw data and returns a table that follows the data contract. | The registry team | [1. A contract for each registry](https://www.rwhite.no/plnr/articles/case-study-contract.md) |
 | Methods packages | The surveillance methods: nowcasting, trends and intensity levels. They read tables that follow the data contract. | The methods team | [2. The methods are in packages](https://www.rwhite.no/plnr/articles/case-study-methods.md) |
@@ -103,7 +101,7 @@ own registry package. The team that owns a registry then also owns the
 code that reads it.
 
 NIPH/FHI’s methods are in the methods package
-[csalert](https://niphr.github.io/csalert/), which article 2 runs.
+[csalert](https://niphr.github.io/csalert/), which part 2 runs.
 
 The three articles run on synthetic data. The code on each page runs as
 written, and the page shows its output.

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Article 3: one pipeline over every registry • plnr</title>
+<title>Case study, part 3: one pipeline over every registry • plnr</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
 <link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
@@ -17,7 +17,7 @@
 <link href="../deps/Newsreader-0.4.10/font.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Article 3: one pipeline over every registry">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Case study, part 3: one pipeline over every registry">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -42,12 +42,10 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/adding_analyses.html">Adding analyses to a plan</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Case study</h6></li>
     <li><a class="dropdown-item" href="../articles/case-study.html">Case study: weekly surveillance over many registries</a></li>
-    <li><a class="dropdown-item" href="../articles/case-study-contract.html">Article 1: a contract for each registry</a></li>
-    <li><a class="dropdown-item" href="../articles/case-study-methods.html">Article 2: the methods are in packages</a></li>
-    <li><a class="dropdown-item" href="../articles/case-study-pipeline.html">Article 3: one pipeline over every registry</a></li>
+    <li><a class="dropdown-item" href="../articles/case-study-contract.html">Case study, part 1: a contract for each registry</a></li>
+    <li><a class="dropdown-item" href="../articles/case-study-methods.html">Case study, part 2: the methods are in packages</a></li>
+    <li><a class="dropdown-item" href="../articles/case-study-pipeline.html">Case study, part 3: one pipeline over every registry</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -80,7 +78,7 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1>Article 3: one pipeline over every registry</h1>
+      <img src="../logo.png" class="logo" alt=""><h1>Case study, part 3: one pipeline over every registry</h1>
                         <h4 data-toc-skip class="author"><a href="https://www.rwhite.no" class="external-link">Richard Aubrey White</a></h4>
             
       
@@ -91,9 +89,9 @@
     
     
 <p>The pipeline uses the two other layers. It loads the table of every
-registry package of <a href="case-study-contract.html">article 1</a>. It
-then runs the methods of <a href="case-study-methods.html">article 2</a>
-on every indicator in every location, one plnr analysis for each.</p>
+registry package of <a href="case-study-contract.html">part 1</a>. It
+then runs the methods of <a href="case-study-methods.html">part 2</a> on
+every indicator in every location, one plnr analysis for each.</p>
 <figure style="margin: 1.5em 0;"><svg viewbox="0 0 680 250" role="img" aria-labelledby="fan-title" style="width: 100%; max-width: 680px; height: auto; display: block; margin: 0 auto; font-family: inherit;"><title id="fan-title">
 One plnr plan loads three registries. It makes one analysis for each
 indicator and location, ten in all. Each analysis runs the same action
@@ -105,9 +103,9 @@ indicator or location adds analyses without a change to the code.
 </figcaption></figure><div class="section level2">
 <h2 id="data-one-plnr-data-source-for-each-registry">Data: one plnr data source for each registry<a class="anchor" aria-label="anchor" href="#data-one-plnr-data-source-for-each-registry"></a>
 </h2>
-<p>This article first runs the code of article 1 that makes the
-synthetic registries, their tables and <code>check_contract()</code>. It
-does not print that code again.</p>
+<p>This article first runs the code of part 1 that makes the synthetic
+registries, their tables and <code>check_contract()</code>. It does not
+print that code again.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://niphr.github.io/csalert/" class="external-link">csalert</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://www.rwhite.no/plnr/">plnr</a></span><span class="op">)</span></span>
@@ -151,11 +149,11 @@ needs no change to the code.</p>
 <div class="section level2">
 <h2 id="one-action-function">One action function<a class="anchor" aria-label="anchor" href="#one-action-function"></a>
 </h2>
-<p>The action function runs the csalert methods of article 2 on one
+<p>The action function runs the csalert methods of part 2 on one
 indicator in one location. The two facts in the argset decide which
 nowcast and which measure it uses. It returns the growth rate of the
-newest week. Article 2 also adds the intensity levels, which this
-function leaves out.</p>
+newest week. Part 2 also adds the intensity levels, which this function
+leaves out.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">trend_fn</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">argset</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">x</span> <span class="op">&lt;-</span> <span class="va">data</span><span class="op">[[</span><span class="va">argset</span><span class="op">$</span><span class="va">source</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="va">indicator_tag</span> <span class="op">==</span> <span class="va">argset</span><span class="op">$</span><span class="va">indicator_tag</span> <span class="op">&amp;</span> <span class="va">location_code</span> <span class="op">==</span> <span class="va">argset</span><span class="op">$</span><span class="va">location_code</span><span class="op">]</span></span>

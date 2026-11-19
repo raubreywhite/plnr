@@ -42,12 +42,10 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/adding_analyses.html">Adding analyses to a plan</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Case study</h6></li>
     <li><a class="dropdown-item" href="../articles/case-study.html">Case study: weekly surveillance over many registries</a></li>
-    <li><a class="dropdown-item" href="../articles/case-study-contract.html">Article 1: a contract for each registry</a></li>
-    <li><a class="dropdown-item" href="../articles/case-study-methods.html">Article 2: the methods are in packages</a></li>
-    <li><a class="dropdown-item" href="../articles/case-study-pipeline.html">Article 3: one pipeline over every registry</a></li>
+    <li><a class="dropdown-item" href="../articles/case-study-contract.html">Case study, part 1: a contract for each registry</a></li>
+    <li><a class="dropdown-item" href="../articles/case-study-methods.html">Case study, part 2: the methods are in packages</a></li>
+    <li><a class="dropdown-item" href="../articles/case-study-pipeline.html">Case study, part 3: one pipeline over every registry</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -98,41 +96,39 @@ Health/Folkehelseinstituttet (NIPH/FHI) uses a version of it for its
 weekly respiratory surveillance.</p>
 <p>In this case study, a registry is any source of surveillance data: a
 registry, a sentinel system or a notification system.</p>
-<div class="rw-cards" style="margin: 1.5em 0;">
-<div class="rw-card">
-<div class="rw-card-num">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1rem; margin: 1.6em 0;">
+<div style="border: 1px solid rgba(128,128,128,0.35); border-radius: 10px; padding: 1.1rem 1.3rem;">
+<div style="font-size: 2.8rem; font-weight: 700; line-height: 1.05;">
 6
 </div>
-<h3>
+<div style="font-size: 1.05rem; font-weight: 600; margin-top: 0.35rem;">
 types of surveillance data
-</h3>
-<p>
-From primary care consultations to deaths, in one pipeline at NIPH/FHI.
-</p>
 </div>
-<div class="rw-card">
-<div class="rw-card-num">
+<div style="font-size: 0.9rem; opacity: 0.7; margin-top: 0.2rem;">
+from GP consultations to deaths
+</div>
+</div>
+<div style="border: 1px solid rgba(128,128,128,0.35); border-radius: 10px; padding: 1.1rem 1.3rem;">
+<div style="font-size: 2.8rem; font-weight: 700; line-height: 1.05;">
 7
 </div>
-<h3>
+<div style="font-size: 1.05rem; font-weight: 600; margin-top: 0.35rem;">
 registries
-</h3>
-<p>
-In three file formats. An eighth registry joins when the hospital
-extract has it.
-</p>
 </div>
-<div class="rw-card">
-<div class="rw-card-num">
+<div style="font-size: 0.9rem; opacity: 0.7; margin-top: 0.2rem;">
+in three file formats
+</div>
+</div>
+<div style="border: 1px solid rgba(128,128,128,0.35); border-radius: 10px; padding: 1.1rem 1.3rem;">
+<div style="font-size: 2.8rem; font-weight: 700; line-height: 1.05;">
 Weekly
 </div>
-<h3>
+<div style="font-size: 1.05rem; font-weight: 600; margin-top: 0.35rem;">
 since November 2023
-</h3>
-<p>
-The results go into the national status reports on respiratory
-infections.
-</p>
+</div>
+<div style="font-size: 0.9rem; opacity: 0.7; margin-top: 0.2rem;">
+into the national status reports
+</div>
 </div>
 </div>
 <div class="section level2">
@@ -158,7 +154,7 @@ pipeline reads only tables that follow the data contract.
 <th>Layer</th>
 <th>Holds</th>
 <th>Owner</th>
-<th>Article</th>
+<th>Part</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
@@ -289,7 +285,7 @@ the laboratory.</p>
 one function for each registry. This case study puts each function in
 its own registry package. The team that owns a registry then also owns
 the code that reads it.</p>
-<p>NIPH/FHI’s methods are in the methods package <a href="https://niphr.github.io/csalert/" class="external-link">csalert</a>, which article 2
+<p>NIPH/FHI’s methods are in the methods package <a href="https://niphr.github.io/csalert/" class="external-link">csalert</a>, which part 2
 runs.</p>
 <p>The three articles run on synthetic data. The code on each page runs
 as written, and the page shows its output.</p>

@@ -1,7 +1,7 @@
-# Article 2: the methods are in packages
+# Case study, part 2: the methods are in packages
 
 The surveillance methods are in R packages, separate from the pipeline.
-The packages read tables that follow the data contract of [article
+The packages read tables that follow the data contract of [part
 1](https://www.rwhite.no/plnr/articles/case-study-contract.md). This
 article runs one methods package,
 [csalert](https://niphr.github.io/csalert/), on one indicator.
@@ -10,7 +10,7 @@ A method in a package has a version, tests and documentation.
 
 ## The data
 
-This article first runs the code of article 1 that makes the synthetic
+This article first runs the code of part 1 that makes the synthetic
 registries and their tables. It does not print that code again. It then
 takes the national influenza indicator of the laboratory:
 
@@ -146,7 +146,7 @@ replaces
 [`nowcast_delay_ecdf_v1()`](https://niphr.github.io/csalert/reference/nowcast_delay_ecdf_v1.html),
 and every later step is the same.
 
-[Article 3](https://www.rwhite.no/plnr/articles/case-study-pipeline.md)
+[Part 3](https://www.rwhite.no/plnr/articles/case-study-pipeline.md)
 reads from the data whether each indicator has a denominator and a
 reporting delay. It then runs the methods on every indicator.
 

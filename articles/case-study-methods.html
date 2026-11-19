@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Article 2: the methods are in packages • plnr</title>
+<title>Case study, part 2: the methods are in packages • plnr</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
 <link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
@@ -17,7 +17,7 @@
 <link href="../deps/Newsreader-0.4.10/font.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Article 2: the methods are in packages">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Case study, part 2: the methods are in packages">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -42,12 +42,10 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/adding_analyses.html">Adding analyses to a plan</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Case study</h6></li>
     <li><a class="dropdown-item" href="../articles/case-study.html">Case study: weekly surveillance over many registries</a></li>
-    <li><a class="dropdown-item" href="../articles/case-study-contract.html">Article 1: a contract for each registry</a></li>
-    <li><a class="dropdown-item" href="../articles/case-study-methods.html">Article 2: the methods are in packages</a></li>
-    <li><a class="dropdown-item" href="../articles/case-study-pipeline.html">Article 3: one pipeline over every registry</a></li>
+    <li><a class="dropdown-item" href="../articles/case-study-contract.html">Case study, part 1: a contract for each registry</a></li>
+    <li><a class="dropdown-item" href="../articles/case-study-methods.html">Case study, part 2: the methods are in packages</a></li>
+    <li><a class="dropdown-item" href="../articles/case-study-pipeline.html">Case study, part 3: one pipeline over every registry</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -80,7 +78,7 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1>Article 2: the methods are in packages</h1>
+      <img src="../logo.png" class="logo" alt=""><h1>Case study, part 2: the methods are in packages</h1>
                         <h4 data-toc-skip class="author"><a href="https://www.rwhite.no" class="external-link">Richard Aubrey White</a></h4>
             
       
@@ -91,17 +89,16 @@
     
     
 <p>The surveillance methods are in R packages, separate from the
-pipeline. The packages read tables that follow the data contract of <a href="case-study-contract.html">article 1</a>. This article runs one
+pipeline. The packages read tables that follow the data contract of <a href="case-study-contract.html">part 1</a>. This article runs one
 methods package, <a href="https://niphr.github.io/csalert/" class="external-link">csalert</a>,
 on one indicator.</p>
 <p>A method in a package has a version, tests and documentation.</p>
 <div class="section level2">
 <h2 id="the-data">The data<a class="anchor" aria-label="anchor" href="#the-data"></a>
 </h2>
-<p>This article first runs the code of article 1 that makes the
-synthetic registries and their tables. It does not print that code
-again. It then takes the national influenza indicator of the
-laboratory:</p>
+<p>This article first runs the code of part 1 that makes the synthetic
+registries and their tables. It does not print that code again. It then
+takes the national influenza indicator of the laboratory:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://niphr.github.io/csalert/" class="external-link">csalert</a></span><span class="op">)</span></span>
 <span></span>
@@ -226,7 +223,7 @@ its counts without <code><a href="https://niphr.github.io/csalert/reference/ens_
 reporting delay. <code><a href="https://niphr.github.io/csalert/reference/nowcast_passthrough_to_ensemble_v1.html" class="external-link">nowcast_passthrough_to_ensemble_v1()</a></code>
 replaces <code><a href="https://niphr.github.io/csalert/reference/nowcast_delay_ecdf_v1.html" class="external-link">nowcast_delay_ecdf_v1()</a></code>, and every later step is
 the same.</p>
-<p><a href="case-study-pipeline.html">Article 3</a> reads from the data
+<p><a href="case-study-pipeline.html">Part 3</a> reads from the data
 whether each indicator has a denominator and a reporting delay. It then
 runs the methods on every indicator.</p>
 <p>csalert also reruns each nowcast method on past weeks whose counts

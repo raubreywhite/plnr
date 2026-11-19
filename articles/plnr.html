@@ -42,12 +42,10 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/adding_analyses.html">Adding analyses to a plan</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Case study</h6></li>
     <li><a class="dropdown-item" href="../articles/case-study.html">Case study: weekly surveillance over many registries</a></li>
-    <li><a class="dropdown-item" href="../articles/case-study-contract.html">Article 1: a contract for each registry</a></li>
-    <li><a class="dropdown-item" href="../articles/case-study-methods.html">Article 2: the methods are in packages</a></li>
-    <li><a class="dropdown-item" href="../articles/case-study-pipeline.html">Article 3: one pipeline over every registry</a></li>
+    <li><a class="dropdown-item" href="../articles/case-study-contract.html">Case study, part 1: a contract for each registry</a></li>
+    <li><a class="dropdown-item" href="../articles/case-study-methods.html">Case study, part 2: the methods are in packages</a></li>
+    <li><a class="dropdown-item" href="../articles/case-study-pipeline.html">Case study, part 3: one pipeline over every registry</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -309,7 +307,7 @@ describes.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">p</span><span class="op">$</span><span class="fu">get_data</span><span class="op">(</span><span class="op">)</span>, max.level <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## List of 2</span></span>
 <span><span class="co">##  $ deaths:Classes 'data.table' and 'data.frame': 4 obs. of  2 variables:</span></span>
-<span><span class="co">##   ..- attr(*, ".internal.selfref")=&lt;pointer: 0x576ee2b3e190&gt; </span></span>
+<span><span class="co">##   ..- attr(*, ".internal.selfref")=&lt;pointer: 0x5d06ad35a190&gt; </span></span>
 <span><span class="co">##  $ hash  :List of 2</span></span></code></pre>
 <p>To develop an action function line by line, start it with
 <code><a href="../reference/is_run_directly.html">is_run_directly()</a></code>:</p>

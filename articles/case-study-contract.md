@@ -1,4 +1,4 @@
-# Article 1: a contract for each registry
+# Case study, part 1: a contract for each registry
 
 Each registry delivers its data in its own format. This article defines
 one data contract. It then gives each registry an R package that
@@ -144,7 +144,7 @@ rules 2 to 9 constrain their values.
 Each row is one cell of a reporting triangle: the count of one reference
 week that arrived on one reporting date. The sum over the reporting
 dates is the count of the reference week as known today. The methods
-need the reporting dates to nowcast the most recent weeks, as [article
+need the reporting dates to nowcast the most recent weeks, as [part
 2](https://www.rwhite.no/plnr/articles/case-study-methods.md) shows. A
 nowcast estimates the final count of a week from the counts reported so
 far.
@@ -357,7 +357,7 @@ The fake data lets the registry team and the methods team test their
 code without access to the real data. The registry team owns the package
 and changes it when the raw format changes.
 
-[Article 2](https://www.rwhite.no/plnr/articles/case-study-methods.md)
-runs the surveillance methods on one indicator. [Article
+[Part 2](https://www.rwhite.no/plnr/articles/case-study-methods.md) runs
+the surveillance methods on one indicator. [Part
 3](https://www.rwhite.no/plnr/articles/case-study-pipeline.md) runs them
 on every indicator of every registry.
