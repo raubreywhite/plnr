@@ -1,0 +1,77 @@
+# Case study: weekly surveillance over many registries
+
+A ministry of health holds many registries, with different formats,
+owners and delivery schedules. Surveillance runs the same analysis on
+all of them every week. In this case study, a registry is any source of
+surveillance data: a registry, a sentinel system or a notification
+system.
+
+This case study shows a structure in three layers for this work. The
+Norwegian Institute of Public Health (FHI) uses a version of it for its
+weekly respiratory surveillance.
+
+## In production at FHI
+
+FHI runs its respiratory surveillance trend analysis on this structure
+every week. The results go into the [weekly status reports on covid-19,
+influenza and other respiratory
+infections](https://www.fhi.no/publ/statusrapporter/luftveisinfeksjoner/).
+The code started in November 2023.
+
+The pipeline uses 6 types of surveillance data from 7 registries. It
+uses an eighth registry when the newest hospital extract has it.
+
+| Type of data | Registries |
+|----|----|
+| Consultations in general practice and emergency primary care | NorSySS |
+| Outbreak notifications from health institutions | VESUV |
+| Sentinel laboratory testing, tests and positive tests by pathogen | Fyrtårn |
+| Laboratory-confirmed cases | Two registries: cases outside hospital, cases in hospital |
+| Hospital admissions with severe acute respiratory infection (SARI) | All SARI admissions, and laboratory-positive SARI admissions when the extract has them |
+| Deaths | The Norwegian Cause of Death Registry |
+
+The registries arrive as delimited text files, Excel workbooks and R
+data files. Some give counts, and some give tests and positive tests.
+Some give the date each count was reported, and some do not. Each type
+of data gives one or more indicators, for example influenza and RSV from
+the laboratory.
+
+One function for each registry converts its data to a table that follows
+one data contract. One pipeline then runs the same methods on every
+indicator.
+
+## Three layers
+
+| Layer | Holds | Owner | Article |
+|----|----|----|----|
+| Registry packages | One package for each registry. It reads the raw data and returns a table that follows the data contract. | The registry team | [1. A contract for each registry](https://www.rwhite.no/plnr/articles/case-study-contract.md) |
+| Methods packages | The surveillance methods: nowcasting, trends and intensity levels. They read tables that follow the data contract. | The methods team | [2. The methods are in packages](https://www.rwhite.no/plnr/articles/case-study-methods.md) |
+| The pipeline | One plnr plan. It runs the methods on every indicator of every registry. Later plans make the tables, figures and report. | The surveillance team | [3. One pipeline over every registry](https://www.rwhite.no/plnr/articles/case-study-pipeline.md) |
+
+At FHI, the registry functions are part of the pipeline code, one
+function for each registry. This case study puts each function in its
+own registry package. The team that owns a registry then also owns the
+code that reads it.
+
+FHI’s methods are in the methods package
+[csalert](https://niphr.github.io/csalert/), which article 2 runs.
+
+## What the structure gives a ministry
+
+- **A new registry needs one package and one line.** The package returns
+  a table that follows the contract. The pipeline needs one `add_data()`
+  call, and reads the indicators and locations from the data.
+- **A method change applies to every indicator.** The next run uses the
+  changed method for every indicator of every registry, with no change
+  to the pipeline.
+- **Broken data stops the run before the report.** The pipeline checks
+  the contract each time it loads a registry. The error names the
+  registry and every rule it breaks.
+- **Each team works on its own layer.** The registry team does not need
+  to understand the methods. The methods team does not need to read the
+  raw formats.
+- **One results format.** The analysis of every indicator returns the
+  same columns, so one table and one figure show every registry.
+
+The three articles run on synthetic data. The code on each page runs as
+written, and the page shows its output.
