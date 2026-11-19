@@ -10,11 +10,11 @@ This case study shows a structure in three layers for this work. The
 Norwegian Institute of Public Health/Folkehelseinstituttet (NIPH/FHI)
 uses a version of it for its weekly respiratory surveillance.
 
-## In production at NIPH/FHI
+## In production at FHI
 
-NIPH/FHI runs its respiratory surveillance trend analysis on this
-structure every week. The results go into the [weekly status reports on
-covid-19, influenza and other respiratory
+FHI runs its respiratory surveillance trend analysis on this structure
+every week. The results go into the [weekly status reports on covid-19,
+influenza and other respiratory
 infections](https://www.fhi.no/publ/statusrapporter/luftveisinfeksjoner/).
 The code started in November 2023.
 
@@ -48,12 +48,12 @@ indicator.
 | Methods packages | The surveillance methods: nowcasting, trends and intensity levels. They read tables that follow the data contract. | The methods team | [2. The methods are in packages](https://www.rwhite.no/plnr/articles/case-study-methods.md) |
 | The pipeline | One plnr plan. It runs the methods on every indicator of every registry. Later plans make the tables, figures and report. | The surveillance team | [3. One pipeline over every registry](https://www.rwhite.no/plnr/articles/case-study-pipeline.md) |
 
-At NIPH/FHI, the registry functions are part of the pipeline code, one
+At FHI, the registry functions are part of the pipeline code, one
 function for each registry. This case study puts each function in its
 own registry package. The team that owns a registry then also owns the
 code that reads it.
 
-NIPH/FHI’s methods are in the methods package
+FHI’s methods are in the methods package
 [csalert](https://niphr.github.io/csalert/), which article 2 runs.
 
 ## What the structure gives a ministry
