@@ -20,7 +20,7 @@ The pipeline uses the two other layers. It loads the table of every registry pac
 
 <figure style="margin: 1.5em 0;">
 <svg viewBox="0 0 680 250" role="img" aria-labelledby="fan-title" style="width: 100%; max-width: 680px; height: auto; display: block; margin: 0 auto; font-family: inherit;">
-<title id="fan-title">One plnr plan loads three registries. It makes one analysis for each indicator and location, ten in all. Each analysis runs the same action function, and the results form one table and one figure.</title>
+<title id="fan-title">One plnr plan has one data source for each of three registries. It makes ten analyses, one for each pair of an indicator and a location. Each analysis runs the same action function, and the results form one table and one figure.</title>
 <defs><marker id="pa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker></defs>
 <g stroke="currentColor" stroke-width="1">
 <g fill="#2166ac" fill-opacity="0.2"><rect x="10" y="30" width="110" height="44" rx="5"/><rect x="10" y="100" width="110" height="44" rx="5"/><rect x="10" y="170" width="110" height="44" rx="5"/></g>
@@ -41,11 +41,11 @@ The pipeline uses the two other layers. It loads the table of every registry pac
 <text x="245" y="156" font-weight="bold">argsets</text><text x="245" y="174">read&#160;from&#160;the&#160;data:</text><text x="245" y="190">10&#160;pairs&#160;of&#160;an</text><text x="245" y="206">indicator&#160;and&#160;a&#160;location</text>
 <text x="442" y="44">gp_ili,&#160;4&#160;locations</text><text x="442" y="96">hosp_sari,&#160;4&#160;locations</text><text x="442" y="148">lab_influenza</text><text x="442" y="200">lab_rsv</text>
 <text x="615" y="84">one&#160;results</text><text x="615" y="100">table</text>
-<text x="615" y="164">one&#160;figure</text><text x="615" y="180">for&#160;all</text>
+<text x="615" y="164">one&#160;figure</text><text x="615" y="180">for&#160;all&#160;analyses</text>
 <text x="442" y="240" font-size="11">the&#160;same&#160;action&#160;function&#160;in&#160;each&#160;analysis</text>
 </g>
 </svg>
-<figcaption>The plan of this article. A new registry adds one data source. A new indicator or location adds analyses without a change to the code.</figcaption>
+<figcaption>The plan of this article. A new indicator or location adds analyses without a change to the code.</figcaption>
 </figure>
 
 ## Data: one plnr data source for each registry

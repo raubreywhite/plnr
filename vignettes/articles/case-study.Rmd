@@ -5,19 +5,19 @@ author: "[Richard Aubrey White](https://www.rwhite.no)"
 
 A ministry of health holds many registries, with different formats, owners and delivery schedules. Surveillance runs the same analysis on all of them every week. This case study shows a structure in three layers for this work. The Norwegian Institute of Public Health/Folkehelseinstituttet (NIPH/FHI) uses a version of it for its weekly respiratory surveillance.
 
-In this case study, a registry is any source of surveillance data: a registry, a sentinel system or a notification system.
+In this case study, "registry" means any source of surveillance data. That includes a sentinel system and a notification system.
 
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1rem; margin: 1.6em 0;">
-<div style="border: 1px solid rgba(128,128,128,0.35); border-radius: 10px; padding: 1.1rem 1.3rem;"><div style="font-size: 2.8rem; font-weight: 700; line-height: 1.05;">6</div><div style="font-size: 1.05rem; font-weight: 600; margin-top: 0.35rem;">types of surveillance data</div><div style="font-size: 0.9rem; opacity: 0.7; margin-top: 0.2rem;">from GP consultations to deaths</div></div>
+<div style="border: 1px solid rgba(128,128,128,0.35); border-radius: 10px; padding: 1.1rem 1.3rem;"><div style="font-size: 2.8rem; font-weight: 700; line-height: 1.05;">6</div><div style="font-size: 1.05rem; font-weight: 600; margin-top: 0.35rem;">types of surveillance data</div><div style="font-size: 0.9rem; opacity: 0.7; margin-top: 0.2rem;">listed in the table at the end</div></div>
 <div style="border: 1px solid rgba(128,128,128,0.35); border-radius: 10px; padding: 1.1rem 1.3rem;"><div style="font-size: 2.8rem; font-weight: 700; line-height: 1.05;">7</div><div style="font-size: 1.05rem; font-weight: 600; margin-top: 0.35rem;">registries</div><div style="font-size: 0.9rem; opacity: 0.7; margin-top: 0.2rem;">in three file formats</div></div>
-<div style="border: 1px solid rgba(128,128,128,0.35); border-radius: 10px; padding: 1.1rem 1.3rem;"><div style="font-size: 2.8rem; font-weight: 700; line-height: 1.05;">Weekly</div><div style="font-size: 1.05rem; font-weight: 600; margin-top: 0.35rem;">since November 2023</div><div style="font-size: 0.9rem; opacity: 0.7; margin-top: 0.2rem;">into the national status reports</div></div>
+<div style="border: 1px solid rgba(128,128,128,0.35); border-radius: 10px; padding: 1.1rem 1.3rem;"><div style="font-size: 2.8rem; font-weight: 700; line-height: 1.05;">Weekly</div><div style="font-size: 1.05rem; font-weight: 600; margin-top: 0.35rem;">national status reports</div><div style="font-size: 0.9rem; opacity: 0.7; margin-top: 0.2rem;">from code that started in November 2023</div></div>
 </div>
 
 ## The structure
 
 <figure style="margin: 1.5em 0;">
 <svg viewBox="0 0 680 320" role="img" aria-labelledby="flow-title" style="width: 100%; max-width: 680px; height: auto; display: block; margin: 0 auto; font-family: inherit;">
-<title id="flow-title">Each registry has a registry package. Every registry package returns a table that follows one data contract. The pipeline reads the contract, runs the methods packages on every indicator, and makes the tables, figures and weekly report.</title>
+<title id="flow-title">Each registry has a registry package. Every registry package returns a table that follows one data contract. The pipeline reads these tables and runs the methods packages on every indicator. It makes the tables, the figures and the weekly report.</title>
 <defs><marker id="fa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker></defs>
 <g stroke="currentColor" stroke-width="1">
 <g fill="#999999" fill-opacity="0.12">
@@ -44,7 +44,7 @@ In this case study, a registry is any source of surveillance data: a registry, a
 <text x="215" y="46">registry&#160;package</text><text x="215" y="102">registry&#160;package</text><text x="215" y="158">registry&#160;package</text><text x="215" y="214">registry&#160;package</text>
 <text x="345" y="112" font-weight="bold" font-size="13">One&#160;data</text><text x="345" y="128" font-weight="bold" font-size="13">contract</text>
 <text x="345" y="150" font-size="11">checked&#160;on</text><text x="345" y="164" font-size="11">every&#160;load</text>
-<text x="485" y="45" font-weight="bold" font-size="13">Methods&#160;packages</text><text x="485" y="63" font-size="11">nowcast,&#160;trend,</text><text x="485" y="77" font-size="11">intensity&#160;levels</text>
+<text x="485" y="45" font-weight="bold" font-size="13">Methods&#160;packages</text><text x="485" y="63" font-size="11">nowcasting,&#160;trends,</text><text x="485" y="77" font-size="11">intensity&#160;levels</text>
 <text x="485" y="165" font-weight="bold" font-size="13">The&#160;pipeline</text><text x="485" y="183" font-size="11">every&#160;indicator,</text><text x="485" y="197" font-size="11">every&#160;location</text>
 <text x="622" y="165">Tables,</text><text x="622" y="181">figures,</text><text x="622" y="197">weekly&#160;report</text>
 </g>
@@ -54,7 +54,7 @@ In this case study, a registry is any source of surveillance data: a registry, a
 <rect x="380" y="272" width="12" height="12" fill="#4d9221" fill-opacity="0.35" stroke="currentColor" stroke-width="0.5"/><text x="398" y="282">Layer&#160;3:&#160;the&#160;pipeline,&#160;owned&#160;by</text><text x="398" y="298">the&#160;surveillance&#160;team</text>
 </g>
 </svg>
-<figcaption>The three layers. Each registry team maintains one registry package. The pipeline reads only tables that follow the data contract.</figcaption>
+<figcaption>The three layers. The pipeline reads only tables that follow the data contract.</figcaption>
 </figure>
 
 | Layer | Holds | Owner | Part |
@@ -63,17 +63,17 @@ In this case study, a registry is any source of surveillance data: a registry, a
 | Methods packages | The surveillance methods: nowcasting, trends and intensity levels. They read tables that follow the data contract. | The methods team | [2. The methods are in packages](case-study-methods.html) |
 | The pipeline | One plnr plan. It runs the methods on every indicator of every registry. Later plans make the tables, figures and report. | The surveillance team | [3. One pipeline over every registry](case-study-pipeline.html) |
 
-## What the structure gives a ministry
+## What the structure does
 
-- **A new registry needs one package and one line.** The package returns a table that follows the contract. The pipeline needs one `add_data()` call, and reads the indicators and locations from the data.
+- **A new registry needs one package and one `add_data()` call.** The package returns a table that follows the contract. The pipeline reads the indicators and locations from the data.
 - **A method change applies to every indicator.** The next run uses the changed method for every indicator of every registry, with no change to the pipeline.
-- **Broken data stops the run before the report.** The pipeline checks the contract each time it loads a registry. The error names the registry and every rule it breaks.
-- **Each team works on its own layer.** The registry team does not need to understand the methods. The methods team does not need to read the raw formats.
+- **Data that breaks the contract stops the run before the report.** The pipeline checks the contract each time it loads a registry. The error names the registry and every rule it breaks.
+- **Each team works on its own layer.** The registry team works on its raw format only. The methods team works on tables that follow the contract only.
 - **One results format.** The analysis of every indicator returns the same columns, so one table and one figure show every registry.
 
 ## Why one contract
 
-Without a shared format, each method needs code for the format of each registry. With a contract, each registry needs one function that writes the contract, and each method needs one function that reads it.
+Without a shared format, each method needs code for the format of each registry. With a contract, the code needs one function for each registry and one for each method.
 
 <figure style="margin: 1.5em 0;">
 <svg viewBox="0 0 680 230" role="img" aria-labelledby="nm-title" style="width: 100%; max-width: 680px; height: auto; display: block; margin: 0 auto; font-family: inherit;">
@@ -105,15 +105,15 @@ Without a shared format, each method needs code for the format of each registry.
 </g>
 <g fill="currentColor" text-anchor="middle" font-size="12">
 <text x="165" y="222">Each&#160;link&#160;is&#160;code&#160;that&#160;reads&#160;one&#160;format&#160;for&#160;one&#160;method.</text>
-<text x="515" y="222">Each&#160;link&#160;is&#160;one&#160;function&#160;of&#160;a&#160;package.</text>
+<text x="515" y="222">Each&#160;link&#160;is&#160;one&#160;function&#160;in&#160;a&#160;package.</text>
 </g>
 </svg>
-<figcaption>With 20 registries and 5 methods, the difference is 100 links against 25.</figcaption>
+<figcaption>20 registries and 5 methods need 100 links without a contract, and 25 with one.</figcaption>
 </figure>
 
 ## In production at NIPH/FHI
 
-NIPH/FHI runs its respiratory surveillance trend analysis on this structure every week. The results go into the [weekly status reports on covid-19, influenza and other respiratory infections](https://www.fhi.no/publ/statusrapporter/luftveisinfeksjoner/). The code started in November 2023.
+NIPH/FHI runs its weekly respiratory surveillance analysis on a version of this structure. The results go into the [weekly status reports on covid-19, influenza and other respiratory infections](https://www.fhi.no/publ/statusrapporter/luftveisinfeksjoner/). The code started in November 2023.
 
 The pipeline uses 6 types of surveillance data from 7 registries. It uses an eighth registry when the newest hospital extract has it.
 
@@ -123,12 +123,12 @@ The pipeline uses 6 types of surveillance data from 7 registries. It uses an eig
 | Outbreak notifications from health institutions | VESUV |
 | Sentinel laboratory testing, tests and positive tests by pathogen | Fyrtårn |
 | Laboratory-confirmed cases | Two registries: cases outside hospital, cases in hospital |
-| Hospital admissions with severe acute respiratory infection (SARI) | All SARI admissions, and laboratory-positive SARI admissions when the extract has them |
+| Hospital admissions with severe acute respiratory infection (SARI) | Two registries: all SARI admissions, and laboratory-positive SARI admissions when the extract has them |
 | Deaths | The Norwegian Cause of Death Registry |
 
 The registries arrive as delimited text files, Excel workbooks and R data files. Some give counts, and some give tests and positive tests. Some give the date each count was reported, and some do not. Each type of data gives one or more indicators, for example influenza and RSV from the laboratory.
 
-At NIPH/FHI, the registry functions are part of the pipeline code, one function for each registry. This case study puts each function in its own registry package. The team that owns a registry then also owns the code that reads it.
+At NIPH/FHI, the code that reads each registry is one function in the pipeline code. This case study puts each function in its own registry package. The team that owns a registry then also owns the code that reads it.
 
 NIPH/FHI's methods are in the methods package [csalert](https://niphr.github.io/csalert/), which part 2 runs.
 
